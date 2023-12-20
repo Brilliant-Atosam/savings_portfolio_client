@@ -1,0 +1,89 @@
+.dashboard-container {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  overflow-y: scroll;
+  height: calc(100vh - 60px);
+  position: relative;
+  top: 0px;
+  /* padding: 15px; */
+}
+.dashboard-left {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
+}
+.dashboard-actions-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.dashboard-action-btn {
+  background: white;
+  border: 2px solid teal;
+  color: teal;
+  font-weight: 600;
+  height: 35px;
+  padding: 0 10px;
+  cursor: pointer;
+}
+.savings-portfolios-container,
+.debt-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.portfolio {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.portfolio-value {
+  font-weight: 600;
+  font-size: 1rem;
+}
+.debt-text {
+  font-weight: 300;
+  font-size: 1.4rem;
+}
+.debt-item-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.debt-value {
+  font-weight: 600;
+  font-size: 1rem;
+}
+.dashboard-right {
+  flex: 3;
+  /* z-index: -9999; */
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.achievements-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+/* .savings-portfolios-container, */
+@media (max-width: 769px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+  .dashboard-left,
+  .dashboard-right {
+    /* flex: 1; */
+    width: 100%;
+  }
+}

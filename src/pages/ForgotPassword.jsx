@@ -1,0 +1,30 @@
+import { Link } from "react-router-dom";
+import useAccount from "../hooks/useAccount";
+const ForgotPassword = () => {
+  const { email, setEmail, handlePasswordResetRequest } = useAccount();
+  return (
+    <div className="main-container">
+      <div className="login-container">
+        <div className="login-form-container">
+          <h1 className="login-text">Enter your email to continue</h1>
+          <input
+            type="text"
+            placeholder="jonsnow@gmail.com"
+            className="login-input"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+          />
+          <button className="login-btn" onClick={handlePasswordResetRequest}>
+            send reset link
+          </button>
+          <div className="login-redirects">
+            <Link to="/login">Login</Link>
+            <Link to="/register">Create new account</Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ForgotPassword;

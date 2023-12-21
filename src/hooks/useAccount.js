@@ -5,9 +5,10 @@ import { useState } from "react";
 
 const useAccount = () => {
   const { storeUser, storeSavings, storeLoan } = Util();
-  const { handleSnackbar } = useApp();
+  const { handleSnackbar, handleLoader } = useApp();
   //   login
   const login = async (email, password) => {
+    handleLoader();
     try {
       const res = await request.post("/auth/login", {
         email,
@@ -26,6 +27,7 @@ const useAccount = () => {
       storeUser(res.data);
       handleSnackbar("Login successful!", "success");
     } catch (err) {
+      handleLoader();
       handleSnackbar(err.response ? err.response.data : err.message, "warning");
     }
   };

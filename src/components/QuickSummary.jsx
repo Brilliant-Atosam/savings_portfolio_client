@@ -10,7 +10,7 @@ import SettleAdvanceDialog from "./SettleAdvanceDialog";
 import BorrowMoneyDialog from "./BorrowMoneyDialog";
 import Save from "./Save";
 const QuickSummary = () => {
-  const { user, setConfirmData, colors,  } = useApp();
+  const { user, setConfirmData, colors } = useApp();
   const {
     setNewPortfolio,
     newPortfolio,
@@ -26,12 +26,11 @@ const QuickSummary = () => {
     handleOpenBorrowDialog,
   } = useBorrow();
   const { handleSave, handleSaveDialog, showSaveDialog } = useSave();
-  const { portfolio } = user;
-  const structuredPortfolio = portfolio?.map((item) => ({
+  const structuredPortfolio = user?.portfolio?.map((item) => ({
     ...item,
     amount: Number(parseFloat(item.amount).toFixed(2)),
   }));
-
+  console.log(structuredPortfolio);
   return (
     <>
       <UpdatePortfolioDialog
@@ -71,58 +70,65 @@ const QuickSummary = () => {
             take a loan
           </button>
         </div>
-        <PieChart width={400} height={400}>
-          <Pie
-            nameKey="title"
-            dataKey="amount"
-            fill="red"
-            data={structuredPortfolio}
-            label
-            innerRadius={5}
-            outerRadius={50}
-          >
-            {portfolio?.map((item, index) => (
-              <Cell key={index} fill={colors[index]} strokeWidth={1} />
-            ))}
-          </Pie>
-        </PieChart>
+        {user.total_amount_saved > 0 ? (
+          <PieChart width={400} height={400}>
+            <Pie
+              nameKey="title"
+              dataKey="amount"
+              fill="red"
+              data={structuredPortfolio}
+              label
+              innerRadius={5}
+              outerRadius={50}
+            >
+              {structuredPortfolio?.map((item, index) => (
+                <Cell key={index} fill={colors[index]} strokeWidth={1} />
+              ))}
+            </Pie>
+          </PieChart>
+        ) : (
+          <h1 className="no-data-text">No savings done yet</h1>
+        )}
         <div className="savings-portfolios-container">
           <h1 className="debt-text">Savings summary</h1>
-          {structuredPortfolio?.map((item, index) => (
-            <div className="portfolio" key={index}>
-              <div className="portfolio-action-container">
-                <DeleteOutlineOutlined
-                  className="portfolio-action-icon delete-icon"
-                  style={{ fill: "#cc0052" }}
-                  onClick={() => {
-                    setConfirmData((prev) => ({
-                      ...prev,
-                      open: !prev.open,
-                      heading: "Delete portfolio",
-                      warning: `This action will delete your savings portfolio '${item.title}'. Do you wish to continue?`,
-                      item: item,
-                    }));
-                    // deletePortfolio(item);
-                  }}
-                />
-                <EditOutlined
-                  style={{ fill: colors[index] }}
-                  className="portfolio-action-icon"
-                  onClick={async () => {
-                    await setNewPortfolio((prev) => ({ ...prev, ...item }));
-                    await handleUpdatePortfolioDialog();
-                  }}
-                />
-                <span
-                  style={{ color: `${colors[index]}` }}
-                  className="portfolio-title"
-                >
-                  {item?.title}
-                </span>
-              </div>
-              <span className="portfolio-value">{item?.amount}</span>
-            </div>
-          ))}
+          {structuredPortfolio.length > 0
+            ? structuredPortfolio?.map((item, index) => (
+                <div className="portfolio" key={index}>
+                  <div className="portfolio-action-container">
+                    <DeleteOutlineOutlined
+                      className="portfolio-action-icon delete-icon"
+                      style={{ fill: "#cc0052" }}
+                      onClick={() => {
+                        setConfirmData((prev) => ({
+                          ...prev,
+                          open: !prev.open,
+                          heading: "Delete portfolio",
+                          warning: `This action will delete your savings portfolio '${item.title}'. Do you wish to continue?`,
+                          item: item,
+                        }));
+                        // deletePortfolio(item);
+                      }}
+                    />
+                    <EditOutlined
+                      style={{ fill: colors[index] }}
+                      className="portfolio-action-icon"
+                      onClick={async () => {
+                        await setNewPortfolio((prev) => ({ ...prev, ...item }));
+                        await handleUpdatePortfolioDialog();
+                      }}
+                    />
+                    <span
+                      style={{ color: `${colors[index]}` }}
+                      className="portfolio-title"
+                    >
+                      {item?.title}
+                    </span>
+                  </div>
+                  <span className="portfolio-value">{item?.amount}</span>
+                </div>
+              ))
+            : "You have no portfolios yet"}
+          {}
         </div>
         <div className="debt-container">
           <h1 className="debt-text">Debt</h1>
@@ -141,10 +147,10 @@ const QuickSummary = () => {
             </span>
           </div>
         </div>
-        <div className="achievements-container">
+        {/* <div className="achievements-container">
           <h1 className="debt-text">Past achievements</h1>
-          {/* <Table /> */}
-        </div>
+          <Table />
+        </div> */}
       </div>
     </>
   );

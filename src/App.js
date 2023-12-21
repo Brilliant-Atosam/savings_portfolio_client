@@ -19,6 +19,7 @@ function App() {
   const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
   const ResetPassword = lazy(() => import("./pages/ResetPassword"));
   const Settings = lazy(() => import("./pages/Settings"));
+  const Expenses = lazy(() => import("./pages/Expenses"));
   return (
     <>
       <AddPortfolioDialog open={showPortfolioDialog} />
@@ -106,6 +107,18 @@ function App() {
               user ? (
                 <Suspense fallback={<FallbackComponent />}>
                   <Loan />
+                </Suspense>
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/expenses"
+            element={
+              user ? (
+                <Suspense fallback={<FallbackComponent />}>
+                  <Expenses />
                 </Suspense>
               ) : (
                 <Navigate to="/login" />

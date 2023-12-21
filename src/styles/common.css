@@ -35,6 +35,10 @@
   font-size: 1.6rem;
   text-decoration: none;
 }
+.no-data-text {
+  font-weight: 300;
+  margin: 20px;
+}
 .menu-icon {
   fill: white !important;
   font-size: 2rem !important;

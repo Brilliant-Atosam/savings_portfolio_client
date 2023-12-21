@@ -2,9 +2,11 @@ import { useState } from "react";
 import "../styles/login.css";
 import { Link } from "react-router-dom";
 import useAccount from "../hooks/useAccount";
+import useApp from "../useApp";
 const Login = () => {
   const { login } = useAccount();
-
+  let { loading } = useApp();
+  console.log(loading);
   const [email, setEmail] = useState("jonsnow@hbo.got");
   const [password, setPassword] = useState("samsam1");
   return (
@@ -26,8 +28,12 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             value={password}
           />
-          <button className="login-btn" onClick={() => login(email, password)}>
-            login
+          <button
+            disabled={loading}
+            className="login-btn"
+            onClick={() => login(email, password)}
+          >
+            {loading ? "loading..." : "login"}
           </button>
           <div className="login-redirects">
             <Link to="/register">Create new account</Link>

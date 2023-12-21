@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useEffect, useState } from "react";
 import usePortfolio from "./hooks/usePortfolio";
 import useSave from "./hooks/useSave";
 import Util from "./utils/util";
@@ -8,6 +8,10 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
   // utilities
   const { confirmData, setConfirmData, colors } = Util();
+  // loading
+  const [loading, setLoading] = useState(false);
+  // console.log(loading);
+  const handleLoader = () => setLoading((prev) => !prev);
   const {
     showPortfolioDialog,
     handlePortfolioDialog,
@@ -38,6 +42,8 @@ const AppProvider = ({ children }) => {
         snackbar,
         handleSnackbar,
         colors,
+        handleLoader,
+        loading,
       }}
     >
       {children}

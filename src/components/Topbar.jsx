@@ -25,7 +25,7 @@ const Topbar = () => {
           <Link to="/" className="menu-item">
             Home
           </Link>
-          <Link to="/" className="menu-item">
+          <Link to="/expenses" className="menu-item">
             Expenses
           </Link>
           <Link to="/loan" className="menu-item">

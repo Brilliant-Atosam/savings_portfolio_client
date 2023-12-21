@@ -10,7 +10,7 @@ export const savingsColumn = [
 export const loansColumn = [
   { field: "id", headerName: "ID", width: 60 },
   { field: "amount", headerName: "Amount", width: 90 },
-  { field: "reason", headerName: "Reason", width: 120 },
+  { field: "reason", headerName: "Reason", width: 220 },
   { field: "createdAt", headerName: "Date", width: 100 },
   { field: "repayment_date", headerName: "Repayment Date", width: 100 },
 ];

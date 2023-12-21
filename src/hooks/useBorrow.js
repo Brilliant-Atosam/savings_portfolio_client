@@ -2,7 +2,6 @@ import moment from "moment";
 import { useState } from "react";
 import request from "../utils/request";
 import Util from "../utils/util";
-import useFeedback from "./useFeedback";
 import useApp from "../useApp";
 const useBorrow = () => {
   const { storeUser, storeLoan } = Util();

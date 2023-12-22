@@ -2,10 +2,8 @@ import useApp from "../useApp";
 import moment from "moment";
 import { useState } from "react";
 import Util from "../utils/util";
-import useFeedback from "./useFeedback";
 import request from "../utils/request";
 const usePortfolio = () => {
-  const { handleSnackbar } = useFeedback();
   const { storeUser, setConfirmData } = Util();
   const context = useApp();
   let user = JSON.parse(window.localStorage.getItem("user"));
@@ -29,6 +27,7 @@ const usePortfolio = () => {
 
   // add new portfolio
   const addPortfolio = async (newPortfolio) => {
+    context.handleLoader();
     if (
       !newPortfolio.title ||
       !newPortfolio.reason ||
@@ -37,15 +36,16 @@ const usePortfolio = () => {
       !newPortfolio.deadline ||
       newPortfolio.percentage > 100
     ) {
-      handleSnackbar("Provide value for all fields");
-      window.alert("Provide value for all fields");
+      context?.handleSnackbar("Provide value for all fields", "warning");
+
+      // window.alert("Provide value for all fields");
     } else {
       const portfolio = user.portfolio.find(
         (portfolio) =>
           portfolio.title.toLowerCase() === newPortfolio.title.toLowerCase()
       );
       if (portfolio) {
-        context?.handleSnackbar("Savings portfolio already exist");
+        context?.handleSnackbar("Savings portfolio already exist", "warning");
       } else {
         try {
           const response = await request.put(
@@ -59,23 +59,29 @@ const usePortfolio = () => {
           );
 
           storeUser({ ...user, portfolio: [...user.portfolio, newPortfolio] });
-          context?.handleSnackbar(response.data);
-          window.location.reload();
+          context?.handleSnackbar(response.data, "success");
+          context?.handlePortfolioDialog();
+          // window.location.reload();
         } catch (err) {
-          context?.handleSnackbar(err.response.data);
+          context?.handleSnackbar(
+            err.response ? err.response.data : "Network error",
+            "error"
+          );
         }
       }
     }
+    context.handleLoader();
   };
 
   // delete portfolio
   const deletePortfolio = async (deleteItem) => {
+    context.handleLoader();
     let portfolio = user.portfolio.filter(
       (item) => item.title !== deleteItem.title
     );
     storeUser({
       ...user,
-      portfolio: portfolio,
+      portfolio,
       total_amount_saved: user.total_amount_saved - deleteItem.amount,
     });
     try {
@@ -89,6 +95,7 @@ const usePortfolio = () => {
         { headers: { access_token: `Bearer ${user.access_token}` } }
       );
       context?.handleSnackbar(res.data, "success");
+      context.setConfirmData((prev) => ({ ...prev, open: false }));
     } catch (err) {
       context?.handleSnackbar(
         err.response ? err.response.data : "Network error",
@@ -96,9 +103,11 @@ const usePortfolio = () => {
       );
     }
     setConfirmData((prev) => ({ ...prev, open: false }));
+    context.handleLoader();
   };
   // edit portfolio
   const updatePortfolio = async (newPortfolio) => {
+    context.handleLoader();
     if (
       !newPortfolio.title ||
       !newPortfolio.reason ||
@@ -107,8 +116,7 @@ const usePortfolio = () => {
       !newPortfolio.deadline ||
       newPortfolio.percentage > 100
     ) {
-      context?.handleSnackbar("Provide value for all fields");
-      window.alert("Provide value for all fields");
+      context?.handleSnackbar("Provide value for all fields", "warning");
     } else {
       let { portfolio } = user;
       const index = portfolio.findIndex((item) => item.id === newPortfolio.id);
@@ -121,7 +129,7 @@ const usePortfolio = () => {
         });
         context?.handleSnackbar(res.data, "success");
         storeUser(user);
-        handleUpdatePortfolioDialog();
+        context?.handleUpdatePortfolioDialog();
       } catch (err) {
         context?.handleSnackbar(
           err.res ? err.response.data : "Network error",
@@ -129,6 +137,7 @@ const usePortfolio = () => {
         );
       }
     }
+    context.handleLoader();
   };
   return {
     showPortfolioDialog,

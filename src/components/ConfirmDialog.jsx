@@ -20,7 +20,7 @@ const ConfirmDialog = ({ open, action, cancel }) => {
         >
           No
         </Button>
-        <Button onClick={action}>Yes</Button>
+        <Button onClick={() => action(confirmData.item)}>Yes</Button>
       </DialogActions>
     </Dialog>
   );

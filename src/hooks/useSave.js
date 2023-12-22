@@ -15,9 +15,13 @@ const useSave = () => {
   const handleSaveDialog = () => setShowSaveDialog((prev) => !prev);
 
   const handleSave = async (savings) => {
+    context.handleLoader();
     if (!savings.amount || !savings.source) {
-      window.alert("Please provide valid info for all fields.");
-      context?.handleSnackbar("Please provide valid info for all fields.");
+      context?.handleSnackbar(
+        "Please provide valid info for all fields.",
+        "warning"
+      );
+      context.handleLoader();
     } else {
       const { details } = savings;
       let { portfolio } = user;
@@ -43,12 +47,17 @@ const useSave = () => {
         );
         storeSavings([...savingsList, savings]);
         storeUser(user);
-        handleSnackbar(res?.data);
-        window.location.reload();
+        handleSaveDialog();
+        context?.handleSnackbar(res?.data, "success");
+        // window.location.reload();
       } catch (err) {
-        handleSnackbar(err.response ? err.response.data : "Network error!");
-        window.alert(err.response ? err.response.data : "Network error!");
+        context?.handleSnackbar(
+          err.response ? err.response.data : "Network error!",
+          "error"
+        );
+        // window.alert(err.response ? err.response.data : "Network error!");
       }
+      context.handleLoader();
     }
   };
   return { showSaveDialog, setShowSaveDialog, handleSaveDialog, handleSave };

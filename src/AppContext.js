@@ -8,9 +8,9 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
   // utilities
   const { confirmData, setConfirmData, colors } = Util();
+  console.log(confirmData);
   // loading
   const [loading, setLoading] = useState(false);
-  // console.log(loading);
   const handleLoader = () => setLoading((prev) => !prev);
   const {
     showPortfolioDialog,

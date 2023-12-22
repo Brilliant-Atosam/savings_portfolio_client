@@ -30,7 +30,6 @@ const QuickSummary = () => {
     ...item,
     amount: Number(parseFloat(item.amount).toFixed(2)),
   }));
-  console.log(structuredPortfolio);
   return (
     <>
       <UpdatePortfolioDialog

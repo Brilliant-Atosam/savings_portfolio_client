@@ -4,7 +4,7 @@ import moment from "moment";
 import "../styles/login.css";
 import usePortfolio from "../hooks/usePortfolio";
 const AddPortfolioDialog = ({ open }) => {
-  const { handlePortfolioDialog } = useApp();
+  const { handlePortfolioDialog, loading } = useApp();
   const { setNewPortfolio, addPortfolio, newPortfolio } = usePortfolio();
   return (
     <Dialog open={open}>
@@ -39,11 +39,11 @@ const AddPortfolioDialog = ({ open }) => {
             }
           />
           <label className="dialog-label" htmlFor="">
-            Percentage of income:
+            Percentage of income to save:
           </label>
           <input
             type="number"
-            placeholder="E.g. 20[% of total income]"
+            placeholder="E.g. 2[% of total income]"
             className="login-input"
             value={newPortfolio?.percentage}
             onChange={(e) =>
@@ -81,7 +81,7 @@ const AddPortfolioDialog = ({ open }) => {
             className="login-btn"
             onClick={() => addPortfolio(newPortfolio)}
           >
-            Create portfolio
+            {loading ? "loading..." : "Create portfolio"}
           </button>
           <button className="dialog-close-btn" onClick={handlePortfolioDialog}>
             Close

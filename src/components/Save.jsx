@@ -4,7 +4,7 @@ import moment from "moment";
 import React, { useEffect, useState } from "react";
 import "../styles/login.css";
 const Save = ({ open, handleSaveDialog, handleSave }) => {
-  const { user } = useApp();
+  const { user, loading } = useApp();
   let details = [];
   const [savings, setSavings] = useState({
     source: "",
@@ -70,6 +70,7 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
           )}
           <button
             className="login-btn"
+            disabled={loading}
             onClick={() =>
               handleSave({
                 ...savings,
@@ -88,7 +89,7 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
               })
             }
           >
-            Save now
+            {loading ? "loading" : "Save now"}
           </button>
           <button className="dialog-close-btn" onClick={handleSaveDialog}>
             Close

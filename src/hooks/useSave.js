@@ -1,14 +1,21 @@
 import { useState } from "react";
 import Util from "../utils/util";
 import useApp from "../useApp";
-import useFeedback from "./useFeedback";
 import request from "../utils/request";
+import moment from "moment";
 const useSave = () => {
   const { storeUser, storeSavings } = Util();
-  const { handleSnackbar } = useFeedback();
   const context = useApp();
   let user = JSON.parse(window.localStorage.getItem("user"));
-
+  let details = [];
+  const [savings, setSavings] = useState({
+    source: "",
+    amount: "",
+    createdAt: moment(new Date()).format("DD/MM/YYYY"),
+    id: Math.floor(Math.random() * 9999).toFixed(),
+    userId: user?.id,
+    details,
+  });
   let savingsList = JSON.parse(window.localStorage.getItem("savings")) || [];
   const [showSaveDialog, setShowSaveDialog] = useState(false);
 
@@ -29,6 +36,7 @@ const useSave = () => {
         ...item,
         amount: item?.amount + details[index].amount,
       }));
+      console.log(updatedPortfolio);
       user = {
         ...user,
         portfolio: updatedPortfolio,
@@ -49,6 +57,14 @@ const useSave = () => {
         storeUser(user);
         handleSaveDialog();
         context?.handleSnackbar(res?.data, "success");
+        setSavings({
+          source: "",
+          amount: "",
+          createdAt: moment(new Date()).format("DD/MM/YYYY"),
+          id: Math.floor(Math.random() * 9999).toFixed(),
+          userId: user?.id,
+          details,
+        });
         // window.location.reload();
       } catch (err) {
         context?.handleSnackbar(
@@ -60,7 +76,14 @@ const useSave = () => {
       context.handleLoader();
     }
   };
-  return { showSaveDialog, setShowSaveDialog, handleSaveDialog, handleSave };
+  return {
+    showSaveDialog,
+    setShowSaveDialog,
+    handleSaveDialog,
+    handleSave,
+    savings,
+    setSavings,
+  };
 };
 
 export default useSave;

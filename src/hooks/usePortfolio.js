@@ -61,6 +61,16 @@ const usePortfolio = () => {
           storeUser({ ...user, portfolio: [...user.portfolio, newPortfolio] });
           context?.handleSnackbar(response.data, "success");
           context?.handlePortfolioDialog();
+          setNewPortfolio({
+            title: "",
+            reason: "",
+            percentage: "",
+            goal: "",
+            deadline: "",
+            createdAt: moment(new Date()).format("DD/MM/YYYY"),
+            amount: 0,
+            id: Math.floor(Math.random() * 999).toString(),
+          });
           // window.location.reload();
         } catch (err) {
           context?.handleSnackbar(

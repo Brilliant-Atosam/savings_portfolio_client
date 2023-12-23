@@ -1,26 +1,19 @@
 import { Dialog, DialogContent, DialogTitle } from "@mui/material";
 import useApp from "../useApp";
-import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "../styles/login.css";
+import useSave from "../hooks/useSave";
 const Save = ({ open, handleSaveDialog, handleSave }) => {
   const { user, loading } = useApp();
-  let details = [];
-  const [savings, setSavings] = useState({
-    source: "",
-    amount: "",
-    createdAt: moment(new Date()).format("DD/MM/YYYY"),
-    id: Math.floor(Math.random() * 9999).toFixed(),
-    userId: user?.id,
-    details,
-  });
+
+  const { savings, setSavings } = useSave();
   useEffect(() => {
     const updatedDetail = user?.portfolio.map((item) => ({
       title: item.title,
       amount: parseFloat(((item.percentage / 100) * savings.amount).toFixed(2)),
     }));
     setSavings((prev) => ({ ...prev, details: updatedDetail }));
-  }, [savings.amount, user?.portfolio]);
+  }, [savings.amount, user?.portfolio, setSavings]);
   return (
     <Dialog open={open}>
       <DialogTitle className="login-text">Save money</DialogTitle>

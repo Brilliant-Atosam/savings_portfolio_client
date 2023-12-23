@@ -8,7 +8,6 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
   // utilities
   const { confirmData, setConfirmData, colors } = Util();
-  console.log(confirmData);
   // loading
   const [loading, setLoading] = useState(false);
   const handleLoader = () => setLoading((prev) => !prev);

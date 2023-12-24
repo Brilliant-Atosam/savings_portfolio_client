@@ -23,7 +23,13 @@ const useSave = () => {
 
   const handleSave = async (savings) => {
     context.handleLoader();
-    if (!savings.amount || !savings.source) {
+    if (user.portfolio.length < 1) {
+      context?.handleSnackbar(
+        "You cannot save without a portfolio. Create one now to continue",
+        "warning"
+      );
+      context.handleLoader();
+    } else if (!savings.amount || !savings.source) {
       context?.handleSnackbar(
         "Please provide valid info for all fields.",
         "warning"
@@ -36,7 +42,6 @@ const useSave = () => {
         ...item,
         amount: item?.amount + details[index].amount,
       }));
-      console.log(updatedPortfolio);
       user = {
         ...user,
         portfolio: updatedPortfolio,
@@ -53,7 +58,7 @@ const useSave = () => {
             },
           }
         );
-        storeSavings([...savingsList, savings]);
+        storeSavings([savings, ...savingsList]);
         storeUser(user);
         handleSaveDialog();
         context?.handleSnackbar(res?.data, "success");

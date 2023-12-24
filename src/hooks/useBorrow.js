@@ -25,7 +25,12 @@ const useBorrow = () => {
   };
 
   const borrowMoney = async (loanDetails) => {
-    if (
+    if (loanDetails.amount > user.total_amount_saved) {
+      context?.handleSnackbar(
+        "You cannot borrow more than you have saved!",
+        "warning"
+      );
+    } else if (
       !loanDetails.amount ||
       !loanDetails.reason ||
       !loanDetails.urgency ||
@@ -77,7 +82,9 @@ const useBorrow = () => {
     id: Math.floor(Math.random() * 999).toString(),
   });
   const settleAdvance = async () => {
-    if (!settleDetails.amount) {
+    if (settleDetails.amount > user.total_advance) {
+      context?.handleSnackbar("You cannot pay more than you owe", "warning");
+    } else if (!settleDetails.amount) {
       context?.handleSnackbar("Enter amount", "warning");
     } else {
       user = {

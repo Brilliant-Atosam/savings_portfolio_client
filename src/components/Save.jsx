@@ -17,6 +17,11 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
   return (
     <Dialog open={open}>
       <DialogTitle className="login-text">Save money</DialogTitle>
+      {user.portfolio.length < 1 && (
+        <DialogTitle className="login-text red">
+          You cannot save without a portfolio. Create one before you continue
+        </DialogTitle>
+      )}
       <DialogContent>
         <div className="dialog-form-container">
           <label className="dialog-label" htmlFor="">

@@ -120,7 +120,7 @@ const QuickSummary = () => {
                       style={{ color: `${colors[index]}` }}
                       className="portfolio-title"
                     >
-                      {item?.title}
+                      {item?.title}({item?.percentage}%)
                     </span>
                   </div>
                   <span className="portfolio-value">{item?.amount}</span>

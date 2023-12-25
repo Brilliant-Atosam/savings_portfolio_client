@@ -25,11 +25,13 @@ const useBorrow = () => {
   };
 
   const borrowMoney = async (loanDetails) => {
+    context?.handleLoader();
     if (loanDetails.amount > user.total_amount_saved) {
       context?.handleSnackbar(
         "You cannot borrow more than you have saved!",
         "warning"
       );
+      context?.handleLoader();
     } else if (
       !loanDetails.amount ||
       !loanDetails.reason ||
@@ -37,11 +39,13 @@ const useBorrow = () => {
       !loanDetails.importance
     ) {
       context?.handleSnackbar("Provide value for all fields", "warning");
+      context?.handleLoader();
     } else if (loanDetails.amount > user.total_amount_saved) {
       context?.handleSnackbar(
         "You cannot take more than you have saved!",
         "warning"
       );
+      context?.handleLoader();
     } else {
       user = {
         ...user,
@@ -62,11 +66,13 @@ const useBorrow = () => {
         context?.handleSnackbar(res.data, "success");
         storeUser(user);
         storeLoan(loans);
+        context?.handleLoader();
       } catch (err) {
         context?.handleSnackbar(
           err.response ? err.response.data : "Network Error!",
           "error"
         );
+        context?.handleLoader();
       }
     }
   };

@@ -7,6 +7,11 @@ const SettleAdvanceDialog = ({ open, toggleDialog }) => {
   return (
     <Dialog open={open}>
       <DialogTitle>Settle all/part of advance</DialogTitle>
+      {user.total_advance < 1 && (
+        <DialogTitle className="red">
+          You do not have any outstanding advance
+        </DialogTitle>
+      )}
       <DialogContent>
         <div className="dialog-form-container">
           <p>Total advance: {user?.total_advance}</p>

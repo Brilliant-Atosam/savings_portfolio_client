@@ -42,11 +42,19 @@ const useSave = () => {
         ...item,
         amount: item?.amount + details[index].amount,
       }));
+      const source_exists = user.sources_of_income?.find(
+        (source) => source.toLowerCase() === savings.source.toLowerCase()
+      );
       user = {
         ...user,
         portfolio: updatedPortfolio,
-        total_amount_saved: user.total_amount_saved + savings?.saved,
+        total_amount_saved: (
+          Number(user.total_amount_saved) + savings?.saved
+        ).toFixed(2),
+        sources_of_income: user.sources_of_income || [],
       };
+      !source_exists && user.sources_of_income.push(savings.source);
+      console.log(user);
 
       try {
         const res = await request.post(
@@ -70,13 +78,11 @@ const useSave = () => {
           userId: user?.id,
           details,
         });
-        // window.location.reload();
       } catch (err) {
         context?.handleSnackbar(
           err.response ? err.response.data : "Network error!",
           "error"
         );
-        // window.alert(err.response ? err.response.data : "Network error!");
       }
       context.handleLoader();
     }

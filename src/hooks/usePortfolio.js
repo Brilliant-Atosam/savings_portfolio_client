@@ -130,7 +130,6 @@ const usePortfolio = () => {
     } else {
       let { portfolio } = user;
       const index = portfolio.findIndex((item) => item.id === newPortfolio.id);
-      alert(index);
       portfolio[index] = newPortfolio;
       user = { ...user, portfolio };
       try {

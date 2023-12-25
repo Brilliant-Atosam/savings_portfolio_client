@@ -2,12 +2,19 @@ import { Dialog, DialogContent, DialogTitle } from "@mui/material";
 import React from "react";
 import useBorrow from "../hooks/useBorrow";
 import moment from "moment";
+import useApp from "../useApp";
 
 const BorrowMoneyDialog = ({ open, borrowMoney, handleOpenBorrowDialog }) => {
   const { setLoanDetails, loanDetails } = useBorrow();
+  const { loading, user } = useApp();
   return (
     <Dialog open={open}>
       <DialogTitle>Take advance from your savings</DialogTitle>
+      {Number(user.total_amount_saved) < 1 && (
+        <DialogTitle className="red">
+          You do not have any money saved.
+        </DialogTitle>
+      )}
       <DialogContent>
         <div className="dialog-form-container">
           <label className="dialog-label" htmlFor="">
@@ -98,10 +105,11 @@ const BorrowMoneyDialog = ({ open, borrowMoney, handleOpenBorrowDialog }) => {
             defaultValue={true}
           />
           <button
+            disabled={loading}
             className="login-btn"
             onClick={() => borrowMoney(loanDetails)}
           >
-            Borrow money
+            {loading ? "loading..." : "Borrow money"}
           </button>
           <button className="dialog-close-btn" onClick={handleOpenBorrowDialog}>
             Cancel

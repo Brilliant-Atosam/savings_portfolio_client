@@ -6,9 +6,6 @@ import useApp from "../useApp";
 import { savingsColumn } from "../utils/tableData";
 const Dashboard = () => {
   let { savingsList } = useApp();
-  let sortedSavingList = savingsList?.sort((a, b) =>
-    a.createdAt > b.createdAt ? -1 : 1
-  );
   return (
     <div className="main-container">
       <Topbar />
@@ -16,14 +13,7 @@ const Dashboard = () => {
         <QuickSummary />
         <div className="dashboard-right">
           <h1 className="debt-text">Savings history</h1>
-          {
-            <Table
-              columns={savingsColumn}
-              rows={savingsList?.sort((a, b) =>
-                a.createdAt > b.createdAt ? -1 : 1
-              )}
-            />
-          }
+          {<Table columns={savingsColumn} rows={savingsList} />}
         </div>
       </div>
     </div>

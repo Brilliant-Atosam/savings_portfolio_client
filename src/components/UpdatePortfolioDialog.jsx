@@ -1,6 +1,7 @@
 import { Dialog, DialogContent, DialogTitle } from "@mui/material";
 import moment from "moment";
 import "../styles/login.css";
+import useApp from "../useApp";
 const UpdatePortfolioDialog = ({
   open,
   updatePortfolio,
@@ -8,6 +9,7 @@ const UpdatePortfolioDialog = ({
   setNewPortfolio,
   toggleDialog,
 }) => {
+  const { loading } = useApp();
   return (
     <Dialog open={open}>
       <DialogTitle className="login-text">Update saving portfolio</DialogTitle>
@@ -78,10 +80,11 @@ const UpdatePortfolioDialog = ({
             }
           />
           <button
+            disabled={loading}
             className="login-btn"
             onClick={() => updatePortfolio(newPortfolio)}
           >
-            Update portfolio
+            {loading ? "loading..." : "Update portfolio"}
           </button>
           <button className="dialog-close-btn" onClick={toggleDialog}>
             Close

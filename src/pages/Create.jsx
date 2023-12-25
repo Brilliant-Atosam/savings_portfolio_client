@@ -1,7 +1,10 @@
 import { useState } from "react";
 import useAccount from "../hooks/useAccount";
 import { Link } from "react-router-dom";
+import useApp from "../useApp";
+import { CircularProgress } from "@mui/material";
 const Create = () => {
+  const { loading } = useApp();
   const { register } = useAccount();
   const [newUser, setNewUser] = useState({
     name: "",
@@ -51,10 +54,17 @@ const Create = () => {
               setNewUser({ ...newUser, password2: e.target.value })
             }
           />
-          <button className="login-btn" onClick={() => register(newUser)}>
-            Create account
+          <button
+            className="login-btn"
+            onClick={() => register(newUser)}
+            disabled={loading}
+          >
+            {loading ? "loading..." : "Create account"}
           </button>
           <Link to="/login">Login</Link>
+        </div>
+        <div className="loading-container">
+          {loading && <CircularProgress color="primary" />}
         </div>
       </div>
     </div>

@@ -1,4 +1,9 @@
-import { Dialog, DialogContent, DialogTitle } from "@mui/material";
+import {
+  CircularProgress,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 import React from "react";
 import useBorrow from "../hooks/useBorrow";
 import moment from "moment";
@@ -116,6 +121,9 @@ const BorrowMoneyDialog = ({ open, borrowMoney, handleOpenBorrowDialog }) => {
           </button>
         </div>
       </DialogContent>
+      <div className="loading-container">
+        {loading && <CircularProgress color="primary" />}
+      </div>
     </Dialog>
   );
 };

@@ -1,4 +1,9 @@
-import { Dialog, DialogContent, DialogTitle } from "@mui/material";
+import {
+  CircularProgress,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 import useApp from "../useApp";
 import React, { useEffect } from "react";
 import "../styles/login.css";
@@ -87,13 +92,16 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
               })
             }
           >
-            {loading ? "loading" : "Save now"}
+            {loading ? "loading..." : "Save now"}
           </button>
           <button className="dialog-close-btn" onClick={handleSaveDialog}>
             Close
           </button>
         </div>
       </DialogContent>
+      <div className="loading-container">
+        {loading && <CircularProgress color="primary" />}
+      </div>
     </Dialog>
   );
 };

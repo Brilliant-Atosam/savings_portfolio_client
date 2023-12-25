@@ -1,8 +1,13 @@
-import { Dialog, DialogContent, DialogTitle } from "@mui/material";
+import {
+  CircularProgress,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 import useApp from "../useApp";
 import useBorrow from "../hooks/useBorrow";
 const SettleAdvanceDialog = ({ open, toggleDialog }) => {
-  const { user } = useApp();
+  const { user, loading } = useApp();
   const { settleDetails, setSettleDetails, settleAdvance } = useBorrow();
   return (
     <Dialog open={open}>
@@ -32,14 +37,21 @@ const SettleAdvanceDialog = ({ open, toggleDialog }) => {
             }
           />
 
-          <button className="login-btn" onClick={settleAdvance}>
-            Settle advance
+          <button
+            className="login-btn"
+            onClick={settleAdvance}
+            disabled={loading}
+          >
+            {loading ? "loading..." : "Settle advance"}
           </button>
           <button className="dialog-close-btn" onClick={toggleDialog}>
             Cancel
           </button>
         </div>
       </DialogContent>
+      <div className="loading-container">
+        {loading && <CircularProgress color="primary" />}
+      </div>
     </Dialog>
   );
 };

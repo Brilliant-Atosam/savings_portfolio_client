@@ -1,4 +1,9 @@
-import { Dialog, DialogContent, DialogTitle } from "@mui/material";
+import {
+  CircularProgress,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 import useApp from "../useApp";
 import moment from "moment";
 import "../styles/login.css";
@@ -88,6 +93,9 @@ const AddPortfolioDialog = ({ open }) => {
           </button>
         </div>
       </DialogContent>
+      <div className="loading-container">
+        {loading && <CircularProgress color="primary" />}
+      </div>
     </Dialog>
   );
 };

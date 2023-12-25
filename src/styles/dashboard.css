@@ -83,7 +83,6 @@
   }
   .dashboard-left,
   .dashboard-right {
-    /* flex: 1; */
     width: 100%;
   }
 }

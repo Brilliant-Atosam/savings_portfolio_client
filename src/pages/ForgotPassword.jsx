@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import useAccount from "../hooks/useAccount";
+import useApp from "../useApp";
+import { CircularProgress } from "@mui/material";
 const ForgotPassword = () => {
+  const { loading } = useApp();
   const { email, setEmail, handlePasswordResetRequest } = useAccount();
   return (
     <div className="main-container">
@@ -14,12 +17,19 @@ const ForgotPassword = () => {
             onChange={(e) => setEmail(e.target.value)}
             value={email}
           />
-          <button className="login-btn" onClick={handlePasswordResetRequest}>
-            send reset link
+          <button
+            className="login-btn"
+            onClick={handlePasswordResetRequest}
+            disabled={loading}
+          >
+            {loading ? "loading..." : "send reset link"}
           </button>
           <div className="login-redirects">
             <Link to="/login">Login</Link>
             <Link to="/register">Create new account</Link>
+          </div>
+          <div className="loading-container">
+            {loading && <CircularProgress color="primary" />}
           </div>
         </div>
       </div>

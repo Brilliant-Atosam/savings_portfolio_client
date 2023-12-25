@@ -38,10 +38,13 @@ const useSave = () => {
     } else {
       const { details } = savings;
       let { portfolio } = user;
-      const updatedPortfolio = portfolio.map((item, index) => ({
-        ...item,
-        amount: item?.amount + details[index].amount,
-      }));
+      const updatedPortfolio = portfolio.map((item, index) => {
+        if (Number(item.goal) >= item.amount) {
+          return { ...item, amount: item.amount + details[index].amount };
+        }
+        return item;
+      });
+      console.log(updatedPortfolio);
       const source_exists = user.sources_of_income?.find(
         (source) => source.toLowerCase() === savings.source.toLowerCase()
       );
@@ -54,8 +57,6 @@ const useSave = () => {
         sources_of_income: user.sources_of_income || [],
       };
       !source_exists && user.sources_of_income.push(savings.source);
-      console.log(user);
-
       try {
         const res = await request.post(
           `/savings?userId=${user.id}`,

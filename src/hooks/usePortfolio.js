@@ -1,12 +1,17 @@
 import useApp from "../useApp";
 import moment from "moment";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Util from "../utils/util";
 import request from "../utils/request";
 const usePortfolio = () => {
   const { storeUser, setConfirmData } = Util();
   const context = useApp();
   let user = JSON.parse(window.localStorage.getItem("user"));
+  const percentages = useMemo(() => {
+    return user?.portfolio.reduce((a, b) => {
+      return a + Number(b.percentage);
+    }, 0);
+  }, [user?.portfolio]);
   const [showPortfolioDialog, setShowPortfolioDialog] = useState(false);
   const [showUpdatePortfolioDialog, setShowUpdatePortfolioDialog] =
     useState(false);
@@ -24,8 +29,8 @@ const usePortfolio = () => {
     setShowPortfolioDialog(!showPortfolioDialog);
   const handleUpdatePortfolioDialog = () =>
     setShowUpdatePortfolioDialog(!showUpdatePortfolioDialog);
-
   // add new portfolio
+
   const addPortfolio = async (newPortfolio) => {
     context.handleLoader();
     if (
@@ -37,8 +42,11 @@ const usePortfolio = () => {
       newPortfolio.percentage > 100
     ) {
       context?.handleSnackbar("Provide value for all fields", "warning");
-
-      // window.alert("Provide value for all fields");
+    } else if (percentages + Number(newPortfolio.percentage)) {
+      context?.handleSnackbar(
+        "You cannot save more than you earned!",
+        "warning"
+      );
     } else {
       const portfolio = user.portfolio.find(
         (portfolio) =>

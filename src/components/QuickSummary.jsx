@@ -1,6 +1,10 @@
 import React from "react";
 import { Cell, Pie, PieChart } from "recharts";
-import { EditOutlined, DeleteOutlineOutlined } from "@mui/icons-material";
+import {
+  EditOutlined,
+  DeleteOutlineOutlined,
+  VerifiedOutlined,
+} from "@mui/icons-material";
 import useApp from "../useApp";
 import useSave from "../hooks/useSave";
 import useBorrow from "../hooks/useBorrow";
@@ -77,8 +81,8 @@ const QuickSummary = () => {
               fill="red"
               data={structuredPortfolio}
               label
-              innerRadius={5}
-              outerRadius={50}
+              innerRadius={2}
+              outerRadius={80}
             >
               {structuredPortfolio?.map((item, index) => (
                 <Cell key={index} fill={colors[index]} strokeWidth={1} />
@@ -105,7 +109,6 @@ const QuickSummary = () => {
                           warning: `This action will delete your savings portfolio '${item.title}'. Do you wish to continue?`,
                           item: item,
                         }));
-                        // deletePortfolio(item);
                       }}
                     />
                     <EditOutlined
@@ -122,6 +125,7 @@ const QuickSummary = () => {
                     >
                       {item?.title}({item?.percentage}%)
                     </span>
+                    {Number(item?.goal) <= item?.amount && <VerifiedOutlined />}
                   </div>
                   <span className="portfolio-value">{item?.amount}</span>
                 </div>

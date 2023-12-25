@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../styles/login.css";
 import { Link } from "react-router-dom";
 import useAccount from "../hooks/useAccount";
+import { CircularProgress } from "@mui/material";
 import useApp from "../useApp";
 const Login = () => {
   const { login } = useAccount();
@@ -38,6 +39,9 @@ const Login = () => {
           <div className="login-redirects">
             <Link to="/register">Create new account</Link>
             <Link to="/password/forgot">Forgot password?</Link>
+          </div>
+          <div className="loading-container">
+            {loading && <CircularProgress color="primary" />}
           </div>
         </div>
       </div>

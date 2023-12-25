@@ -1,9 +1,16 @@
-import { Dialog, DialogContent, DialogTitle } from "@mui/material";
+import {
+  CircularProgress,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 import React from "react";
 import "../styles/login.css";
 import useSettings from "../hooks/useSettings";
+import useApp from "../useApp";
 const Password = ({ open, handlePassChange, handleOpenPass }) => {
   const { set_password_data, password_data } = useSettings();
+  const { loading } = useApp();
   return (
     <Dialog open={open}>
       <DialogTitle className="login-text">Change login password</DialogTitle>
@@ -54,14 +61,18 @@ const Password = ({ open, handlePassChange, handleOpenPass }) => {
           <button
             onClick={() => handlePassChange(password_data)}
             className="login-btn"
+            disabled={loading}
           >
-            Change password
+            {loading ? "loading" : "Change password"}
           </button>
           <button onClick={handleOpenPass} className="dialog-close-btn">
             Cancel
           </button>
         </div>
       </DialogContent>
+      <div className="loading-container">
+        {loading && <CircularProgress color="primary" />}
+      </div>
     </Dialog>
   );
 };

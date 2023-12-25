@@ -1,8 +1,15 @@
-import { Dialog, DialogContent, DialogTitle } from "@mui/material";
+import {
+  CircularProgress,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 import "../styles/login.css";
 import useSettings from "../hooks/useSettings";
+import useApp from "../useApp";
 const BasicInfo = ({ open, handleBasicInfoChange, handleOpenBasicInfo }) => {
   const { basic_info, set_basic_info } = useSettings();
+  const { loading } = useApp();
   return (
     <Dialog open={open}>
       <DialogTitle className="login-text">Change Basic info</DialogTitle>
@@ -71,14 +78,18 @@ const BasicInfo = ({ open, handleBasicInfoChange, handleOpenBasicInfo }) => {
           <button
             onClick={() => handleBasicInfoChange(basic_info)}
             className="login-btn"
+            disabled={loading}
           >
-            Change basic info
+            {loading ? "loading..." : "Change basic info"}
           </button>
           <button onClick={handleOpenBasicInfo} className="dialog-close-btn">
             Cancel
           </button>
         </div>
       </DialogContent>
+      <div className="loading-container">
+        {loading && <CircularProgress color="primary" />}
+      </div>
     </Dialog>
   );
 };

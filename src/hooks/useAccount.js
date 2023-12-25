@@ -26,6 +26,7 @@ const useAccount = () => {
       storeLoan(loans.data);
       storeUser(res.data);
       handleSnackbar("Login successful!", "success");
+      handleLoader();
     } catch (err) {
       handleLoader();
       handleSnackbar(err.response ? err.response.data : err.message, "warning");
@@ -39,6 +40,7 @@ const useAccount = () => {
 
   // create a new user
   const register = async (newUser) => {
+    handleLoader();
     if (
       !newUser.name ||
       !newUser.email ||
@@ -46,45 +48,52 @@ const useAccount = () => {
       !newUser.password
     ) {
       handleSnackbar("Provide value for all fields.", "warning");
+      handleLoader();
     } else {
       try {
         await request.post("/auth", newUser);
         window.location.href = "/login";
       } catch (err) {
-        handleSnackbar(err.response ? err.response.data : "Network Error!");
+        handleSnackbar(err.response ? err.response.data : err.message, "error");
+        handleLoader();
       }
     }
   };
   // reset password request
   const [email, setEmail] = useState("");
   const handlePasswordResetRequest = async () => {
+    handleLoader();
     if (!email) {
       handleSnackbar("Enter a valid email address", "warning");
+      handleLoader();
     } else {
       try {
         const res = await request.post("/auth/reset", { email });
         handleSnackbar(res.data, "success");
+        handleLoader();
       } catch (err) {
-        handleSnackbar(
-          err.response ? err.response.data : "Network error!",
-          "error"
-        );
+        handleSnackbar(err.response ? err.response.data : err.message, "error");
+        handleLoader();
       }
     }
   };
   // handle reset password
   const handleResetPassword = async (password, password2, reset_code) => {
+    handleLoader();
     if (password !== password2 || !password || !password2) {
       handleSnackbar("Invalid password or passwords do not match!", "warning");
+      handleLoader();
     } else if (reset_code.length < 5) {
       handleSnackbar("Invalid reset link.", "warning");
+      handleLoader();
     } else {
       try {
         const res = await request.put("/auth/reset", { password, reset_code });
         handleSnackbar(res.data, "success");
+        handleLoader();
       } catch (err) {
-        console.log(err);
-        handleSnackbar(err.response ? err.message : "Network error!", "error");
+        handleLoader();
+        handleSnackbar(err.response ? err.response.data : err.message, "error");
       }
     }
   };

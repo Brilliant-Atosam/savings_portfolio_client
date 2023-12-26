@@ -20,7 +20,9 @@ const Util = () => {
   const storeLoan = (data) => {
     window.localStorage.setItem("loans", JSON.stringify(data));
   };
-
+  // store expenses
+  const storeExpenses = (data) =>
+    localStorage.setItem("expenses", JSON.stringify(data));
   // handle confirm dialog
   const [confirmData, setConfirmData] = useState({
     open: false,
@@ -31,14 +33,35 @@ const Util = () => {
   const colors = [
     "#3399ff",
     "#ff3399",
-    "teal",
     "#bf00ff",
     "#ff3385",
     "#ff4dff",
+    "teal",
     "#4da6ff",
     "#4080bf",
     "#00b377",
     "#00cca3",
+  ];
+  // categories of expenses
+  const categories = [
+    "charity",
+    "childcare",
+    "debt payment",
+    "education",
+    "entertainment",
+    "fashion",
+    "food",
+    "healthcare",
+    "housing",
+    "insurance",
+    "miscellaneous",
+    "offering",
+    "personal care",
+    "technology",
+    "transportation",
+    "travel",
+    "utilities",
+    "work related",
   ];
   return {
     storeUser,
@@ -51,6 +74,8 @@ const Util = () => {
     setFeedback,
     colors,
     storeLoan,
+    categories,
+    storeExpenses,
   };
 };
 

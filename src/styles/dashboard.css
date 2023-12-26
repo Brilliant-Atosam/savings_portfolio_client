@@ -49,10 +49,7 @@
   font-weight: 600;
   font-size: 1rem;
 }
-.debt-text {
-  font-weight: 300;
-  font-size: 1.4rem;
-}
+
 .debt-item-container {
   display: flex;
   align-items: center;

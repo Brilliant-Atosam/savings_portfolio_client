@@ -14,3 +14,12 @@ export const loansColumn = [
   { field: "createdAt", headerName: "Date", width: 100 },
   { field: "repayment_date", headerName: "Repayment Date", width: 100 },
 ];
+export const expenseColumn = [
+  { field: "id", headerName: "ID", width: "50" },
+  { field: "item", headerName: "Item", width: "250" },
+  { field: "category", headerName: "Category", width: "250" },
+  { field: "quantity", headerName: "Qty", width: "50" },
+  { field: "unit_price", headerName: "Unit Price", width: "150" },
+  { field: "total_cost", headerName: "Total Price", width: "150" },
+  { field: "created_at", headerName: "Date", width: "150" },
+];

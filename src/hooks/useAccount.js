@@ -4,7 +4,7 @@ import request from "../utils/request";
 import { useState } from "react";
 
 const useAccount = () => {
-  const { storeUser, storeSavings, storeLoan } = Util();
+  const { storeUser, storeSavings, storeLoan, storeExpenses } = Util();
   const { handleSnackbar, handleLoader } = useApp();
   //   login
   const login = async (email, password) => {
@@ -14,6 +14,7 @@ const useAccount = () => {
         email,
         password,
       });
+      handleSnackbar("Login successful!", "success");
       const savingsRes = await request.get(`/savings?userId=${res.data.id}`, {
         headers: {
           access_token: `Bearer ${res.data.access_token}`,
@@ -22,10 +23,13 @@ const useAccount = () => {
       const loans = await request.get(`/loan?userId=${res.data.id}`, {
         headers: { access_token: `Bearer ${res.data.access_token}` },
       });
+      const expenses = await request.get(`/expenses?userId=${res.data.id}`, {
+        headers: { access_token: `Bearer ${res.data.access_token}` },
+      });
       storeSavings(savingsRes.data);
       storeLoan(loans.data);
+      storeExpenses(expenses.data);
       storeUser(res.data);
-      handleSnackbar("Login successful!", "success");
       handleLoader();
     } catch (err) {
       handleLoader();

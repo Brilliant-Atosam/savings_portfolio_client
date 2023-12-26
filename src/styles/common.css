@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&family=Petit+Formal+Script&family=Work+Sans:wght@300&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -31,9 +32,10 @@
 }
 .logo-text {
   color: white;
-  font-weight: 300;
+  font-weight: 600;
   font-size: 1.6rem;
   text-decoration: none;
+  font-family: "Petit Formal Script", cursive;
 }
 .no-data-text {
   font-weight: 300;
@@ -63,6 +65,10 @@
 .table-container {
   width: 100% !important;
   background: rgb(240, 244, 240);
+}
+.debt-text {
+  font-weight: 300;
+  font-size: 1.4rem;
 }
 .dialog-form-container {
   display: flex;

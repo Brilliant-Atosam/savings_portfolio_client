@@ -1,9 +1,42 @@
-import React from 'react'
-
+import "../styles/expenses.css";
+import Topbar from "../components/Topbar";
+import { Add } from "@mui/icons-material";
+import Util from "../utils/util";
+import Table from "../components/Table";
+import { expenseColumn } from "../utils/tableData";
+import ExpensesDialog from "../components/Expenses";
+import useExpenses from "../hooks/useExpenses";
 const Expenses = () => {
+  const { categories } = Util();
+  const { openExpenseDialog, toggleExpensesDialog, expensesList } =
+    useExpenses();
   return (
-    <div>Expenses</div>
-  )
-}
+    <div className="main-container">
+      <Topbar />
+      <ExpensesDialog open={openExpenseDialog} toggle={toggleExpensesDialog} />
+      <div className="expenses-container">
+        <h1 className="expenses-heading debt-text">Expenses summary</h1>
+        <div className="expenses-categories-container">
+          {categories.map((category, index) => (
+            <div className="category" key={index}>
+              <span className="category-name">{category}:</span>
+              <span className="category-value">
+                {(Math.random() * 999).toFixed(2)}
+              </span>
+            </div>
+          ))}
+        </div>
+        <div className="expenses-table-container">
+          <h1 className="expenses-heading debt-text">Expenses history</h1>
+          <Table columns={expenseColumn} rows={expensesList} />
+        </div>
+      </div>
 
-export default Expenses
+      <div className="add-expenses-btn-container">
+        <Add className="add-expenses-btn" onClick={toggleExpensesDialog} />
+      </div>
+    </div>
+  );
+};
+
+export default Expenses;

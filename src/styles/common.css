@@ -16,6 +16,7 @@
 }
 ::-webkit-scrollbar {
   width: 4px;
+  height: 6px;
   background: #1d718432;
 }
 .topbar-container {

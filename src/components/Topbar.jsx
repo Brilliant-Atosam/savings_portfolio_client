@@ -11,7 +11,7 @@ const Topbar = () => {
     <>
       <div className="topbar-container">
         <Link to="/" className="logo-text">
-          cashLens
+          cashlens
         </Link>
         <div className="topbar-left">
           <button className="topbar-btn" onClick={handlePortfolioDialog}>

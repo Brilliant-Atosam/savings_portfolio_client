@@ -6,10 +6,12 @@ import Table from "../components/Table";
 import { expenseColumn } from "../utils/tableData";
 import ExpensesDialog from "../components/Expenses";
 import useExpenses from "../hooks/useExpenses";
+import AreaChartComponent from "../components/AreaChartComponent";
 const Expenses = () => {
   const { categories } = Util();
-  const { openExpenseDialog, toggleExpensesDialog, expensesList } =
+  const { openExpenseDialog, toggleExpensesDialog, expensesList, data } =
     useExpenses();
+  console.log(data);
   return (
     <div className="main-container">
       <Topbar />
@@ -21,7 +23,10 @@ const Expenses = () => {
             <div className="category" key={index}>
               <span className="category-name">{category}:</span>
               <span className="category-value">
-                {(Math.random() * 999).toFixed(2)}
+                {expensesList
+                  .filter((item) => item.category === category)
+                  ?.reduce((a, b) => a + b.total_cost, 0)}
+                {/* {(Math.random() * 999).toFixed(2)} */}
               </span>
             </div>
           ))}
@@ -30,8 +35,10 @@ const Expenses = () => {
           <h1 className="expenses-heading debt-text">Expenses history</h1>
           <Table columns={expenseColumn} rows={expensesList} />
         </div>
+        <div className="chart-container">
+          <AreaChartComponent data={data} />
+        </div>
       </div>
-
       <div className="add-expenses-btn-container">
         <Add className="add-expenses-btn" onClick={toggleExpensesDialog} />
       </div>

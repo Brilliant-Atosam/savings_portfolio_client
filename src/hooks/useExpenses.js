@@ -6,7 +6,7 @@ import Util from "../utils/util";
 
 const useExpenses = () => {
   const context = useApp();
-  const { storeUser, storeExpenses } = Util();
+  const { storeUser, storeExpenses, categories } = Util();
   let user = JSON.parse(localStorage.getItem("user"));
   let expensesList = JSON.parse(localStorage.getItem("expenses"));
   const [openExpenseDialog, setOpenExpenseDialog] = useState(false);
@@ -53,6 +53,22 @@ const useExpenses = () => {
     }
     context?.handleLoader();
   };
+  const chart_data = () => {
+    let data = [];
+    categories.map((category) => {
+      let data_object = {
+        title: category,
+        total_amount: expensesList
+          .filter((item) => item.category === category)
+          .reduce((a, b) => a + b.total_cost, 0),
+      };
+      data.push(data_object);
+      return data_object;
+    });
+    return data;
+  };
+  let data = chart_data();
+
   return {
     toggleExpensesDialog,
     openExpenseDialog,
@@ -60,6 +76,7 @@ const useExpenses = () => {
     setExpenses,
     handleExpenses,
     expensesList,
+    data,
   };
 };
 

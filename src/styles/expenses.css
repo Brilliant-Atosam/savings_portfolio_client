@@ -18,6 +18,9 @@
 }
 .expenses-container {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 .expenses-categories-container {
   display: flex;
@@ -43,4 +46,13 @@
 }
 .expenses-table-container {
   margin-top: 15px;
+}
+@media (max-width: 700px) {
+  .chart-container {
+    overflow-x: scroll;
+    /* transform: rotate(90deg); */
+    /* margin-top: 200px; */
+    /* background: #000; */
+    /* width: 100%; */
+  }
 }

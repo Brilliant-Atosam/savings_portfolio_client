@@ -63,6 +63,21 @@ const Util = () => {
     "utilities",
     "work related",
   ];
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
   return {
     storeUser,
     handleSnackbar,
@@ -76,6 +91,7 @@ const Util = () => {
     storeLoan,
     categories,
     storeExpenses,
+    months,
   };
 };
 

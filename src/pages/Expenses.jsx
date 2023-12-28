@@ -9,9 +9,13 @@ import useExpenses from "../hooks/useExpenses";
 import AreaChartComponent from "../components/AreaChartComponent";
 const Expenses = () => {
   const { categories } = Util();
-  const { openExpenseDialog, toggleExpensesDialog, expensesList, data } =
-    useExpenses();
-  console.log(data);
+  const {
+    openExpenseDialog,
+    toggleExpensesDialog,
+    expensesList,
+    data,
+    monthly_expenses_data,
+  } = useExpenses();
   return (
     <div className="main-container">
       <Topbar />
@@ -36,7 +40,12 @@ const Expenses = () => {
           <Table columns={expenseColumn} rows={expensesList} />
         </div>
         <div className="chart-container">
+          <h1 className="debt-text">Expenses chart for categories</h1>
           <AreaChartComponent data={data} />
+        </div>
+        <div className="chart-container">
+          <h1 className="debt-text">Monthly expenses chart</h1>
+          <AreaChartComponent data={monthly_expenses_data} />
         </div>
       </div>
       <div className="add-expenses-btn-container">

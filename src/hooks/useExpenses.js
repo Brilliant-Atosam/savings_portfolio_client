@@ -6,7 +6,7 @@ import Util from "../utils/util";
 
 const useExpenses = () => {
   const context = useApp();
-  const { storeUser, storeExpenses, categories } = Util();
+  const { storeUser, storeExpenses, categories, months } = Util();
   let user = JSON.parse(localStorage.getItem("user"));
   let expensesList = JSON.parse(localStorage.getItem("expenses"));
   const [openExpenseDialog, setOpenExpenseDialog] = useState(false);
@@ -68,7 +68,29 @@ const useExpenses = () => {
     return data;
   };
   let data = chart_data();
-
+  // monthly expenses chart
+  const monthly_expenses = () => {
+    let data = [];
+    months?.map((month, index) => {
+      let data_object = {
+        title: month,
+        total_amount: expensesList
+          ?.filter((expenses) =>
+            expenses?.created_at?.endsWith(
+              (index + 1).toString().length === 1
+                ? `0${index + 1}/${new Date().getFullYear().toString()}`
+                : `${index + 1}/${new Date().getFullYear().toString()}`
+            )
+          )
+          .reduce((a, b) => a + b.total_cost, 0),
+      };
+      data.push(data_object);
+      return data_object;
+    });
+    return data;
+  };
+  const monthly_expenses_data = monthly_expenses();
+  console.log(monthly_expenses_data);
   return {
     toggleExpensesDialog,
     openExpenseDialog,
@@ -77,6 +99,7 @@ const useExpenses = () => {
     handleExpenses,
     expensesList,
     data,
+    monthly_expenses_data,
   };
 };
 

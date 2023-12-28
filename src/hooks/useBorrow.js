@@ -4,7 +4,7 @@ import request from "../utils/request";
 import Util from "../utils/util";
 import useApp from "../useApp";
 const useBorrow = () => {
-  const { storeUser, storeLoan } = Util();
+  const { storeUser, storeLoan, months } = Util();
   const context = useApp();
   let user = JSON.parse(window.localStorage.getItem("user"));
   let loans = JSON.parse(window.localStorage.getItem("loans"));
@@ -116,6 +116,30 @@ const useBorrow = () => {
       }
     }
   };
+  // monthly borrow data for area chart
+  const borrow_data = () => {
+    let data = [];
+    months?.map((month, index) => {
+      let data_object = {
+        title: month,
+        total_amount: loans
+          ?.filter((loan) =>
+            loan.createdAt.endsWith(
+              (index + 1).toString().length === 0
+                ? `0${index + 1}/${new Date().getFullYear().toString()}`
+                : `${index + 1}/${new Date().getFullYear().toString()}`
+            )
+          )
+          .reduce((a, b) => a + b.amount, 0)
+          .toFixed(2),
+      };
+      data.push(data_object);
+      return data_object;
+    });
+    return data;
+  };
+  const monthly_advance_data = borrow_data();
+  console.log(monthly_advance_data);
   return {
     openBorrowDialog,
     loanDetails,
@@ -127,6 +151,7 @@ const useBorrow = () => {
     settleDetails,
     setSettleDetails,
     settleAdvance,
+    monthly_advance_data,
   };
 };
 

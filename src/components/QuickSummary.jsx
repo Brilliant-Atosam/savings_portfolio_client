@@ -1,5 +1,4 @@
 import React from "react";
-import { Cell, Pie, PieChart } from "recharts";
 import {
   EditOutlined,
   DeleteOutlineOutlined,
@@ -13,6 +12,7 @@ import UpdatePortfolioDialog from "./UpdatePortfolioDialog";
 import SettleAdvanceDialog from "./SettleAdvanceDialog";
 import BorrowMoneyDialog from "./BorrowMoneyDialog";
 import Save from "./Save";
+import PieChartComponent from "./PieChartComponent";
 const QuickSummary = () => {
   const { user, setConfirmData, colors } = useApp();
   const {
@@ -74,21 +74,7 @@ const QuickSummary = () => {
           </button>
         </div>
         {user.total_amount_saved > 0 ? (
-          <PieChart width={400} height={400}>
-            <Pie
-              nameKey="title"
-              dataKey="amount"
-              fill="red"
-              data={structuredPortfolio}
-              label
-              innerRadius={2}
-              outerRadius={80}
-            >
-              {structuredPortfolio?.map((item, index) => (
-                <Cell key={index} fill={colors[index]} strokeWidth={1} />
-              ))}
-            </Pie>
-          </PieChart>
+          <PieChartComponent colors={colors} portfolio={structuredPortfolio} />
         ) : (
           <h1 className="no-data-text">No savings done yet</h1>
         )}
@@ -150,10 +136,7 @@ const QuickSummary = () => {
             </span>
           </div>
         </div>
-        {/* <div className="achievements-container">
-          <h1 className="debt-text">Past achievements</h1>
-          <Table />
-        </div> */}
+        
       </div>
     </>
   );

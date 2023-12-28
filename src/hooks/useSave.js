@@ -4,7 +4,7 @@ import useApp from "../useApp";
 import request from "../utils/request";
 import moment from "moment";
 const useSave = () => {
-  const { storeUser, storeSavings } = Util();
+  const { storeUser, storeSavings, months } = Util();
   const context = useApp();
   let user = JSON.parse(window.localStorage.getItem("user"));
   let details = [];
@@ -88,6 +88,34 @@ const useSave = () => {
       context.handleLoader();
     }
   };
+  // savings data for monthly charts
+  const monthly_savings_data = () => {
+    let data = [];
+    months.map((month, index) => {
+      let data_object = {
+        title: month,
+        id:
+          (index + 1).toString().length === 1
+            ? `0${index + 1}`
+            : (index + 1).toString(),
+        total_amount: savingsList
+          ?.filter((item) =>
+            item.createdAt.endsWith(
+              (index + 1).toString().length === 1
+                ? `0${index + 1}/${new Date().getFullYear()}`
+                : `${index + 1}/${new Date().getFullYear()}`
+            )
+          )
+          ?.reduce((a, b) => a + b.saved, 0)
+          .toFixed(2),
+      };
+      data.push(data_object);
+      return data_object;
+    });
+    return data;
+  };
+  let monthly_data = monthly_savings_data();
+  console.log(monthly_data);
   return {
     showSaveDialog,
     setShowSaveDialog,
@@ -95,6 +123,7 @@ const useSave = () => {
     handleSave,
     savings,
     setSavings,
+    monthly_data,
   };
 };
 

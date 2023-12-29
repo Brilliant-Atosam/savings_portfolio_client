@@ -9,7 +9,6 @@ import Feedback from "./components/Feedback";
 import ConfirmDialog from "./components/ConfirmDialog";
 import usePortfolio from "./hooks/usePortfolio";
 function App() {
-  console.log(process.env.REACT_APP_API_URL);
   const { user, showPortfolioDialog, handleSnackbar, snackbar, confirmData } =
     useApp();
   const { deletePortfolio } = usePortfolio();

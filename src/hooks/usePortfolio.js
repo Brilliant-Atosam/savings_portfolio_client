@@ -37,7 +37,10 @@ const usePortfolio = () => {
       newPortfolio.percentage > 100
     ) {
       context?.handleSnackbar("Provide value for all fields", "warning");
-    } else if (user?.total_percentage + Number(newPortfolio.percentage) > 100) {
+    } else if (
+      Number(user?.total_percentage) + Number(newPortfolio.percentage) >
+      100
+    ) {
       context?.handleSnackbar(
         "You cannot save more than you earned!",
         "warning"
@@ -64,7 +67,8 @@ const usePortfolio = () => {
           storeUser({
             ...user,
             portfolio: [...user.portfolio, newPortfolio],
-            total_percentage: user.total_percentage + newPortfolio.percentage,
+            total_percentage:
+              Number(user.total_percentage) + Number(newPortfolio.percentage),
           });
           context?.handleSnackbar(response.data, "success");
           context?.handlePortfolioDialog();

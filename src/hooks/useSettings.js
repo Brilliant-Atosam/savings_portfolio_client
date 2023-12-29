@@ -6,7 +6,6 @@ import Util from "../utils/util";
 const useSettings = () => {
   const { handleSnackbar } = useApp();
   let user = JSON.parse(localStorage.getItem("user"));
-  // let savingsList = JSON.parse(localStorage.getItem("savings"));
   const { storeUser } = Util();
   const [openPass, setOpenPass] = useState(false);
   const handleOpenPass = () => setOpenPass(!openPass);
@@ -93,7 +92,6 @@ const useSettings = () => {
         user.total_income - (user.total_expense + user.total_amount_saved),
     },
   ];
-  console.log(chart_data);
   return {
     openPass,
     handleOpenPass,

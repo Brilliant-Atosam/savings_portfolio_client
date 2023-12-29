@@ -1,17 +1,12 @@
 import useApp from "../useApp";
 import moment from "moment";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import Util from "../utils/util";
 import request from "../utils/request";
 const usePortfolio = () => {
   const { storeUser, setConfirmData } = Util();
   const context = useApp();
   let user = JSON.parse(window.localStorage.getItem("user"));
-  const percentages = useMemo(() => {
-    return user?.portfolio.reduce((a, b) => {
-      return a + Number(b.percentage);
-    }, 0);
-  }, [user?.portfolio]);
   const [showPortfolioDialog, setShowPortfolioDialog] = useState(false);
   const [showUpdatePortfolioDialog, setShowUpdatePortfolioDialog] =
     useState(false);
@@ -31,7 +26,7 @@ const usePortfolio = () => {
     setShowUpdatePortfolioDialog(!showUpdatePortfolioDialog);
   // add new portfolio
 
-  const addPortfolio = async (newPortfolio) => {
+  const addPortfolio = async () => {
     context.handleLoader();
     if (
       !newPortfolio.title ||
@@ -42,7 +37,7 @@ const usePortfolio = () => {
       newPortfolio.percentage > 100
     ) {
       context?.handleSnackbar("Provide value for all fields", "warning");
-    } else if (percentages + Number(newPortfolio.percentage)) {
+    } else if (user?.total_percentage + Number(newPortfolio.percentage) > 100) {
       context?.handleSnackbar(
         "You cannot save more than you earned!",
         "warning"
@@ -66,7 +61,11 @@ const usePortfolio = () => {
             }
           );
 
-          storeUser({ ...user, portfolio: [...user.portfolio, newPortfolio] });
+          storeUser({
+            ...user,
+            portfolio: [...user.portfolio, newPortfolio],
+            total_percentage: user.total_percentage + newPortfolio.percentage,
+          });
           context?.handleSnackbar(response.data, "success");
           context?.handlePortfolioDialog();
           setNewPortfolio({
@@ -97,11 +96,7 @@ const usePortfolio = () => {
     let portfolio = user.portfolio.filter(
       (item) => item.title !== deleteItem.title
     );
-    storeUser({
-      ...user,
-      portfolio,
-      total_amount_saved: user.total_amount_saved - deleteItem.amount,
-    });
+
     try {
       const res = await request.put(
         `/user?id=${user.id}`,
@@ -113,6 +108,12 @@ const usePortfolio = () => {
         { headers: { access_token: `Bearer ${user.access_token}` } }
       );
       context?.handleSnackbar(res.data, "success");
+      storeUser({
+        ...user,
+        portfolio,
+        total_amount_saved: user.total_amount_saved - deleteItem.amount,
+        total_percentage: user.total_percentage - deleteItem.percentage,
+      });
       context.setConfirmData((prev) => ({ ...prev, open: false }));
     } catch (err) {
       context?.handleSnackbar(

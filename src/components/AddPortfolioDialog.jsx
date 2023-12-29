@@ -82,10 +82,7 @@ const AddPortfolioDialog = ({ open }) => {
               })
             }
           />
-          <button
-            className="login-btn"
-            onClick={() => addPortfolio(newPortfolio)}
-          >
+          <button className="login-btn" onClick={addPortfolio}>
             {loading ? "loading..." : "Create portfolio"}
           </button>
           <button className="dialog-close-btn" onClick={handlePortfolioDialog}>

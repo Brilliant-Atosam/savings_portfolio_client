@@ -24,7 +24,7 @@ const useBorrow = () => {
     setOpenBorrowDialog((prev) => !prev);
   };
 
-  const borrowMoney = async (loanDetails) => {
+  const borrowMoney = async () => {
     context?.handleLoader();
     if (loanDetails.amount > user.total_amount_saved) {
       context?.handleSnackbar(
@@ -139,7 +139,6 @@ const useBorrow = () => {
     return data;
   };
   const monthly_advance_data = borrow_data();
-  console.log(monthly_advance_data);
   return {
     openBorrowDialog,
     loanDetails,

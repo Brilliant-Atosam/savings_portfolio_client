@@ -2,12 +2,28 @@ import Util from "../utils/util";
 import useApp from "../useApp";
 import request from "../utils/request";
 import { useState } from "react";
+import moment from "moment";
+import { useLocation } from "react-router-dom";
 
 const useAccount = () => {
+  const location = useLocation();
+  const reset_code = new URLSearchParams(location.search).get("reset_code");
   const { storeUser, storeSavings, storeLoan, storeExpenses } = Util();
   const { handleSnackbar, handleLoader } = useApp();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
+  const [newUser, setNewUser] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    password2: "",
+    id: Math.floor(Math.random() * 9999).toString(),
+    createdAt: moment(new Date()).format("DD/MM/YYYY"),
+  });
   //   login
-  const login = async (email, password) => {
+  const login = async () => {
     handleLoader();
     try {
       const res = await request.post("/auth/login", {
@@ -43,7 +59,7 @@ const useAccount = () => {
   };
 
   // create a new user
-  const register = async (newUser) => {
+  const register = async () => {
     handleLoader();
     if (
       !newUser.name ||
@@ -64,7 +80,7 @@ const useAccount = () => {
     }
   };
   // reset password request
-  const [email, setEmail] = useState("");
+  // const [email, setEmail] = useState("");
   const handlePasswordResetRequest = async () => {
     handleLoader();
     if (!email) {
@@ -82,7 +98,7 @@ const useAccount = () => {
     }
   };
   // handle reset password
-  const handleResetPassword = async (password, password2, reset_code) => {
+  const handleResetPassword = async () => {
     handleLoader();
     if (password !== password2 || !password || !password2) {
       handleSnackbar("Invalid password or passwords do not match!", "warning");
@@ -109,6 +125,12 @@ const useAccount = () => {
     setEmail,
     handlePasswordResetRequest,
     handleResetPassword,
+    password,
+    setPassword,
+    password2,
+    setPassword2,
+    newUser,
+    setNewUser,
   };
 };
 

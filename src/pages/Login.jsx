@@ -1,15 +1,11 @@
-import { useState } from "react";
 import "../styles/login.css";
 import { Link } from "react-router-dom";
 import useAccount from "../hooks/useAccount";
 import { CircularProgress } from "@mui/material";
 import useApp from "../useApp";
 const Login = () => {
-  const { login } = useAccount();
+  const { login, setEmail, setPassword, email, password } = useAccount();
   let { loading } = useApp();
-  console.log(loading);
-  const [email, setEmail] = useState("jonsnow@hbo.got");
-  const [password, setPassword] = useState("samsam1");
   return (
     <div className="main-container">
       <div className="login-container">
@@ -29,11 +25,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             value={password}
           />
-          <button
-            disabled={loading}
-            className="login-btn"
-            onClick={() => login(email, password)}
-          >
+          <button disabled={loading} className="login-btn" onClick={login}>
             {loading ? "loading..." : "login"}
           </button>
           <div className="login-redirects">

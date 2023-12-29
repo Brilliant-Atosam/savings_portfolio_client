@@ -1,9 +1,9 @@
 import React from "react";
 import { Cell, Pie, PieChart } from "recharts";
 
-const PieChartComponent = ({portfolio, colors}) => {
+const PieChartComponent = ({ portfolio, colors }) => {
   return (
-    <PieChart width={400} height={400}>
+    <PieChart width={350} height={300} className="piechart">
       <Pie
         nameKey="title"
         dataKey="amount"

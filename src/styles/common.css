@@ -137,3 +137,12 @@
   position: absolute;
   top: 50%;
 }
+.piechart {
+  width: 98% !important;
+  height: fit-content !important;
+}
+@media (max-width: 700px) {
+  .chart-container {
+    overflow-x: scroll;
+  }
+}

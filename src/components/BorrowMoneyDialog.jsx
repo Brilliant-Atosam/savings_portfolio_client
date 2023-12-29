@@ -8,7 +8,6 @@ import React from "react";
 import useBorrow from "../hooks/useBorrow";
 import moment from "moment";
 import useApp from "../useApp";
-
 const BorrowMoneyDialog = ({ open, borrowMoney, handleOpenBorrowDialog }) => {
   const { setLoanDetails, loanDetails } = useBorrow();
   const { loading, user } = useApp();
@@ -112,7 +111,7 @@ const BorrowMoneyDialog = ({ open, borrowMoney, handleOpenBorrowDialog }) => {
           <button
             disabled={loading}
             className="login-btn"
-            onClick={() => borrowMoney(loanDetails)}
+            onClick={borrowMoney}
           >
             {loading ? "loading..." : "Borrow money"}
           </button>

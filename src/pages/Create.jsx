@@ -1,22 +1,10 @@
-import { useState } from "react";
 import useAccount from "../hooks/useAccount";
 import { Link } from "react-router-dom";
 import useApp from "../useApp";
 import { CircularProgress } from "@mui/material";
-import moment from "moment";
 const Create = () => {
   const { loading } = useApp();
-  const { register } = useAccount();
-  const [newUser, setNewUser] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    password: "",
-    password2: "",
-    id: Math.floor(Math.random() * 9999).toString(),
-    createdAt: moment(new Date()).format("DD/MM/YYYY"),
-  });
-
+  const { register, newUser, setNewUser } = useAccount();
   return (
     <div className="main-container">
       <div className="login-container">
@@ -56,11 +44,7 @@ const Create = () => {
               setNewUser({ ...newUser, password2: e.target.value })
             }
           />
-          <button
-            className="login-btn"
-            onClick={() => register(newUser)}
-            disabled={loading}
-          >
+          <button className="login-btn" onClick={register} disabled={loading}>
             {loading ? "loading..." : "Create account"}
           </button>
           <Link to="/login">Login</Link>

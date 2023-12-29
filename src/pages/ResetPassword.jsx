@@ -1,17 +1,17 @@
-import { useState } from "react";
 import "../styles/login.css";
 import { Link } from "react-router-dom";
 import useAccount from "../hooks/useAccount";
-import { useLocation } from "react-router-dom";
 import useApp from "../useApp";
 import { CircularProgress } from "@mui/material";
 const ResetPassword = () => {
-  const { handleResetPassword } = useAccount();
+  const {
+    handleResetPassword,
+    password,
+    password2,
+    setPassword,
+    setPassword2,
+  } = useAccount();
   const { loading } = useApp();
-  const location = useLocation();
-  const reset_code = new URLSearchParams(location.search).get("reset_code");
-  const [password, setPassword] = useState("samsam1");
-  const [password2, setPassword2] = useState("samsam1");
   return (
     <div className="main-container">
       <div className="login-container">
@@ -33,7 +33,7 @@ const ResetPassword = () => {
           />
           <button
             className="login-btn"
-            onClick={() => handleResetPassword(password, password2, reset_code)}
+            onClick={handleResetPassword}
             disabled={loading}
           >
             {loading ? "loading" : "Reset"}

@@ -77,7 +77,9 @@ const Util = () => {
     "Nov",
     "Dec",
   ];
-
+  // currency formatter
+  const format_currency = (amount) =>
+    amount.toLocaleString("en-GH", { style: "currency", currency: "GHS" });
   return {
     storeUser,
     handleSnackbar,
@@ -92,6 +94,7 @@ const Util = () => {
     categories,
     storeExpenses,
     months,
+    format_currency,
   };
 };
 

@@ -6,6 +6,7 @@ import Util from "../utils/util";
 const useSettings = () => {
   const { handleSnackbar } = useApp();
   let user = JSON.parse(localStorage.getItem("user"));
+  // let savingsList = JSON.parse(localStorage.getItem("savings"));
   const { storeUser } = Util();
   const [openPass, setOpenPass] = useState(false);
   const handleOpenPass = () => setOpenPass(!openPass);
@@ -77,6 +78,22 @@ const useSettings = () => {
       }
     }
   };
+  const chart_data = [
+    {
+      title: "savings",
+      amount: user.total_amount_saved,
+    },
+    {
+      title: "expense",
+      amount: user.total_expense,
+    },
+    {
+      title: "untracked",
+      amount:
+        user.total_income - (user.total_expense + user.total_amount_saved),
+    },
+  ];
+  console.log(chart_data);
   return {
     openPass,
     handleOpenPass,
@@ -88,6 +105,7 @@ const useSettings = () => {
     set_basic_info,
     show_basic_info_dialog,
     handle_basic_info,
+    chart_data,
   };
 };
 

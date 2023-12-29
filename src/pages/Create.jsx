@@ -3,6 +3,7 @@ import useAccount from "../hooks/useAccount";
 import { Link } from "react-router-dom";
 import useApp from "../useApp";
 import { CircularProgress } from "@mui/material";
+import moment from "moment";
 const Create = () => {
   const { loading } = useApp();
   const { register } = useAccount();
@@ -13,6 +14,7 @@ const Create = () => {
     password: "",
     password2: "",
     id: Math.floor(Math.random() * 9999).toString(),
+    createdAt: moment(new Date()).format("DD/MM/YYYY"),
   });
 
   return (

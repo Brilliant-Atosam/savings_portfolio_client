@@ -32,7 +32,7 @@ const Topbar = () => {
             Loan
           </Link>
           <Link to="/settings" className="menu-item">
-            Account Settings
+            Account Info & Settings
           </Link>
           <li className="menu-item" onClick={handleLogout}>
             Logout

@@ -44,12 +44,12 @@ const useSave = () => {
         }
         return item;
       });
-      console.log(updatedPortfolio);
       const source_exists = user.sources_of_income?.find(
         (source) => source.toLowerCase() === savings.source.toLowerCase()
       );
       user = {
         ...user,
+        total_income: user.total_income + Number(savings.amount),
         portfolio: updatedPortfolio,
         total_amount_saved: (
           Number(user.total_amount_saved) + savings?.saved
@@ -115,7 +115,6 @@ const useSave = () => {
     return data;
   };
   let monthly_data = monthly_savings_data();
-  console.log(monthly_data);
   return {
     showSaveDialog,
     setShowSaveDialog,

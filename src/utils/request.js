@@ -1,7 +1,6 @@
 import axios from "axios";
 const request = axios.create({
-  baseURL: "http://localhost:9000/api",
-  // baseURL: "https://cashlens-api.netlify.app/api",
+  baseURL: process.env.REACT_APP_VARIABLE_NAME,
 });
 
 export default request;

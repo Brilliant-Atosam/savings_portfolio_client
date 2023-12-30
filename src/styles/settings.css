@@ -6,6 +6,7 @@
   padding: 20px;
   height: 100%;
   justify-content: center;
+  /* overflow-x: hidden; */
 }
 .personal-info {
   display: flex;
@@ -33,7 +34,7 @@
   background: white;
   padding: 15px;
   border-radius: 8px;
-  min-width: 350px;
+  /* min-width: 350px; */
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -108,7 +109,7 @@
 .bottom-summary-container {
   background: white;
   border-radius: 8px;
-  min-width: 350px;
+  /* min-width: 350px; */
   width: 100% !important;
   padding: 10px;
   display: flex;
@@ -137,16 +138,28 @@
 .chart-info {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
 }
 .indicators {
   height: 10px;
   width: 10px;
 }
+.income-streams-container {
+  margin-top: 12px;
+}
+.income-streams-container h1 {
+  font-size: 1rem;
+}
 @media (max-width: 769px) {
   .settings-sub-container {
     flex-direction: column;
     overflow-y: scroll;
     /* background: #000; */
+  }
+}
+@media (max-width: 420px) {
+  .settings-sub-container {
+    padding: 10px;
   }
 }

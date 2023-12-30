@@ -6,6 +6,7 @@ import Util from "../utils/util";
 const useSettings = () => {
   const { handleSnackbar } = useApp();
   let user = JSON.parse(localStorage.getItem("user"));
+  let savings = JSON.parse(localStorage.getItem("savings"));
   let expenses = JSON.parse(localStorage.getItem("expenses"));
   const { storeUser } = Util();
   const [openPass, setOpenPass] = useState(false);
@@ -93,6 +94,23 @@ const useSettings = () => {
         user.total_income - (user.total_expense + user.total_amount_saved),
     },
   ];
+  // income chart data
+  const income_chart = () => {
+    let data = [];
+    user.sources_of_income.map((source) => {
+      let data_object = {
+        title: source,
+        amount: savings
+          .filter((item) => item.source === source)
+          .reduce((a, b) => a + b.amount, 0),
+      };
+      data.push(data_object);
+      return data_object;
+    });
+    return data;
+  };
+  let income_chart_data = income_chart();
+  console.log(income_chart_data);
   return {
     openPass,
     handleOpenPass,
@@ -105,6 +123,7 @@ const useSettings = () => {
     show_basic_info_dialog,
     handle_basic_info,
     chart_data,
+    income_chart_data,
   };
 };
 

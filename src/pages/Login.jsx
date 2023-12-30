@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import useAccount from "../hooks/useAccount";
 import { CircularProgress } from "@mui/material";
 import useApp from "../useApp";
+import logo from "../logo2.png";
 const Login = () => {
   const { login, setEmail, setPassword, email, password } = useAccount();
   let { loading } = useApp();
@@ -10,7 +11,8 @@ const Login = () => {
     <div className="main-container">
       <div className="login-container">
         <div className="login-form-container">
-          <h1 className="login-text">Login to continue</h1>
+          <img src={logo} alt="cashlens logo" className="login-logo" />
+          <h1 className="login-text">Welcome! Login to continue.</h1>
           <input
             type="text"
             placeholder="jonsnow@gmail.com"
@@ -29,7 +31,7 @@ const Login = () => {
             {loading ? "loading..." : "login"}
           </button>
           <div className="login-redirects">
-            <Link to="/register">Create new account</Link>
+            <Link to="/register">Register</Link>
             <Link to="/password/forgot">Forgot password?</Link>
           </div>
           <div className="loading-container">

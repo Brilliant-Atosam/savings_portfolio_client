@@ -25,6 +25,7 @@ const Settings = () => {
     show_basic_info_dialog,
     handle_basic_info,
     chart_data,
+    income_chart_data,
   } = useSettings();
   return (
     <div className="main-container">
@@ -61,6 +62,26 @@ const Settings = () => {
                 <div className="info">
                   <PhoneIphoneOutlined /> <span>{user.phone}</span>
                 </div>
+              </div>
+            </div>
+            <div className="income-streams-container">
+              <h1 className="debt-text">My income streams</h1>
+              <PieChartComponent
+                colors={colors}
+                portfolio={income_chart_data}
+              />
+              <div className="chart-info">
+                {income_chart_data.map((item, index) => (
+                  <div className="ref">
+                    <div
+                      className="indicators"
+                      style={{ background: colors[index] }}
+                    ></div>
+                    <span style={{ color: colors[index] }}>
+                      {item.title}({(item.amount / user.total_income) * 100}%)
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
             <div className="account-info-bottom">

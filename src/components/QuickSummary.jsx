@@ -63,7 +63,7 @@ const QuickSummary = () => {
       <div className="dashboard-left">
         <div className="dashboard-actions-container">
           <button className="dashboard-action-btn" onClick={handleSaveDialog}>
-            save money
+            add income
           </button>
           <button onClick={handleSettleDialog} className="dashboard-action-btn">
             settle loan

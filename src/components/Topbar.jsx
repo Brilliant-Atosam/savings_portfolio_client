@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Menu } from "@mui/icons-material";
 import useApp from "../useApp";
 import useAccount from "../hooks/useAccount";
+import logo from "../logo.png";
 import { Link } from "react-router-dom";
 const Topbar = () => {
   const { handlePortfolioDialog } = useApp();
@@ -11,7 +12,7 @@ const Topbar = () => {
     <>
       <div className="topbar-container">
         <Link to="/" className="logo-text">
-          cashlens
+          <img src={logo} alt="cashlens logo" className="top-bar-logo" /> cashlens
         </Link>
         <div className="topbar-left">
           <button className="topbar-btn" onClick={handlePortfolioDialog}>
@@ -33,6 +34,9 @@ const Topbar = () => {
           </Link>
           <Link to="/settings" className="menu-item">
             Account Info & Settings
+          </Link>
+          <Link to="/contact" className="menu-item">
+            Contact us
           </Link>
           <li className="menu-item" onClick={handleLogout}>
             Logout

@@ -20,6 +20,7 @@ function App() {
   const ResetPassword = lazy(() => import("./pages/ResetPassword"));
   const Settings = lazy(() => import("./pages/Settings"));
   const Expenses = lazy(() => import("./pages/Expenses"));
+  const Contact = lazy(() => import("./pages/Contact"));
   return (
     <>
       <AddPortfolioDialog open={showPortfolioDialog} />
@@ -42,6 +43,14 @@ function App() {
                   <Login />
                 </Suspense>
               )
+            }
+          />
+          <Route
+            path="/contact"
+            element={
+              <Suspense fallback={<FallbackComponent />}>
+                <Contact />
+              </Suspense>
             }
           />
           <Route

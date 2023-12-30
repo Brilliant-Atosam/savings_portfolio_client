@@ -55,7 +55,7 @@ const useAccount = () => {
   // logout
   const handleLogout = () => {
     window.localStorage.clear();
-    window.location.href = "/login";
+    window.location.reload();
   };
 
   // create a new user

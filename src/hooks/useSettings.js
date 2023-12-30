@@ -6,6 +6,7 @@ import Util from "../utils/util";
 const useSettings = () => {
   const { handleSnackbar } = useApp();
   let user = JSON.parse(localStorage.getItem("user"));
+  let expenses = JSON.parse(localStorage.getItem("expenses"));
   const { storeUser } = Util();
   const [openPass, setOpenPass] = useState(false);
   const handleOpenPass = () => setOpenPass(!openPass);
@@ -84,7 +85,7 @@ const useSettings = () => {
     },
     {
       title: "expense",
-      amount: user.total_expense,
+      amount: expenses?.reduce((a, b) => a + b.total_cost, 0),
     },
     {
       title: "untracked",

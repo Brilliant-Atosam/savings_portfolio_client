@@ -13,8 +13,10 @@ import SettleAdvanceDialog from "./SettleAdvanceDialog";
 import BorrowMoneyDialog from "./BorrowMoneyDialog";
 import Save from "./Save";
 import PieChartComponent from "./PieChartComponent";
+import Util from "../utils/util";
 const QuickSummary = () => {
   const { user, setConfirmData, colors } = useApp();
+  const { format_currency } = Util();
   const {
     setNewPortfolio,
     newPortfolio,
@@ -113,7 +115,12 @@ const QuickSummary = () => {
                     </span>
                     {Number(item?.goal) <= item?.amount && <VerifiedOutlined />}
                   </div>
-                  <span className="portfolio-value">{item?.amount}</span>
+                  <span
+                    className="portfolio-value"
+                    style={{ color: [colors[index]] }}
+                  >
+                    {format_currency(item?.amount)}
+                  </span>
                 </div>
               ))
             : "You have no portfolios yet"}
@@ -136,7 +143,6 @@ const QuickSummary = () => {
             </span>
           </div>
         </div>
-        
       </div>
     </>
   );

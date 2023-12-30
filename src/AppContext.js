@@ -22,6 +22,7 @@ const AppProvider = ({ children }) => {
   const { handleSnackbar, snackbar } = useFeedback();
   let user = JSON.parse(window.localStorage.getItem("user"));
   let savingsList = JSON.parse(window.localStorage.getItem("savings")) || [];
+  let expensesList = JSON.parse(window.localStorage.getItem("expenses")) || [];
   return (
     <AppContext.Provider
       value={{
@@ -43,6 +44,7 @@ const AppProvider = ({ children }) => {
         colors,
         handleLoader,
         loading,
+        expensesList,
       }}
     >
       {children}

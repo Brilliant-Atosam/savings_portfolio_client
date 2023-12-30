@@ -8,9 +8,10 @@ import useApp from "../useApp";
 import React, { useEffect } from "react";
 import "../styles/login.css";
 import useSave from "../hooks/useSave";
+import Util from "../utils/util";
 const Save = ({ open, handleSaveDialog, handleSave }) => {
   const { user, loading } = useApp();
-
+  const { sources_of_income } = Util();
   const { savings, setSavings } = useSave();
   useEffect(() => {
     const updatedDetail = user?.portfolio.map((item) => ({
@@ -30,11 +31,11 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
       <DialogContent>
         <div className="dialog-form-container">
           <label className="dialog-label" htmlFor="">
-            Source:
+            Where did the money come from?:
           </label>
-          <input
+          <select
             type="text"
-            placeholder="Where did you get the money?"
+            placeholder=""
             className="login-input"
             onChange={(e) =>
               setSavings((prev) => ({
@@ -43,7 +44,13 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
               }))
             }
             value={savings?.source}
-          />
+          >
+            {sources_of_income.map((source, index) => (
+              <option key={index} value={source}>
+                {source}
+              </option>
+            ))}
+          </select>
           <label className="dialog-label" htmlFor="">
             Income:
           </label>

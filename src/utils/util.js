@@ -32,15 +32,30 @@ const Util = () => {
   });
   const colors = [
     "#3399ff",
+    "#00b377",
     "#ff3399",
     "#bf00ff",
-    "#ff3385",
-    "#ff4dff",
+    "#13a7c9",
+    "#8060f5",
+    "#df16f1",
+    "#116d89",
     "teal",
     "#4da6ff",
-    "#4080bf",
-    "#00b377",
-    "#00cca3",
+  ];
+  // income sources
+  const sources_of_income = [
+    "Salary/Wages",
+    "Profits/Self-employment",
+    "Side Jobs/Freelance",
+    "Interest/dividends/capital gain",
+    "Rental",
+    "Royalties",
+    "Pension/Retirement",
+    "Social Security",
+    "Alimony/child Support",
+    "Gifts and 'Inheritance",
+    "Scholarships and Grants",
+    "Miscellaneous ",
   ];
   // categories of expenses
   const categories = [
@@ -95,6 +110,7 @@ const Util = () => {
     storeExpenses,
     months,
     format_currency,
+    sources_of_income,
   };
 };
 

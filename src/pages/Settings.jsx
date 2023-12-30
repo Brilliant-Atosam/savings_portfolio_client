@@ -15,7 +15,7 @@ import {
 import Util from "../utils/util";
 
 const Settings = () => {
-  const { user } = useApp();
+  const { user, expensesList } = useApp();
   const { format_currency, colors } = Util();
   const {
     handleOpenPass,
@@ -97,7 +97,9 @@ const Settings = () => {
                 <div className="key-value-container">
                   <span className="key">Total Expenses: </span>
                   <span className="value">
-                    {format_currency(user.total_expense)}
+                    {format_currency(
+                      expensesList?.reduce((a, b) => a + b.total_cost, 0)
+                    )}
                   </span>
                 </div>
                 <div className="key-value-container">

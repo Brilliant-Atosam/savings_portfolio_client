@@ -8,7 +8,7 @@ import ExpensesDialog from "../components/Expenses";
 import useExpenses from "../hooks/useExpenses";
 import AreaChartComponent from "../components/AreaChartComponent";
 const Expenses = () => {
-  const { categories } = Util();
+  const { categories, format_currency } = Util();
   const {
     openExpenseDialog,
     toggleExpensesDialog,
@@ -27,10 +27,11 @@ const Expenses = () => {
             <div className="category" key={index}>
               <span className="category-name">{category}:</span>
               <span className="category-value">
-                {expensesList
-                  .filter((item) => item.category === category)
-                  ?.reduce((a, b) => a + b.total_cost, 0)}
-                {/* {(Math.random() * 999).toFixed(2)} */}
+                {format_currency(
+                  expensesList
+                    .filter((item) => item.category === category)
+                    ?.reduce((a, b) => a + b.total_cost, 0)
+                )}
               </span>
             </div>
           ))}

@@ -9,18 +9,11 @@ import { BsSun } from "react-icons/bs";
 import { PiBinocularsThin } from "react-icons/pi";
 import { MdGroupWork, MdOutlinePolicy } from "react-icons/md";
 import { MailOutline, Phone, WhatsApp, YouTube } from "@mui/icons-material";
+import Navbar from "../components/Navbar";
 const Homepage = () => {
   return (
     <div className="main-container">
-      <div className="topbar-container">
-        <Link to="/" className="logo-text">
-          <img src={logo} alt="cashlens logo" className="top-bar-logo" />
-          cashlens
-        </Link>
-        <Link to="/login" className="topbar-btn">
-          log in
-        </Link>
-      </div>
+      <Navbar />
       {/* intro */}
       <div className="intro-container">
         <h1 className="intro-heading">Welcome to cashlens!</h1>

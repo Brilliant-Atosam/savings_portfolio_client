@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Diphylleia&display=swap");
 .intro-container {
   display: flex;
   align-items: center;
@@ -11,6 +12,7 @@
   font-weight: 300;
   font-size: 3rem;
   margin-bottom: 25px;
+  font-family: "Diphylleia", serif;
 }
 .intro-text {
   font-size: 1.2rem;

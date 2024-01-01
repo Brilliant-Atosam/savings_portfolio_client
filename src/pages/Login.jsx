@@ -4,11 +4,13 @@ import useAccount from "../hooks/useAccount";
 import { CircularProgress } from "@mui/material";
 import useApp from "../useApp";
 import logo from "../logo1.png";
+import Navbar from "../components/Navbar";
 const Login = () => {
   const { login, setEmail, setPassword, email, password } = useAccount();
   let { loading } = useApp();
   return (
     <div className="main-container">
+      <Navbar />
       <div className="login-container">
         <div className="login-form-container">
           <img src={logo} alt="cashlens logo" className="login-logo" />

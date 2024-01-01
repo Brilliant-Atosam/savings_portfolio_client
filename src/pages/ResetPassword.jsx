@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import useAccount from "../hooks/useAccount";
 import useApp from "../useApp";
 import { CircularProgress } from "@mui/material";
+import Navbar from "../components/Navbar";
 const ResetPassword = () => {
   const {
     handleResetPassword,
@@ -14,6 +15,7 @@ const ResetPassword = () => {
   const { loading } = useApp();
   return (
     <div className="main-container">
+      <Navbar />
       <div className="login-container">
         <div className="login-form-container">
           <h1 className="login-text">Reset Password</h1>

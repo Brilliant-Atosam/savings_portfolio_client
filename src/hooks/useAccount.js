@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 const useAccount = () => {
   // regular expressions
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const passwordRegex = /^(?=.*[a-z])(?=.*\d)[a-z\d]{8,}$/;
+  const passwordRegex = /^(?=.*[a-z])(?=.*\d)[a-z\d]{7,}$/;
   const phoneRegex = /^\d{10}$/;
   const nameRegex = /^[A-Za-z\s',.-]{3,}$/;
 

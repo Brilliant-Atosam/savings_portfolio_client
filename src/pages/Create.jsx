@@ -2,11 +2,13 @@ import useAccount from "../hooks/useAccount";
 import { Link } from "react-router-dom";
 import useApp from "../useApp";
 import { CircularProgress } from "@mui/material";
+import Navbar from "../components/Navbar";
 const Create = () => {
   const { loading } = useApp();
   const { register, newUser, setNewUser } = useAccount();
   return (
     <div className="main-container">
+      <Navbar />
       <div className="login-container">
         <div className="login-form-container">
           <h1 className="login-text">Create new account</h1>

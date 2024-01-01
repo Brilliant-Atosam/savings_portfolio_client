@@ -2,11 +2,13 @@ import { Link } from "react-router-dom";
 import useAccount from "../hooks/useAccount";
 import useApp from "../useApp";
 import { CircularProgress } from "@mui/material";
+import Navbar from "../components/Navbar";
 const ForgotPassword = () => {
   const { loading } = useApp();
   const { email, setEmail, handlePasswordResetRequest } = useAccount();
   return (
     <div className="main-container">
+      <Navbar />
       <div className="login-container">
         <div className="login-form-container">
           <h1 className="login-text">Enter your email to continue</h1>

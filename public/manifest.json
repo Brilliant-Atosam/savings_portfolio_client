@@ -1,25 +1,27 @@
 {
   "short_name": "cashLens",
   "name": "focus, track, thrive",
+  "description": "cashLens is an app for money management. It enables users to keep track of their money, streams of income, spending routine/habit, and more.",
+  "categories": ["Personal Finance", "Financial Management."],
   "icons": [
     {
-      "src": "logo2.png",
+      "src": "logo1.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "logo2.png",
+      "src": "logo1.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo2.png",
+      "src": "logo1.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
   "start_url": "https://mycashlens.netlify.app/",
   "display": "standalone",
-  "theme_color": "white",
-  "background_color": "teal"
+  "theme_color": "teal",
+  "background_color": "white"
 }

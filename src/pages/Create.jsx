@@ -12,19 +12,19 @@ const Create = () => {
           <h1 className="login-text">Create new account</h1>
           <input
             type="text"
-            placeholder="Jon snow"
+            placeholder="Full name"
             className="login-input"
             onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
           />
           <input
             type="email"
-            placeholder="jonsnow@hbo.got"
+            placeholder="Email"
             className="login-input"
             onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
           />
           <input
             type="text"
-            placeholder="0544006865"
+            placeholder="Phone number"
             className="login-input"
             onChange={(e) => setNewUser({ ...newUser, phone: e.target.value })}
           />

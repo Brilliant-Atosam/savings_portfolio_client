@@ -14,7 +14,7 @@ const AddPortfolioDialog = ({ open }) => {
   return (
     <Dialog open={open}>
       <DialogTitle className="login-text">
-        Add/modify saving portfolio
+       Create a saving portfolio
       </DialogTitle>
 
       <DialogContent>

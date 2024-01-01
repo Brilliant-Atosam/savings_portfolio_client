@@ -15,7 +15,7 @@ const Login = () => {
           <h1 className="login-text">Welcome! Login to continue.</h1>
           <input
             type="text"
-            placeholder="jonsnow@gmail.com"
+            placeholder="Email"
             className="login-input"
             onChange={(e) => setEmail(e.target.value)}
             value={email}

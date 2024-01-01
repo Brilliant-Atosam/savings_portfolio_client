@@ -72,7 +72,7 @@ const useAccount = () => {
     } else {
       try {
         await request.post("/auth", newUser);
-        window.location.href = "/login";
+        window.location.href = "/";
       } catch (err) {
         handleSnackbar(err.response ? err.response.data : err.message, "error");
         handleLoader();

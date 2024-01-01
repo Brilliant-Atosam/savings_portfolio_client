@@ -82,7 +82,8 @@ const Settings = () => {
                       style={{ background: colors[index] }}
                     ></div>
                     <span style={{ color: colors[index] }}>
-                      {item.title}({((item.amount / user.total_income) * 100).toFixed(2)}
+                      {item.title}(
+                      {((item.amount / user.total_income) * 100).toFixed(2)}
                       %)
                     </span>
                   </div>
@@ -150,7 +151,10 @@ const Settings = () => {
                       className="indicators"
                       style={{ background: colors[index] }}
                     ></div>
-                    <span style={{ color: colors[index] }}>{item.title}</span>
+                    <span style={{ color: colors[index] }}>
+                      {item.title}(
+                      {((item.amount / user.total_income) * 100).toFixed(2)})%
+                    </span>
                   </div>
                 ))}
               </div>

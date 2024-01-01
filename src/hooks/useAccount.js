@@ -9,6 +9,8 @@ const useAccount = () => {
   // regular expressions
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const passwordRegex = /^(?=.*[a-z])(?=.*\d)[a-z\d]{8,}$/;
+  const phoneRegex = /^\d{10}$/;
+  const nameRegex = /^[A-Za-z\s',.-]{3,}$/;
 
   const location = useLocation();
   const reset_code = new URLSearchParams(location.search).get("reset_code");
@@ -67,16 +69,16 @@ const useAccount = () => {
   // logout
   const handleLogout = () => {
     window.localStorage.clear();
-    window.location.reload();
+    window.location.href = "/";
   };
 
   // create a new user
   const register = async () => {
     handleLoader();
     if (
-      newUser.name.length < 3 ||
+      !nameRegex.test(newUser.name) ||
       !emailRegex.test(newUser.email) ||
-      newUser.phone.length < 10 ||
+      !phoneRegex.test(newUser.phone) ||
       passwordRegex.test(newUser.password)
     ) {
       handleSnackbar("Please provide valid info.", "warning");

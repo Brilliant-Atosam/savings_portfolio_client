@@ -80,17 +80,9 @@ textarea {
   height: 140px !important;
 }
 .contact-icons {
-  fill: teal;
+  fill: teal !important;
 }
-footer {
-  background: teal;
-  color: white;
-  padding: 20px;
-}
-footer a {
-  color: white;
-  margin-left: 12px;
-}
+
 @media (max-width: 770px) {
   .contact-sub-container {
     flex-direction: column;

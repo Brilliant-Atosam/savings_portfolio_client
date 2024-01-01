@@ -6,6 +6,10 @@ import moment from "moment";
 import { useLocation } from "react-router-dom";
 
 const useAccount = () => {
+  // regular expressions
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const passwordRegex = /^(?=.*[a-z])(?=.*\d)[a-z\d]{8,}$/;
+
   const location = useLocation();
   const reset_code = new URLSearchParams(location.search).get("reset_code");
   const { storeUser, storeSavings, storeLoan, storeExpenses } = Util();
@@ -25,32 +29,40 @@ const useAccount = () => {
   //   login
   const login = async () => {
     handleLoader();
-    try {
-      const res = await request.post("/auth/login", {
-        email,
-        password,
-      });
-      handleSnackbar("Login successful!", "success");
-      const savingsRes = await request.get(`/savings?userId=${res.data.id}`, {
-        headers: {
-          access_token: `Bearer ${res.data.access_token}`,
-        },
-      });
-      const loans = await request.get(`/loan?userId=${res.data.id}`, {
-        headers: { access_token: `Bearer ${res.data.access_token}` },
-      });
-      const expenses = await request.get(`/expenses?userId=${res.data.id}`, {
-        headers: { access_token: `Bearer ${res.data.access_token}` },
-      });
-      storeSavings(savingsRes.data);
-      storeLoan(loans.data);
-      storeExpenses(expenses.data);
-      storeUser(res.data);
+    if (!emailRegex.test(email) || !passwordRegex.test(password)) {
       handleLoader();
-    } catch (err) {
-      handleLoader();
-      handleSnackbar(err.response ? err.response.data : err.message, "warning");
-    }
+      handleSnackbar("Invalid email or password!", "warning");
+    } else
+      try {
+        const res = await request.post("/auth/login", {
+          email,
+          password,
+        });
+        handleSnackbar("Login successful!", "success");
+        const savingsRes = await request.get(`/savings?userId=${res.data.id}`, {
+          headers: {
+            access_token: `Bearer ${res.data.access_token}`,
+          },
+        });
+        const loans = await request.get(`/loan?userId=${res.data.id}`, {
+          headers: { access_token: `Bearer ${res.data.access_token}` },
+        });
+        const expenses = await request.get(`/expenses?userId=${res.data.id}`, {
+          headers: { access_token: `Bearer ${res.data.access_token}` },
+        });
+        storeSavings(savingsRes.data);
+        storeLoan(loans.data);
+        storeExpenses(expenses.data);
+
+        storeUser(res.data);
+        handleLoader();
+      } catch (err) {
+        handleLoader();
+        handleSnackbar(
+          err.response ? err.response.data : err.message,
+          "warning"
+        );
+      }
   };
   // logout
   const handleLogout = () => {
@@ -62,12 +74,15 @@ const useAccount = () => {
   const register = async () => {
     handleLoader();
     if (
-      !newUser.name ||
-      !newUser.email ||
-      !newUser.phone ||
-      !newUser.password
+      newUser.name.length < 3 ||
+      !emailRegex.test(newUser.email) ||
+      newUser.phone.length < 10 ||
+      passwordRegex.test(newUser.password)
     ) {
-      handleSnackbar("Provide value for all fields.", "warning");
+      handleSnackbar("Please provide valid info.", "warning");
+      handleLoader();
+    } else if (newUser.password !== newUser.password2) {
+      handleSnackbar("Passwords do not match!", "warning");
       handleLoader();
     } else {
       try {

@@ -110,9 +110,18 @@
   gap: 15px;
   flex-wrap: wrap;
 }
+footer {
+  background: teal;
+  color: white;
+  padding: 20px;
+}
+footer a {
+  color: white;
+  margin-left: 12px;
+}
 @media (max-width: 600px) {
   .intro-heading {
-    font-size: 2rem;
+    font-size: 1.6rem;
     margin-bottom: 18px;
   }
   .features-card,
@@ -122,5 +131,11 @@
   .intro-text {
     font-size: 1rem;
     line-height: 1.2rem;
+  }
+
+  .features-title,
+  .about-title,
+  .contact-heading {
+    font-size: 1.4rem;
   }
 }

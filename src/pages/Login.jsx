@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import useAccount from "../hooks/useAccount";
 import { CircularProgress } from "@mui/material";
 import useApp from "../useApp";
-import logo from "../logo2.png";
+import logo from "../logo1.png";
 const Login = () => {
   const { login, setEmail, setPassword, email, password } = useAccount();
   let { loading } = useApp();

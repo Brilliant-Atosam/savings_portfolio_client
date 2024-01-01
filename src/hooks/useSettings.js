@@ -110,7 +110,6 @@ const useSettings = () => {
     return data;
   };
   let income_chart_data = income_chart();
-  console.log(income_chart_data);
   return {
     openPass,
     handleOpenPass,

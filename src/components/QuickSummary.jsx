@@ -78,52 +78,56 @@ const QuickSummary = () => {
         {user.total_amount_saved > 0 ? (
           <PieChartComponent colors={colors} portfolio={structuredPortfolio} />
         ) : (
-          <h1 className="no-data-text">No savings done yet</h1>
+          <h1 className="no-data-text">No savings data to display chart</h1>
         )}
         <div className="savings-portfolios-container">
           <h1 className="debt-text">Savings summary</h1>
-          {structuredPortfolio.length > 0
-            ? structuredPortfolio?.map((item, index) => (
-                <div className="portfolio" key={index}>
-                  <div className="portfolio-action-container">
-                    <DeleteOutlineOutlined
-                      className="portfolio-action-icon delete-icon"
-                      style={{ fill: "#cc0052" }}
-                      onClick={() => {
-                        setConfirmData((prev) => ({
-                          ...prev,
-                          open: !prev.open,
-                          heading: "Delete portfolio",
-                          warning: `This action will delete your savings portfolio '${item.title}'. Do you wish to continue?`,
-                          item: item,
-                        }));
-                      }}
-                    />
-                    <EditOutlined
-                      style={{ fill: colors[index] }}
-                      className="portfolio-action-icon"
-                      onClick={async () => {
-                        await setNewPortfolio((prev) => ({ ...prev, ...item }));
-                        await handleUpdatePortfolioDialog();
-                      }}
-                    />
-                    <span
-                      style={{ color: `${colors[index]}` }}
-                      className="portfolio-title"
-                    >
-                      {item?.title}({item?.percentage}%)
-                    </span>
-                    {Number(item?.goal) <= item?.amount && <VerifiedOutlined />}
-                  </div>
+          {structuredPortfolio.length > 0 ? (
+            structuredPortfolio?.map((item, index) => (
+              <div className="portfolio" key={index}>
+                <div className="portfolio-action-container">
+                  <DeleteOutlineOutlined
+                    className="portfolio-action-icon delete-icon"
+                    style={{ fill: "#cc0052" }}
+                    onClick={() => {
+                      setConfirmData((prev) => ({
+                        ...prev,
+                        open: !prev.open,
+                        heading: "Delete portfolio",
+                        warning: `This action will delete your savings portfolio '${item.title}'. Do you wish to continue?`,
+                        item: item,
+                      }));
+                    }}
+                  />
+                  <EditOutlined
+                    style={{ fill: colors[index] }}
+                    className="portfolio-action-icon"
+                    onClick={async () => {
+                      await setNewPortfolio((prev) => ({ ...prev, ...item }));
+                      await handleUpdatePortfolioDialog();
+                    }}
+                  />
                   <span
-                    className="portfolio-value"
-                    style={{ color: [colors[index]] }}
+                    style={{ color: `${colors[index]}` }}
+                    className="portfolio-title"
                   >
-                    {format_currency(item?.amount)}
+                    {item?.title}({item?.percentage}%)
                   </span>
+                  {Number(item?.goal) <= item?.amount && <VerifiedOutlined />}
                 </div>
-              ))
-            : "You have no portfolios yet"}
+                <span
+                  className="portfolio-value"
+                  style={{ color: [colors[index]] }}
+                >
+                  {format_currency(item?.amount)}
+                </span>
+              </div>
+            ))
+          ) : (
+            <h1 className="no-data-text">
+              You have no savings portfolios yet.
+            </h1>
+          )}
           {}
         </div>
         <div className="debt-container">

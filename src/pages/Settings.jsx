@@ -4,8 +4,8 @@ import Password from "../components/Password";
 import Topbar from "../components/Topbar";
 import useSettings from "../hooks/useSettings";
 import useApp from "../useApp";
-import { Avatar } from "@mui/material";
 import PieChartComponent from "../components/PieChartComponent";
+import logo from "../logo1.png";
 import {
   MarkunreadOutlined,
   PersonOutlined,
@@ -43,7 +43,7 @@ const Settings = () => {
       <div className="settings-container">
         <div className="settings-sub-container">
           <div className="account-info-container">
-            <Avatar className="avatar" />
+            <img src={logo} alt="cashlens' logo" className="avatar" />
             <div className="account-info">
               <div className="account-info-top">
                 <h1 className="debt-text">My profile</h1>
@@ -66,10 +66,14 @@ const Settings = () => {
             </div>
             <div className="income-streams-container">
               <h1 className="debt-text">My income streams</h1>
-              <PieChartComponent
-                colors={colors}
-                portfolio={income_chart_data}
-              />
+              {income_chart_data.length < 1 ? (
+                <h1 className="no-data-text">No data to display chart</h1>
+              ) : (
+                <PieChartComponent
+                  colors={colors}
+                  portfolio={income_chart_data}
+                />
+              )}
               <div className="chart-info">
                 {income_chart_data.map((item, index) => (
                   <div className="ref">
@@ -78,7 +82,8 @@ const Settings = () => {
                       style={{ background: colors[index] }}
                     ></div>
                     <span style={{ color: colors[index] }}>
-                      {item.title}({(item.amount / user.total_income) * 100}%)
+                      {item.title}({((item.amount / user.total_income) * 100).toFixed(2)}
+                      %)
                     </span>
                   </div>
                 ))}
@@ -133,7 +138,11 @@ const Settings = () => {
             </div>
             <div className="bottom-summary-container">
               <h1 className="debt-text">Summary Chart</h1>
-              <PieChartComponent colors={colors} portfolio={chart_data} />
+              {chart_data.reduce((a, b) => a + b.amount, 0) < 1 ? (
+                <h1 className="no-data-text">No data to display chart</h1>
+              ) : (
+                <PieChartComponent colors={colors} portfolio={chart_data} />
+              )}
               <div className="chart-info">
                 {chart_data.map((item, index) => (
                   <div className="ref">

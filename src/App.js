@@ -13,6 +13,7 @@ function App() {
     useApp();
   const { deletePortfolio } = usePortfolio();
   const Login = lazy(() => import("./pages/Login"));
+  const Homepage = lazy(() => import("./pages/Homepage"));
   const Dashboard = lazy(() => import("./pages/Dashboard"));
   const Create = lazy(() => import("./pages/Create"));
   const Loan = lazy(() => import("./pages/Loan"));
@@ -34,15 +35,19 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route
+            path="/"
+            element={
+              <Suspense fallback={<FallbackComponent />}>
+                {user ? <Dashboard /> : <Homepage />}
+              </Suspense>
+            }
+          />
+          <Route
             path="/login"
             element={
-              user ? (
-                <Navigate to="/" replace />
-              ) : (
-                <Suspense fallback={<FallbackComponent />}>
-                  <Login />
-                </Suspense>
-              )
+              <Suspense fallback={<FallbackComponent />}>
+                <Login />
+              </Suspense>
             }
           />
           <Route
@@ -56,13 +61,9 @@ function App() {
           <Route
             path="/password/forgot"
             element={
-              user ? (
-                <Navigate to="/" replace />
-              ) : (
-                <Suspense fallback={<FallbackComponent />}>
-                  <ForgotPassword />
-                </Suspense>
-              )
+              <Suspense fallback={<FallbackComponent />}>
+                <ForgotPassword />
+              </Suspense>
             }
           />
           <Route
@@ -95,19 +96,6 @@ function App() {
               <Suspense fallback={<FallbackComponent />}>
                 <Create />
               </Suspense>
-            }
-          />
-
-          <Route
-            path="/"
-            element={
-              user ? (
-                <Suspense fallback={<FallbackComponent />}>
-                  <Dashboard />
-                </Suspense>
-              ) : (
-                <Navigate to="/login" />
-              )
             }
           />
           <Route

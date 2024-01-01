@@ -41,8 +41,13 @@
   align-items: center;
   gap: 10px;
 }
-a {
+.contact-value,
+.contact-title {
   text-decoration: none;
+  color: teal;
+}
+.contact-title {
+  font-size: 1rem;
 }
 .icon-container {
   height: 40px;
@@ -69,9 +74,22 @@ a {
   padding: 5px 10px;
   border-radius: 5px;
   width: 100%;
+  color: teal;
 }
 textarea {
   height: 140px !important;
+}
+.contact-icons {
+  fill: teal;
+}
+footer {
+  background: teal;
+  color: white;
+  padding: 20px;
+}
+footer a {
+  color: white;
+  margin-left: 12px;
 }
 @media (max-width: 770px) {
   .contact-sub-container {
@@ -79,11 +97,14 @@ textarea {
     gap: 20px;
     align-items: center;
   }
-}
-@media (max-width: 490px) {
+  .contact-left-container {
+    width: 100%;
+  }
   .contact-form-container {
     width: 100%;
   }
+}
+@media (max-width: 490px) {
   .contact-intro {
     padding: 20px;
   }

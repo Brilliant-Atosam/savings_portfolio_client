@@ -1,0 +1,126 @@
+.intro-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 300px;
+  background: #ffffffb1;
+}
+.intro-heading {
+  color: teal;
+  font-weight: 300;
+  font-size: 3rem;
+  margin-bottom: 25px;
+}
+.intro-text {
+  font-size: 1.2rem;
+  line-height: 1.8rem;
+  margin-bottom: 20px;
+  width: 90%;
+  max-width: 768px;
+  text-align: center;
+  color: #333;
+}
+.intro-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.intro-nav-btn {
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid teal;
+  color: teal;
+  height: 35px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.intro-nav-btn:last-child {
+  background: teal;
+  color: white;
+}
+.card-img {
+  object-fit: contain;
+}
+
+.features-container,
+.contact-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  gap: 20px;
+}
+.features-title,
+.about-title,
+.contact-heading {
+  font-weight: 300;
+  font-size: 2rem;
+}
+.features,
+.about {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.features-card,
+.about-card {
+  background: #ffffffab;
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+  width: 300px;
+}
+.about-card {
+  box-shadow: 0px 0px 7px 1px rgba(0, 128, 128, 0.59);
+}
+.card-icon {
+  font-size: 4rem;
+  fill: teal !important;
+  color: teal !important;
+}
+.feature-card-title,
+.about-card-title {
+  font-size: 1rem;
+  font-weight: 300;
+}
+.feature-card-info,
+.about-card-info {
+  font-size: 1rem;
+  line-height: 1.4rem;
+}
+.about-container {
+  background: #ffffffb1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+  gap: 15px;
+}
+.contact {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+@media (max-width: 600px) {
+  .intro-heading {
+    font-size: 2rem;
+    margin-bottom: 18px;
+  }
+  .features-card,
+  .about-card {
+    width: 98%;
+  }
+  .intro-text {
+    font-size: 1rem;
+    line-height: 1.2rem;
+  }
+}

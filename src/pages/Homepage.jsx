@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import "../styles/homepage.css";
 import "../styles/contact.css";
-import logo from "../logo.png";
 import { GiPayMoney, GiReceiveMoney } from "react-icons/gi";
 import { GoGoal } from "react-icons/go";
 import { FcDebt } from "react-icons/fc";

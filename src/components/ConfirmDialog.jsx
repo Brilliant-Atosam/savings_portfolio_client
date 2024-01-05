@@ -7,20 +7,28 @@ import {
 } from "@mui/material";
 import React from "react";
 import useApp from "../useApp";
-
+import { CircularProgress } from "@mui/material";
 const ConfirmDialog = ({ open, action, cancel }) => {
-  const { confirmData, setConfirmData } = useApp();
+  const { confirmData, setConfirmData, loading } = useApp();
   return (
     <Dialog open={open}>
       <DialogTitle className="login-text">{confirmData.heading}</DialogTitle>
       <DialogContent>{confirmData.warning}</DialogContent>
       <DialogActions>
-        <Button
-          onClick={() => setConfirmData((prev) => ({ ...prev, open: false }))}
-        >
-          No
-        </Button>
-        <Button onClick={() => action(confirmData.item)}>Yes</Button>
+        {loading ? (
+          <CircularProgress />
+        ) : (
+          <>
+            <Button
+              onClick={() =>
+                setConfirmData((prev) => ({ ...prev, open: false }))
+              }
+            >
+              No
+            </Button>
+            <Button onClick={() => action(confirmData.item)}>Yes</Button>
+          </>
+        )}
       </DialogActions>
     </Dialog>
   );

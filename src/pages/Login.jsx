@@ -14,7 +14,7 @@ const Login = () => {
       <div className="login-container">
         <div className="login-form-container">
           <img src={logo} alt="cashlens logo" className="login-logo" />
-          <h1 className="login-text">Welcome! Login to continue.</h1>
+          <h1 className="login-text">Welcome! Please log in.</h1>
           <input
             type="text"
             placeholder="Email"

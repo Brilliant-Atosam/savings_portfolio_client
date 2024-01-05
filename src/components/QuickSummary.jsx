@@ -3,6 +3,7 @@ import {
   EditOutlined,
   VerifiedOutlined,
   ArchiveOutlined,
+  Restore,
 } from "@mui/icons-material";
 import useApp from "../useApp";
 import useSave from "../hooks/useSave";
@@ -14,6 +15,7 @@ import BorrowMoneyDialog from "./BorrowMoneyDialog";
 import Save from "./Save";
 import PieChartComponent from "./PieChartComponent";
 import Util from "../utils/util";
+import moment from "moment";
 const QuickSummary = () => {
   const { user, setConfirmData, colors } = useApp();
   const { format_currency } = Util();
@@ -76,15 +78,22 @@ const QuickSummary = () => {
           </button>
         </div>
         {user.total_amount_saved > 0 ? (
-          <PieChartComponent colors={colors} portfolio={structuredPortfolio} />
+          <PieChartComponent
+            colors={colors}
+            portfolio={structuredPortfolio.filter((item) => !item.archived)}
+          />
         ) : (
           <h1 className="no-data-text">No savings data to display chart</h1>
         )}
         <div className="savings-portfolios-container">
           <h1 className="debt-text">Active savings portfolio</h1>
-          {structuredPortfolio.length > 0 ? (
+          {structuredPortfolio.filter((item) => !item.archived).length > 0 ? (
             structuredPortfolio
-              .filter((item) => !item.archived)
+              .filter(
+                (item) =>
+                  !item.archived &&
+                  moment(new Date()).format("DD/MM/YYYY") < item.deadline
+              )
               ?.map((item, index) => (
                 <div className="portfolio" key={index}>
                   <div className="portfolio-action-container">
@@ -129,32 +138,38 @@ const QuickSummary = () => {
               ))
           ) : (
             <h1 className="no-data-text">
-              You have no active savings portfolios yet.
+              You have no active savings portfolios.
             </h1>
           )}
         </div>
         <div className="savings-portfolios-container">
           <h1 className="debt-text">Archived savings portfolio</h1>
-          {structuredPortfolio.length > 0 ? (
+          {structuredPortfolio.filter((item) => item.archived).length > 0 ? (
             structuredPortfolio
               .filter((item) => item.archived)
               ?.map((item, index) => (
                 <div className="portfolio" key={index}>
                   <div className="portfolio-action-container">
-                    <span
-                      style={{ color: `${colors[colors.length - index]}` }}
-                      className="portfolio-title"
-                    >
+                    <Restore
+                      className="portfolio-action-icon"
+                      onClick={() => {
+                        setConfirmData((prev) => ({
+                          ...prev,
+                          open: !prev.open,
+                          heading: "Restore this portfolio",
+                          warning: `This action will restore your savings portfolio '${item.title}'. Do you wish to continue?`,
+                          item: item,
+                        }));
+                      }}
+                    />
+                    <span className="portfolio-title">
                       {item?.title}({item?.percentage}%)
                       {Number(item?.goal) <= item?.amount && (
                         <VerifiedOutlined />
                       )}
                     </span>
                   </div>
-                  <span
-                    className="portfolio-value"
-                    style={{ color: [colors[colors.length - index]] }}
-                  >
+                  <span className="portfolio-value">
                     {format_currency(item?.amount)}
                   </span>
                 </div>

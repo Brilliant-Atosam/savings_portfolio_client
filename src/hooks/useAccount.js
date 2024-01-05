@@ -3,7 +3,7 @@ import useApp from "../useApp";
 import request from "../utils/request";
 import { useState } from "react";
 import moment from "moment";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const useAccount = () => {
   // regular expressions
@@ -13,6 +13,7 @@ const useAccount = () => {
   const nameRegex = /^[A-Za-z\s',.-]{3,}$/;
 
   const location = useLocation();
+  const navigate = useNavigate();
   const reset_code = new URLSearchParams(location.search).get("reset_code");
   const { storeUser, storeSavings, storeLoan, storeExpenses } = Util();
   const { handleSnackbar, handleLoader } = useApp();
@@ -58,7 +59,7 @@ const useAccount = () => {
 
         storeUser(res.data);
         handleLoader();
-        window.location.href = "/";
+        navigate('/')
       } catch (err) {
         handleLoader();
         handleSnackbar(

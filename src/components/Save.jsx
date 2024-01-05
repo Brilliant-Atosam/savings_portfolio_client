@@ -61,10 +61,10 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
             onChange={(e) =>
               setSavings((prev) => ({
                 ...prev,
-                amount: parseInt(e.target.value),
+                amount: Number(e.target.value),
               }))
             }
-            value={savings?.amount}
+            // value={savings?.amount}
           />
           {user && (
             <div className="portfolio-container">

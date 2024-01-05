@@ -50,55 +50,32 @@ const BorrowMoneyDialog = ({ open, borrowMoney, handleOpenBorrowDialog }) => {
             }
           />
           <label className="dialog-label" htmlFor="">
-            Is it important?
+            Where do you want to borrow from?
           </label>
           <select
             name=""
             className="login-input"
-            id=""
             onChange={(e) =>
               setLoanDetails((prev) => ({
                 ...prev,
-                importance: e.target.value,
+                borrowed_from: e.target.value,
               }))
             }
             defaultValue={true}
           >
-            <option value={true}>Yes</option>
-            <option value={false}>false</option>
-          </select>
-          <label className="dialog-label" htmlFor="">
-            Is it urgent?
-          </label>
-          <select
-            name=""
-            className="login-input"
-            id=""
-            onChange={(e) =>
-              setLoanDetails((prev) => ({
-                ...prev,
-                importance: e.target.value,
-              }))
-            }
-            defaultValue={true}
-          >
-            <option value={true}>Yes</option>
-            <option value={false}>False</option>
-          </select>
-          <label className="dialog-label" htmlFor="">
-            will you repay?
-          </label>
-          <select name="" className="login-input" id="">
-            <option value={true}>Yes</option>
-            <option value={false}>No</option>
+            <option value="external source">External source</option>
+            {user.portfolio.map((item) => (
+              <option value={item.title} key={item.id}>
+                {item.title}
+              </option>
+            ))}
           </select>
           <label htmlFor="" className="dialog-label">
-            Repayment date
+            When will you fully repay the advance?
           </label>
 
           <input
             type="date"
-            disabled={!loanDetails.repay ? true : false}
             className="login-input"
             onChange={(e) =>
               setLoanDetails((prev) => ({
@@ -111,7 +88,7 @@ const BorrowMoneyDialog = ({ open, borrowMoney, handleOpenBorrowDialog }) => {
           <button
             disabled={loading}
             className="login-btn"
-            onClick={borrowMoney}
+            onClick={() => borrowMoney(loanDetails)}
           >
             {loading ? "loading..." : "Borrow money"}
           </button>

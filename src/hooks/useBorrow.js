@@ -12,47 +12,42 @@ const useBorrow = () => {
   const [loanDetails, setLoanDetails] = useState({
     amount: "",
     reason: "",
-    urgency: true,
-    importance: true,
-    repay: true,
     repayment_date: "",
     createdAt: moment(new Date()).format("DD/MM/YYYY"),
     id: Math.floor(Math.random() * 9999).toString(),
     userId: user?.id,
+    borrowed_from: "",
   });
   const handleOpenBorrowDialog = () => {
     setOpenBorrowDialog((prev) => !prev);
   };
 
-  const borrowMoney = async () => {
+  // borrow money
+  const borrowMoney = async (loanDetails) => {
+    console.log(loanDetails);
     context?.handleLoader();
-    if (loanDetails.amount > user.total_amount_saved) {
-      context?.handleSnackbar(
-        "You cannot borrow more than you have saved!",
-        "warning"
-      );
-      context?.handleLoader();
-    } else if (
-      !loanDetails.amount ||
+    if (
+      Number(loanDetails.amount) < 1 ||
       !loanDetails.reason ||
-      !loanDetails.urgency ||
-      !loanDetails.importance
+      !loanDetails.borrowed_from
     ) {
       context?.handleSnackbar("Provide value for all fields", "warning");
-      context?.handleLoader();
-    } else if (loanDetails.amount > user.total_amount_saved) {
+    } else if (
+      loanDetails.borrowed_from !== "external source" &&
+      user.portfolio.find((item) => item.title === loanDetails.borrowed_from)
+        ?.amount < loanDetails.amount
+    ) {
       context?.handleSnackbar(
-        "You cannot take more than you have saved!",
+        "You cannot borrow more than you have saved in this portfolio",
         "warning"
       );
-      context?.handleLoader();
     } else {
       user = {
         ...user,
         total_advance: user.total_advance + loanDetails.amount,
         amount_owed: user.total_advance + loanDetails.amount,
       };
-      loans = { ...loans, loanDetails };
+      loans = { loanDetails, ...loans };
       try {
         const res = await request.post(
           `/loan?userId=${user.id}`,
@@ -66,15 +61,16 @@ const useBorrow = () => {
         context?.handleSnackbar(res.data, "success");
         storeUser(user);
         storeLoan(loans);
-        context?.handleLoader();
+        // context?.handleLoader();
       } catch (err) {
         context?.handleSnackbar(
           err.response ? err.response.data : "Network Error!",
           "error"
         );
-        context?.handleLoader();
+        // context?.handleLoader();
       }
     }
+    context?.handleLoader();
   };
 
   const [showSettleDialog, setShowSettleDialog] = useState(false);

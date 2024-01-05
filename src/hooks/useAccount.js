@@ -58,6 +58,7 @@ const useAccount = () => {
 
         storeUser(res.data);
         handleLoader();
+        window.location.href = "/";
       } catch (err) {
         handleLoader();
         handleSnackbar(

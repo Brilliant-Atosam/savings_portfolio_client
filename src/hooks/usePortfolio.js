@@ -19,6 +19,7 @@ const usePortfolio = () => {
     createdAt: moment(new Date()).format("DD/MM/YYYY"),
     amount: 0,
     id: Math.floor(Math.random() * 999).toString(),
+    archived: false,
   });
   const handlePortfolioDialog = () =>
     setShowPortfolioDialog(!showPortfolioDialog);
@@ -94,29 +95,29 @@ const usePortfolio = () => {
     context.handleLoader();
   };
 
-  // delete portfolio
+  // delete portfolio - now to send portfolio to archives
   const deletePortfolio = async (deleteItem) => {
     context.handleLoader();
     let portfolio = user.portfolio.filter(
       (item) => item.title !== deleteItem.title
     );
-
+    let archived_portfolio = user.portfolio.find(
+      (item) => item.title === deleteItem.title
+    );
     try {
       const res = await request.put(
         `/user?id=${user.id}`,
         {
           ...user,
-          portfolio: portfolio,
-          total_amount_saved: user.total_amount_saved - deleteItem.amount,
+          portfolio: [...portfolio, { ...archived_portfolio, archived: true }],
+          // total_amount_saved: user.total_amount_saved - deleteItem.amount,
         },
         { headers: { access_token: `Bearer ${user.access_token}` } }
       );
       context?.handleSnackbar(res.data, "success");
       storeUser({
         ...user,
-        portfolio,
-        total_amount_saved: user.total_amount_saved - deleteItem.amount,
-        total_percentage: user.total_percentage - deleteItem.percentage,
+        portfolio: [...portfolio, { ...archived_portfolio, archived: true }],
       });
       context.setConfirmData((prev) => ({ ...prev, open: false }));
     } catch (err) {

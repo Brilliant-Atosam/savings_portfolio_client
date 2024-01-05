@@ -170,7 +170,7 @@ const Homepage = () => {
               rows="10"
               placeholder="Your message"
             ></textarea>
-            <button className="login-btn">send </button>
+            <button className="login-btn">send</button>
           </div>
         </div>
       </div>

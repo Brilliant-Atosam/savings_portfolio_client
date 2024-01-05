@@ -1,8 +1,8 @@
 import React from "react";
 import {
   EditOutlined,
-  DeleteOutlineOutlined,
   VerifiedOutlined,
+  ArchiveOutlined,
 } from "@mui/icons-material";
 import useApp from "../useApp";
 import useSave from "../hooks/useSave";
@@ -81,54 +81,89 @@ const QuickSummary = () => {
           <h1 className="no-data-text">No savings data to display chart</h1>
         )}
         <div className="savings-portfolios-container">
-          <h1 className="debt-text">Savings summary</h1>
+          <h1 className="debt-text">Active savings portfolio</h1>
           {structuredPortfolio.length > 0 ? (
-            structuredPortfolio?.map((item, index) => (
-              <div className="portfolio" key={index}>
-                <div className="portfolio-action-container">
-                  <DeleteOutlineOutlined
-                    className="portfolio-action-icon delete-icon"
-                    style={{ fill: "#cc0052" }}
-                    onClick={() => {
-                      setConfirmData((prev) => ({
-                        ...prev,
-                        open: !prev.open,
-                        heading: "Delete portfolio",
-                        warning: `This action will delete your savings portfolio '${item.title}'. Do you wish to continue?`,
-                        item: item,
-                      }));
-                    }}
-                  />
-                  <EditOutlined
-                    style={{ fill: colors[index] }}
-                    className="portfolio-action-icon"
-                    onClick={async () => {
-                      await setNewPortfolio((prev) => ({ ...prev, ...item }));
-                      await handleUpdatePortfolioDialog();
-                    }}
-                  />
+            structuredPortfolio
+              .filter((item) => !item.archived)
+              ?.map((item, index) => (
+                <div className="portfolio" key={index}>
+                  <div className="portfolio-action-container">
+                    <ArchiveOutlined
+                      className="portfolio-action-icon delete-icon"
+                      style={{ fill: "#cc0052" }}
+                      onClick={() => {
+                        setConfirmData((prev) => ({
+                          ...prev,
+                          open: !prev.open,
+                          heading: "Archive portfolio",
+                          warning: `This action will send your savings portfolio '${item.title}' to archives. Do you wish to continue?`,
+                          item: item,
+                        }));
+                      }}
+                    />
+                    <EditOutlined
+                      style={{ fill: colors[index] }}
+                      className="portfolio-action-icon"
+                      onClick={async () => {
+                        await setNewPortfolio((prev) => ({ ...prev, ...item }));
+                        await handleUpdatePortfolioDialog();
+                      }}
+                    />
+                    <span
+                      style={{ color: `${colors[index]}` }}
+                      className="portfolio-title"
+                    >
+                      {item?.title}({item?.percentage}%)
+                    </span>
+                    {Number(item?.goal) <= item?.amount && (
+                      <VerifiedOutlined style={{ fill: "blue" }} />
+                    )}
+                  </div>
                   <span
-                    style={{ color: `${colors[index]}` }}
-                    className="portfolio-title"
+                    className="portfolio-value"
+                    style={{ color: [colors[index]] }}
                   >
-                    {item?.title}({item?.percentage}%)
+                    {format_currency(item?.amount)}
                   </span>
-                  {Number(item?.goal) <= item?.amount && <VerifiedOutlined />}
                 </div>
-                <span
-                  className="portfolio-value"
-                  style={{ color: [colors[index]] }}
-                >
-                  {format_currency(item?.amount)}
-                </span>
-              </div>
-            ))
+              ))
           ) : (
             <h1 className="no-data-text">
-              You have no savings portfolios yet.
+              You have no active savings portfolios yet.
             </h1>
           )}
-          {}
+        </div>
+        <div className="savings-portfolios-container">
+          <h1 className="debt-text">Archived savings portfolio</h1>
+          {structuredPortfolio.length > 0 ? (
+            structuredPortfolio
+              .filter((item) => item.archived)
+              ?.map((item, index) => (
+                <div className="portfolio" key={index}>
+                  <div className="portfolio-action-container">
+                    <span
+                      style={{ color: `${colors[colors.length - index]}` }}
+                      className="portfolio-title"
+                    >
+                      {item?.title}({item?.percentage}%)
+                      {Number(item?.goal) <= item?.amount && (
+                        <VerifiedOutlined />
+                      )}
+                    </span>
+                  </div>
+                  <span
+                    className="portfolio-value"
+                    style={{ color: [colors[colors.length - index]] }}
+                  >
+                    {format_currency(item?.amount)}
+                  </span>
+                </div>
+              ))
+          ) : (
+            <h1 className="no-data-text">
+              You have no active savings portfolios yet.
+            </h1>
+          )}
         </div>
         <div className="debt-container">
           <h1 className="debt-text">Debt</h1>

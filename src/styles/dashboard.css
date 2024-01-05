@@ -46,10 +46,13 @@
   justify-content: space-between;
 }
 .portfolio-value {
-  font-weight: 600;
   font-size: 1rem;
 }
-
+.portfolio-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 7px;
+}
 .debt-item-container {
   display: flex;
   align-items: center;

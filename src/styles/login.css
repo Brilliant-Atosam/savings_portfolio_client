@@ -30,6 +30,7 @@
   width: 100%;
   /* max-width: 400px; */
   height: 35px;
+  min-width: 350px;
   border-radius: 5px;
   outline: 1.5px solid teal;
   padding: 10px;
@@ -54,6 +55,6 @@
 }
 @media (max-width: 415px) {
   .login-input {
-    width: 100%;
+    min-width: 100%;
   }
 }

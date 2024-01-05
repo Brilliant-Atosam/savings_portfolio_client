@@ -13,6 +13,7 @@ import {
   QueryBuilderOutlined,
 } from "@mui/icons-material";
 import Util from "../utils/util";
+import AreaChartComponent from "../components/AreaChartComponent";
 
 const Settings = () => {
   const { user, expensesList } = useApp();
@@ -26,6 +27,7 @@ const Settings = () => {
     handle_basic_info,
     chart_data,
     income_chart_data,
+    monthly_income_data,
   } = useSettings();
   return (
     <div className="main-container">
@@ -158,6 +160,10 @@ const Settings = () => {
                   </div>
                 ))}
               </div>
+            </div>
+            <div className="chart-container">
+              <h1 className="debt-text">Income chart</h1>
+              <AreaChartComponent data={monthly_income_data} />
             </div>
           </div>
         </div>

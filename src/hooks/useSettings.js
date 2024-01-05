@@ -8,7 +8,7 @@ const useSettings = () => {
   let user = JSON.parse(localStorage.getItem("user"));
   let savings = JSON.parse(localStorage.getItem("savings"));
   let expenses = JSON.parse(localStorage.getItem("expenses"));
-  const { storeUser } = Util();
+  const { storeUser, months } = Util();
   const [openPass, setOpenPass] = useState(false);
   const handleOpenPass = () => setOpenPass(!openPass);
   //   password info
@@ -110,6 +110,30 @@ const useSettings = () => {
     return data;
   };
   let income_chart_data = income_chart();
+
+  // monthly income data
+  const monthly_income = () => {
+    let data = [];
+    months.map((month, index) => {
+      let object_object = {
+        title: month,
+        total_amount: savings
+          .filter((item) =>
+            item.created_at?.endsWith(
+              (index + 1).toString().length === 1
+                ? `0${index + 1}/${new Date().getFullYear().toString()}`
+                : `${index + 1}/${new Date().getFullYear().toString()}`
+            )
+          )
+          .reduce((a, b) => a + b.amount, 0),
+      };
+      data.push(object_object);
+      return object_object;
+    });
+    return data;
+  };
+  const monthly_income_data = monthly_income();
+  // console.log();
   return {
     openPass,
     handleOpenPass,
@@ -123,6 +147,7 @@ const useSettings = () => {
     handle_basic_info,
     chart_data,
     income_chart_data,
+    monthly_income_data,
   };
 };
 

@@ -63,16 +63,16 @@ const QuickSummary = () => {
       <div className="dashboard-left">
         <div className="dashboard-actions-container">
           <button className="dashboard-action-btn" onClick={handleSaveDialog}>
-            add income
+            Add income
           </button>
           <button onClick={handleSettleDialog} className="dashboard-action-btn">
-            settle loan
+            Settle loan
           </button>
           <button
             className="dashboard-action-btn"
             onClick={handleOpenBorrowDialog}
           >
-            take a loan
+            Take a loan
           </button>
         </div>
         {user.total_amount_saved > 0 ? (
@@ -160,9 +160,7 @@ const QuickSummary = () => {
                 </div>
               ))
           ) : (
-            <h1 className="no-data-text">
-              You have no active savings portfolios yet.
-            </h1>
+            <h1 className="no-data-text">You have no archived portfolio.</h1>
           )}
         </div>
         <div className="debt-container">

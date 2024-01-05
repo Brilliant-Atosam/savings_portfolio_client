@@ -63,6 +63,7 @@ const BorrowMoneyDialog = ({ open, borrowMoney, handleOpenBorrowDialog }) => {
             }
             defaultValue={true}
           >
+            <option value="">Select source</option>
             <option value="external source">External source</option>
             {user.portfolio.map((item) => (
               <option value={item.title} key={item.id}>

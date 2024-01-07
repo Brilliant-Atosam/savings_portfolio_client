@@ -105,20 +105,26 @@ const usePortfolio = () => {
       (item) => item.title === deleteItem.title
     );
     try {
-      const res = await request.put(
-        `/user?id=${user.id}`,
-        {
-          ...user,
-          portfolio: [...portfolio, { ...archived_portfolio, archived: true }],
-          // total_amount_saved: user.total_amount_saved - deleteItem.amount,
-        },
-        { headers: { access_token: `Bearer ${user.access_token}` } }
-      );
-      context?.handleSnackbar(res.data, "success");
-      storeUser({
+      user = {
         ...user,
-        portfolio: [...portfolio, { ...archived_portfolio, archived: true }],
+        portfolio: [
+          ...portfolio,
+          {
+            ...archived_portfolio,
+            archived: !archived_portfolio.archived,
+            deadline:
+              moment(new Date()).format("DD/MM/YYYY") >
+              moment(archived_portfolio.deadline).format("DD/MM/YYYY")
+                ? moment(new Date()).format("DD/MM/YYYY")
+                : archived_portfolio.deadline,
+          },
+        ],
+      };
+      const res = await request.put(`/user?id=${user.id}`, user, {
+        headers: { access_token: `Bearer ${user.access_token}` },
       });
+      context?.handleSnackbar(res.data, "success");
+      storeUser(user);
       context.setConfirmData((prev) => ({ ...prev, open: false }));
     } catch (err) {
       context?.handleSnackbar(
@@ -129,6 +135,7 @@ const usePortfolio = () => {
     setConfirmData((prev) => ({ ...prev, open: false }));
     context.handleLoader();
   };
+
   // edit portfolio
   const updatePortfolio = async (newPortfolio) => {
     context.handleLoader();

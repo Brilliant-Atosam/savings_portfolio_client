@@ -80,7 +80,11 @@ const QuickSummary = () => {
         {user.total_amount_saved > 0 ? (
           <PieChartComponent
             colors={colors}
-            portfolio={structuredPortfolio.filter((item) => !item.archived)}
+            portfolio={structuredPortfolio.filter(
+              (item) =>
+                !item.archived &&
+                moment(new Date()).format("DD/MM/YYYY") > item.deadline
+            )}
           />
         ) : (
           <h1 className="no-data-text">No savings data to display chart</h1>
@@ -90,9 +94,7 @@ const QuickSummary = () => {
           {structuredPortfolio.filter((item) => !item.archived).length > 0 ? (
             structuredPortfolio
               .filter(
-                (item) =>
-                  !item.archived &&
-                  moment(new Date()).format("DD/MM/YYYY") < item.deadline
+                (item) => !item.archived && new Date() < new Date(item.deadline)
               )
               ?.map((item, index) => (
                 <div className="portfolio" key={index}>
@@ -146,7 +148,11 @@ const QuickSummary = () => {
           <h1 className="debt-text">Archived savings portfolio</h1>
           {structuredPortfolio.filter((item) => item.archived).length > 0 ? (
             structuredPortfolio
-              .filter((item) => item.archived)
+              .filter(
+                (item) =>
+                  item.archived ||
+                  moment(new Date()).format("DD/MM/YYYY") < item.deadline
+              )
               ?.map((item, index) => (
                 <div className="portfolio" key={index}>
                   <div className="portfolio-action-container">

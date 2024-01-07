@@ -61,13 +61,11 @@ const useBorrow = () => {
         context?.handleSnackbar(res.data, "success");
         storeUser(user);
         storeLoan(loans);
-        // context?.handleLoader();
       } catch (err) {
         context?.handleSnackbar(
           err.response ? err.response.data : "Network Error!",
           "error"
         );
-        // context?.handleLoader();
       }
     }
     context?.handleLoader();

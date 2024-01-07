@@ -33,7 +33,6 @@ const useAccount = () => {
   const login = async () => {
     handleLoader();
     if (!emailRegex.test(email) || !passwordRegex.test(password)) {
-      handleLoader();
       handleSnackbar("Invalid email or password!", "warning");
     } else
       try {
@@ -58,15 +57,14 @@ const useAccount = () => {
         storeExpenses(expenses.data);
 
         storeUser(res.data);
-        handleLoader();
-        navigate('/')
+        navigate("/");
       } catch (err) {
-        handleLoader();
         handleSnackbar(
           err.response ? err.response.data : err.message,
           "warning"
         );
       }
+    handleLoader();
   };
   // logout
   const handleLogout = () => {
@@ -81,25 +79,22 @@ const useAccount = () => {
       !nameRegex.test(newUser.name) ||
       !emailRegex.test(newUser.email) ||
       !phoneRegex.test(newUser.phone) ||
-      passwordRegex.test(newUser.password)
+      !passwordRegex.test(newUser.password)
     ) {
       handleSnackbar("Please provide valid info.", "warning");
-      handleLoader();
     } else if (newUser.password !== newUser.password2) {
       handleSnackbar("Passwords do not match!", "warning");
-      handleLoader();
     } else {
       try {
         await request.post("/auth", newUser);
-        window.location.href = "/";
+        navigate("/login");
       } catch (err) {
         handleSnackbar(err.response ? err.response.data : err.message, "error");
-        handleLoader();
       }
     }
+    handleLoader();
   };
   // reset password request
-  // const [email, setEmail] = useState("");
   const handlePasswordResetRequest = async () => {
     handleLoader();
     if (!email) {
@@ -121,20 +116,17 @@ const useAccount = () => {
     handleLoader();
     if (password !== password2 || !password || !password2) {
       handleSnackbar("Invalid password or passwords do not match!", "warning");
-      handleLoader();
     } else if (reset_code.length < 5) {
       handleSnackbar("Invalid reset link.", "warning");
-      handleLoader();
     } else {
       try {
         const res = await request.put("/auth/reset", { password, reset_code });
         handleSnackbar(res.data, "success");
-        handleLoader();
       } catch (err) {
-        handleLoader();
         handleSnackbar(err.response ? err.response.data : err.message, "error");
       }
     }
+    handleLoader();
   };
   return {
     login,

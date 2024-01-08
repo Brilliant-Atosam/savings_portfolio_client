@@ -1,9 +1,10 @@
 import React from "react";
 import {
   EditOutlined,
-  VerifiedOutlined,
   ArchiveOutlined,
   Restore,
+  VisibilityOutlined,
+  EmojiEventsOutlined,
 } from "@mui/icons-material";
 import useApp from "../useApp";
 import useSave from "../hooks/useSave";
@@ -16,6 +17,7 @@ import Save from "./Save";
 import PieChartComponent from "./PieChartComponent";
 import Util from "../utils/util";
 import moment from "moment";
+import PortfolioInfo from "./PortfolioInfo";
 const QuickSummary = () => {
   const { user, setConfirmData, colors } = useApp();
   const { format_currency } = Util();
@@ -25,6 +27,8 @@ const QuickSummary = () => {
     handleUpdatePortfolioDialog,
     showUpdatePortfolioDialog,
     updatePortfolio,
+    open_portfolio_info,
+    handle_toggle_portfolio_info,
   } = usePortfolio();
   const {
     showSettleDialog,
@@ -46,6 +50,10 @@ const QuickSummary = () => {
         setNewPortfolio={setNewPortfolio}
         updatePortfolio={updatePortfolio}
         toggleDialog={handleUpdatePortfolioDialog}
+      />
+      <PortfolioInfo
+        open={open_portfolio_info}
+        toggler={handle_toggle_portfolio_info}
       />
       <SettleAdvanceDialog
         open={showSettleDialog}
@@ -81,9 +89,7 @@ const QuickSummary = () => {
           <PieChartComponent
             colors={colors}
             portfolio={structuredPortfolio.filter(
-              (item) =>
-                !item.archived &&
-                moment(new Date()).format("DD/MM/YYYY") > item.deadline
+              (item) => !item.archived && new Date() > new Date(item.deadline)
             )}
           />
         ) : (
@@ -94,7 +100,7 @@ const QuickSummary = () => {
           {structuredPortfolio.filter((item) => !item.archived).length > 0 ? (
             structuredPortfolio
               .filter(
-                (item) => !item.archived && new Date() < new Date(item.deadline)
+                (item) => !item.archived && new Date() > new Date(item.deadline)
               )
               ?.map((item, index) => (
                 <div className="portfolio" key={index}>
@@ -120,6 +126,10 @@ const QuickSummary = () => {
                         await handleUpdatePortfolioDialog();
                       }}
                     />
+                    <VisibilityOutlined
+                      onClick={handle_toggle_portfolio_info}
+                      className="portfolio-action-icon"
+                    />
                     <span
                       style={{ color: `${colors[index]}` }}
                       className="portfolio-title"
@@ -127,7 +137,7 @@ const QuickSummary = () => {
                       {item?.title}({item?.percentage}%)
                     </span>
                     {Number(item?.goal) <= item?.amount && (
-                      <VerifiedOutlined style={{ fill: "blue" }} />
+                      <EmojiEventsOutlined className="achieved" />
                     )}
                   </div>
                   <span
@@ -171,7 +181,7 @@ const QuickSummary = () => {
                     <span className="portfolio-title">
                       {item?.title}({item?.percentage}%)
                       {Number(item?.goal) <= item?.amount && (
-                        <VerifiedOutlined />
+                        <EmojiEventsOutlined className="achieved" />
                       )}
                     </span>
                   </div>

@@ -133,13 +133,16 @@ h1 {
 .portfolio-action-container {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
 }
 .portfolio-action-icon {
   cursor: pointer;
   font-size: 1rem;
 }
-
+.achieved {
+  fill: #ff0077 !important;
+  font-size: 0.7rem !important;
+}
 .red {
   color: red;
 }

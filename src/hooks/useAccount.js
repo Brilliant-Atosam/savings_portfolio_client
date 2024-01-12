@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 const useAccount = () => {
   // regular expressions
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const passwordRegex = /^(?=.*[a-z])(?=.*\d)[a-z\d]{7,}$/;
+  const passwordRegex = /^(?=.*[a-z])(?=.*\d)([a-z\d]|[A-Z]|[^\w\s]).{7,}$/;
   const phoneRegex = /^\d{10}$/;
   const nameRegex = /^[A-Za-z\s',.-]{3,}$/;
 
@@ -29,6 +29,7 @@ const useAccount = () => {
     id: Math.floor(Math.random() * 9999).toString(),
     createdAt: moment(new Date()).format("DD/MM/YYYY"),
   });
+
   //   login
   const login = async () => {
     handleLoader();
@@ -73,7 +74,7 @@ const useAccount = () => {
   };
 
   // create a new user
-  const register = async () => {
+  const register = async (newUser) => {
     handleLoader();
     if (
       !nameRegex.test(newUser.name) ||
@@ -82,6 +83,7 @@ const useAccount = () => {
       !passwordRegex.test(newUser.password)
     ) {
       handleSnackbar("Please provide valid info.", "warning");
+      console.log(newUser);
     } else if (newUser.password !== newUser.password2) {
       handleSnackbar("Passwords do not match!", "warning");
     } else {

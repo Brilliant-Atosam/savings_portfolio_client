@@ -46,7 +46,11 @@ const Create = () => {
               setNewUser({ ...newUser, password2: e.target.value })
             }
           />
-          <button className="login-btn" onClick={register} disabled={loading}>
+          <button
+            className="login-btn"
+            onClick={() => register(newUser)}
+            disabled={loading}
+          >
             {loading ? "loading..." : "Create account"}
           </button>
           <Link to="/login">Login</Link>

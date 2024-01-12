@@ -5,6 +5,7 @@ import {
   Restore,
   VisibilityOutlined,
   EmojiEventsOutlined,
+  HourglassBottomOutlined,
 } from "@mui/icons-material";
 import useApp from "../useApp";
 import useSave from "../hooks/useSave";
@@ -29,6 +30,8 @@ const QuickSummary = () => {
     updatePortfolio,
     open_portfolio_info,
     handle_toggle_portfolio_info,
+    portfolio,
+    handleSetPortfolio,
   } = usePortfolio();
   const {
     showSettleDialog,
@@ -54,6 +57,7 @@ const QuickSummary = () => {
       <PortfolioInfo
         open={open_portfolio_info}
         toggler={handle_toggle_portfolio_info}
+        data={portfolio}
       />
       <SettleAdvanceDialog
         open={showSettleDialog}
@@ -85,12 +89,12 @@ const QuickSummary = () => {
             Take a loan
           </button>
         </div>
-        {user.total_amount_saved > 0 ? (
+        {user.portfolio
+          .filter((item) => !item.archived)
+          .reduce((a, b) => a + b.amount, 0) > 0 ? (
           <PieChartComponent
             colors={colors}
-            portfolio={structuredPortfolio.filter(
-              (item) => !item.archived && new Date() > new Date(item.deadline)
-            )}
+            portfolio={structuredPortfolio.filter((item) => !item.archived)}
           />
         ) : (
           <h1 className="no-data-text">No savings data to display chart</h1>
@@ -99,9 +103,7 @@ const QuickSummary = () => {
           <h1 className="debt-text">Active savings portfolio</h1>
           {structuredPortfolio.filter((item) => !item.archived).length > 0 ? (
             structuredPortfolio
-              .filter(
-                (item) => !item.archived && new Date() > new Date(item.deadline)
-              )
+              .filter((item) => !item.archived)
               ?.map((item, index) => (
                 <div className="portfolio" key={index}>
                   <div className="portfolio-action-container">
@@ -127,7 +129,10 @@ const QuickSummary = () => {
                       }}
                     />
                     <VisibilityOutlined
-                      onClick={handle_toggle_portfolio_info}
+                      onClick={() => {
+                        handleSetPortfolio(item);
+                        handle_toggle_portfolio_info();
+                      }}
                       className="portfolio-action-icon"
                     />
                     <span
@@ -138,6 +143,11 @@ const QuickSummary = () => {
                     </span>
                     {Number(item?.goal) <= item?.amount && (
                       <EmojiEventsOutlined className="achieved" />
+                    )}
+                    {moment(item?.deadline)
+                      .isBefore(moment().format("DD/MM/YYYY")) <=
+                      item?.amount && (
+                      <HourglassBottomOutlined className="achieved" />
                     )}
                   </div>
                   <span
@@ -158,11 +168,7 @@ const QuickSummary = () => {
           <h1 className="debt-text">Archived savings portfolio</h1>
           {structuredPortfolio.filter((item) => item.archived).length > 0 ? (
             structuredPortfolio
-              .filter(
-                (item) =>
-                  item.archived ||
-                  moment(new Date()).format("DD/MM/YYYY") < item.deadline
-              )
+              .filter((item) => item.archived)
               ?.map((item, index) => (
                 <div className="portfolio" key={index}>
                   <div className="portfolio-action-container">

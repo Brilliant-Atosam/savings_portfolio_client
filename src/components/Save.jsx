@@ -45,6 +45,7 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
             }
             value={savings?.source}
           >
+            <option value="">Choose source of income</option>
             {sources_of_income.map((source, index) => (
               <option key={index} value={source}>
                 {source}

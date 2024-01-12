@@ -44,7 +44,7 @@ const Util = () => {
   ];
   // income sources
   const sources_of_income = [
-    "Salary/Wages",
+    "Salary/Wages/Allowance",
     "Profits/Self-employment",
     "Side Jobs/Freelance",
     "Interest/dividends/capital gain",
@@ -53,7 +53,7 @@ const Util = () => {
     "Pension/Retirement",
     "Social Security",
     "Alimony/child Support",
-    "Gifts and 'Inheritance",
+    "Gifts and Inheritance",
     "Scholarships and Grants",
     "Miscellaneous ",
   ];
@@ -94,7 +94,10 @@ const Util = () => {
   ];
   // currency formatter
   const format_currency = (amount) =>
-    amount.toLocaleString("en-GH", { style: "currency", currency: "GHS" });
+    Number(amount).toLocaleString("en-GH", {
+      style: "currency",
+      currency: "GHS",
+    });
   return {
     storeUser,
     handleSnackbar,

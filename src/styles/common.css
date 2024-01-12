@@ -159,6 +159,17 @@ h1 {
   width: 98% !important;
   height: fit-content !important;
 }
+.portfolio-info-container {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  width: 400px;
+}
+.key-value-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
 @media (max-width: 700px) {
   .chart-container {
     overflow-x: scroll;
@@ -181,5 +192,8 @@ h1 {
     color: white;
     font-weight: 500;
     font-size: 0.8rem;
+  }
+  .portfolio-info-container{
+    width: 100%;
   }
 }

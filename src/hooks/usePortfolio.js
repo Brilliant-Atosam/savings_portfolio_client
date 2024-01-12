@@ -10,6 +10,8 @@ const usePortfolio = () => {
   const [showPortfolioDialog, setShowPortfolioDialog] = useState(false);
   const [showUpdatePortfolioDialog, setShowUpdatePortfolioDialog] =
     useState(false);
+  const [portfolio, setPortfolio] = useState(null);
+  const handleSetPortfolio = (data) => setPortfolio(data);
   const [newPortfolio, setNewPortfolio] = useState({
     title: "",
     reason: "",
@@ -117,10 +119,6 @@ const usePortfolio = () => {
           {
             ...archived_portfolio,
             archived: !archived_portfolio.archived,
-            deadline:
-              new Date() > new Date(archived_portfolio.deadline)
-                ? moment().add(1, "month").format("DD/MM/YYYY")
-                : archived_portfolio.deadline,
           },
         ],
       };
@@ -186,7 +184,8 @@ const usePortfolio = () => {
     handleUpdatePortfolioDialog,
     updatePortfolio,
     open_portfolio_info,
-    handle_toggle_portfolio_info,
+    handle_toggle_portfolio_info,portfolio,
+    handleSetPortfolio
   };
 };
 

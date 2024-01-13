@@ -16,7 +16,7 @@ const Login = () => {
           <img src={logo} alt="cashlens logo" className="login-logo" />
           <h1 className="login-text">Welcome! Please log in.</h1>
           <input
-            type="text"
+            type="email"
             placeholder="Email"
             className="login-input"
             onChange={(e) => setEmail(e.target.value)}
@@ -29,7 +29,11 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             value={password}
           />
-          <button disabled={loading} className="login-btn" onClick={login}>
+          <button
+            disabled={loading}
+            className="login-btn"
+            onClick={() => login(email, password)}
+          >
             {loading ? "loading..." : "login"}
           </button>
           <div className="login-redirects">

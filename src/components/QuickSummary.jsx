@@ -144,11 +144,9 @@ const QuickSummary = () => {
                     {Number(item?.goal) <= item?.amount && (
                       <EmojiEventsOutlined className="achieved" />
                     )}
-                    {moment(item?.deadline)
-                      .isBefore(moment().format("DD/MM/YYYY")) <=
-                      item?.amount && (
-                      <HourglassBottomOutlined className="achieved" />
-                    )}
+                    {moment().isBefore(
+                      moment(item?.deadline)
+                    ) && <HourglassBottomOutlined className="achieved" />}
                   </div>
                   <span
                     className="portfolio-value"

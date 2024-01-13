@@ -159,9 +159,9 @@ const usePortfolio = () => {
         const res = await request.put(`/user?id=${user.id}`, user, {
           headers: { access_token: `Bearer ${user.access_token}` },
         });
+        handleUpdatePortfolioDialog();
         context?.handleSnackbar(res.data, "success");
         storeUser(user);
-        context?.handleUpdatePortfolioDialog();
       } catch (err) {
         context?.handleSnackbar(
           err.res ? err.response.data : "Network error",
@@ -184,8 +184,9 @@ const usePortfolio = () => {
     handleUpdatePortfolioDialog,
     updatePortfolio,
     open_portfolio_info,
-    handle_toggle_portfolio_info,portfolio,
-    handleSetPortfolio
+    handle_toggle_portfolio_info,
+    portfolio,
+    handleSetPortfolio,
   };
 };
 

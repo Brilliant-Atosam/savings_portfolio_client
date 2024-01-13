@@ -22,6 +22,7 @@ function App() {
   const Settings = lazy(() => import("./pages/Settings"));
   const Expenses = lazy(() => import("./pages/Expenses"));
   const Contact = lazy(() => import("./pages/Contact"));
+
   return (
     <>
       <AddPortfolioDialog open={showPortfolioDialog} />

@@ -44,6 +44,17 @@ const useExpenses = () => {
         };
         storeExpenses([expenses, ...expensesList]);
         storeUser(user);
+        setExpenses({
+          userId: user.id,
+          item: "",
+          quantity: "",
+          unit_price: "",
+          total_cost: 0,
+          category: "",
+          created_at: moment(new Date()).format("DD/MM/YYYY"),
+          id: Math.floor(Math.random() * 9999).toString(),
+        });
+        toggleExpensesDialog();
       } catch (err) {
         context?.handleSnackbar(
           err.response ? err.response.data : err.message,

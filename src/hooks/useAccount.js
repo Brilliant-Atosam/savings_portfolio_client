@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 const useAccount = () => {
   // regular expressions
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const passwordRegex = /^(?=.*[a-z])(?=.*\d)([a-z\d]|[A-Z]|[^\w\s]).{7,}$/;
+  const passwordRegex = /^(?=.*[a-z])(?=.*\d)([a-z\d]|[A-Z]|[^\w\s]).{6,}$/;
   const phoneRegex = /^\d{10}$/;
   const nameRegex = /^[A-Za-z\s',.-]{3,}$/;
 
@@ -31,7 +31,7 @@ const useAccount = () => {
   });
 
   //   login
-  const login = async () => {
+  const login = async (email, password) => {
     handleLoader();
     if (!emailRegex.test(email) || !passwordRegex.test(password)) {
       handleSnackbar("Invalid email or password!", "warning");
@@ -53,6 +53,7 @@ const useAccount = () => {
         const expenses = await request.get(`/expenses?userId=${res.data.id}`, {
           headers: { access_token: `Bearer ${res.data.access_token}` },
         });
+
         storeSavings(savingsRes.data);
         storeLoan(loans.data);
         storeExpenses(expenses.data);
@@ -66,6 +67,7 @@ const useAccount = () => {
         );
       }
     handleLoader();
+    handleSnackbar("", "info");
   };
   // logout
   const handleLogout = () => {

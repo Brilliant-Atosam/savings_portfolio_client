@@ -9,10 +9,11 @@ import useExpenses from "../hooks/useExpenses";
 import AreaChartComponent from "../components/AreaChartComponent";
 const Expenses = () => {
   const { categories, format_currency } = Util();
+  let expensesList = JSON.parse(localStorage.getItem("expenses"));
   const {
     openExpenseDialog,
     toggleExpensesDialog,
-    expensesList,
+    // expensesList,
     data,
     monthly_expenses_data,
   } = useExpenses();

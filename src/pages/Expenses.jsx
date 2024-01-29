@@ -7,6 +7,7 @@ import { expenseColumn } from "../utils/tableData";
 import ExpensesDialog from "../components/Expenses";
 import useExpenses from "../hooks/useExpenses";
 import AreaChartComponent from "../components/AreaChartComponent";
+import { Link } from "react-router-dom";
 const Expenses = () => {
   const { categories, format_currency } = Util();
   let expensesList = JSON.parse(localStorage.getItem("expenses"));
@@ -25,7 +26,11 @@ const Expenses = () => {
         <h1 className="expenses-heading debt-text">Expenses summary</h1>
         <div className="expenses-categories-container">
           {categories.map((category, index) => (
-            <div className="category" key={index}>
+            <Link
+              to={`/expenses/details?index=${index}`}
+              className="category"
+              key={index}
+            >
               <span className="category-name">{category}:</span>
               <span className="category-value">
                 {format_currency(
@@ -34,7 +39,7 @@ const Expenses = () => {
                     ?.reduce((a, b) => a + b.total_cost, 0)
                 )}
               </span>
-            </div>
+            </Link>
           ))}
         </div>
         <div className="expenses-table-container">

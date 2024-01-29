@@ -3,12 +3,19 @@ import { useState } from "react";
 import useApp from "../useApp";
 import request from "../utils/request";
 import Util from "../utils/util";
+import { useLocation } from "react-router-dom";
 
 const useExpenses = () => {
+  const location = useLocation();
+  const query = new URLSearchParams(location.search).get("index");
   const context = useApp();
   const { storeUser, storeExpenses, categories, months } = Util();
   let user = JSON.parse(localStorage.getItem("user"));
-  let expensesList = JSON.parse(localStorage.getItem("expenses"));
+  let expensesList = query
+    ? JSON.parse(localStorage.getItem("expenses")).filter(
+        (expense) => expense.category === categories[query]
+      )
+    : JSON.parse(localStorage.getItem("expenses"));
   const [openExpenseDialog, setOpenExpenseDialog] = useState(false);
   const toggleExpensesDialog = () => setOpenExpenseDialog(!openExpenseDialog);
   const [expenses, setExpenses] = useState({
@@ -101,7 +108,6 @@ const useExpenses = () => {
     return data;
   };
   const monthly_expenses_data = monthly_expenses();
-  console.log(monthly_expenses_data);
   return {
     toggleExpensesDialog,
     openExpenseDialog,
@@ -111,6 +117,7 @@ const useExpenses = () => {
     expensesList,
     data,
     monthly_expenses_data,
+    query
   };
 };
 

@@ -119,13 +119,13 @@ const useSettings = () => {
         title: month,
         total_amount: savings
           .filter((item) =>
-            item.created_at?.endsWith(
+            item.createdAt?.endsWith(
               (index + 1).toString().length === 1
                 ? `0${index + 1}/${new Date().getFullYear().toString()}`
                 : `${index + 1}/${new Date().getFullYear().toString()}`
             )
           )
-          .reduce((a, b) => a + b.amount, 0),
+          .reduce((a, b) => a + b?.amount, 0),
       };
       data.push(object_object);
       return object_object;
@@ -133,7 +133,6 @@ const useSettings = () => {
     return data;
   };
   const monthly_income_data = monthly_income();
-  // console.log();
   return {
     openPass,
     handleOpenPass,

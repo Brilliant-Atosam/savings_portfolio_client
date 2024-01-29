@@ -1,3 +1,5 @@
+import { DeleteOutlineOutlined, EditOutlined } from "@mui/icons-material";
+
 // table data for savings
 export const savingsColumn = [
   { field: "id", headerName: "ID", width: 90 },
@@ -23,4 +25,15 @@ export const expenseColumn = [
   { field: "unit_price", headerName: "Unit Price", width: "150" },
   { field: "total_cost", headerName: "Total Price", width: "150" },
   { field: "created_at", headerName: "Date", width: "150" },
+  {
+    field: "",
+    headerName: "Action",
+    width: "180",
+    renderCell: (params) => (
+      <>
+        <DeleteOutlineOutlined />
+        <EditOutlined />
+      </>
+    ),
+  },
 ];

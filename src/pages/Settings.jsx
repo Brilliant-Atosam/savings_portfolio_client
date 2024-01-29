@@ -162,7 +162,7 @@ const Settings = () => {
               </div>
             </div>
             <div className="chart-container">
-              <h1 className="debt-text">Income chart</h1>
+              <h1 className="debt-text">Monthly Income Chart</h1>
               <AreaChartComponent data={monthly_income_data} />
             </div>
           </div>

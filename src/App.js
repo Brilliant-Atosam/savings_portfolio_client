@@ -22,6 +22,7 @@ function App() {
   const Settings = lazy(() => import("./pages/Settings"));
   const Expenses = lazy(() => import("./pages/Expenses"));
   const Contact = lazy(() => import("./pages/Contact"));
+  const ExpensesDetails = lazy(() => import("./pages/ExpensesDetails"));
 
   return (
     <>
@@ -105,6 +106,18 @@ function App() {
               user ? (
                 <Suspense fallback={<FallbackComponent />}>
                   <Loan />
+                </Suspense>
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/expenses/details"
+            element={
+              user ? (
+                <Suspense fallback={<FallbackComponent />}>
+                  <ExpensesDetails />
                 </Suspense>
               ) : (
                 <Navigate to="/login" />

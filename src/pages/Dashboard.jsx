@@ -15,7 +15,7 @@ const Dashboard = () => {
       <div className="dashboard-container">
         <QuickSummary />
         <div className="dashboard-right">
-          <h1 className="debt-text">Savings history</h1>
+          <h1 className="debt-text">Income history</h1>
           <Table columns={savingsColumn} rows={savingsList} />
           <h1 className="debt-text">Monthly savings chart</h1>
           <div className="chart-container">

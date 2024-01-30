@@ -37,13 +37,18 @@ const Create = () => {
             placeholder="Preferred currency"
             className="login-input"
             onChange={(e) =>
-              setNewUser({ ...newUser, currency: e.target.value })
+              setNewUser({
+                ...newUser,
+                currency: currencies.find(
+                  (currency) => currency.name === e.target.value
+                ),
+              })
             }
           >
             <option value="">Choose your preferred currency</option>
             {currencies.map((currency, index) => (
               <option value={currency.name} key={index}>
-                {currency.name} {currency.locale}
+                {currency.name}
               </option>
             ))}
           </select>

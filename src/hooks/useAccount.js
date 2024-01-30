@@ -26,11 +26,11 @@ const useAccount = () => {
     phone: "",
     password: "",
     password2: "",
-    currency: "",
+    currency: {},
     id: Math.floor(Math.random() * 9999).toString(),
     createdAt: moment(new Date()).format("DD/MM/YYYY"),
   });
-console.log(newUser.currency);
+  // console.log(newUser);
   //   login
   const login = async (email, password) => {
     handleLoader();
@@ -86,7 +86,6 @@ console.log(newUser.currency);
       !passwordRegex.test(newUser.password)
     ) {
       handleSnackbar("Please provide valid info.", "warning");
-      console.log(newUser);
     } else if (newUser.password !== newUser.password2) {
       handleSnackbar("Passwords do not match!", "warning");
     } else {

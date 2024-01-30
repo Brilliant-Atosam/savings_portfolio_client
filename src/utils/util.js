@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 const Util = () => {
+  const user = JSON.parse(window.localStorage.getItem("user"));
   // feedback/snackbar
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [feedback, setFeedback] = useState("");
@@ -93,10 +94,11 @@ const Util = () => {
     "Dec",
   ];
   // currency formatter
+  const currencies = [{ name: "cedis", locale: "en-GH", currency: "GHS" }];
   const format_currency = (amount) =>
-    Number(amount).toLocaleString("en-GH", {
+    Number(amount).toLocaleString(user?.currency.locale || "en-GH", {
       style: "currency",
-      currency: "GHS",
+      currency: user?.currency.currency || "GHS",
     });
   return {
     storeUser,
@@ -114,6 +116,8 @@ const Util = () => {
     months,
     format_currency,
     sources_of_income,
+    currencies,
+    user,
   };
 };
 

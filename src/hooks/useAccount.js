@@ -26,10 +26,11 @@ const useAccount = () => {
     phone: "",
     password: "",
     password2: "",
+    currency: "",
     id: Math.floor(Math.random() * 9999).toString(),
     createdAt: moment(new Date()).format("DD/MM/YYYY"),
   });
-
+console.log(newUser.currency);
   //   login
   const login = async (email, password) => {
     handleLoader();

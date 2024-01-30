@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import useApp from "../useApp";
 import { CircularProgress } from "@mui/material";
 import Navbar from "../components/Navbar";
+import Util from "../utils/util";
 const Create = () => {
   const { loading } = useApp();
   const { register, newUser, setNewUser } = useAccount();
+  const { currencies } = Util();
   return (
     <div className="main-container">
       <Navbar />
@@ -30,6 +32,21 @@ const Create = () => {
             className="login-input"
             onChange={(e) => setNewUser({ ...newUser, phone: e.target.value })}
           />
+          <select
+            type="text"
+            placeholder="Preferred currency"
+            className="login-input"
+            onChange={(e) =>
+              setNewUser({ ...newUser, currency: e.target.value })
+            }
+          >
+            <option value="">Choose your preferred currency</option>
+            {currencies.map((currency, index) => (
+              <option value={currency.name} key={index}>
+                {currency.name} {currency.locale}
+              </option>
+            ))}
+          </select>
           <input
             type="password"
             placeholder="Password"

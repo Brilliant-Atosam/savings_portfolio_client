@@ -94,7 +94,6 @@ const Util = () => {
     "Dec",
   ];
   // currency formatter
-  // const currencies = [{ name: "cedis", locale: "en-GH", currency: "GHS" }];
   const currencies = [
     { name: "Ghanaian Cedi", locale: "en-GH", currency: "GHS" },
     { name: "Algerian Dinar", locale: "ar-DZ", currency: "DZD" },
@@ -126,10 +125,10 @@ const Util = () => {
     { name: "Ugandan Shilling", locale: "en-UG", currency: "UGX" },
     { name: "US Dollar", locale: "en-US", currency: "USD" },
   ];
-  const format_currency = (amount) =>
-    Number(amount).toLocaleString(user?.currency.locale || "en-GH", {
+  const format_currency = (amount, locale, currency) =>
+    Number(amount).toLocaleString(locale || user?.currency.locale || "en-GH", {
       style: "currency",
-      currency: user?.currency.currency || "GHS",
+      currency: currency || user?.currency.currency || "GHS",
     });
   return {
     storeUser,

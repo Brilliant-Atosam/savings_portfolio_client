@@ -12,6 +12,20 @@
   transform: translateX(-50%);
   cursor: pointer;
 }
+.expenses-details-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  gap: 15px;
+  /* align-items: flex-start; */
+}
+.expenses-left,
+.expenses-right {
+  flex: 1 !important;
+}
+.expenses-left {
+  overflow-x: scroll;
+}
 .add-expenses-btn {
   font-size: 2rem;
   fill: teal;
@@ -46,8 +60,11 @@
   color: #bf00ff;
   font-size: 0.8rem;
 }
-.expenses-table-container {
-  margin-top: 15px;
+
+@media (max-width: 770px) {
+  .expenses-details-container {
+    flex-direction: column;
+  }
 }
 @media (max-width: 420px) {
   .expenses-container {

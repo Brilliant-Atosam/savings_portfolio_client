@@ -4,6 +4,7 @@ function Table({ columns, rows }) {
   return (
     <div className="table-container">
       <DataGrid
+        autoHeight
         rows={rows}
         columns={columns}
         initialState={{
@@ -14,7 +15,7 @@ function Table({ columns, rows }) {
           },
         }}
         getRowId={(row) => row.id}
-        pageSizeOptions={[10]}
+        pageSizeOptions={[10, 15, 20, 25, 30]}
         disableRowSelectionOnClick
       />
     </div>

@@ -85,6 +85,7 @@ h1 {
 .table-container {
   width: 100% !important;
   background: rgb(240, 244, 240);
+  min-height: 160px;
 }
 .debt-text {
   font-weight: 300;

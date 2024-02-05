@@ -20,7 +20,20 @@ const useSave = () => {
   const [showSaveDialog, setShowSaveDialog] = useState(false);
 
   const handleSaveDialog = () => setShowSaveDialog((prev) => !prev);
+  // delete income
+  const deleteIncome = async (id) => {
+    const deleteItem = savingsList.find((item) => item.id === id);
+    console.log(deleteItem);
+    // remove details of that income from the user's portfolios total amount.
 
+    // const res = await request.delete(`/savings?id=${id}`, {
+    //   headers: {
+    //     access_token: `Bearer ${user.access_token}`,
+    //   },
+
+    // });
+  };
+  // add income
   const handleSave = async (savings) => {
     context.handleLoader();
     if (!savings.amount || !savings.source) {
@@ -117,6 +130,7 @@ const useSave = () => {
     savings,
     setSavings,
     monthly_data,
+    deleteIncome,
   };
 };
 

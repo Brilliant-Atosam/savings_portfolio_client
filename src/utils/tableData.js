@@ -1,9 +1,11 @@
 import { DeleteOutlineOutlined } from "@mui/icons-material";
 import Util from "./util";
 import useExpenses from "../hooks/useExpenses";
+import useSave from "../hooks/useSave";
 const useTableData = () => {
   const { format_currency } = Util();
   const { deleteExpenses } = useExpenses();
+  const { deleteIncome } = useSave();
   // table data for savings
   const savingsColumn = [
     { field: "id", headerName: "ID", width: 90 },
@@ -12,6 +14,30 @@ const useTableData = () => {
     { field: "saved", headerName: "Saved", width: 150 },
     { field: "balance", headerName: "Balance", width: 100 },
     { field: "createdAt", headerName: "Date", width: 100 },
+    {
+      field: "",
+      headerName: "Action",
+      width: "70",
+      renderCell: (params) => (
+        <>
+          <DeleteOutlineOutlined
+            onClick={() => {
+              if (
+                window.confirm(
+                  `This operation will cause the deletion of the income amount of ${format_currency(
+                    params.row.amount
+                  )} tracked on ${
+                    params.row.createdAt
+                  }. Press "OK" to continue or cancel.`
+                )
+              ) {
+                deleteIncome(params.row.id);
+              }
+            }}
+          />
+        </>
+      ),
+    },
   ];
   const loansColumn = [
     { field: "id", headerName: "ID", width: 60 },
@@ -32,7 +58,7 @@ const useTableData = () => {
     {
       field: "",
       headerName: "Action",
-      width: "180",
+      width: "70",
       renderCell: (params) => (
         <>
           <DeleteOutlineOutlined
@@ -51,7 +77,7 @@ const useTableData = () => {
                 )
               ) {
                 // alert("Good");
-                deleteExpenses(params.row.id)
+                deleteExpenses(params.row.id);
               }
             }}
           />

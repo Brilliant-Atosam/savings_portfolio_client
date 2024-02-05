@@ -2,8 +2,12 @@ import Topbar from "../components/Topbar";
 import logo from "../logo1.png";
 import Util from "../utils/util";
 import useExchange from "../hooks/useExchange";
+import useApp from "../useApp";
+import { CircularProgress } from "@mui/material";
 const Exchange = () => {
   const { currencies, format_currency } = Util();
+  const { loading } = useApp();
+
   const { exchangeData, setExchangeData, fetchExchange, exchangeResult } =
     useExchange();
   return (
@@ -60,8 +64,9 @@ const Exchange = () => {
             ))}
           </select>
           <button onClick={fetchExchange} className="login-btn">
-            Convert Now
+            {loading ? "loading..." : "Convert Now"}
           </button>
+          {loading && <CircularProgress />}
           {exchangeResult && (
             <div className="exchange-results-container">
               <div className="key-value-container">

@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
+import useApp from "../useApp";
 
 const useExchange = () => {
+  const { handleLoader } = useApp();
   const [exchangeData, setExchangeData] = useState({
     amount: 0,
     from: "",
@@ -11,6 +13,7 @@ const useExchange = () => {
   });
   const [exchangeResult, setExchangeResult] = useState(null);
   const fetchExchange = async () => {
+    handleLoader();
     if (exchangeData.amount < 1 || !exchangeData.from || !exchangeData.to) {
       alert("Gotcha!");
     } else {
@@ -19,6 +22,7 @@ const useExchange = () => {
       );
       setExchangeResult(res.data);
     }
+    handleLoader();
   };
   return {
     exchangeData,

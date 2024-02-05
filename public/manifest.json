@@ -1,6 +1,6 @@
 {
   "short_name": "cashlens",
-  "name": "focus, track, thrive",
+  "name": "cashlens | focus, track, thrive",
   "description": "cashlens is an app for money management. It enables users to keep track of their money, streams of income, spending routine/habit, and more.",
   "categories": ["Personal Finance", "Financial Management."],
   "icons": [
@@ -20,7 +20,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "https://mycashlens.netlify.app/",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "teal",
   "background_color": "white"

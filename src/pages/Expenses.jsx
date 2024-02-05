@@ -3,24 +3,29 @@ import Topbar from "../components/Topbar";
 import { Add } from "@mui/icons-material";
 import Util from "../utils/util";
 import Table from "../components/Table";
-import { expenseColumn } from "../utils/tableData";
+import useTableData from "../utils/tableData";
 import ExpensesDialog from "../components/Expenses";
 import useExpenses from "../hooks/useExpenses";
 import AreaChartComponent from "../components/AreaChartComponent";
 import { Link } from "react-router-dom";
+import ConfirmDialog from "../components/ConfirmDialog";
+import useApp from "../useApp";
+import { CircularProgress } from "@mui/material";
 const Expenses = () => {
-  const { categories, format_currency } = Util();
+  const { expenseColumn } = useTableData();
+  const { loading } = useApp();
+  const { categories, format_currency, confirmData } = Util();
   let expensesList = JSON.parse(localStorage.getItem("expenses"));
   const {
     openExpenseDialog,
     toggleExpensesDialog,
-    // expensesList,
     data,
     monthly_expenses_data,
   } = useExpenses();
   return (
     <div className="main-container">
       <Topbar />
+      <ConfirmDialog action={() => alert("Hi")} open={confirmData.open} />
       <ExpensesDialog open={openExpenseDialog} toggle={toggleExpensesDialog} />
       <div className="expenses-container">
         <h1 className="expenses-heading debt-text">Expenses summary</h1>
@@ -44,6 +49,7 @@ const Expenses = () => {
         </div>
         <div className="expenses-table-container">
           <h1 className="expenses-heading debt-text">Expenses history</h1>
+          {loading && <CircularProgress />}
           <Table columns={expenseColumn} rows={expensesList} />
         </div>
         <div className="chart-container">

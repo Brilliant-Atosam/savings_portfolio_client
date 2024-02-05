@@ -1,12 +1,13 @@
 import "../styles/expenses.css";
 import Topbar from "../components/Topbar";
 import Table from "../components/Table";
-import { expenseColumn } from "../utils/tableData";
 import AreaChartComponent from "../components/AreaChartComponent";
 import useExpenses from "../hooks/useExpenses";
 import Util from "../utils/util";
+import useTableData from "../utils/tableData";
 
 const ExpensesDetails = () => {
+  const { expenseColumn } = useTableData();
   const { categories } = Util();
   const { expensesList, monthly_expenses_data, query } = useExpenses();
   return (

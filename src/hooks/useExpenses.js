@@ -71,6 +71,25 @@ const useExpenses = () => {
     }
     context?.handleLoader();
   };
+  const deleteExpenses = async (id) => {
+    context?.handleLoader();
+    expensesList = expensesList.filter((item) => item.id !== id);
+    try {
+      const res = await request.delete(`/expenses?id=${id}`, {
+        headers: {
+          access_token: `Bearer ${user.access_token}`,
+        },
+      });
+      storeExpenses(expensesList);
+      context?.handleSnackbar(res.data, "success");
+    } catch (err) {
+      context?.handleSnackbar(
+        err.response ? err.response.data : err.message,
+        "error"
+      );
+    }
+    context?.handleLoader();
+  };
   const chart_data = () => {
     let data = [];
     categories.map((category) => {
@@ -117,7 +136,8 @@ const useExpenses = () => {
     expensesList,
     data,
     monthly_expenses_data,
-    query
+    query,
+    deleteExpenses,
   };
 };
 

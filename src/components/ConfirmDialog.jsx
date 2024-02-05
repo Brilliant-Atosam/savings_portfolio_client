@@ -8,7 +8,7 @@ import {
 import React from "react";
 import useApp from "../useApp";
 import { CircularProgress } from "@mui/material";
-const ConfirmDialog = ({ open, action, cancel }) => {
+const ConfirmDialog = ({ open, action }) => {
   const { confirmData, setConfirmData, loading } = useApp();
   return (
     <Dialog open={open}>

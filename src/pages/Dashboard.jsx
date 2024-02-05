@@ -4,9 +4,10 @@ import Table from "../components/Table";
 import QuickSummary from "../components/QuickSummary";
 import AreaChartComponents from "../components/AreaChartComponent";
 import useApp from "../useApp";
-import { savingsColumn } from "../utils/tableData";
+import useTableData from "../utils/tableData";
 import useSave from "../hooks/useSave";
 const Dashboard = () => {
+  const { savingsColumn } = useTableData();
   let { savingsList } = useApp();
   const { monthly_data } = useSave();
   return (

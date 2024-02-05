@@ -2,10 +2,11 @@ import "../styles/dashboard.css";
 import Topbar from "../components/Topbar";
 import Table from "../components/Table";
 import QuickSummary from "../components/QuickSummary";
-import { loansColumn } from "../utils/tableData";
+import useTableData from "../utils/tableData";
 import useBorrow from "../hooks/useBorrow";
 import AreaChartComponent from "../components/AreaChartComponent";
 const Loan = () => {
+  const { loansColumn } = useTableData();
   let loans = JSON.parse(localStorage.getItem("loans"));
   const { monthly_advance_data } = useBorrow();
   return (

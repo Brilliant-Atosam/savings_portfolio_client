@@ -30,7 +30,6 @@ const useAccount = () => {
     id: Math.floor(Math.random() * 9999).toString(),
     createdAt: moment(new Date()).format("DD/MM/YYYY"),
   });
-  // console.log(newUser);
   //   login
   const login = async (email, password) => {
     handleLoader();

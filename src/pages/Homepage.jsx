@@ -9,6 +9,7 @@ import { PiBinocularsThin } from "react-icons/pi";
 import { MdGroupWork, MdOutlinePolicy } from "react-icons/md";
 import { MailOutline, Phone, WhatsApp, YouTube } from "@mui/icons-material";
 import Navbar from "../components/Navbar";
+import img from "../images/img.png";
 const Homepage = () => {
   return (
     <div className="main-container">
@@ -70,6 +71,29 @@ const Homepage = () => {
         <Link to="/login" className="intro-nav-btn">
           Get Started
         </Link>
+      </div>
+      {/* referral */}
+      <div className="referral-container">
+        <img src={img} alt="" className="referral-img" />
+        <div className="referral-details">
+          <h1 className="referral-title">
+            What if you could earn money just by telling others about cashlens?
+          </h1>
+          <p className="referral-info">
+            Yeah, that's what cashlens offers you! For every friend you refer to
+            the app that helps you manage your money, you get a commission. The
+            more you share, the more you earn. It's a win-win situation. So what
+            are you waiting for?
+          </p>
+          <div className="intro-nav-links">
+            <Link to="/" className="intro-nav-btn">
+              Join now!
+            </Link>
+            <Link to="/" className="intro-nav-btn">
+              Learn more.
+            </Link>
+          </div>
+        </div>
       </div>
       {/* about us */}
       <div className="about-container">

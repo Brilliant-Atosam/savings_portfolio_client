@@ -40,11 +40,8 @@ const QuickSummary = () => {
     borrowMoney,
     handleOpenBorrowDialog,
   } = useBorrow();
-  const { handleSave, handleSaveDialog, showSaveDialog } = useSave();
-  const structuredPortfolio = user?.portfolio?.map((item) => ({
-    ...item,
-    amount: Number(parseFloat(item.amount).toFixed(2)),
-  }));
+  const { handleSave, handleSaveDialog, showSaveDialog, structuredPortfolio } =
+    useSave();
   return (
     <>
       <UpdatePortfolioDialog

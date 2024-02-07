@@ -7,6 +7,7 @@ const useSave = () => {
   const { storeUser, storeSavings, months } = Util();
   const context = useApp();
   let user = JSON.parse(window.localStorage.getItem("user"));
+  // let savingsList = JSON.parse(window.localStorage.getItem("user"));
   let details = [];
   const [savings, setSavings] = useState({
     source: "",
@@ -18,20 +19,41 @@ const useSave = () => {
   });
   let savingsList = JSON.parse(window.localStorage.getItem("savings")) || [];
   const [showSaveDialog, setShowSaveDialog] = useState(false);
-
+  // portfolio data for quick summary
+  let portfolio_from_savings = [];
+  savingsList.map((item) => {
+    return portfolio_from_savings.push(...item.details);
+  });
+  const structuredPortfolio = user?.portfolio?.map((item) => ({
+    ...item,
+    amount: Number(
+      parseFloat(
+        portfolio_from_savings
+          .filter((port) => port.title === item.title)
+          .reduce((a, b) => a + b.amount, 0)
+      ).toFixed(2)
+    ),
+  }));
   const handleSaveDialog = () => setShowSaveDialog((prev) => !prev);
   // delete income
   const deleteIncome = async (id) => {
-    const deleteItem = savingsList.find((item) => item.id === id);
-    console.log(deleteItem);
-    // remove details of that income from the user's portfolios total amount.
-
-    // const res = await request.delete(`/savings?id=${id}`, {
-    //   headers: {
-    //     access_token: `Bearer ${user.access_token}`,
-    //   },
-
-    // });
+    context.handleLoader();
+    savingsList = savingsList.filter((item) => item.id !== id);
+    try {
+      const res = await request.delete(`/savings?id=${id}`, {
+        headers: {
+          access_token: `Bearer ${user?.access_token}`,
+        },
+      });
+      context?.handleSnackbar(res?.data, "success");
+      storeSavings(savingsList);
+    } catch (err) {
+      context?.handleSnackbar(
+        err.response ? err.response.data : "Network error!",
+        "error"
+      );
+    }
+    context.handleLoader();
   };
   // add income
   const handleSave = async (savings) => {
@@ -131,6 +153,9 @@ const useSave = () => {
     setSavings,
     monthly_data,
     deleteIncome,
+    savingsList,
+    portfolio_from_savings,
+    structuredPortfolio,
   };
 };
 

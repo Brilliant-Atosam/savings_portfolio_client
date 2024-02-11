@@ -3,6 +3,7 @@ import "../styles/homepage.css";
 import "../styles/contact.css";
 import { GiPayMoney, GiReceiveMoney } from "react-icons/gi";
 import { GoGoal } from "react-icons/go";
+import logo from "../logo1.png";
 import { FcDebt } from "react-icons/fc";
 import { BsSun } from "react-icons/bs";
 import { PiBinocularsThin } from "react-icons/pi";
@@ -10,7 +11,16 @@ import { MdGroupWork, MdOutlinePolicy } from "react-icons/md";
 import { MailOutline, Phone, WhatsApp, YouTube } from "@mui/icons-material";
 import Navbar from "../components/Navbar";
 import img from "../images/img.png";
+import useApp from "../useApp";
+import Util from "../utils/util";
+import useExchange from "../hooks/useExchange";
+import { CircularProgress } from "@mui/material";
 const Homepage = () => {
+  const { currencies, format_currency } = Util();
+  const { loading } = useApp();
+
+  const { exchangeData, setExchangeData, fetchExchange, exchangeResult } =
+    useExchange();
   return (
     <div className="main-container">
       <Navbar />
@@ -135,6 +145,83 @@ const Homepage = () => {
           </div>
         </div>
       </div>
+      {/* currency converter */}
+      <div className="exchange-container">
+        <div className="login-form-container">
+          <img src={logo} alt="cashlens logo" className="login-logo" />
+          <h3 className="login-text">cashlens currency converter</h3>
+          <input
+            type="number"
+            placeholder="Enter amount"
+            className="login-input"
+            onChange={(e) =>
+              setExchangeData((prev) => ({ ...prev, amount: e.target.value }))
+            }
+          />
+          <select
+            name=""
+            placeholder="Select currency"
+            className="login-input"
+            onChange={(e) =>
+              setExchangeData((prev) => ({
+                ...prev,
+                from: e.target.value,
+                fromIndex: currencies.findIndex(
+                  (currency) => currency.currency === e.target.value
+                ),
+              }))
+            }
+          >
+            <option value="">Convert from</option>
+            {currencies.map((currency) => (
+              <option value={currency.currency}>{currency.name}</option>
+            ))}
+          </select>
+          <select
+            name=""
+            placeholder="Select currency"
+            className="login-input"
+            onChange={(e) =>
+              setExchangeData((prev) => ({
+                ...prev,
+                to: e.target.value,
+                toIndex: currencies.findIndex(
+                  (currency) => currency.currency === e.target.value
+                ),
+              }))
+            }
+          >
+            <option value="">Convert to</option>
+            {currencies.map((currency) => (
+              <option value={currency.currency}>{currency.name}</option>
+            ))}
+          </select>
+          <button onClick={fetchExchange} className="login-btn">
+            {loading ? "loading..." : "Convert Now"}
+          </button>
+          {loading && <CircularProgress />}
+          {exchangeResult && (
+            <div className="exchange-results-container">
+              <div className="key-value-container">
+                <span className="info-key">Conversion rate</span>
+                <span className="info-value">
+                  {exchangeResult?.conversion_rate}
+                </span>
+              </div>
+              <div className="key-value-container">
+                <span className="info-key">Conversion results</span>
+                <span className="info-value">
+                  {format_currency(
+                    exchangeResult?.conversion_result,
+                    currencies[exchangeData.toIndex].locale,
+                    currencies[exchangeData.toIndex].currency
+                  )}
+                </span>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
       {/* contact us */}
       <div className="contact-container">
         <h1 className="contact-heading">Let's get in touch!</h1>
@@ -198,6 +285,7 @@ const Homepage = () => {
           </div>
         </div>
       </div>
+
       <footer>
         cashlens &copy; 2024. Created by
         <a href="tel:233544006865">webcrony online</a>

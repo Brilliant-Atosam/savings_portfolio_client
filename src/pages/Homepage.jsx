@@ -96,10 +96,10 @@ const Homepage = () => {
             are you waiting for?
           </p>
           <div className="intro-nav-links">
-            <Link to="/" className="intro-nav-btn">
+            <Link to="/register" className="intro-nav-btn">
               Join now!
             </Link>
-            <Link to="/" className="intro-nav-btn">
+            <Link to="/policy" className="intro-nav-btn">
               Learn more.
             </Link>
           </div>

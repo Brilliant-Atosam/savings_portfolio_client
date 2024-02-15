@@ -117,6 +117,7 @@
   flex-direction: column;
   gap: 15px;
   justify-content: center;
+  padding-bottom: 15px;
 }
 .about-container {
   display: flex;
@@ -158,6 +159,9 @@ footer a {
   .referral-container {
     flex-direction: column-reverse;
     gap: 20px;
+  }
+  .reverse {
+    flex-direction: column !important;
   }
   .referral-details {
     width: 100%;

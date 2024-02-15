@@ -24,7 +24,7 @@ function App() {
   const Contact = lazy(() => import("./pages/Contact"));
   const ExpensesDetails = lazy(() => import("./pages/ExpensesDetails"));
   const Exchange = lazy(() => import("./pages/Exchange"));
-
+  const Policy = lazy(() => import("./pages/Policy"));
   return (
     <>
       <AddPortfolioDialog open={showPortfolioDialog} />
@@ -58,6 +58,14 @@ function App() {
             element={
               <Suspense fallback={<FallbackComponent />}>
                 <Contact />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/policy"
+            element={
+              <Suspense fallback={<FallbackComponent />}>
+                <Policy />
               </Suspense>
             }
           />

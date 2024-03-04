@@ -39,6 +39,14 @@ const useTableData = () => {
       ),
     },
   ];
+  // withdrawal history
+  const withdrawalsColumn = [
+    { field: "id", headerName: "ID", width: 60 },
+    { field: "amount", headerName: "Amount", width: 90 },
+    { field: "account", headerName: "Account", width: 220 },
+    { field: "createdAt", headerName: "Date", width: 100 },
+    { field: "status", headerName: "Status", width: 100 },
+  ];
   const loansColumn = [
     { field: "id", headerName: "ID", width: 60 },
     { field: "amount", headerName: "Amount", width: 90 },
@@ -85,6 +93,6 @@ const useTableData = () => {
       ),
     },
   ];
-  return { savingsColumn, loansColumn, expenseColumn };
+  return { savingsColumn, loansColumn, expenseColumn, withdrawalsColumn };
 };
 export default useTableData;

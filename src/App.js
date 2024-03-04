@@ -25,6 +25,8 @@ function App() {
   const ExpensesDetails = lazy(() => import("./pages/ExpensesDetails"));
   const Exchange = lazy(() => import("./pages/Exchange"));
   const Policy = lazy(() => import("./pages/Policy"));
+  // partnership program
+  const PartnersDashboard = lazy(() => import("./pages/PartnershipDashboard"));
   return (
     <>
       <AddPortfolioDialog open={showPortfolioDialog} />
@@ -42,6 +44,14 @@ function App() {
             element={
               <Suspense fallback={<FallbackComponent />}>
                 {user ? <Dashboard /> : <Homepage />}
+              </Suspense>
+            }
+          />
+          <Route
+            path="/partner"
+            element={
+              <Suspense fallback={<FallbackComponent />}>
+                {user ? <PartnersDashboard /> : <Homepage />}
               </Suspense>
             }
           />

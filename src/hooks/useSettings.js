@@ -8,6 +8,7 @@ const useSettings = () => {
   let user = JSON.parse(localStorage.getItem("user"));
   let savings = JSON.parse(localStorage.getItem("savings"));
   let expenses = JSON.parse(localStorage.getItem("expenses"));
+  let loans = JSON.parse(localStorage.getItem("loans"));
   const { storeUser, months } = Util();
   const [openPass, setOpenPass] = useState(false);
   const handleOpenPass = () => setOpenPass(!openPass);
@@ -17,6 +18,12 @@ const useSettings = () => {
     newPassword: "",
     newPassword2: "",
   });
+  // parameters
+  const total_income = savings.reduce((a, b) => a + b.amount, 0);
+  const total_expenses = expenses.reduce((a, b) => a + b.total_cost, 0);
+  const total_savings = savings.reduce((a, b) => a + b.saved, 0);
+  const total_advance = loans.reduce((a, b) => a + b.amount, 0);
+  const untracked = total_income - total_savings - total_expenses;
   const [basic_info, set_basic_info] = useState({
     name: user?.name,
     phone: user?.phone,
@@ -82,16 +89,15 @@ const useSettings = () => {
   const chart_data = [
     {
       title: "savings",
-      amount: user.total_amount_saved,
+      amount: total_savings,
     },
     {
       title: "expense",
-      amount: expenses?.reduce((a, b) => a + b.total_cost, 0),
+      amount: total_expenses,
     },
     {
       title: "untracked",
-      amount:
-        user.total_income - (user.total_expense + user.total_amount_saved),
+      amount: untracked,
     },
   ];
   // income chart data
@@ -104,7 +110,7 @@ const useSettings = () => {
           .filter((item) => item.source === source)
           .reduce((a, b) => a + b.amount, 0),
       };
-      data.push(data_object);
+      data_object.amount > 0 && data.push(data_object);
       return data_object;
     });
     return data;
@@ -147,6 +153,11 @@ const useSettings = () => {
     chart_data,
     income_chart_data,
     monthly_income_data,
+    total_income,
+    total_expenses,
+    total_savings,
+    total_advance,
+    untracked,
   };
 };
 

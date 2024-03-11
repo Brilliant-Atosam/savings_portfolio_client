@@ -16,7 +16,7 @@ import Util from "../utils/util";
 import AreaChartComponent from "../components/AreaChartComponent";
 
 const Settings = () => {
-  const { user, expensesList } = useApp();
+  const { user } = useApp();
   const { format_currency, colors } = Util();
   const {
     handleOpenPass,
@@ -28,6 +28,10 @@ const Settings = () => {
     chart_data,
     income_chart_data,
     monthly_income_data,
+    total_expenses,
+    total_income,
+    total_savings,
+    total_advance,
   } = useSettings();
   return (
     <div className="main-container">
@@ -113,28 +117,24 @@ const Settings = () => {
               <div className="financial-summary">
                 <div className="key-value-container">
                   <span className="key">Total Income: </span>
-                  <span className="value">
-                    {format_currency(user.total_income)}
-                  </span>
+                  <span className="value">{format_currency(total_income)}</span>
                 </div>
                 <div className="key-value-container">
                   <span className="key">Total Savings: </span>
                   <span className="value">
-                    {format_currency(user.total_amount_saved)}
+                    {format_currency(total_savings)}
                   </span>
                 </div>
                 <div className="key-value-container">
                   <span className="key">Total Expenses: </span>
                   <span className="value">
-                    {format_currency(
-                      expensesList?.reduce((a, b) => a + b.total_cost, 0)
-                    )}
+                    {format_currency(total_expenses)}
                   </span>
                 </div>
                 <div className="key-value-container">
                   <span className="key">Total Advance balance: </span>
                   <span className="value">
-                    {format_currency(user.total_advance)}
+                    {format_currency(total_advance)}
                   </span>
                 </div>
               </div>

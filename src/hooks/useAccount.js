@@ -4,7 +4,6 @@ import request from "../utils/request";
 import { useState } from "react";
 import moment from "moment";
 import { useLocation, useNavigate } from "react-router-dom";
-
 const useAccount = () => {
   // regular expressions
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -17,6 +16,7 @@ const useAccount = () => {
   const reset_code = new URLSearchParams(location.search).get("reset_code");
   const { storeUser, storeSavings, storeLoan, storeExpenses } = Util();
   const { handleSnackbar, handleLoader } = useApp();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
@@ -53,11 +53,9 @@ const useAccount = () => {
         const expenses = await request.get(`/expenses?userId=${res.data.id}`, {
           headers: { access_token: `Bearer ${res.data.access_token}` },
         });
-
         storeSavings(savingsRes.data);
         storeLoan(loans.data);
         storeExpenses(expenses.data);
-
         storeUser(res.data);
         navigate("/");
       } catch (err) {

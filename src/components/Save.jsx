@@ -6,6 +6,7 @@ import {
 } from "@mui/material";
 import useApp from "../useApp";
 import React, { useEffect } from "react";
+import Subscription from "./Subscription";
 import "../styles/login.css";
 import useSave from "../hooks/useSave";
 import Util from "../utils/util";
@@ -113,6 +114,7 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
           <button className="dialog-close-btn" onClick={handleSaveDialog}>
             Close
           </button>
+          <Subscription />
         </div>
       </DialogContent>
       <div className="loading-container">

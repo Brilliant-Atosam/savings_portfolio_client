@@ -8,9 +8,12 @@ import AddPortfolioDialog from "./components/AddPortfolioDialog";
 import Feedback from "./components/Feedback";
 import ConfirmDialog from "./components/ConfirmDialog";
 import usePortfolio from "./hooks/usePortfolio";
+import GoPremium from "./components/GoPremium";
+import usePaystack from "./hooks/usePaystack";
 function App() {
   const { user, showPortfolioDialog, handleSnackbar, snackbar, confirmData } =
     useApp();
+  const { openSubscribeDialog, toggleSubscribeDialog } = usePaystack();
   const { deletePortfolio } = usePortfolio();
   const Login = lazy(() => import("./pages/Login"));
   const Homepage = lazy(() => import("./pages/Homepage"));
@@ -25,11 +28,14 @@ function App() {
   const ExpensesDetails = lazy(() => import("./pages/ExpensesDetails"));
   const Exchange = lazy(() => import("./pages/Exchange"));
   const Policy = lazy(() => import("./pages/Policy"));
+  const Subscription = lazy(() => import("./pages/Subscription"));
   // partnership program
   const PartnersDashboard = lazy(() => import("./pages/PartnershipDashboard"));
   return (
     <>
       <AddPortfolioDialog open={showPortfolioDialog} />
+      {/* Subscription dialog */}
+      <GoPremium open={openSubscribeDialog} action={toggleSubscribeDialog} />
       <ConfirmDialog action={deletePortfolio} open={confirmData.open} />
       <Feedback
         open={snackbar.open}
@@ -68,6 +74,14 @@ function App() {
             element={
               <Suspense fallback={<FallbackComponent />}>
                 <Contact />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/subscription"
+            element={
+              <Suspense fallback={<FallbackComponent />}>
+                <Subscription />
               </Suspense>
             }
           />

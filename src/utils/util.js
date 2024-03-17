@@ -126,7 +126,7 @@ const Util = () => {
     { name: "US Dollar", locale: "en-US", currency: "USD" },
   ];
   const format_currency = (amount, locale, currency) =>
-    Number(amount.toFixed(2)).toLocaleString(
+    Number(amount?.toFixed(2)).toLocaleString(
       locale || user?.currency.locale || "en-GH",
       {
         style: "currency",

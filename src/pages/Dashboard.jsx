@@ -7,21 +7,14 @@ import useApp from "../useApp";
 import { CircularProgress } from "@mui/material";
 import useTableData from "../utils/tableData";
 import useSave from "../hooks/useSave";
-// import usePaystack from "../hooks/usePaystack";
-// import GoPremium from "../components/GoPremium";
-// import { useEffect } from "react";
 const Dashboard = () => {
-  // const { openSubscribeDialog, toggleSubscribeDialog } = usePaystack();
   const { savingsColumn } = useTableData();
   let { savingsList, loading } = useApp();
   const { monthly_data } = useSave();
-  // useEffect(() => {
-  //   toggleSubscribeDialog();
-  // }, []);
+
   return (
     <div className="main-container">
       <Topbar />
-      {/* <GoPremium open={openSubscribeDialog} action={toggleSubscribeDialog} /> */}
       <div className="dashboard-container">
         <QuickSummary />
         <div className="dashboard-right">

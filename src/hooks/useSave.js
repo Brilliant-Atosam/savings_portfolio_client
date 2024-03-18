@@ -8,7 +8,6 @@ const useSave = () => {
   const context = useApp();
   let user = JSON.parse(window.localStorage.getItem("user"));
   let expensesList = JSON.parse(localStorage.getItem("expenses"));
-  console.log(expensesList);
   // let savingsList = JSON.parse(window.localStorage.getItem("user"));
   let details = [];
   const [savings, setSavings] = useState({
@@ -166,7 +165,6 @@ const useSave = () => {
     return data;
   };
   let monthly_data = monthly_savings_data();
-  console.log(monthly_savings_data());
   return {
     showSaveDialog,
     setShowSaveDialog,

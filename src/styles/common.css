@@ -192,6 +192,23 @@ h1 {
   cursor: pointer;
   color: white;
 }
+/* go premium */
+.go-premium-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  margin: 20px 0;
+}
+.go-premium-title {
+  font-size: 1rem;
+  text-align: center;
+}
+.go-premium-message {
+  line-height: 1.6rem;
+}
 @media (max-width: 700px) {
   .chart-container {
     overflow-x: scroll;

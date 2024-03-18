@@ -127,7 +127,7 @@ const useSave = () => {
           (index + 1).toString().length === 1
             ? `0${index + 1}`
             : (index + 1).toString(),
-        total_amount: savingsList
+        total_savings: savingsList
           ?.filter((item) =>
             item.createdAt.endsWith(
               (index + 1).toString().length === 1
@@ -136,6 +136,16 @@ const useSave = () => {
             )
           )
           ?.reduce((a, b) => a + b.saved, 0)
+          .toFixed(2),
+        total_amount: savingsList
+          ?.filter((item) =>
+            item.createdAt.endsWith(
+              (index + 1).toString().length === 1
+                ? `0${index + 1}/${new Date().getFullYear()}`
+                : `${index + 1}/${new Date().getFullYear()}`
+            )
+          )
+          ?.reduce((a, b) => a + b.amount, 0)
           .toFixed(2),
       };
       data.push(data_object);

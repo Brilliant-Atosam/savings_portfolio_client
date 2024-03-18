@@ -6,6 +6,7 @@ import Table from "../components/Table";
 import useTableData from "../utils/tableData";
 import ExpensesDialog from "../components/Expenses";
 import useExpenses from "../hooks/useExpenses";
+
 import AreaChartComponent from "../components/AreaChartComponent";
 import { Link } from "react-router-dom";
 import useApp from "../useApp";

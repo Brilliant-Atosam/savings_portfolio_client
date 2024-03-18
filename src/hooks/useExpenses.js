@@ -6,6 +6,7 @@ import Util from "../utils/util";
 import { useLocation } from "react-router-dom";
 
 const useExpenses = () => {
+  let savingsList = JSON.parse(window.localStorage.getItem("savings")) || [];
   const location = useLocation();
   const query = new URLSearchParams(location.search).get("index");
   const context = useApp();
@@ -95,7 +96,7 @@ const useExpenses = () => {
     categories.map((category) => {
       let data_object = {
         title: category,
-        total_amount: expensesList
+        total_expenses: expensesList
           .filter((item) => item.category === category)
           .reduce((a, b) => a + b.total_cost, 0),
       };
@@ -111,7 +112,7 @@ const useExpenses = () => {
     months?.map((month, index) => {
       let data_object = {
         title: month,
-        total_amount: expensesList
+        total_expenses: expensesList
           ?.filter((expenses) =>
             expenses?.created_at?.endsWith(
               (index + 1).toString().length === 1
@@ -120,6 +121,16 @@ const useExpenses = () => {
             )
           )
           .reduce((a, b) => a + b.total_cost, 0),
+        total_income: savingsList
+          ?.filter((item) =>
+            item.createdAt.endsWith(
+              (index + 1).toString().length === 1
+                ? `0${index + 1}/${new Date().getFullYear()}`
+                : `${index + 1}/${new Date().getFullYear()}`
+            )
+          )
+          ?.reduce((a, b) => a + b.amount, 0)
+          .toFixed(2),
       };
       data.push(data_object);
       return data_object;

@@ -24,6 +24,10 @@ const AreaChartComponent = ({ data }) => {
           <stop offset="5%" stopColor="#3399ff" stopOpacity={0.8} />
           <stop offset="95%" stopColor="#5084b8" stopOpacity={0} />
         </linearGradient>
+        <linearGradient id="expenses" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="5%" stopColor="#ff3399" stopOpacity={0.8} />
+          <stop offset="95%" stopColor="#f02c8e" stopOpacity={0} />
+        </linearGradient>
       </defs>
       <XAxis dataKey="title" />
       <YAxis />
@@ -31,7 +35,7 @@ const AreaChartComponent = ({ data }) => {
       <Tooltip content={data} />
       <Area
         type="monotone"
-        dataKey="total_amount"
+        dataKey="total_income"
         stroke="teal"
         fillOpacity={1}
         fill="url(#income)"
@@ -42,6 +46,13 @@ const AreaChartComponent = ({ data }) => {
         stroke="#0d7eef"
         fillOpacity={1}
         fill="url(#savings)"
+      />
+      <Area
+        type="monotone"
+        dataKey="total_expenses"
+        stroke="#fa0f85"
+        fillOpacity={1}
+        fill="url(#expenses)"
       />
     </AreaChart>
   );

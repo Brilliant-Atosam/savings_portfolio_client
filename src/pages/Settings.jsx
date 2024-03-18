@@ -14,10 +14,11 @@ import {
 } from "@mui/icons-material";
 import Util from "../utils/util";
 import AreaChartComponent from "../components/AreaChartComponent";
-
+import useSave from "../hooks/useSave";
 const Settings = () => {
   const { user } = useApp();
   const { format_currency, colors } = Util();
+  const {monthly_data} = useSave()
   const {
     handleOpenPass,
     openPass,
@@ -27,7 +28,7 @@ const Settings = () => {
     handle_basic_info,
     chart_data,
     income_chart_data,
-    monthly_income_data,
+    // monthly_income_data,
     total_expenses,
     total_income,
     total_savings,
@@ -163,7 +164,7 @@ const Settings = () => {
             </div>
             <div className="chart-container">
               <h1 className="debt-text">Monthly Income Chart</h1>
-              <AreaChartComponent data={monthly_income_data} />
+              <AreaChartComponent data={monthly_data} />
             </div>
           </div>
         </div>

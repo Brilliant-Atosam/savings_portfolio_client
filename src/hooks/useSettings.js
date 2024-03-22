@@ -19,11 +19,19 @@ const useSettings = () => {
     newPassword2: "",
   });
   // parameters
-  const total_income = savings.reduce((a, b) => a + b.amount, 0);
-  const total_expenses = expenses.reduce((a, b) => a + b.total_cost, 0);
-  const total_savings = savings.reduce((a, b) => a + b.saved, 0);
+  const total_income = Number(
+    savings.reduce((a, b) => a + b.amount, 0).toFixed(2)
+  );
+  const total_expenses = Number(
+    expenses.reduce((a, b) => a + b.total_cost, 0).toFixed(2)
+  );
+  const total_savings = Number(
+    savings.reduce((a, b) => a + b.saved, 0).toFixed(2)
+  );
   const total_advance = loans.reduce((a, b) => a + b.amount, 0);
-  const untracked = total_income - total_savings - total_expenses;
+  const untracked = Number(
+    (total_income - total_savings - total_expenses).toFixed(2)
+  );
   const [basic_info, set_basic_info] = useState({
     name: user?.name,
     phone: user?.phone,

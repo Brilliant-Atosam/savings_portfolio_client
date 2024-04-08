@@ -33,13 +33,7 @@ const AreaChartComponent = ({ data }) => {
       <YAxis />
       <CartesianGrid strokeDasharray="3 3" />
       <Tooltip content={data} />
-      <Area
-        type="monotone"
-        dataKey="total_income"
-        stroke="teal"
-        fillOpacity={1}
-        fill="url(#income)"
-      />
+
       <Area
         type="monotone"
         dataKey="total_savings"
@@ -53,6 +47,13 @@ const AreaChartComponent = ({ data }) => {
         stroke="#fa0f85"
         fillOpacity={1}
         fill="url(#expenses)"
+      />
+      <Area
+        type="monotone"
+        dataKey="total_income"
+        stroke="teal"
+        fillOpacity={1}
+        fill="url(#income)"
       />
     </AreaChart>
   );

@@ -1,9 +1,10 @@
 import { useState } from "react";
 import Util from "../utils/util";
+import request from "../utils/request";
 const usePaystack = () => {
   const [openSubscribeDialog, setOpenSubscribeDialog] = useState(false);
   const toggleSubscribeDialog = () => setOpenSubscribeDialog((prev) => !prev);
-  const { user } = Util();
+  const { user, storeUser } = Util();
   const config = {
     currency: "GHS",
     reference: new Date().getTime().toString(),
@@ -11,8 +12,19 @@ const usePaystack = () => {
     amount: 20000,
     publicKey: "pk_test_a4eedcb4eea43bfc6739e2918441ae96d74b421b",
   };
-  const onSuccess = () => {
-    console.log("Good");
+  const onSuccess = async () => {
+    console.log("good");
+    try {
+      const res = await request.put(
+        `/user/status?id=${user.id}`,
+        {},
+        { headers: { access_token: `Bearer ${user.access_token}` } }
+      );
+      await storeUser({ ...user, tier: "premium" });
+      alert(res.data);
+    } catch (err) {
+      alert(err.message);
+    }
   };
   const onClose = () => {
     console.log("Closed");

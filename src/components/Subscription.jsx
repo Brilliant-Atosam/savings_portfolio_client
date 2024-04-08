@@ -1,15 +1,29 @@
-import { usePaystackPayment } from "react-paystack";
+import { PaystackButton } from "react-paystack";
 import usePaystack from "../hooks/usePaystack";
 const Subscription = () => {
   const { config, onClose, onSuccess } = usePaystack();
-  const initializePayment = usePaystackPayment(config);
+  // console.log(onSuccess);
+  // const initializePayment = usePaystackPayment(config);
+  const buttonProps = {
+    ...config,
+    text: "go premium",
+    onSuccess: () => onSuccess,
+    onClose: () => onClose,
+  };
   return (
-      <button
-        onClick={() => initializePayment(onClose, onSuccess)}
-        className="subscribe-btn"
-      >
-        Go premium
-      </button>
+    <PaystackButton {...buttonProps} />
+    // <PaystackConsumer {...buttonProps}>
+    //   {(initializePayment) => (
+    //     <button
+    //       onClick={() => {
+    //         initializePayment(onSuccess, onClose);
+    //       }}
+    //       className="subscribe-btn"
+    //     >
+    //       Go premium
+    //     </button>
+    //   )}
+    // </PaystackConsumer>
   );
 };
 

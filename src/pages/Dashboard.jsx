@@ -7,11 +7,11 @@ import useApp from "../useApp";
 import { CircularProgress } from "@mui/material";
 import useTableData from "../utils/tableData";
 import useSave from "../hooks/useSave";
+import Subscription from "../components/Subscription";
 const Dashboard = () => {
   const { savingsColumn } = useTableData();
   let { savingsList, loading } = useApp();
   const { monthly_data } = useSave();
-  console.log(monthly_data);
   return (
     <div className="main-container">
       <Topbar />
@@ -25,6 +25,7 @@ const Dashboard = () => {
           <div className="chart-container">
             <AreaChartComponents data={monthly_data} />
           </div>
+          <Subscription />
         </div>
       </div>
     </div>

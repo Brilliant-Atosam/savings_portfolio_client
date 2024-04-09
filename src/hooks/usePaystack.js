@@ -12,8 +12,7 @@ const usePaystack = () => {
     amount: 20000,
     publicKey: "pk_test_a4eedcb4eea43bfc6739e2918441ae96d74b421b",
   };
-  const onSuccess = async () => {
-    console.log("good");
+  const change_tier = async () => {
     try {
       const res = await request.put(
         `/user/status?id=${user.id}`,
@@ -26,6 +25,7 @@ const usePaystack = () => {
       alert(err.message);
     }
   };
+  const onSuccess = () => change_tier();
   const onClose = () => {
     console.log("Closed");
   };

@@ -195,23 +195,6 @@ const QuickSummary = () => {
             <h1 className="no-data-text">You have no archived portfolio.</h1>
           )}
         </div>
-        <div className="debt-container">
-          <h1 className="debt-text">Debt</h1>
-          <div className="debt-item-container">
-            <span className="debt-key">Total debt: </span>
-            <span className="debt-value">{user.total_advance}</span>
-          </div>
-          <div className="debt-item-container">
-            <span className="debt-key">Total repayment: </span>
-            <span className="debt-value">{user.settled_advance}</span>
-          </div>
-          <div className="debt-item-container">
-            <span className="debt-key">Advance Balance: </span>
-            <span className="debt-value">
-              {user.total_advance - user.settled_advance}
-            </span>
-          </div>
-        </div>
       </div>
     </>
   );

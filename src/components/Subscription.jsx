@@ -5,10 +5,10 @@ const Subscription = () => {
   const buttonProps = {
     ...config,
     text: "go premium",
-    onSuccess: () => onSuccess,
-    onClose: () => onClose,
+    onSuccess,
+    onClose,
   };
-  return <PaystackButton {...buttonProps} />;
+  return <PaystackButton {...buttonProps} className="subscribe-btn" />;
 };
 
 export default Subscription;

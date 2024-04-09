@@ -7,7 +7,7 @@ import useApp from "../useApp";
 import { CircularProgress } from "@mui/material";
 import useTableData from "../utils/tableData";
 import useSave from "../hooks/useSave";
-import Subscription from "../components/Subscription";
+// import Subscription from "../components/Subscription";
 const Dashboard = () => {
   const { savingsColumn } = useTableData();
   let { savingsList, loading } = useApp();
@@ -25,7 +25,7 @@ const Dashboard = () => {
           <div className="chart-container">
             <AreaChartComponents data={monthly_data} />
           </div>
-          <Subscription />
+          {/* <Subscription /> */}
         </div>
       </div>
     </div>

@@ -11,7 +11,7 @@ const Dashboard = () => {
   const { savingsColumn } = useTableData();
   let { savingsList, loading } = useApp();
   const { monthly_data } = useSave();
-
+  console.log(monthly_data);
   return (
     <div className="main-container">
       <Topbar />

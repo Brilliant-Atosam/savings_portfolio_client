@@ -6,12 +6,13 @@ import {
   Tooltip,
   CartesianGrid,
   Area,
+  Legend,
 } from "recharts";
 const AreaChartComponent = ({ data }) => {
   return (
     <AreaChart
       width={700}
-      height={320}
+      height={350}
       data={data}
       margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
     >
@@ -30,10 +31,10 @@ const AreaChartComponent = ({ data }) => {
         </linearGradient>
       </defs>
       <XAxis dataKey="title" />
-      <YAxis />
+      <YAxis domain={[0, "auto"]} />
       <CartesianGrid strokeDasharray="3 3" />
-      <Tooltip content={data} />
-
+      <Tooltip />
+      <Legend />
       <Area
         type="monotone"
         dataKey="total_savings"

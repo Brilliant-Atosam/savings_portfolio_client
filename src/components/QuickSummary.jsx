@@ -19,7 +19,6 @@ import PieChartComponent from "./PieChartComponent";
 import Util from "../utils/util";
 import moment from "moment";
 import PortfolioInfo from "./PortfolioInfo";
-// import Subscription from "./Subscription";
 const QuickSummary = () => {
   const { user, setConfirmData, colors } = useApp();
   const { format_currency } = Util();
@@ -87,7 +86,6 @@ const QuickSummary = () => {
             Take a loan
           </button>
         </div>
-        {/* {user.tier === "premium" ?  */}
         {user?.portfolio
           .filter((item) => !item.archived)
           .reduce((a, b) => a + b.amount, 0) > 0 ? (
@@ -98,20 +96,6 @@ const QuickSummary = () => {
         ) : (
           <h1 className="no-data-text">No savings data to display chart</h1>
         )}
-
-        {/* <div className="go-premium-container">
-            <h1 className="go-premium-title">
-              Why settle for dull text when vibrant graphics can paint a clearer
-              picture of your finances?
-            </h1>
-            <p className="go-premium-message">
-              Unlock CashLens Premium now for visually captivating insights that
-              bring your finances to life. Don't miss out—ignite your financial
-              journey today!💰📊
-            </p>
-            <Subscription />
-          </div> */}
-
         <div className="savings-portfolios-container">
           <h1 className="debt-text">Active savings portfolio</h1>
           {structuredPortfolio.filter((item) => !item.archived).length > 0 ? (

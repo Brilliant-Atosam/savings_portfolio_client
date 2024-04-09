@@ -127,36 +127,42 @@ const useSave = () => {
           (index + 1).toString().length === 1
             ? `0${index + 1}`
             : (index + 1).toString(),
-        total_savings: savingsList
-          ?.filter((item) =>
-            item.createdAt.endsWith(
-              (index + 1).toString().length === 1
-                ? `0${index + 1}/${new Date().getFullYear()}`
-                : `${index + 1}/${new Date().getFullYear()}`
+        total_savings: Number(
+          savingsList
+            ?.filter((item) =>
+              item.createdAt.endsWith(
+                (index + 1).toString().length === 1
+                  ? `0${index + 1}/${new Date().getFullYear()}`
+                  : `${index + 1}/${new Date().getFullYear()}`
+              )
             )
-          )
-          ?.reduce((a, b) => a + b.saved, 0)
-          .toFixed(2),
-        total_income: savingsList
-          ?.filter((item) =>
-            item.createdAt.endsWith(
-              (index + 1).toString().length === 1
-                ? `0${index + 1}/${new Date().getFullYear()}`
-                : `${index + 1}/${new Date().getFullYear()}`
+            ?.reduce((a, b) => a + b.saved, 0)
+            .toFixed(2)
+        ),
+        total_income: Number(
+          savingsList
+            ?.filter((item) =>
+              item.createdAt.endsWith(
+                (index + 1).toString().length === 1
+                  ? `0${index + 1}/${new Date().getFullYear()}`
+                  : `${index + 1}/${new Date().getFullYear()}`
+              )
             )
-          )
-          ?.reduce((a, b) => a + b.amount, 0)
-          .toFixed(2),
-        total_expenses: expensesList
-          ?.filter((item) =>
-            item.created_at.endsWith(
-              (index + 1).toString().length === 1
-                ? `0${index + 1}/${new Date().getFullYear()}`
-                : `${index + 1}/${new Date().getFullYear()}`
+            ?.reduce((a, b) => a + b.amount, 0)
+            .toFixed(2)
+        ),
+        total_expenses: Number(
+          expensesList
+            ?.filter((item) =>
+              item.created_at.endsWith(
+                (index + 1).toString().length === 1
+                  ? `0${index + 1}/${new Date().getFullYear()}`
+                  : `${index + 1}/${new Date().getFullYear()}`
+              )
             )
-          )
-          ?.reduce((a, b) => a + b.total_cost, 0)
-          .toFixed(2),
+            ?.reduce((a, b) => a + b.total_cost, 0)
+            .toFixed(2)
+        ),
       };
       data.push(data_object);
       return data_object;

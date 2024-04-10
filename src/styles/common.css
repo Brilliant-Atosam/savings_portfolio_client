@@ -48,6 +48,10 @@ h1 {
   background: teal;
   z-index: 9999;
 }
+.link {
+  margin: 0 10px;
+  font-size: inherit;
+}
 .logo-text {
   color: white;
   font-weight: 600;
@@ -146,7 +150,7 @@ h1 {
 .portfolio-action-container {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 .portfolio-action-icon {
   cursor: pointer;

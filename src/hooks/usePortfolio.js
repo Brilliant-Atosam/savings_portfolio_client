@@ -53,6 +53,11 @@ const usePortfolio = () => {
         "You cannot save more than you earned!",
         "warning"
       );
+    } else if (user?.tier !== "premium" && user?.portfolio.length >= 3) {
+      context?.handleSnackbar(
+        "Basic tier users cannot have more that 3 portfolios. Upgrade to premium to enjoy premium features",
+        "warning"
+      );
     } else {
       const portfolio = user.portfolio.find(
         (portfolio) =>

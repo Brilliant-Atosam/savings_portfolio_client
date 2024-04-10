@@ -17,8 +17,8 @@ import AreaChartComponent from "../components/AreaChartComponent";
 import useSave from "../hooks/useSave";
 const Settings = () => {
   const { user } = useApp();
-  const { format_currency, colors } = Util();
-  const {monthly_data} = useSave()
+  const { format_currency, colors, dummy_monthly_data } = Util();
+  const { monthly_data } = useSave();
   const {
     handleOpenPass,
     openPass,
@@ -164,7 +164,19 @@ const Settings = () => {
             </div>
             <div className="chart-container">
               <h1 className="debt-text">Monthly Income Chart</h1>
-              <AreaChartComponent data={monthly_data} />
+              <AreaChartComponent
+                data={
+                  user?.tier !== "premium" ? dummy_monthly_data : monthly_data
+                }
+              />
+              {user?.tier !== "premium" && (
+                <h1 className="no-data-text">
+                  This could be your data displayed in the chart above.
+                  <a href="/" className="link">
+                    Learn more
+                  </a>
+                </h1>
+              )}
             </div>
           </div>
         </div>

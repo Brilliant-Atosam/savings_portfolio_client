@@ -11,7 +11,7 @@ import {
 const AreaChartComponent = ({ data }) => {
   return (
     <AreaChart
-      width={700}
+      width={900}
       height={350}
       data={data}
       margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
@@ -37,6 +37,13 @@ const AreaChartComponent = ({ data }) => {
       <Legend />
       <Area
         type="monotone"
+        dataKey="total_income"
+        stroke="teal"
+        fillOpacity={1}
+        fill="url(#income)"
+      />
+      <Area
+        type="monotone"
         dataKey="total_savings"
         stroke="#0d7eef"
         fillOpacity={1}
@@ -48,13 +55,6 @@ const AreaChartComponent = ({ data }) => {
         stroke="#fa0f85"
         fillOpacity={1}
         fill="url(#expenses)"
-      />
-      <Area
-        type="monotone"
-        dataKey="total_income"
-        stroke="teal"
-        fillOpacity={1}
-        fill="url(#income)"
       />
     </AreaChart>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import { Cell, Pie, PieChart } from "recharts";
+import { Cell, Pie, PieChart, Tooltip } from "recharts";
 
 const PieChartComponent = ({ portfolio, colors }) => {
   return (
@@ -17,6 +17,7 @@ const PieChartComponent = ({ portfolio, colors }) => {
           <Cell key={index} fill={colors[index]} strokeWidth={1} />
         ))}
       </Pie>
+      <Tooltip />
     </PieChart>
   );
 };

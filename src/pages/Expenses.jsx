@@ -15,7 +15,7 @@ import useSave from "../hooks/useSave";
 const Expenses = () => {
   const { expenseColumn } = useTableData();
   const { loading } = useApp();
-  const { categories, format_currency } = Util();
+  const { categories, format_currency, dummy_monthly_data, user } = Util();
   let expensesList = JSON.parse(localStorage.getItem("expenses"));
   const { openExpenseDialog, toggleExpensesDialog, data } = useExpenses();
   const { monthly_data } = useSave();
@@ -56,7 +56,19 @@ const Expenses = () => {
             </div>
             <div className="chart-container">
               <h1 className="debt-text">Monthly expenses chart</h1>
-              <AreaChartComponent data={monthly_data} />
+              <AreaChartComponent
+                data={
+                  user?.tier !== "premium" ? dummy_monthly_data : monthly_data
+                }
+              />
+              {user?.tier !== "premium" && (
+                <h1 className="no-data-text">
+                  This could be your data displayed in the chart above.
+                  <a href="/" className="link">
+                    Learn more
+                  </a>
+                </h1>
+              )}
             </div>
           </div>
         </div>

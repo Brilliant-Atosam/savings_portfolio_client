@@ -21,7 +21,7 @@ import moment from "moment";
 import PortfolioInfo from "./PortfolioInfo";
 const QuickSummary = () => {
   const { user, setConfirmData, colors } = useApp();
-  const { format_currency } = Util();
+  const { format_currency, piechart_data } = Util();
   const {
     setNewPortfolio,
     newPortfolio,
@@ -86,16 +86,32 @@ const QuickSummary = () => {
             Take a loan
           </button>
         </div>
-        {user?.portfolio
-          .filter((item) => !item.archived)
-          .reduce((a, b) => a + b.amount, 0) > 0 ? (
-          <PieChartComponent
-            colors={colors}
-            portfolio={structuredPortfolio.filter((item) => !item.archived)}
-          />
-        ) : (
-          <h1 className="no-data-text">No savings data to display chart</h1>
-        )}
+
+        <div className="chart-container">
+          {user?.portfolio
+            .filter((item) => !item.archived)
+            .reduce((a, b) => a + b.amount, 0) > 0 ? (
+            <PieChartComponent
+              colors={colors}
+              portfolio={
+                user?.tier !== "premium"
+                  ? piechart_data
+                  : structuredPortfolio.filter((item) => !item.archived)
+              }
+            />
+          ) : (
+            <h1 className="no-data-text">No savings data to display chart</h1>
+          )}
+          {user?.tier !== "premium" && (
+            <h1 className="no-data-text">
+              This could be your data displayed in the chart above.
+              <a href="/" className="link">
+                Learn more
+              </a>
+            </h1>
+          )}
+        </div>
+
         <div className="savings-portfolios-container">
           <h1 className="debt-text">Active savings portfolio</h1>
           {structuredPortfolio.filter((item) => !item.archived).length > 0 ? (

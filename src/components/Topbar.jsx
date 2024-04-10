@@ -33,6 +33,9 @@ const Topbar = () => {
           <Link to="/loan" className="menu-item">
             Loan
           </Link>
+          <Link to="/budget" className="menu-item">
+            Budget
+          </Link>
           <Link to="/settings" className="menu-item">
             Account Info & Settings
           </Link>

@@ -6,7 +6,6 @@ import Table from "../components/Table";
 import useTableData from "../utils/tableData";
 import ExpensesDialog from "../components/Expenses";
 import useExpenses from "../hooks/useExpenses";
-
 import AreaChartComponent from "../components/AreaChartComponent";
 import { Link } from "react-router-dom";
 import useApp from "../useApp";
@@ -34,7 +33,8 @@ const Expenses = () => {
                   className="category"
                   key={index}
                 >
-                  <span className="category-name">{category}:</span>
+                  <category.icon className="cat-icons"/>
+                  <span className="category-name">{category.title}:</span>
                   <span className="category-value">
                     {format_currency(
                       expensesList

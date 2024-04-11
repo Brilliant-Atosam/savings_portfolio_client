@@ -1,5 +1,24 @@
 import { useState } from "react";
-
+import {
+  SelfImprovement,
+  BabyChangingStation,
+  CardGiftcard,
+  AddCard,
+  School,
+  Tv,
+  Watch,
+  RamenDining,
+  HealthAndSafety,
+  Apartment,
+  Security,
+  VolunteerActivism,
+  Devices,
+  Commute,
+  BeachAccess,
+  ElectricalServices,
+  WorkOutline,
+  MiscellaneousServices,
+} from "@mui/icons-material";
 const Util = () => {
   const user = JSON.parse(window.localStorage.getItem("user"));
   // feedback/snackbar
@@ -60,24 +79,24 @@ const Util = () => {
   ];
   // categories of expenses
   const categories = [
-    "charity",
-    "childcare",
-    "debt payment",
-    "education",
-    "entertainment",
-    "fashion",
-    "food",
-    "healthcare",
-    "housing",
-    "insurance",
-    "miscellaneous",
-    "offering",
-    "personal care",
-    "technology",
-    "transportation",
-    "travel",
-    "utilities",
-    "work related",
+    { title: "charity", icon: CardGiftcard },
+    { title: "childcare", icon: BabyChangingStation },
+    { title: "debt payment", icon: AddCard },
+    { title: "education", icon: School },
+    { title: "entertainment", icon: Tv },
+    { title: "fashion", icon: Watch },
+    { title: "food", icon: RamenDining },
+    { title: "healthcare", icon: HealthAndSafety },
+    { title: "housing", icon: Apartment },
+    { title: "insurance", icon: Security },
+    { title: "miscellaneous", icon: MiscellaneousServices },
+    { title: "offering", icon: VolunteerActivism },
+    { title: "personal care", icon: SelfImprovement },
+    { title: "technology", icon: Devices },
+    { title: "transportation", icon: Commute },
+    { title: "travel", icon: BeachAccess },
+    { title: "utilities", icon: ElectricalServices },
+    { title: "work related", icon: WorkOutline },
   ];
   const months = [
     "Jan",

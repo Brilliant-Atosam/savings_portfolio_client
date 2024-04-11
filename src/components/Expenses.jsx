@@ -45,8 +45,8 @@ const ExpensesDialog = ({ open, toggle }) => {
           >
             <option value="">select category</option>
             {categories.map((cat, index) => (
-              <option className="select-options" key={index} value={cat}>
-                {cat}
+              <option className="select-options" key={index} value={cat.title}>
+                {cat.title}
               </option>
             ))}
           </select>

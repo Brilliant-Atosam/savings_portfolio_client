@@ -29,6 +29,7 @@ function App() {
   const Exchange = lazy(() => import("./pages/Exchange"));
   const Policy = lazy(() => import("./pages/Policy"));
   const Subscription = lazy(() => import("./pages/Subscription"));
+  const Budget = lazy(() => import("./pages/Budget"));
   // partnership program
   const PartnersDashboard = lazy(() => import("./pages/PartnershipDashboard"));
   return (
@@ -139,6 +140,18 @@ function App() {
               user ? (
                 <Suspense fallback={<FallbackComponent />}>
                   <Loan />
+                </Suspense>
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/budget"
+            element={
+              user ? (
+                <Suspense fallback={<FallbackComponent />}>
+                  <Budget />
                 </Suspense>
               ) : (
                 <Navigate to="/login" />

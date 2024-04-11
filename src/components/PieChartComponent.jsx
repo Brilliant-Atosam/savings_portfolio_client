@@ -9,8 +9,8 @@ const PieChartComponent = ({ portfolio, colors }) => {
         dataKey="amount"
         fill="red"
         data={portfolio}
-        label
-        innerRadius={2}
+        // label
+        innerRadius={5}
         outerRadius={80}
       >
         {portfolio?.map((item, index) => (

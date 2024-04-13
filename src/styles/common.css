@@ -176,16 +176,39 @@ h1 {
   width: 98% !important;
   height: fit-content !important;
 }
+
 .portfolio-info-container {
   display: flex;
   gap: 10px;
   flex-direction: column;
   width: 400px;
 }
+.info-key,
+.dialog-icon {
+  font-size: 0.8rem;
+  font-weight: 200;
+}
+.info-key {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.progress-container {
+  height: 6px;
+  width: 100%;
+  background: #bde5ef;
+}
+.progress {
+  height: inherit;
+  background: green;
+  max-width: 100%;
+}
 .key-value-container {
   display: flex;
   justify-content: space-between;
   gap: 10px;
+  flex-direction: column;
+  width: 100%;
 }
 .subscribe-btn {
   background: #3399ff;
@@ -238,5 +261,9 @@ h1 {
   }
   .portfolio-info-container {
     width: 100%;
+    min-width: 80vw;
   }
+  /* .dialog-container {
+    width: 100vw !important;
+  } */
 }

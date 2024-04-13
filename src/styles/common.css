@@ -200,7 +200,7 @@ h1 {
 }
 .progress {
   height: inherit;
-  background: green;
+  background: #01a3d0;
   max-width: 100%;
 }
 .key-value-container {

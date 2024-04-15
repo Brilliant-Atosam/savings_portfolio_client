@@ -8,6 +8,7 @@ const useSave = () => {
   const context = useApp();
   let user = JSON.parse(window.localStorage.getItem("user"));
   let expensesList = JSON.parse(localStorage.getItem("expenses"));
+  let loans = JSON.parse(localStorage.getItem("loans"));
   let details = [];
   const [savings, setSavings] = useState({
     source: "",
@@ -161,6 +162,18 @@ const useSave = () => {
               )
             )
             ?.reduce((a, b) => a + b.total_cost, 0)
+            .toFixed(2)
+        ),
+        total_advance: Number(
+          loans
+            ?.filter((item) =>
+              item.createdAt.endsWith(
+                (index + 1).toString().length === 1
+                  ? `0${index + 1}/${new Date().getFullYear()}`
+                  : `${index + 1}/${new Date().getFullYear()}`
+              )
+            )
+            ?.reduce((a, b) => a + b.amount, 0)
             .toFixed(2)
         ),
       };

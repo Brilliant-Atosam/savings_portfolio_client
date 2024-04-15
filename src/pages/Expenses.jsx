@@ -33,13 +33,15 @@ const Expenses = () => {
                   className="category"
                   key={index}
                 >
-                  <category.icon className="cat-icons"/>
+                  <category.icon className="cat-icons" />
                   <span className="category-name">{category.title}:</span>
                   <span className="category-value">
                     {format_currency(
-                      expensesList
-                        .filter((item) => item.category === category)
-                        ?.reduce((a, b) => a + b.total_cost, 0)
+                      Number(
+                        expensesList
+                          .filter((item) => item.category === category.title)
+                          ?.reduce((a, b) => a + b.total_cost, 0)
+                      )
                     )}
                   </span>
                 </Link>

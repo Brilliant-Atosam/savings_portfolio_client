@@ -24,7 +24,6 @@ const useBorrow = () => {
 
   // borrow money
   const borrowMoney = async (loanDetails) => {
-    console.log(loanDetails);
     context?.handleLoader();
     if (
       Number(loanDetails.amount) < 1 ||
@@ -47,7 +46,7 @@ const useBorrow = () => {
         total_advance: user.total_advance + loanDetails.amount,
         amount_owed: user.total_advance + loanDetails.amount,
       };
-      loans = { loanDetails, ...loans };
+      loans = [loanDetails, ...loans];
       try {
         const res = await request.post(
           `/loan?userId=${user.id}`,
@@ -116,16 +115,18 @@ const useBorrow = () => {
     months?.map((month, index) => {
       let data_object = {
         title: month,
-        total_amount: loans
-          ?.filter((loan) =>
-            loan.createdAt.endsWith(
-              (index + 1).toString().length === 0
-                ? `0${index + 1}/${new Date().getFullYear().toString()}`
-                : `${index + 1}/${new Date().getFullYear().toString()}`
+        total_advance: Number(
+          loans
+            ?.filter((loan) =>
+              loan.createdAt.endsWith(
+                (index + 1).toString().length === 0
+                  ? `0${index + 1}/${new Date().getFullYear().toString()}`
+                  : `${index + 1}/${new Date().getFullYear().toString()}`
+              )
             )
-          )
-          .reduce((a, b) => a + b.amount, 0)
-          .toFixed(2),
+            .reduce((a, b) => a + b.amount, 0)
+            .toFixed(2)
+        ),
       };
       data.push(data_object);
       return data_object;

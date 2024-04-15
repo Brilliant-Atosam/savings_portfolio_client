@@ -1,6 +1,6 @@
 import "../styles/expenses.css";
 import Topbar from "../components/Topbar";
-import { Add } from "@mui/icons-material";
+import { GiExpense } from "react-icons/gi";
 import Util from "../utils/util";
 import Table from "../components/Table";
 import useTableData from "../utils/tableData";
@@ -75,8 +75,11 @@ const Expenses = () => {
           </div>
         </div>
       </div>
-      <div className="add-expenses-btn-container">
-        <Add className="add-expenses-btn" onClick={toggleExpensesDialog} />
+      <div
+        className="add-expenses-btn-container"
+        onClick={toggleExpensesDialog}
+      >
+        <GiExpense className="add-expenses-btn" />
       </div>
     </div>
   );

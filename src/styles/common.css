@@ -236,6 +236,32 @@ h1 {
 .go-premium-message {
   line-height: 1.6rem;
 }
+.add-expenses-btn-container {
+  position: fixed;
+  bottom: 15px;
+  left: 50%;
+  height: 4rem;
+  width: 4rem;
+  background: #ffffff82;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  border: 2px solid teal;
+  box-shadow: 2px 1px 7px 1px rgba(0, 128, 128, 0.83);
+  -webkit-box-shadow: 2px 1px 7px 1px rgba(0, 128, 128, 0.83);
+  -moz-box-shadow: 2px 1px 7px 1px rgba(0, 128, 128, 0.83);
+}
+.add-expenses-btn-container:focus {
+  outline: none;
+  background: none;
+}
+.add-expenses-btn {
+  font-size: 2rem;
+  fill: teal;
+}
 @media (max-width: 700px) {
   .chart-container {
     overflow-x: scroll;

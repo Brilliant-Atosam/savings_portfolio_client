@@ -20,6 +20,7 @@ const useSave = () => {
   });
   let savingsList = JSON.parse(window.localStorage.getItem("savings")) || [];
   const [showSaveDialog, setShowSaveDialog] = useState(false);
+  const handleSaveDialog = () => setShowSaveDialog((prev) => !prev);
   // portfolio data for quick summary
   let portfolio_from_savings = [];
   savingsList.map((item) => {
@@ -35,7 +36,6 @@ const useSave = () => {
       ).toFixed(2)
     ),
   }));
-  const handleSaveDialog = () => setShowSaveDialog((prev) => !prev);
   // delete income
   const deleteIncome = async (id) => {
     context.handleLoader();

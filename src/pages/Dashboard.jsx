@@ -8,8 +8,11 @@ import { CircularProgress } from "@mui/material";
 import useTableData from "../utils/tableData";
 import useSave from "../hooks/useSave";
 import Util from "../utils/util";
+import { GiReceiveMoney } from "react-icons/gi";
+import Save from "../components/Save";
 // import Subscription from "../components/Subscription";
 const Dashboard = () => {
+  const { handleSave, handleSaveDialog, showSaveDialog } = useSave();
   const { savingsColumn } = useTableData();
   let { savingsList, loading } = useApp();
   const { monthly_data } = useSave();
@@ -19,6 +22,11 @@ const Dashboard = () => {
       <Topbar />
       <div className="dashboard-container">
         <QuickSummary />
+        <Save
+          open={showSaveDialog}
+          handleSave={handleSave}
+          handleSaveDialog={handleSaveDialog}
+        />
         <div className="dashboard-right">
           <h1 className="debt-text">Income history</h1>{" "}
           {loading && <CircularProgress />}
@@ -41,6 +49,9 @@ const Dashboard = () => {
           </div>
           {/* <Subscription /> */}
         </div>
+      </div>
+      <div className="add-expenses-btn-container" onClick={handleSaveDialog}>
+        <GiReceiveMoney className="add-expenses-btn" />
       </div>
     </div>
   );

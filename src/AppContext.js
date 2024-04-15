@@ -1,6 +1,5 @@
 import { createContext, useState } from "react";
 import usePortfolio from "./hooks/usePortfolio";
-import useSave from "./hooks/useSave";
 import Util from "./utils/util";
 import useBorrow from "./hooks/useBorrow";
 import useFeedback from "./hooks/useFeedback";
@@ -11,13 +10,8 @@ const AppProvider = ({ children }) => {
   // loading
   const [loading, setLoading] = useState(false);
   const handleLoader = () => setLoading((prev) => !prev);
-  const {
-    showPortfolioDialog,
-    handlePortfolioDialog,
-    newPortfolio,
-    handleUpdatePortfolioDialog,
-  } = usePortfolio();
-  const { showSaveDialog, handleSaveDialog, handleSave } = useSave();
+  const { handlePortfolioDialog, newPortfolio, handleUpdatePortfolioDialog } =
+    usePortfolio();
   const { openBorrowDialog, handleOpenBorrowDialog } = useBorrow();
   const { handleSnackbar, snackbar } = useFeedback();
   let user = JSON.parse(window.localStorage.getItem("user"));
@@ -28,10 +22,6 @@ const AppProvider = ({ children }) => {
       value={{
         user,
         handlePortfolioDialog,
-        showPortfolioDialog,
-        showSaveDialog,
-        handleSaveDialog,
-        handleSave,
         savingsList,
         confirmData,
         setConfirmData,

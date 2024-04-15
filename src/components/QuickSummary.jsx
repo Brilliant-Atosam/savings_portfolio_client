@@ -14,7 +14,6 @@ import usePortfolio from "../hooks/usePortfolio";
 import UpdatePortfolioDialog from "./UpdatePortfolioDialog";
 import SettleAdvanceDialog from "./SettleAdvanceDialog";
 import BorrowMoneyDialog from "./BorrowMoneyDialog";
-import Save from "./Save";
 import PieChartComponent from "./PieChartComponent";
 import Util from "../utils/util";
 import moment from "moment";
@@ -40,8 +39,7 @@ const QuickSummary = () => {
     borrowMoney,
     handleOpenBorrowDialog,
   } = useBorrow();
-  const { handleSave, handleSaveDialog, showSaveDialog, structuredPortfolio } =
-    useSave();
+  const { structuredPortfolio } = useSave();
   return (
     <>
       <UpdatePortfolioDialog
@@ -65,18 +63,12 @@ const QuickSummary = () => {
         borrowMoney={borrowMoney}
         handleOpenBorrowDialog={handleOpenBorrowDialog}
       />
-
-      <Save
-        open={showSaveDialog}
-        handleSave={handleSave}
-        handleSaveDialog={handleSaveDialog}
-      />
       <div className="dashboard-left">
-        <div className="dashboard-actions-container">
-          <button className="dashboard-action-btn" onClick={handleSaveDialog}>
+        {/* <div className="dashboard-actions-container"> */}
+        {/* <button className="dashboard-action-btn" onClick={handleSaveDialog}>
             Add income
-          </button>
-          <button onClick={handleSettleDialog} className="dashboard-action-btn">
+          </button> */}
+        {/* <button onClick={handleSettleDialog} className="dashboard-action-btn">
             Settle loan
           </button>
           <button
@@ -85,7 +77,7 @@ const QuickSummary = () => {
           >
             Take a loan
           </button>
-        </div>
+        </div> */}
 
         <div className="chart-container">
           {user?.portfolio

@@ -15,7 +15,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 20px;
+  padding: 12px;
 }
 .dashboard-actions-container {
   display: flex;
@@ -63,7 +63,6 @@
 }
 .dashboard-right {
   flex: 3;
-  /* z-index: -9999; */
   padding: 15px;
   display: flex;
   flex-direction: column;
@@ -79,7 +78,6 @@
   width: 100%;
   margin-bottom: 10px;
 }
-/* .savings-portfolios-container, */
 @media (max-width: 769px) {
   .dashboard-container {
     flex-direction: column;
@@ -88,6 +86,5 @@
   .dashboard-right {
     width: 100%;
     padding: 8px;
-    padding-top: 15px;
   }
 }

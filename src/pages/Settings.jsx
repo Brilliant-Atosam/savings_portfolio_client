@@ -5,6 +5,8 @@ import Topbar from "../components/Topbar";
 import useSettings from "../hooks/useSettings";
 import useApp from "../useApp";
 import PieChartComponent from "../components/PieChartComponent";
+import { TbLockCog } from "react-icons/tb";
+import { FaUserCog } from "react-icons/fa";
 import logo from "../logo1.png";
 import {
   MarkunreadOutlined,
@@ -28,7 +30,6 @@ const Settings = () => {
     handle_basic_info,
     chart_data,
     income_chart_data,
-    // monthly_income_data,
     total_expenses,
     total_income,
     total_savings,
@@ -96,20 +97,6 @@ const Settings = () => {
                   </div>
                 ))}
               </div>
-            </div>
-            <div className="account-info-bottom">
-              <button
-                className="settings-action-btn"
-                onClick={handle_open_basic_info_dialog}
-              >
-                Edit info
-              </button>
-              <button
-                className="settings-action-btn"
-                onClick={() => handleOpenPass()}
-              >
-                Change password
-              </button>
             </div>
           </div>
           <div className="summary-container">
@@ -179,6 +166,20 @@ const Settings = () => {
               )}
             </div>
           </div>
+        </div>
+      </div>
+      <div className="action-container loan-action-container">
+        <div
+          className="add-expenses-btn-container"
+          onClick={handle_open_basic_info_dialog}
+        >
+          <FaUserCog className="add-expenses-btn" />
+        </div>
+        <div
+          className="add-expenses-btn-container"
+          onClick={() => handleOpenPass()}
+        >
+          <TbLockCog className="add-expenses-btn" />
         </div>
       </div>
     </div>

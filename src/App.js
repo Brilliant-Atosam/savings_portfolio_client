@@ -11,8 +11,9 @@ import usePortfolio from "./hooks/usePortfolio";
 import GoPremium from "./components/GoPremium";
 import usePaystack from "./hooks/usePaystack";
 function App() {
-  const { user, showPortfolioDialog, handleSnackbar, snackbar, confirmData } =
-    useApp();
+  const { user, handleSnackbar, snackbar, confirmData } = useApp();
+  const { showPortfolioDialog } = usePortfolio();
+  console.log(showPortfolioDialog);
   const { openSubscribeDialog, toggleSubscribeDialog } = usePaystack();
   const { deletePortfolio } = usePortfolio();
   const Login = lazy(() => import("./pages/Login"));

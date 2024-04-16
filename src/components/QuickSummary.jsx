@@ -9,11 +9,8 @@ import {
 } from "@mui/icons-material";
 import useApp from "../useApp";
 import useSave from "../hooks/useSave";
-import useBorrow from "../hooks/useBorrow";
 import usePortfolio from "../hooks/usePortfolio";
 import UpdatePortfolioDialog from "./UpdatePortfolioDialog";
-import SettleAdvanceDialog from "./SettleAdvanceDialog";
-import BorrowMoneyDialog from "./BorrowMoneyDialog";
 import PieChartComponent from "./PieChartComponent";
 import Util from "../utils/util";
 import moment from "moment";
@@ -32,13 +29,6 @@ const QuickSummary = () => {
     portfolio,
     handleSetPortfolio,
   } = usePortfolio();
-  const {
-    showSettleDialog,
-    handleSettleDialog,
-    openBorrowDialog,
-    borrowMoney,
-    handleOpenBorrowDialog,
-  } = useBorrow();
   const { structuredPortfolio } = useSave();
   return (
     <>
@@ -54,31 +44,7 @@ const QuickSummary = () => {
         toggler={handle_toggle_portfolio_info}
         data={portfolio}
       />
-      <SettleAdvanceDialog
-        open={showSettleDialog}
-        toggleDialog={handleSettleDialog}
-      />
-      <BorrowMoneyDialog
-        open={openBorrowDialog}
-        borrowMoney={borrowMoney}
-        handleOpenBorrowDialog={handleOpenBorrowDialog}
-      />
       <div className="dashboard-left">
-        {/* <div className="dashboard-actions-container"> */}
-        {/* <button className="dashboard-action-btn" onClick={handleSaveDialog}>
-            Add income
-          </button> */}
-        {/* <button onClick={handleSettleDialog} className="dashboard-action-btn">
-            Settle loan
-          </button>
-          <button
-            className="dashboard-action-btn"
-            onClick={handleOpenBorrowDialog}
-          >
-            Take a loan
-          </button>
-        </div> */}
-
         <div className="chart-container">
           {user?.portfolio
             .filter((item) => !item.archived)

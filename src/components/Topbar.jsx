@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Menu } from "@mui/icons-material";
-import useApp from "../useApp";
+// import useApp from "../useApp";
 import useAccount from "../hooks/useAccount";
 import logo from "../logo.png";
 import { Link } from "react-router-dom";
+import { BsDatabaseFillAdd } from "react-icons/bs";
+import usePortfolio from "../hooks/usePortfolio";
 const Topbar = () => {
-  const { handlePortfolioDialog } = useApp();
+  const { handlePortfolioDialog } = usePortfolio();
   const { handleLogout } = useAccount();
   const [showMenu, setShowMenu] = useState(false);
   return (
@@ -16,9 +18,13 @@ const Topbar = () => {
           cashlens
         </Link>
         <div className="topbar-left">
-          <button className="topbar-btn" onClick={handlePortfolioDialog}>
-            create portfolio
-          </button>
+          {/* <button className="topbar-btn"> */}
+          <BsDatabaseFillAdd
+            fill="white"
+            size={22}
+            onClick={handlePortfolioDialog}
+          />
+          {/* </button> */}
           <Menu className="menu-icon" onClick={() => setShowMenu(!showMenu)} />
         </div>
       </div>

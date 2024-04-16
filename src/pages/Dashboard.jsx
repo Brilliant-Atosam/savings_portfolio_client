@@ -50,8 +50,10 @@ const Dashboard = () => {
           {/* <Subscription /> */}
         </div>
       </div>
-      <div className="add-expenses-btn-container" onClick={handleSaveDialog}>
-        <GiReceiveMoney className="add-expenses-btn" />
+      <div className="action-container">
+        <div className="add-expenses-btn-container" onClick={handleSaveDialog}>
+          <GiReceiveMoney className="add-expenses-btn" />
+        </div>
       </div>
     </div>
   );

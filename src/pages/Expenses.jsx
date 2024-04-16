@@ -75,11 +75,13 @@ const Expenses = () => {
           </div>
         </div>
       </div>
-      <div
-        className="add-expenses-btn-container"
-        onClick={toggleExpensesDialog}
-      >
-        <GiExpense className="add-expenses-btn" />
+      <div className="action-container">
+        <div
+          className="add-expenses-btn-container"
+          onClick={toggleExpensesDialog}
+        >
+          <GiExpense className="add-expenses-btn" />
+        </div>
       </div>
     </div>
   );

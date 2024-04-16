@@ -193,6 +193,7 @@ h1 {
   align-items: center;
   gap: 6px;
 }
+
 .progress-container {
   height: 6px;
   width: 100%;
@@ -237,7 +238,7 @@ h1 {
   line-height: 1.6rem;
 }
 .add-expenses-btn-container {
-  position: fixed;
+  position: relative;
   bottom: 15px;
   left: 50%;
   height: 4rem;
@@ -253,6 +254,21 @@ h1 {
   box-shadow: 2px 1px 7px 1px rgba(0, 128, 128, 0.83);
   -webkit-box-shadow: 2px 1px 7px 1px rgba(0, 128, 128, 0.83);
   -moz-box-shadow: 2px 1px 7px 1px rgba(0, 128, 128, 0.83);
+}
+.action-container {
+  position: fixed;
+  bottom: 15px;
+  left: 50%;
+  height: 4rem;
+  /* width: fit-content; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-50%);
+}
+.loan-action-container {
+  gap: 15px;
+  transform: translateX(-80%) !important;
 }
 .add-expenses-btn-container:focus {
   outline: none;
@@ -279,11 +295,15 @@ h1 {
     width: 25px;
   }
   .topbar-btn {
-    height: 25px;
+    /* height: 25px; */
     padding: 5px;
-    color: white;
-    font-weight: 500;
-    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* color: white !important;
+    fill: white !important; */
+    /* font-weight: 500; */
+    /* font-size: 0.8rem; */
   }
   .portfolio-info-container {
     width: 100%;

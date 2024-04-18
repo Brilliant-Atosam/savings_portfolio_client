@@ -7,7 +7,7 @@ const usePortfolio = () => {
   const { storeUser, setConfirmData } = Util();
   const context = useApp();
   let user = JSON.parse(window.localStorage.getItem("user"));
-  const [showPortfolioDialog, setShowPortfolioDialog] = useState(true);
+  const [showPortfolioDialog, setShowPortfolioDialog] = useState(false);
   const [showUpdatePortfolioDialog, setShowUpdatePortfolioDialog] =
     useState(false);
   const [portfolio, setPortfolio] = useState(null);

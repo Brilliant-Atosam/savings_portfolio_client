@@ -8,13 +8,14 @@ import useApp from "../useApp";
 import moment from "moment";
 import "../styles/login.css";
 import usePortfolio from "../hooks/usePortfolio";
-const AddPortfolioDialog = ({ open }) => {
-  const { handlePortfolioDialog, loading } = useApp();
-  const { setNewPortfolio, addPortfolio, newPortfolio } = usePortfolio();
+const AddPortfolioDialog = ({ open, close, action }) => {
+  const { loading } = useApp();
+  const { setNewPortfolio, newPortfolio } = usePortfolio();
+  console.log(newPortfolio);
   return (
     <Dialog open={open}>
       <DialogTitle className="login-text">
-       Create a saving portfolio
+        Create a saving portfolio
       </DialogTitle>
 
       <DialogContent>
@@ -52,7 +53,10 @@ const AddPortfolioDialog = ({ open }) => {
             className="login-input"
             value={newPortfolio?.percentage}
             onChange={(e) =>
-              setNewPortfolio({ ...newPortfolio, percentage: e.target.value })
+              setNewPortfolio({
+                ...newPortfolio,
+                percentage: Number(e.target.value),
+              })
             }
           />
           <label className="dialog-label" htmlFor="">
@@ -64,7 +68,7 @@ const AddPortfolioDialog = ({ open }) => {
             className="login-input"
             value={newPortfolio?.goal}
             onChange={(e) =>
-              setNewPortfolio({ ...newPortfolio, goal: e.target.value })
+              setNewPortfolio({ ...newPortfolio, goal: Number(e.target.value) })
             }
           />
           <label className="dialog-label" htmlFor="">
@@ -74,7 +78,6 @@ const AddPortfolioDialog = ({ open }) => {
             type="date"
             placeholder="E.g. 20,000"
             className="login-input"
-            // value={moment(newPortfolio?.deadline).format("yyyy-MM-dd")}
             onChange={(e) =>
               setNewPortfolio({
                 ...newPortfolio,
@@ -82,10 +85,10 @@ const AddPortfolioDialog = ({ open }) => {
               })
             }
           />
-          <button className="login-btn" onClick={addPortfolio}>
+          <button className="login-btn" onClick={() => action(newPortfolio)}>
             {loading ? "loading..." : "Create portfolio"}
           </button>
-          <button className="dialog-close-btn" onClick={handlePortfolioDialog}>
+          <button className="dialog-close-btn" onClick={close}>
             Close
           </button>
         </div>

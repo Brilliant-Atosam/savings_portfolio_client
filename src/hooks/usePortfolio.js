@@ -7,7 +7,7 @@ const usePortfolio = () => {
   const { storeUser, setConfirmData } = Util();
   const context = useApp();
   let user = JSON.parse(window.localStorage.getItem("user"));
-  const [showPortfolioDialog, setShowPortfolioDialog] = useState(false);
+  const [showPortfolioDialog, setShowPortfolioDialog] = useState(true);
   const [showUpdatePortfolioDialog, setShowUpdatePortfolioDialog] =
     useState(false);
   const [portfolio, setPortfolio] = useState(null);
@@ -34,7 +34,7 @@ const usePortfolio = () => {
     set_open_portfolio_info(!open_portfolio_info);
   // add new portfolio
 
-  const addPortfolio = async () => {
+  const addPortfolio = async (newPortfolio) => {
     context.handleLoader();
     if (
       !newPortfolio.title ||
@@ -45,6 +45,7 @@ const usePortfolio = () => {
       newPortfolio.percentage > 100
     ) {
       context?.handleSnackbar("Provide value for all fields", "warning");
+      console.log(newPortfolio);
     } else if (
       Number(user?.total_percentage) + Number(newPortfolio.percentage) >
       100

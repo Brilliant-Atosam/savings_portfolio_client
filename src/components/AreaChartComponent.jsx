@@ -29,6 +29,10 @@ const AreaChartComponent = ({ data }) => {
           <stop offset="5%" stopColor="#66ffff" stopOpacity={0.8} />
           <stop offset="95%" stopColor="#00cccc" stopOpacity={0} />
         </linearGradient>
+        <linearGradient id="spendable" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="5%" stopColor="#728506" stopOpacity={0.8} />
+          <stop offset="95%" stopColor="#728506" stopOpacity={0} />
+        </linearGradient>
         <linearGradient id="advance" x1="0" y1="0" x2="0" y2="1">
           <stop offset="5%" stopColor="#8060f5" stopOpacity={0.8} />
           <stop offset="95%" stopColor="#8060f5" stopOpacity={0} />
@@ -52,6 +56,14 @@ const AreaChartComponent = ({ data }) => {
         stroke="#0d7eef"
         fillOpacity={1}
         fill="url(#savings)"
+      />
+
+      <Area
+        type="monotone"
+        dataKey="spendable_amount"
+        stroke="#444302"
+        fillOpacity={1}
+        fill="url(#spendable)"
       />
       <Area
         type="monotone"

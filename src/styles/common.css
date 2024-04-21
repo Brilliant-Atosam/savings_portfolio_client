@@ -295,21 +295,14 @@ h1 {
     width: 25px;
   }
   .topbar-btn {
-    /* height: 25px; */
     padding: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* color: white !important;
-    fill: white !important; */
-    /* font-weight: 500; */
-    /* font-size: 0.8rem; */
+   
   }
   .portfolio-info-container {
     width: 100%;
     min-width: 80vw;
   }
-  /* .dialog-container {
-    width: 100vw !important;
-  } */
 }

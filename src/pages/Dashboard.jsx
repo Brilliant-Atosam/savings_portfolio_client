@@ -31,7 +31,9 @@ const Dashboard = () => {
           <h1 className="debt-text">Income history</h1>{" "}
           {loading && <CircularProgress />}
           <Table columns={savingsColumn} rows={savingsList} />
-          <h1 className="debt-text">Monthly savings chart</h1>
+          <h1 className="debt-text">
+            Monthly Financial Summary Chart: {new Date().getFullYear()}
+          </h1>
           <div className="chart-container">
             <AreaChartComponents
               data={
@@ -47,7 +49,6 @@ const Dashboard = () => {
               </h1>
             )}
           </div>
-          {/* <Subscription /> */}
         </div>
       </div>
       <div className="action-container">

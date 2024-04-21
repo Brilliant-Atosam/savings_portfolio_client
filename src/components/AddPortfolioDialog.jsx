@@ -11,7 +11,6 @@ import usePortfolio from "../hooks/usePortfolio";
 const AddPortfolioDialog = ({ open, close, action }) => {
   const { loading } = useApp();
   const { setNewPortfolio, newPortfolio } = usePortfolio();
-  console.log(newPortfolio);
   return (
     <Dialog open={open}>
       <DialogTitle className="login-text">

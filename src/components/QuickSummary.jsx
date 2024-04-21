@@ -7,6 +7,7 @@ import {
   EmojiEventsOutlined,
   HourglassBottomOutlined,
 } from "@mui/icons-material";
+import { TbMoneybag } from "react-icons/tb";
 import useApp from "../useApp";
 import useSave from "../hooks/useSave";
 import usePortfolio from "../hooks/usePortfolio";
@@ -15,6 +16,7 @@ import PieChartComponent from "./PieChartComponent";
 import Util from "../utils/util";
 import moment from "moment";
 import PortfolioInfo from "./PortfolioInfo";
+import Save from "./Save";
 const QuickSummary = () => {
   const { user, setConfirmData, colors } = useApp();
   const { format_currency, piechart_data } = Util();
@@ -29,7 +31,8 @@ const QuickSummary = () => {
     portfolio,
     handleSetPortfolio,
   } = usePortfolio();
-  const { structuredPortfolio } = useSave();
+  const { structuredPortfolio, handleSaveDialog, showSaveDialog, handleSave } =
+    useSave();
   return (
     <>
       <UpdatePortfolioDialog
@@ -43,6 +46,11 @@ const QuickSummary = () => {
         open={open_portfolio_info}
         toggler={handle_toggle_portfolio_info}
         data={portfolio}
+      />
+      <Save
+        open={showSaveDialog}
+        handleSaveDialog={handleSaveDialog}
+        handleSave={handleSave}
       />
       <div className="dashboard-left">
         <div className="chart-container">
@@ -58,7 +66,19 @@ const QuickSummary = () => {
               }
             />
           ) : (
-            <h1 className="no-data-text">No savings data to display chart</h1>
+            <>
+              <h1 className="no-data-text">
+                No savings data available to display chart
+              </h1>
+
+              <button
+                className="dashboard-action-btn"
+                onClick={handleSaveDialog}
+              >
+                <TbMoneybag className="action-icon" />
+                add income
+              </button>
+            </>
           )}
           {user?.tier !== "premium" && (
             <h1 className="no-data-text">

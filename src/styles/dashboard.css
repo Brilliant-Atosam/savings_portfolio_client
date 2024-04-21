@@ -17,19 +17,27 @@
   width: 100%;
   padding: 12px;
 }
-.dashboard-actions-container {
+/* .dashboard-actions-container {
   display: flex;
   align-items: center;
-  gap: 10px;
-}
+  gap: px;
+  width: 100%;
+} */
 .dashboard-action-btn {
-  background: white;
+  background: transparent;
   border: 2px solid teal;
   color: teal;
-  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
   height: 35px;
-  padding: 0 10px;
+  padding: 0 6px;
   cursor: pointer;
+}
+.action-icon {
+  color: teal !important;
+  font-size: 1rem;
 }
 .savings-portfolios-container,
 .debt-container {
@@ -77,6 +85,11 @@
 .chart-container {
   width: 100%;
   margin-bottom: 10px;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 @media (max-width: 769px) {
   .dashboard-container {

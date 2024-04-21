@@ -150,7 +150,9 @@ const Settings = () => {
               </div>
             </div>
             <div className="chart-container">
-              <h1 className="debt-text">Monthly Income Chart</h1>
+              <h1 className="debt-text">
+                Monthly Financial Summary Chart: {new Date().getFullYear()}
+              </h1>
               <AreaChartComponent
                 data={
                   user?.tier !== "premium" ? dummy_monthly_data : monthly_data

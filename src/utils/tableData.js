@@ -12,7 +12,7 @@ const useTableData = () => {
     { field: "source", headerName: "Source", width: 250 },
     { field: "amount", headerName: "Amount", width: 150 },
     { field: "saved", headerName: "Saved", width: 150 },
-    { field: "balance", headerName: "Balance", width: 100 },
+    { field: "balance", headerName: "Spendable", width: 100 },
     { field: "createdAt", headerName: "Date", width: 100 },
     {
       field: "",

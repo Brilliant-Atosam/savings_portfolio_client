@@ -19,7 +19,12 @@ const Topbar = () => {
           cashlens
         </Link>
         <div className="topbar-left">
+          <button className="topbar-btn" onClick={handlePortfolioDialog}>
+            <BsDatabaseFillAdd fill="white" size={16} />
+            create portfolio
+          </button>
           <BsDatabaseFillAdd
+            className="sm-icon"
             fill="white"
             size={22}
             onClick={handlePortfolioDialog}

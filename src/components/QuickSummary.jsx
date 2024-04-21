@@ -7,7 +7,8 @@ import {
   EmojiEventsOutlined,
   HourglassBottomOutlined,
 } from "@mui/icons-material";
-import { TbMoneybag } from "react-icons/tb";
+import { FaHandHoldingDollar } from "react-icons/fa6";
+import { BsDatabaseFillAdd } from "react-icons/bs";
 import useApp from "../useApp";
 import useSave from "../hooks/useSave";
 import usePortfolio from "../hooks/usePortfolio";
@@ -17,6 +18,7 @@ import Util from "../utils/util";
 import moment from "moment";
 import PortfolioInfo from "./PortfolioInfo";
 import Save from "./Save";
+import AddPortfolioDialog from "./AddPortfolioDialog";
 const QuickSummary = () => {
   const { user, setConfirmData, colors } = useApp();
   const { format_currency, piechart_data } = Util();
@@ -30,11 +32,20 @@ const QuickSummary = () => {
     handle_toggle_portfolio_info,
     portfolio,
     handleSetPortfolio,
+    handlePortfolioDialog,
+    showPortfolioDialog,
+    // handlePortfolioDialog,
+    addPortfolio,
   } = usePortfolio();
   const { structuredPortfolio, handleSaveDialog, showSaveDialog, handleSave } =
     useSave();
   return (
     <>
+      <AddPortfolioDialog
+        open={showPortfolioDialog}
+        close={handlePortfolioDialog}
+        action={addPortfolio}
+      />
       <UpdatePortfolioDialog
         open={showUpdatePortfolioDialog}
         newPortfolio={newPortfolio}
@@ -70,12 +81,11 @@ const QuickSummary = () => {
               <h1 className="no-data-text">
                 No savings data available to display chart
               </h1>
-
               <button
                 className="dashboard-action-btn"
                 onClick={handleSaveDialog}
               >
-                <TbMoneybag className="action-icon" />
+                <FaHandHoldingDollar className="action-icon" />
                 add income
               </button>
             </>
@@ -148,9 +158,18 @@ const QuickSummary = () => {
                 </div>
               ))
           ) : (
-            <h1 className="no-data-text">
-              You have no active savings portfolios.
-            </h1>
+            <div className="no-data-container">
+              <h1 className="no-data-text">
+                You have no active savings portfolios.
+              </h1>
+              <button
+                className="dashboard-action-btn"
+                onClick={handlePortfolioDialog}
+              >
+                <BsDatabaseFillAdd fill="teal" className="action-icon" />
+                create portfolio
+              </button>
+            </div>
           )}
         </div>
         <div className="savings-portfolios-container">

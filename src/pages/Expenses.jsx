@@ -10,14 +10,17 @@ import AreaChartComponent from "../components/AreaChartComponent";
 import { Link } from "react-router-dom";
 import useApp from "../useApp";
 import { CircularProgress } from "@mui/material";
-import useSave from "../hooks/useSave";
 const Expenses = () => {
   const { expenseColumn } = useTableData();
   const { loading } = useApp();
   const { categories, format_currency, dummy_monthly_data, user } = Util();
   let expensesList = JSON.parse(localStorage.getItem("expenses"));
-  const { openExpenseDialog, toggleExpensesDialog, data } = useExpenses();
-  const { monthly_data } = useSave();
+  const {
+    openExpenseDialog,
+    toggleExpensesDialog,
+    data,
+    monthly_expenses_data,
+  } = useExpenses();
   return (
     <div className="main-container">
       <Topbar />
@@ -60,7 +63,9 @@ const Expenses = () => {
               <h1 className="debt-text">Monthly expenses chart</h1>
               <AreaChartComponent
                 data={
-                  user?.tier !== "premium" ? dummy_monthly_data : monthly_data
+                  user?.tier !== "premium"
+                    ? dummy_monthly_data
+                    : monthly_expenses_data
                 }
               />
               {user?.tier !== "premium" && (

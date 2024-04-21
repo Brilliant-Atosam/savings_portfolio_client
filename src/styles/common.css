@@ -82,15 +82,22 @@ h1 {
   gap: 10px;
 }
 .topbar-btn {
-  border: 1.5px solid white;
+  border: 2px solid white;
   background: transparent;
   height: 35px;
-  padding: 10px;
+  padding: 0 6px;
   color: white;
   font-weight: 600;
   cursor: pointer;
   border-radius: 4px;
   font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.sm-icon {
+  display: none;
 }
 .table-container {
   width: 100% !important;
@@ -299,10 +306,20 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-   
   }
   .portfolio-info-container {
     width: 100%;
     min-width: 80vw;
+  }
+}
+@media (max-width: 321px) {
+  .topbar-left {
+    gap: 5px;
+  }
+  .sm-icon {
+    display: inline-block;
+  }
+  .topbar-btn {
+    display: none;
   }
 }

@@ -121,7 +121,7 @@ const useExpenses = () => {
             )
           )
           .reduce((a, b) => a + b.total_cost, 0),
-        total_income: savingsList
+        spendable_amount: savingsList
           ?.filter((item) =>
             item.createdAt.endsWith(
               (index + 1).toString().length === 1
@@ -129,7 +129,7 @@ const useExpenses = () => {
                 : `${index + 1}/${new Date().getFullYear()}`
             )
           )
-          ?.reduce((a, b) => a + b.amount, 0)
+          ?.reduce((a, b) => a + b.balance, 0)
           .toFixed(2),
       };
       data.push(data_object);

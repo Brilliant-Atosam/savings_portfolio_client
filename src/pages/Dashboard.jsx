@@ -8,7 +8,7 @@ import { CircularProgress } from "@mui/material";
 import useTableData from "../utils/tableData";
 import useSave from "../hooks/useSave";
 import Util from "../utils/util";
-import { GiReceiveMoney } from "react-icons/gi";
+import { FaHandHoldingDollar } from "react-icons/fa6";
 import Save from "../components/Save";
 // import Subscription from "../components/Subscription";
 const Dashboard = () => {
@@ -53,7 +53,7 @@ const Dashboard = () => {
       </div>
       <div className="action-container">
         <div className="add-expenses-btn-container" onClick={handleSaveDialog}>
-          <GiReceiveMoney className="add-expenses-btn" />
+          <FaHandHoldingDollar className="add-expenses-btn" />
         </div>
       </div>
     </div>

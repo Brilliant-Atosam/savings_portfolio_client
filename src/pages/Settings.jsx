@@ -34,6 +34,8 @@ const Settings = () => {
     total_income,
     total_savings,
     total_advance,
+    total_spendable,
+    spendable_utilization_percentage,
   } = useSettings();
   return (
     <div className="main-container">
@@ -75,7 +77,9 @@ const Settings = () => {
             <div className="income-streams-container">
               <h1 className="debt-text">My income streams</h1>
               {income_chart_data.length < 1 ? (
-                <h1 className="no-data-text">No data to display chart</h1>
+                <h1 className="no-data-text">
+                  No available data to display chart
+                </h1>
               ) : (
                 <PieChartComponent
                   colors={colors}
@@ -110,13 +114,40 @@ const Settings = () => {
                 <div className="key-value-container">
                   <span className="key">Total Savings: </span>
                   <span className="value">
-                    {format_currency(total_savings)}
+                    {format_currency(total_savings)} [
+                    {((total_savings / total_income) * 100).toFixed(2)}%]
+                  </span>
+                </div>
+                <div className="key-value-container">
+                  <span className="key">Total Spendable: </span>
+                  <span className="value">
+                    {format_currency(total_spendable)} [
+                    {(
+                      ((total_income - total_savings) / total_income) *
+                      100
+                    ).toFixed(2)}
+                    %]
                   </span>
                 </div>
                 <div className="key-value-container">
                   <span className="key">Total Expenses: </span>
                   <span className="value">
-                    {format_currency(total_expenses)}
+                    {format_currency(total_expenses)} [
+                    {((total_expenses / total_income) * 100).toFixed(2)}%]
+                  </span>
+                </div>
+                <div className="key-value-container">
+                  <span className="key">Spendable Utilization Percentage:</span>
+                  <span className="value">
+                    {spendable_utilization_percentage}%
+                  </span>
+                </div>
+                <div className="key-value-container">
+                  <span className="key">Spending status:</span>
+                  <span className="value">
+                    {spendable_utilization_percentage < 100
+                      ? "Spend within the the spendable"
+                      : "Spend beyond the spendable"}
                   </span>
                 </div>
                 <div className="key-value-container">

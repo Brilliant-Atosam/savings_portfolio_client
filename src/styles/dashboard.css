@@ -36,7 +36,7 @@
   cursor: pointer;
 }
 .action-icon {
-  color: teal !important;
+  fill: teal !important;
   font-size: 1rem;
 }
 .savings-portfolios-container,
@@ -92,6 +92,13 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+.no-data-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
 }
 @media (max-width: 769px) {
   .dashboard-container {

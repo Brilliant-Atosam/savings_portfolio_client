@@ -29,6 +29,12 @@ const useSettings = () => {
     savings.reduce((a, b) => a + b.saved, 0).toFixed(2)
   );
   const total_advance = loans.reduce((a, b) => a + b.amount, 0);
+  const total_spendable = Number(
+    savings.reduce((a, b) => a + b.balance, 0).toFixed(2)
+  );
+  const spendable_utilization_percentage = Number(
+    ((total_expenses / total_spendable) * 100).toFixed(2)
+  );
   const untracked = Number(
     (total_income - total_savings - total_expenses).toFixed(2)
   );
@@ -166,6 +172,7 @@ const useSettings = () => {
     total_savings,
     total_advance,
     untracked,
+    total_spendable,spendable_utilization_percentage 
   };
 };
 

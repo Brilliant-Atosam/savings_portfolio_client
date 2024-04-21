@@ -85,6 +85,8 @@
 .chart-container {
   width: 100%;
   margin-bottom: 10px;
+}
+.quick-chart {
   min-height: 400px;
   display: flex;
   align-items: center;

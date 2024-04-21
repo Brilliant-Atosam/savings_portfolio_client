@@ -53,7 +53,7 @@ const QuickSummary = () => {
         handleSave={handleSave}
       />
       <div className="dashboard-left">
-        <div className="chart-container">
+        <div className="chart-container quick-chart">
           {user?.portfolio
             .filter((item) => !item.archived)
             .reduce((a, b) => a + b.amount, 0) > 0 ? (

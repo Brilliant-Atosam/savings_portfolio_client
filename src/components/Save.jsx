@@ -13,7 +13,7 @@ import Util from "../utils/util";
 const Save = ({ open, handleSaveDialog, handleSave }) => {
   const { user, loading } = useApp();
   const { sources_of_income, colors } = Util();
-  const { savings, setSavings } = useSave();
+  const { savings, setSavings, spendable_percentage } = useSave();
   useEffect(() => {
     const updatedDetail = user?.portfolio.map((item) => ({
       title: item.title,
@@ -70,6 +70,16 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
           />
           {user && (
             <div className="portfolio-container">
+              <div className="portfolio">
+                <span className="portfolio-title">
+                  Spendable amount ({spendable_percentage}%)
+                </span>
+                <span className="portfolio-value">
+                  {Number(
+                    ((spendable_percentage * savings.amount) / 100).toFixed(2)
+                  )}
+                </span>
+              </div>
               {user?.portfolio
                 .filter((item) => !item.archived)
                 .map((item, index) => (
@@ -82,7 +92,9 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
                       className="portfolio-value"
                       style={{ color: colors[index] }}
                     >
-                      {(item?.percentage * savings.amount) / 100}
+                      {Number(
+                        ((item?.percentage * savings.amount) / 100).toFixed(2)
+                      )}
                     </span>
                   </div>
                 ))}

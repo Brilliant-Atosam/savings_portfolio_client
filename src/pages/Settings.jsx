@@ -119,6 +119,27 @@ const Settings = () => {
                   </span>
                 </div>
                 <div className="key-value-container">
+                  <span className="key">Actual Savings: </span>
+                  <span className="value">
+                    {format_currency(total_income - total_expenses)} [
+                    {(
+                      ((total_income - total_expenses) / total_income) *
+                      100
+                    ).toFixed(2)}
+                    %]
+                  </span>
+                </div>
+                <div className="key-value-container">
+                  <span className="key">Savings Efficiency: </span>
+                  <span className="value">
+                    {(
+                      ((total_income - total_expenses) / total_savings) *
+                      100
+                    ).toFixed(2)}
+                    %
+                  </span>
+                </div>
+                <div className="key-value-container">
                   <span className="key">Total Spendable: </span>
                   <span className="value">
                     {format_currency(total_spendable)} [
@@ -134,6 +155,12 @@ const Settings = () => {
                   <span className="value">
                     {format_currency(total_expenses)} [
                     {((total_expenses / total_income) * 100).toFixed(2)}%]
+                  </span>
+                </div>
+                <div className="key-value-container">
+                  <span className="key">Spending Variance: </span>
+                  <span className="value">
+                    {total_spendable - total_expenses}
                   </span>
                 </div>
                 <div className="key-value-container">

@@ -63,19 +63,24 @@ const Expenses = () => {
               <h1 className="debt-text">Monthly expenses chart</h1>
               <AreaChartComponent
                 data={
-                  user?.tier !== "premium"
+                  monthly_expenses_data.reduce(
+                    (a, b) => a + b.total_expenses,
+                    0
+                  ) > 0 && user?.tier !== "premium"
                     ? dummy_monthly_data
                     : monthly_expenses_data
                 }
               />
-              {user?.tier !== "premium" && (
-                <h1 className="no-data-text">
-                  This could be your data displayed in the chart above.
-                  <a href="/" className="link">
-                    Learn more
-                  </a>
-                </h1>
-              )}
+              {monthly_expenses_data.reduce((a, b) => a + b.total_expenses, 0) >
+                0 &&
+                user?.tier !== "premium" && (
+                  <h1 className="no-data-text">
+                    This could be your data displayed in the chart above.
+                    <a href="/" className="link">
+                      Learn more
+                    </a>
+                  </h1>
+                )}
             </div>
           </div>
         </div>

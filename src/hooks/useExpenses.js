@@ -97,8 +97,8 @@ const useExpenses = () => {
       let data_object = {
         title: category.title,
         total_expenses: expensesList
-          .filter((item) => item.category === category.title)
-          .reduce((a, b) => a + b.total_cost, 0),
+          ?.filter((item) => item.category === category.title)
+          ?.reduce((a, b) => a + b.total_cost, 0),
       };
       data.push(data_object);
       return data_object;

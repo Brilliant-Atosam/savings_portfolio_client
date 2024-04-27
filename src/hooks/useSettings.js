@@ -20,17 +20,17 @@ const useSettings = () => {
   });
   // parameters
   const total_income = Number(
-    savings.reduce((a, b) => a + b.amount, 0).toFixed(2)
+    savings?.reduce((a, b) => a + b.amount, 0).toFixed(2)
   );
   const total_expenses = Number(
-    expenses.reduce((a, b) => a + b.total_cost, 0).toFixed(2)
+    expenses?.reduce((a, b) => a + b.total_cost, 0).toFixed(2)
   );
   const total_savings = Number(
-    savings.reduce((a, b) => a + b.saved, 0).toFixed(2)
+    savings?.reduce((a, b) => a + b.saved, 0).toFixed(2)
   );
-  const total_advance = loans.reduce((a, b) => a + b.amount, 0);
+  const total_advance = loans?.reduce((a, b) => a + b.amount, 0);
   const total_spendable = Number(
-    savings.reduce((a, b) => a + b.balance, 0).toFixed(2)
+    savings?.reduce((a, b) => a + b.balance, 0).toFixed(2)
   );
   const spendable_utilization_percentage = Number(
     ((total_expenses / total_spendable) * 100).toFixed(2)
@@ -122,7 +122,7 @@ const useSettings = () => {
   // income chart data
   const income_chart = () => {
     let data = [];
-    user.sources_of_income.map((source) => {
+    user.sources_of_income?.map((source) => {
       let data_object = {
         title: source,
         amount: savings

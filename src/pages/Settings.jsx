@@ -20,7 +20,7 @@ import useSave from "../hooks/useSave";
 const Settings = () => {
   const { user } = useApp();
   const { format_currency, colors, dummy_monthly_data } = Util();
-  const { monthly_data } = useSave();
+  const { monthly_data, savingsList } = useSave();
   const {
     handleOpenPass,
     openPass,
@@ -36,6 +36,8 @@ const Settings = () => {
     total_advance,
     total_spendable,
     spendable_utilization_percentage,
+    savings_efficiency,
+    actual_savings,
   } = useSettings();
   return (
     <div className="main-container">
@@ -121,32 +123,20 @@ const Settings = () => {
                 <div className="key-value-container">
                   <span className="key">Actual Savings: </span>
                   <span className="value">
-                    {format_currency(total_income - total_expenses)} [
-                    {(
-                      ((total_income - total_expenses) / total_income) *
-                      100
-                    ).toFixed(2)}
+                    {format_currency(actual_savings)} [
+                    {((actual_savings / total_income) * 100).toFixed(2)}
                     %]
                   </span>
                 </div>
                 <div className="key-value-container">
                   <span className="key">Savings Efficiency: </span>
-                  <span className="value">
-                    {(
-                      ((total_income - total_expenses) / total_savings) *
-                      100
-                    ).toFixed(2)}
-                    %
-                  </span>
+                  <span className="value">{savings_efficiency}%</span>
                 </div>
                 <div className="key-value-container">
                   <span className="key">Total Spendable: </span>
                   <span className="value">
                     {format_currency(total_spendable)} [
-                    {(
-                      ((total_income - total_savings) / total_income) *
-                      100
-                    ).toFixed(2)}
+                    {((total_spendable / total_income) * 100).toFixed(2)}
                     %]
                   </span>
                 </div>
@@ -211,19 +201,25 @@ const Settings = () => {
               <h1 className="debt-text">
                 Monthly Financial Summary Chart: {new Date().getFullYear()}
               </h1>
-              <AreaChartComponent
-                data={
-                  user?.tier !== "premium" ? dummy_monthly_data : monthly_data
-                }
-              />
-              {user?.tier !== "premium" && (
-                <h1 className="no-data-text">
-                  This could be your data displayed in the chart above.
-                  <a href="/" className="link">
-                    Learn more
-                  </a>
-                </h1>
-              )}
+              {
+                <AreaChartComponent
+                  data={
+                    monthly_data.reduce((a, b) => a + b.total_income, 0) > 0 &&
+                    user?.tier !== "premium"
+                      ? dummy_monthly_data
+                      : monthly_data
+                  }
+                />
+              }
+              {savingsList.reduce((a, b) => a + b.saved, 0) > 0 &&
+                user?.tier !== "premium" && (
+                  <h1 className="no-data-text">
+                    This could be your data displayed in the chart above.
+                    <a href="/" className="link">
+                      Learn more
+                    </a>
+                  </h1>
+                )}
             </div>
           </div>
         </div>

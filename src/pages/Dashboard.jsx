@@ -35,17 +35,16 @@ const Dashboard = () => {
             Monthly Financial Summary Chart: {new Date().getFullYear()}
           </h1>
           <div className="chart-container">
-            {savingsList.reduce((a, b) => a + b.saved, 0) > 0 ? (
+            {
               <AreaChartComponents
                 data={
-                  user?.tier !== "premium" ? dummy_monthly_data : monthly_data
+                  monthly_data.reduce((a, b) => a + b.total_income, 0) > 0 &&
+                  user?.tier !== "premium"
+                    ? dummy_monthly_data
+                    : monthly_data
                 }
               />
-            ) : (
-              <h1 className="no-data-text">
-                No savings data available to display chart
-              </h1>
-            )}
+            }
             {savingsList?.reduce((a, b) => a + b.saved, 0) > 0 &&
               user?.tier !== "premium" && (
                 <h1 className="no-data-text">

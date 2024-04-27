@@ -35,6 +35,11 @@ const useSettings = () => {
   const spendable_utilization_percentage = Number(
     ((total_expenses / total_spendable) * 100).toFixed(2)
   );
+  const actual_savings = total_income - total_expenses;
+  const savings_efficiency = (
+    ((total_income - total_expenses) / total_savings) *
+    100
+  ).toFixed(2);
   const untracked = Number(
     (total_income - total_savings - total_expenses).toFixed(2)
   );
@@ -172,7 +177,10 @@ const useSettings = () => {
     total_savings,
     total_advance,
     untracked,
-    total_spendable,spendable_utilization_percentage 
+    total_spendable,
+    spendable_utilization_percentage,
+    savings_efficiency,
+    actual_savings,
   };
 };
 

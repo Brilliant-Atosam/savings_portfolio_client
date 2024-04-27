@@ -19,8 +19,10 @@ import moment from "moment";
 import PortfolioInfo from "./PortfolioInfo";
 import Save from "./Save";
 import AddPortfolioDialog from "./AddPortfolioDialog";
+import useSettings from "../hooks/useSettings";
 const QuickSummary = () => {
-  const { user, setConfirmData, colors } = useApp();
+  const { user, setConfirmData, colors, savingsList } = useApp();
+  const { total_savings, savings_efficiency, actual_savings } = useSettings();
   const { format_currency, piechart_data } = Util();
   const {
     setNewPortfolio,
@@ -64,6 +66,24 @@ const QuickSummary = () => {
         handleSave={handleSave}
       />
       <div className="dashboard-left">
+        <div className="finance-info-container">
+          <div className="info-container">
+            <span className="finance-info-key">Gross Savings</span>
+            <span className="finance-info-value">
+              {format_currency(total_savings)}
+            </span>
+          </div>
+          <div className="info-container">
+            <span className="finance-info-key">Net Savings</span>
+            <span className="finance-info-value">
+              {format_currency(actual_savings)}
+            </span>
+          </div>
+          <div className="info-container">
+            <span className="finance-info-key">Efficiency</span>
+            <span className="finance-info-value">{savings_efficiency}%</span>
+          </div>
+        </div>
         <div className="chart-container quick-chart">
           {user?.portfolio
             .filter((item) => !item.archived)
@@ -90,14 +110,15 @@ const QuickSummary = () => {
               </button>
             </>
           )}
-          {user?.tier !== "premium" && (
-            <h1 className="no-data-text">
-              This could be your data displayed in the chart above.
-              <a href="/" className="link">
-                Learn more
-              </a>
-            </h1>
-          )}
+          {savingsList?.reduce((a, b) => a + b.saved, 0) > 0 &&
+            user?.tier !== "premium" && (
+              <h1 className="no-data-text">
+                This could be your data displayed in the chart above.
+                <a href="/" className="link">
+                  Learn more
+                </a>
+              </h1>
+            )}
         </div>
 
         <div className="savings-portfolios-container">

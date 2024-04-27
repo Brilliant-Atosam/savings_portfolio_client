@@ -112,7 +112,7 @@ const Settings = () => {
                   <span className="value">{format_currency(total_income)}</span>
                 </div>
                 <div className="key-value-container">
-                  <span className="key">Total Savings: </span>
+                  <span className="key">Gross Savings: </span>
                   <span className="value">
                     {format_currency(total_savings)} [
                     {((total_savings / total_income) * 100).toFixed(2)}%]

@@ -15,7 +15,7 @@ const ExpensesDetails = () => {
       <Topbar />
       <div className="expenses-container">
         <h1 className="expenses-heading debt-text">
-          Expenses details: {categories[query]}
+          Expenses details: {categories[query].title}
         </h1>
         <div className="expenses-table-container">
           <h1 className="expenses-heading debt-text">Expenses history</h1>

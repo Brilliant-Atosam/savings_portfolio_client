@@ -15,6 +15,7 @@ const Expenses = () => {
   const { expenseColumn } = useTableData();
   const { loading } = useApp();
   const { categories, format_currency, dummy_monthly_data, user } = Util();
+  // const {} = useSettings()
   let expensesList = JSON.parse(localStorage.getItem("expenses"));
   const {
     openExpenseDialog,
@@ -22,7 +23,8 @@ const Expenses = () => {
     data,
     monthly_expenses_data,
   } = useExpenses();
-  const { total_expenses } = useSettings();
+  const { total_expenses, total_spendable, spendable_utilization_percentage } =
+    useSettings();
   return (
     <div className="main-container">
       <Topbar />
@@ -30,14 +32,28 @@ const Expenses = () => {
       <div className="expenses-container">
         <div className="expenses-details-container">
           <div className="expenses-table-container expenses-left">
-            <h1 className="expenses-heading debt-text">Expenses summary</h1>
-            <div className="expenses-categories-container">
-              <div className="category total-expenses">
-                <span className="category-name">Total Expenses</span>
-                <span className="category-value">
+            <div className="finance-info-container">
+              <div className="info-container">
+                <span className="finance-info-key">Tot. Spendable</span>
+                <span className="finance-info-value">
+                  {format_currency(total_spendable)}
+                </span>
+              </div>
+              <div className="info-container">
+                <span className="finance-info-key">Tot. Expenses</span>
+                <span className="finance-info-value">
                   {format_currency(total_expenses)}
                 </span>
               </div>
+              <div className="info-container">
+                <span className="finance-info-key">SUP</span>
+                <span className="finance-info-value">
+                  {spendable_utilization_percentage}%
+                </span>
+              </div>
+            </div>
+            <h1 className="expenses-heading debt-text">Expenses summary</h1>
+            <div className="expenses-categories-container">
               {categories.map((category, index) => (
                 <Link
                   to={`/expenses/details?index=${index}`}

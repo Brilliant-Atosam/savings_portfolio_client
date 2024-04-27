@@ -14,7 +14,7 @@ const useExpenses = () => {
   let user = JSON.parse(localStorage.getItem("user"));
   let expensesList = query
     ? JSON.parse(localStorage.getItem("expenses")).filter(
-        (expense) => expense.category === categories[query]
+        (expense) => expense.category === categories[query].title
       )
     : JSON.parse(localStorage.getItem("expenses"));
   const [openExpenseDialog, setOpenExpenseDialog] = useState(false);

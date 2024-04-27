@@ -3,15 +3,15 @@ import { Cell, Pie, PieChart, Tooltip } from "recharts";
 
 const PieChartComponent = ({ portfolio, colors }) => {
   return (
-    <PieChart width={350} height={300} className="piechart">
+    <PieChart width={300} height={300} className="piechart">
       <Pie
         nameKey="title"
         dataKey="amount"
         fill="red"
         data={portfolio}
         // label
-        innerRadius={5}
-        outerRadius={80}
+        innerRadius={2}
+        outerRadius={90}
       >
         {portfolio?.map((item, index) => (
           <Cell key={index} fill={colors[index]} strokeWidth={1} />

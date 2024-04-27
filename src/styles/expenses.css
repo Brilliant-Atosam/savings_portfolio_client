@@ -1,10 +1,12 @@
-
 .expenses-details-container {
   display: flex;
   justify-content: center;
   margin-top: 15px;
   gap: 15px;
   /* align-items: flex-start; */
+}
+.total-expenses {
+  border: 2px solid #c20881 !important;
 }
 .cat-icons {
   fill: teal !important;

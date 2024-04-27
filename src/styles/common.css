@@ -179,10 +179,10 @@ h1 {
   position: absolute;
   top: 50%;
 }
-.piechart {
-  width: 98% !important;
-  height: fit-content !important;
-}
+/* .piechart { */
+  /* width: 98% !important; */
+  /* height: fit-content !important; */
+/* } */
 
 .portfolio-info-container {
   display: flex;

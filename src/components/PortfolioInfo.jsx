@@ -12,9 +12,7 @@ import {
   Alarm,
   ChatBubbleOutline,
   DirectionsRun,
-  Downloading,
   HourglassBottom,
-  Percent,
   RotateRight,
   SportsScore,
   Title,
@@ -45,23 +43,28 @@ const PortfolioInfo = ({ open, toggler, data }) => {
               <SportsScore className="dialog-icon" />
               Goal:
             </span>
-            <span className="info-value">{format_currency(data?.goal)}</span>
+            <span className="info-value">
+              {format_currency(data?.goal)} ({data?.percentage}% of income)
+            </span>
           </div>
 
-          <div className="key-value-container">
+          {/* <div className="key-value-container">
             <span className="info-key">
               <Percent className="dialog-icon" /> Percentage of income:
             </span>
             <span className="info-value">{data?.percentage}%</span>
-          </div>
+          </div> */}
           <div className="key-value-container">
             <span className="info-key">
               <DirectionsRun className="dialog-icon" />
               Milestone:
             </span>
-            <span className="info-value">{format_currency(data?.amount)}</span>
+            <span className="info-value">
+              {format_currency(data?.amount)} (
+              {((data?.amount / data?.goal) * 100).toFixed(2)}% of goal)
+            </span>
           </div>
-          <div className="key-value-container">
+          {/* <div className="key-value-container">
             <span className="info-key">
               <Downloading className="dialog-icon" />
               Milestone percentage:
@@ -69,7 +72,7 @@ const PortfolioInfo = ({ open, toggler, data }) => {
             <span className="info-value">
               {((data?.amount / data?.goal) * 100).toFixed(2)}%
             </span>
-          </div>
+          </div> */}
           <div className="key-value-container">
             <span className="info-key">
               <RotateRight className="dialog-icon" />

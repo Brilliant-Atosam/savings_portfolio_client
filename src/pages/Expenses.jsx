@@ -10,6 +10,7 @@ import AreaChartComponent from "../components/AreaChartComponent";
 import { Link } from "react-router-dom";
 import useApp from "../useApp";
 import { CircularProgress } from "@mui/material";
+import useSettings from "../hooks/useSettings";
 const Expenses = () => {
   const { expenseColumn } = useTableData();
   const { loading } = useApp();
@@ -21,6 +22,7 @@ const Expenses = () => {
     data,
     monthly_expenses_data,
   } = useExpenses();
+  const { total_expenses } = useSettings();
   return (
     <div className="main-container">
       <Topbar />
@@ -30,6 +32,12 @@ const Expenses = () => {
           <div className="expenses-table-container expenses-left">
             <h1 className="expenses-heading debt-text">Expenses summary</h1>
             <div className="expenses-categories-container">
+              <div className="category total-expenses">
+                <span className="category-name">Total Expenses</span>
+                <span className="category-value">
+                  {format_currency(total_expenses)}
+                </span>
+              </div>
               {categories.map((category, index) => (
                 <Link
                   to={`/expenses/details?index=${index}`}

@@ -7,7 +7,7 @@ import useApp from "../useApp";
 import PieChartComponent from "../components/PieChartComponent";
 import { TbLockCog } from "react-icons/tb";
 import { FaUserCog } from "react-icons/fa";
-import logo from "../logo1.png";
+// import logo from "../logo1.png";
 import {
   MarkunreadOutlined,
   PersonOutlined,
@@ -38,6 +38,8 @@ const Settings = () => {
     spendable_utilization_percentage,
     savings_efficiency,
     actual_savings,
+    peak_month,
+    average_income,
   } = useSettings();
   return (
     <div className="main-container">
@@ -55,13 +57,9 @@ const Settings = () => {
       <div className="settings-container">
         <div className="settings-sub-container">
           <div className="account-info-container">
-            <img src={logo} alt="cashlens' logo" className="avatar" />
             <div className="account-info">
               <div className="account-info-top">
                 <h1 className="debt-text">My profile</h1>
-                <span className="date-joined">
-                  <QueryBuilderOutlined /> {user.createdAt}
-                </span>
               </div>
               <div className="account-info-middle">
                 <div className="info">
@@ -74,6 +72,9 @@ const Settings = () => {
                 <div className="info">
                   <PhoneIphoneOutlined /> <span>{user.phone}</span>
                 </div>
+                <span className="date-joined">
+                  <QueryBuilderOutlined /> {user.createdAt}
+                </span>
               </div>
             </div>
             <div className="income-streams-container">
@@ -95,7 +96,7 @@ const Settings = () => {
                       className="indicators"
                       style={{ background: colors[index] }}
                     ></div>
-                    <span style={{ color: colors[index] }}>
+                    <span style={{ color: colors[index], fontSize: "0.8rem" }}>
                       {item.title}(
                       {((item.amount / user.total_income) * 100).toFixed(2)}
                       %)
@@ -104,14 +105,25 @@ const Settings = () => {
                 ))}
               </div>
             </div>
-          </div>
-          <div className="summary-container">
             <div className="top-summary-container">
               <h1 className="debt-text">Financial Summary</h1>
               <div className="financial-summary">
                 <div className="key-value-container">
                   <span className="key">Total Income: </span>
                   <span className="value">{format_currency(total_income)}</span>
+                </div>
+                <div className="key-value-container">
+                  <span className="key">Peak Income: </span>
+                  <span className="value">
+                    {format_currency(peak_month?.total_income)} (
+                    {peak_month.title})
+                  </span>
+                </div>
+                <div className="key-value-container">
+                  <span className="key">Avg Annual Inc: </span>
+                  <span className="value">
+                    {format_currency(average_income)}
+                  </span>
                 </div>
                 <div className="key-value-container">
                   <span className="key">Gross Savings: </span>
@@ -175,6 +187,8 @@ const Settings = () => {
                 </div>
               </div>
             </div>
+          </div>
+          <div className="summary-container">
             <div className="bottom-summary-container">
               <h1 className="debt-text">Summary Chart</h1>
               {chart_data.reduce((a, b) => a + b.amount, 0) < 1 ? (

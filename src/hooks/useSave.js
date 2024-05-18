@@ -198,6 +198,7 @@ const useSave = () => {
     return data;
   };
   let monthly_data = monthly_savings_data();
+  console.log(monthly_data);
   return {
     showSaveDialog,
     setShowSaveDialog,

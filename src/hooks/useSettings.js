@@ -2,6 +2,7 @@ import { useState } from "react";
 import useApp from "../useApp";
 import request from "../utils/request";
 import Util from "../utils/util";
+import useSave from "./useSave";
 
 const useSettings = () => {
   const { handleSnackbar } = useApp();
@@ -10,6 +11,7 @@ const useSettings = () => {
   let expenses = JSON.parse(localStorage.getItem("expenses"));
   let loans = JSON.parse(localStorage.getItem("loans"));
   const { storeUser } = Util();
+  const { monthly_data } = useSave();
   const [openPass, setOpenPass] = useState(false);
   const handleOpenPass = () => setOpenPass(!openPass);
   //   password info
@@ -49,6 +51,11 @@ const useSettings = () => {
     email: user?.email,
     password: "",
   });
+  const peak_month = monthly_data?.sort((a, b) =>
+    a.total_income < b.total_income ? 1 : -1
+  )[0];
+  const average_income = total_income / new Date().getMonth() + 1;
+  console.log(average_income);
   const [show_basic_info_dialog, set_basic_info_dialog] = useState(false);
   const handle_open_basic_info_dialog = () =>
     set_basic_info_dialog(!show_basic_info_dialog);
@@ -181,6 +188,8 @@ const useSettings = () => {
     spendable_utilization_percentage,
     savings_efficiency,
     actual_savings,
+    peak_month,
+    average_income,
   };
 };
 

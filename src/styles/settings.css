@@ -116,13 +116,17 @@
   gap: 15px;
   width: 100%;
 }
-.top-summary-container,
-.bottom-summary-container {
+.summary-chart-sub-container {
+  display: flex;
+
   background: white;
   border-radius: 8px;
-  /* min-width: 350px; */
   width: 100% !important;
   padding: 10px;
+}
+.top-summary-container,
+.bottom-summary-container {
+  /* min-width: 350px; */
   display: flex;
   flex-direction: column;
 }

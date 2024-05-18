@@ -106,7 +106,9 @@ const Settings = () => {
               </div>
             </div>
             <div className="top-summary-container">
-              <h1 className="debt-text">Financial Summary</h1>
+              <h1 className="debt-text">
+                Financial Summary - {new Date().getFullYear()}
+              </h1>
               <div className="financial-summary">
                 <div className="key-value-container">
                   <span className="key">Total Income: </span>
@@ -120,7 +122,7 @@ const Settings = () => {
                   </span>
                 </div>
                 <div className="key-value-container">
-                  <span className="key">Avg Annual Inc: </span>
+                  <span className="key">Avg Monthly Inc: </span>
                   <span className="value">
                     {format_currency(average_income)}
                   </span>
@@ -189,26 +191,32 @@ const Settings = () => {
             </div>
           </div>
           <div className="summary-container">
-            <div className="bottom-summary-container">
-              <h1 className="debt-text">Summary Chart</h1>
-              {chart_data.reduce((a, b) => a + b.amount, 0) < 1 ? (
-                <h1 className="no-data-text">No data to display chart</h1>
-              ) : (
-                <PieChartComponent colors={colors} portfolio={chart_data} />
-              )}
-              <div className="chart-info">
-                {chart_data.map((item, index) => (
-                  <div className="ref">
-                    <div
-                      className="indicators"
-                      style={{ background: colors[index] }}
-                    ></div>
-                    <span style={{ color: colors[index] }}>
-                      {item.title}(
-                      {((item.amount / user.total_income) * 100).toFixed(2)})%
-                    </span>
-                  </div>
-                ))}
+            <div className="summary-chart-sub-container">
+              <div className="bottom-summary-container">
+                <h1 className="debt-text">Summary Chart</h1>
+                {chart_data.reduce((a, b) => a + b.amount, 0) < 1 ? (
+                  <h1 className="no-data-text">No data to display chart</h1>
+                ) : (
+                  <PieChartComponent colors={colors} portfolio={chart_data} />
+                )}
+                <div className="chart-info">
+                  {chart_data.map((item, index) => (
+                    <div className="ref">
+                      <div
+                        className="indicators"
+                        style={{ background: colors[index] }}
+                      ></div>
+                      <span style={{ color: colors[index] }}>
+                        {item.title}(
+                        {((item.amount / user.total_income) * 100).toFixed(2)})%
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae,
+                molestiae.
               </div>
             </div>
             <div className="chart-container">

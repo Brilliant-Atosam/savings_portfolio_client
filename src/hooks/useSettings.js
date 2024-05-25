@@ -54,8 +54,15 @@ const useSettings = () => {
   const peak_month = monthly_data?.sort((a, b) =>
     a.total_income < b.total_income ? 1 : -1
   )[0];
+  const peak_expenses = monthly_data?.sort((a, b) =>
+    a.total_expenses < b.total_expenses ? 1 : -1
+  );
+  const peak_savings = monthly_data?.sort((a, b) =>
+    a.total_savings < b.total_savings ? 1 : -1
+  );
   const average_income = total_income / new Date().getMonth() + 1;
-  console.log(average_income);
+  const average_savings = total_savings / new Date().getMonth() + 1;
+  const average_expenses = total_expenses / new Date().getMonth() + 1;
   const [show_basic_info_dialog, set_basic_info_dialog] = useState(false);
   const handle_open_basic_info_dialog = () =>
     set_basic_info_dialog(!show_basic_info_dialog);
@@ -190,6 +197,11 @@ const useSettings = () => {
     actual_savings,
     peak_month,
     average_income,
+    average_savings,
+    average_expenses,
+    expenses,
+    peak_expenses,
+    peak_savings,
   };
 };
 

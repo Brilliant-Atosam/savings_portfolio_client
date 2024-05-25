@@ -27,7 +27,7 @@ function App() {
   const Exchange = lazy(() => import("./pages/Exchange"));
   const Policy = lazy(() => import("./pages/Policy"));
   const Subscription = lazy(() => import("./pages/Subscription"));
-  const Budget = lazy(() => import("./pages/Budget"));
+  const Notifications = lazy(() => import("./pages/Notifications"));
   const PartnersDashboard = lazy(() => import("./pages/PartnershipDashboard"));
   return (
     <>
@@ -142,11 +142,11 @@ function App() {
             }
           />
           <Route
-            path="/budget"
+            path="/notifications"
             element={
               user ? (
                 <Suspense fallback={<FallbackComponent />}>
-                  <Budget />
+                  <Notifications />
                 </Suspense>
               ) : (
                 <Navigate to="/login" />

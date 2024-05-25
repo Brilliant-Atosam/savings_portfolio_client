@@ -7,7 +7,6 @@ import useApp from "../useApp";
 import PieChartComponent from "../components/PieChartComponent";
 import { TbLockCog } from "react-icons/tb";
 import { FaUserCog } from "react-icons/fa";
-// import logo from "../logo1.png";
 import {
   MarkunreadOutlined,
   PersonOutlined,
@@ -40,6 +39,10 @@ const Settings = () => {
     actual_savings,
     peak_month,
     average_income,
+    average_savings,
+    average_expenses,
+    peak_expenses,
+    peak_savings,
   } = useSettings();
   return (
     <div className="main-container">
@@ -105,118 +108,169 @@ const Settings = () => {
                 ))}
               </div>
             </div>
+            <div className="bottom-summary-container">
+              <h1 className="debt-text">Summary Chart</h1>
+              {chart_data.reduce((a, b) => a + b.amount, 0) < 1 ? (
+                <h1 className="no-data-text">No data to display chart</h1>
+              ) : (
+                <PieChartComponent colors={colors} portfolio={chart_data} />
+              )}
+              <div className="chart-info">
+                {chart_data.map((item, index) => (
+                  <div className="ref">
+                    <div
+                      className="indicators"
+                      style={{ background: colors[index] }}
+                    ></div>
+                    <span style={{ color: colors[index] }}>
+                      {item.title}(
+                      {((item.amount / user.total_income) * 100).toFixed(2)})%
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="summary-container">
             <div className="top-summary-container">
               <h1 className="debt-text">
                 Financial Summary - {new Date().getFullYear()}
               </h1>
               <div className="financial-summary">
-                <div className="key-value-container">
-                  <span className="key">Total Income: </span>
-                  <span className="value">{format_currency(total_income)}</span>
+                <div className="financial-summary-category">
+                  <h1 className="financial-summary-category-heading">
+                    Income Category
+                  </h1>
+                  <div className="category-container">
+                    <div className="key-value-container">
+                      <span className="key">Total Income: </span>
+                      <span className="value">
+                        {format_currency(total_income)}
+                      </span>
+                    </div>
+                    <div className="key-value-container">
+                      <span className="key">Peak Income: </span>
+                      <span className="value">
+                        {format_currency(peak_month?.total_income)} (
+                        {peak_month.title})
+                      </span>
+                    </div>
+                    <div className="key-value-container">
+                      <span className="key">Avg Monthly Inc: </span>
+                      <span className="value">
+                        {format_currency(average_income)}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <div className="key-value-container">
-                  <span className="key">Peak Income: </span>
-                  <span className="value">
-                    {format_currency(peak_month?.total_income)} (
-                    {peak_month.title})
-                  </span>
+                <div className="financial-summary">
+                  <div className="financial-summary-category">
+                    <h1 className="financial-summary-category-heading">
+                      Savings Category
+                    </h1>
+                    <div className="category-container">
+                      <div className="key-value-container">
+                        <span className="key">Gross Savings: </span>
+                        <span className="value">
+                          {format_currency(total_savings)} [
+                          {((total_savings / total_income) * 100).toFixed(2)}%]
+                        </span>
+                      </div>
+                      <div className="key-value-container">
+                        <span className="key">Actual Savings: </span>
+                        <span className="value">
+                          {format_currency(actual_savings)} [
+                          {((actual_savings / total_income) * 100).toFixed(2)}
+                          %]
+                        </span>
+                      </div>
+
+                      <div className="key-value-container">
+                        <span className="key">Savings Efficiency: </span>
+                        <span className="value">{savings_efficiency}%</span>
+                      </div>
+                      <div className="key-value-container">
+                        <span className="key">Peak Savings: </span>
+                        <span className="value">
+                          {format_currency(peak_savings[0].total_savings)} [
+                          {peak_savings[0].title}]
+                        </span>
+                      </div>
+                      <div className="key-value-container">
+                        <span className="key">Average Monthly Savings: </span>
+                        <span className="value">
+                          {format_currency(average_savings)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="key-value-container">
-                  <span className="key">Avg Monthly Inc: </span>
-                  <span className="value">
-                    {format_currency(average_income)}
-                  </span>
+                <div className="financial-summary">
+                  <div className="financial-summary-category">
+                    <h1 className="financial-summary-category-heading">
+                      Spendable & Expenses Category
+                    </h1>
+                    <div className="category-container">
+                      <div className="key-value-container">
+                        <span className="key">Total Spendable: </span>
+                        <span className="value">
+                          {format_currency(total_spendable)} [
+                          {((total_spendable / total_income) * 100).toFixed(2)}
+                          %]
+                        </span>
+                      </div>
+                      <div className="key-value-container">
+                        <span className="key">Total Expenses: </span>
+                        <span className="value">
+                          {format_currency(total_expenses)} [
+                          {((total_expenses / total_income) * 100).toFixed(2)}%]
+                        </span>
+                      </div>
+                      <div className="key-value-container">
+                        <span className="key">Spending Variance: </span>
+                        <span className="value">
+                          {total_spendable - total_expenses}
+                        </span>
+                      </div>
+                      <div className="key-value-container">
+                        <span className="key">
+                          Spendable Utilization Percentage:
+                        </span>
+                        <span className="value">
+                          {spendable_utilization_percentage}%
+                        </span>
+                      </div>
+                      <div className="key-value-container">
+                        <span className="key">Average Monthly Expenses:</span>
+                        <span className="value">
+                          {format_currency(average_expenses)}
+                        </span>
+                      </div>
+                      <div className="key-value-container">
+                        <span className="key">Peak Expenses:</span>
+                        <span className="value">
+                          {format_currency(peak_expenses[0].total_expenses)} [
+                          {peak_expenses[0].title}]
+                        </span>
+                      </div>
+                      <div className="key-value-container">
+                        <span className="key">Spending status:</span>
+                        <span className="value">
+                          {spendable_utilization_percentage < 100
+                            ? "Spend within the the spendable"
+                            : "Spend beyond the spendable"}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="key-value-container">
-                  <span className="key">Gross Savings: </span>
-                  <span className="value">
-                    {format_currency(total_savings)} [
-                    {((total_savings / total_income) * 100).toFixed(2)}%]
-                  </span>
-                </div>
-                <div className="key-value-container">
-                  <span className="key">Actual Savings: </span>
-                  <span className="value">
-                    {format_currency(actual_savings)} [
-                    {((actual_savings / total_income) * 100).toFixed(2)}
-                    %]
-                  </span>
-                </div>
-                <div className="key-value-container">
-                  <span className="key">Savings Efficiency: </span>
-                  <span className="value">{savings_efficiency}%</span>
-                </div>
-                <div className="key-value-container">
-                  <span className="key">Total Spendable: </span>
-                  <span className="value">
-                    {format_currency(total_spendable)} [
-                    {((total_spendable / total_income) * 100).toFixed(2)}
-                    %]
-                  </span>
-                </div>
-                <div className="key-value-container">
-                  <span className="key">Total Expenses: </span>
-                  <span className="value">
-                    {format_currency(total_expenses)} [
-                    {((total_expenses / total_income) * 100).toFixed(2)}%]
-                  </span>
-                </div>
-                <div className="key-value-container">
-                  <span className="key">Spending Variance: </span>
-                  <span className="value">
-                    {total_spendable - total_expenses}
-                  </span>
-                </div>
-                <div className="key-value-container">
-                  <span className="key">Spendable Utilization Percentage:</span>
-                  <span className="value">
-                    {spendable_utilization_percentage}%
-                  </span>
-                </div>
-                <div className="key-value-container">
-                  <span className="key">Spending status:</span>
-                  <span className="value">
-                    {spendable_utilization_percentage < 100
-                      ? "Spend within the the spendable"
-                      : "Spend beyond the spendable"}
-                  </span>
-                </div>
+
                 <div className="key-value-container">
                   <span className="key">Total Advance balance: </span>
                   <span className="value">
                     {format_currency(total_advance)}
                   </span>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div className="summary-container">
-            <div className="summary-chart-sub-container">
-              <div className="bottom-summary-container">
-                <h1 className="debt-text">Summary Chart</h1>
-                {chart_data.reduce((a, b) => a + b.amount, 0) < 1 ? (
-                  <h1 className="no-data-text">No data to display chart</h1>
-                ) : (
-                  <PieChartComponent colors={colors} portfolio={chart_data} />
-                )}
-                <div className="chart-info">
-                  {chart_data.map((item, index) => (
-                    <div className="ref">
-                      <div
-                        className="indicators"
-                        style={{ background: colors[index] }}
-                      ></div>
-                      <span style={{ color: colors[index] }}>
-                        {item.title}(
-                        {((item.amount / user.total_income) * 100).toFixed(2)})%
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae,
-                molestiae.
               </div>
             </div>
             <div className="chart-container">

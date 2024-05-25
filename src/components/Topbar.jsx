@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { BsDatabaseFillAdd } from "react-icons/bs";
 import usePortfolio from "../hooks/usePortfolio";
 import AddPortfolioDialog from "./AddPortfolioDialog";
+import { IoMdNotifications } from "react-icons/io";
 const Topbar = () => {
   const { handlePortfolioDialog, showPortfolioDialog, addPortfolio } =
     usePortfolio();
@@ -29,6 +30,10 @@ const Topbar = () => {
             size={22}
             onClick={handlePortfolioDialog}
           />
+          <Link className="notifications" to="/notifications">
+            <IoMdNotifications className="notifications-icon" />
+            <span className="badge"></span>
+          </Link>
           <Menu className="menu-icon" onClick={() => setShowMenu(!showMenu)} />
         </div>
       </div>
@@ -43,8 +48,8 @@ const Topbar = () => {
           <Link to="/loan" className="menu-item">
             Loan
           </Link>
-          <Link to="/budget" className="menu-item">
-            Budget
+          <Link to="/notifications" className="menu-item">
+            Notifications
           </Link>
           <Link to="/settings" className="menu-item">
             Account Info & Settings

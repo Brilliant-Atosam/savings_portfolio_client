@@ -87,6 +87,30 @@ h1 {
   background: teal;
   z-index: 9999;
 }
+.notifications {
+  height: 2rem;
+  width: 2rem;
+  border: 2px solid white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.notifications-icon {
+  fill: white;
+  font-size: 20px;
+}
+.badge {
+  height: 10px;
+  width: 10px;
+  background: white;
+  border-radius: 50%;
+  border: 2px solid #0d61df;
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+}
 .link {
   margin: 0 10px;
   font-size: inherit;
@@ -324,12 +348,13 @@ h1 {
   font-size: 2rem;
   fill: teal;
 }
+
 @media (max-width: 700px) {
   .chart-container {
     overflow-x: scroll;
   }
 }
-@media (max-width: 420px) {
+@media (max-width: 426px) {
   .topbar-container {
     padding: 0 10px;
   }
@@ -351,17 +376,6 @@ h1 {
     min-width: 80vw;
   }
 }
-@media (max-width: 321px) {
-  .topbar-left {
-    gap: 5px;
-  }
-  .sm-icon {
-    display: inline-block;
-  }
-  .topbar-btn {
-    display: none;
-  }
-}
 @media (max-width: 400px) {
   .finance-info-container {
     padding: 10px;
@@ -370,8 +384,18 @@ h1 {
   .info-container {
     height: 85%;
   }
+  .sm-icon {
+    display: inline-block;
+  }
+  .topbar-btn {
+    display: none;
+  }
 }
-@media (max-width: 320px) {
+@media (max-width: 321px) {
+  .topbar-left {
+    gap: 5px;
+  }
+
   .finance-info-container {
     height: 150px;
   }

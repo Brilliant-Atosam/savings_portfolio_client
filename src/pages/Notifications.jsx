@@ -1,7 +1,7 @@
 import React from "react";
 import Topbar from "../components/Topbar";
 
-const Budget = () => {
+const Notifications = () => {
   return (
     <div className="main-container">
       <Topbar />
@@ -9,4 +9,4 @@ const Budget = () => {
   );
 };
 
-export default Budget;
+export default Notifications;

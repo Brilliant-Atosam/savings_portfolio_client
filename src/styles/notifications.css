@@ -1,14 +1,12 @@
 .notification-container {
   width: 100%;
-  /* padding: 20px; */
   display: flex;
   flex-direction: column;
-  gap: 20px;
   overflow: hidden;
 }
 .notification-heading {
-  padding: 20px;
-  font-size: 1.5rem;
+  padding: 20px 15px;
+  font-size: 1.8rem;
 }
 .notification-item-container {
   width: 100%;
@@ -19,7 +17,6 @@
   cursor: pointer;
   font-size: 1.2rem;
   text-decoration: none;
-  /* height: 40px; */
 }
 .read {
   background: transparent;
@@ -32,6 +29,15 @@
 .notification-items-container {
   display: flex;
   flex-direction: column;
-  /* gap: 10px; */
   width: 100%;
+}
+@media (max-width: 376px) {
+  .notification-heading {
+    padding: 20px 10px;
+    font-size: 1.5rem;
+  }
+  .notification-item-container {
+    padding: 20px 10px;
+    font-size: 1.1rem;
+  }
 }

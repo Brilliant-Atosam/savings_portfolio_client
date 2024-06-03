@@ -28,6 +28,7 @@ function App() {
   const Policy = lazy(() => import("./pages/Policy"));
   const Subscription = lazy(() => import("./pages/Subscription"));
   const Notifications = lazy(() => import("./pages/Notifications"));
+  const Highlights = lazy(() => import("./pages/Highlights"));
   const PartnersDashboard = lazy(() => import("./pages/PartnershipDashboard"));
   return (
     <>
@@ -147,6 +148,18 @@ function App() {
               user ? (
                 <Suspense fallback={<FallbackComponent />}>
                   <Notifications />
+                </Suspense>
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/highlights"
+            element={
+              user ? (
+                <Suspense fallback={<FallbackComponent />}>
+                  <Highlights />
                 </Suspense>
               ) : (
                 <Navigate to="/login" />

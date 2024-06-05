@@ -5,6 +5,7 @@ import useApp from "../useApp";
 import { BsCardHeading } from "react-icons/bs";
 
 const Notifications = () => {
+  console.log("Hi");
   const { user } = useApp();
   const { notifications } = user;
   return (

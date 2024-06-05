@@ -2,7 +2,6 @@ import "../styles/notifications.css";
 import Topbar from "../components/Topbar";
 import NotificationItem from "../components/NotificationItem";
 import useApp from "../useApp";
-import { BsCardHeading } from "react-icons/bs";
 
 const Notifications = () => {
   console.log("Hi");

@@ -23,7 +23,6 @@ const useSave = () => {
   const handleSaveDialog = () => setShowSaveDialog((prev) => !prev);
   const spendable_percentage =
     100 - user?.portfolio?.reduce((a, b) => a + Number(b.percentage), 0);
-  // console.log(spendable_percentage);
   // portfolio data for quick summary
   let portfolio_from_savings = [];
   savingsList.map((item) => {
@@ -211,6 +210,7 @@ const useSave = () => {
     portfolio_from_savings,
     structuredPortfolio,
     spendable_percentage,
+    user,
   };
 };
 

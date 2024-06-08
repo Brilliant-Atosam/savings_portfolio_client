@@ -1,15 +1,7 @@
 import { Tooltip } from "@mui/material";
 import React from "react";
 import { Bar, BarChart, CartesianGrid, Legend, XAxis, YAxis } from "recharts";
-const BarChartComponent = () => {
-  const data = [
-    {
-      name: "Income",
-      uv: 4000,
-      pv: 2400,
-      us: 2900,
-    },
-  ];
+const BarChartComponent = ({ data }) => {
   return (
     <div className="bar-chart-container">
       <BarChart
@@ -22,15 +14,16 @@ const BarChartComponent = () => {
           left: 10,
           bottom: 5,
         }}
+        barGap={20}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip shared={false} trigger="click" />
         <Legend />
-        <Bar dataKey="pv" fill="#8884d8" barSize={15} />
-        <Bar dataKey="uv" fill="#82ca9d" barSize={15} />
-        <Bar dataKey="us" fill="#8cca07" barSize={15} />
+        <Bar dataKey="average" fill="#0a8d45" barSize={25} />
+        <Bar dataKey="this_month" fill="#bf208f" barSize={25} />
+        <Bar dataKey="last_month" fill="#0776ca" barSize={25} />
       </BarChart>
     </div>
   );

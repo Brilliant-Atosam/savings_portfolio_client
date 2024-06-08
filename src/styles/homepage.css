@@ -141,15 +141,7 @@
   padding: 20px;
   background: #ffffffb1;
 }
-footer {
-  background: teal;
-  color: white;
-  padding: 20px;
-}
-footer a {
-  color: white;
-  margin-left: 12px;
-}
+
 @media (max-width: 867px) {
   .referral-title {
     font-size: 1.6rem;

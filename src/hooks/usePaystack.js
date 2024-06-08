@@ -26,9 +26,7 @@ const usePaystack = () => {
     }
   };
   const onSuccess = () => change_tier();
-  const onClose = () => {
-    console.log("Closed");
-  };
+  const onClose = () => {};
   return {
     config,
     onSuccess,

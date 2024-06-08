@@ -1,22 +1,40 @@
 import "../styles/highlights.css";
 import Topbar from "../components/Topbar";
 import Util from "../utils/util";
-// import useSettings from "../hooks/useSettings";
 import BarChartComponent from "../components/BarChart";
 import PieChartComponent from "../components/PieChartComponent";
 import Table from "../components/Table";
-import { IoIosArrowRoundUp } from "react-icons/io";
-// import useApp from "../useApp";
+import { IoIosArrowRoundUp, IoIosArrowRoundDown } from "react-icons/io";
 import useTableData from "../utils/tableData";
-import useSave from "../hooks/useSave";
-import useExpenses from "../hooks/useExpenses";
 import AreaChartComponent from "../components/AreaChartComponent";
+import useHighlights from "../hooks/useHighlights";
 const Highlights = () => {
   const { format_currency, colors } = Util();
-  // const { income_chart_data } = useSettings();
-  const { savingsList, structuredPortfolio } = useSave();
-  const { data, expensesList } = useExpenses();
-  // const { user } = useApp();
+  const {
+    total_income,
+    monthly_data,
+    income_chart_data,
+    total_savings,
+    total_expenses,
+    savings_chart_data,
+    income_savings,
+    expenses,
+    expenses_chart_data,
+    income_sources_chart_data,
+    structuredPortfolio,
+    category_chart_data,
+  } = useHighlights();
+  const {
+    income_c2a_p,
+    income_c2lm_p,
+    income_c2a,
+    income_c2lm,
+    expenses_c2a,
+    expenses_c2a_p,
+    expenses_c2lm,
+    expenses_c2lm_p,
+  } = monthly_data;
+
   const { savingsColumn, expenseColumn } = useTableData();
   return (
     <div className="main-container">
@@ -30,29 +48,41 @@ const Highlights = () => {
             <div className="info-container">
               <span className="finance-info-key">Tot. Income</span>
               <span className="finance-info-value">
-                {format_currency(2000)}
+                {format_currency(total_income)}
               </span>
             </div>
             <div className="info-container">
               <span className="finance-info-key">C2LM</span>
+              <span className="finance-info-value">{income_c2lm}</span>
               <span className="finance-info-value">
-                2% <IoIosArrowRoundUp />
+                {income_c2lm_p}%
+                {income_c2lm > 0 ? (
+                  <IoIosArrowRoundUp />
+                ) : (
+                  <IoIosArrowRoundDown fill="#ff3399" />
+                )}
               </span>
             </div>
             <div className="info-container">
               <span className="finance-info-key">C2Av.</span>
+              <span className="finance-info-value">{income_c2a}</span>
               <span className="finance-info-value">
-                2% <IoIosArrowRoundUp />
+                {income_c2a_p}%
+                {income_c2a > 0 ? (
+                  <IoIosArrowRoundUp />
+                ) : (
+                  <IoIosArrowRoundDown fill="#ff3399" />
+                )}
               </span>
             </div>
           </div>
           <div className="highlights-charts-container">
             <h1 className="highlight-chart-title">Income Charts</h1>
             <div className="highlights-charts">
-              <BarChartComponent />
+              <BarChartComponent data={income_chart_data} />
               <PieChartComponent
                 colors={colors}
-                portfolio={structuredPortfolio}
+                portfolio={income_sources_chart_data}
               />
             </div>
           </div>
@@ -62,24 +92,30 @@ const Highlights = () => {
             <div className="info-container">
               <span className="finance-info-key">Tot. Savings</span>
               <span className="finance-info-value">
-                {format_currency(2000)}
+                {format_currency(total_savings)}
               </span>
             </div>
             <div className="info-container">
               <span className="finance-info-key">Net Savings</span>
               <span className="finance-info-value">
-                {format_currency(2000)}
+                {format_currency(total_income - total_expenses)}
               </span>
             </div>
             <div className="info-container">
               <span className="finance-info-key">Efficiency</span>
-              <span className="finance-info-value">2%</span>
+              <span className="finance-info-value">
+                {(
+                  ((total_income - total_expenses) / total_savings) *
+                  100
+                ).toFixed(2)}
+                %
+              </span>
             </div>
           </div>
           <div className="highlights-charts-container">
             <h1 className="highlight-chart-title">Savings Charts</h1>
             <div className="highlights-charts">
-              <BarChartComponent />
+              <BarChartComponent data={savings_chart_data} />
               <PieChartComponent
                 colors={colors}
                 portfolio={structuredPortfolio}
@@ -88,7 +124,7 @@ const Highlights = () => {
           </div>
           <div className="highlight-history-container">
             <h1 className="highlight-chart-title">Income History</h1>
-            <Table columns={savingsColumn} rows={savingsList} />
+            <Table columns={savingsColumn} rows={income_savings} />
           </div>
         </div>
         <div className="highlight-right">
@@ -98,18 +134,24 @@ const Highlights = () => {
             <div className="info-container">
               <span className="finance-info-key">Tot. Spendable</span>
               <span className="finance-info-value">
-                {format_currency(2000)}
+                {format_currency(total_income - total_savings)}
               </span>
             </div>
             <div className="info-container">
               <span className="finance-info-key">Tot. Expenses</span>
               <span className="finance-info-value">
-                {format_currency(2000)}
+                {format_currency(total_expenses)}
               </span>
             </div>
             <div className="info-container">
               <span className="finance-info-key">SUP</span>
-              <span className="finance-info-value">2%</span>
+              <span className="finance-info-value">
+                {(
+                  (total_expenses / (total_income - total_expenses)) *
+                  100
+                ).toFixed(2)}
+                %
+              </span>
             </div>
           </div>
           <div className="highlights-charts-container">
@@ -117,11 +159,47 @@ const Highlights = () => {
               Spendable & Expenses Charts
             </h1>
             <div className="highlights-charts">
-              <BarChartComponent />
+              <BarChartComponent data={expenses_chart_data} />
               <PieChartComponent
                 colors={colors}
-                portfolio={structuredPortfolio}
+                portfolio={category_chart_data.sort((a, b) =>
+                  a.amount > b.amount ? -1 : 1
+                )}
               />
+            </div>
+          </div>
+          <div className="finance-info-container">
+            <h1 className="highlight-title">Expenses</h1>
+            <h1 className="highlight-subtitle">May, 2024</h1>
+            <div className="info-container">
+              <span className="finance-info-key">Tot. Expenses</span>
+              <span className="finance-info-value">
+                {format_currency(total_expenses)}
+              </span>
+            </div>
+            <div className="info-container">
+              <span className="finance-info-key">C2LM</span>
+              <span className="finance-info-value">{expenses_c2lm}</span>
+              <span className="finance-info-value">
+                {expenses_c2lm_p}%
+                {expenses_c2lm > 0 ? (
+                  <IoIosArrowRoundUp />
+                ) : (
+                  <IoIosArrowRoundDown fill="#ff3399" />
+                )}
+              </span>
+            </div>
+            <div className="info-container">
+              <span className="finance-info-key">C2Av.</span>
+              <span className="finance-info-value">{expenses_c2a}</span>
+              <span className="finance-info-value">
+                {expenses_c2a_p}%
+                {expenses_c2a > 0 ? (
+                  <IoIosArrowRoundUp />
+                ) : (
+                  <IoIosArrowRoundDown fill="#ff3399" />
+                )}
+              </span>
             </div>
           </div>
           <div className="highlight-history-container">
@@ -129,17 +207,21 @@ const Highlights = () => {
               Expense Breakdown by Category
             </h1>
             <div className="chart-container">
-              <AreaChartComponent data={data} />
+              <AreaChartComponent data={category_chart_data} />
             </div>
           </div>
           <div className="highlight-history-container">
             <h1 className="highlight-chart-title">
               Expense Breakdown by Category
             </h1>
-            <Table columns={expenseColumn} rows={expensesList} />
+            <Table columns={expenseColumn} rows={expenses} />
           </div>
         </div>
       </div>
+      <footer>
+        cashlens &copy; 2024. Created by
+        <a href="tel:233544006865">webcrony online</a>
+      </footer>
     </div>
   );
 };

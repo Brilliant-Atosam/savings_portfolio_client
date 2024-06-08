@@ -45,7 +45,6 @@ const usePortfolio = () => {
       newPortfolio.percentage > 100
     ) {
       context?.handleSnackbar("Provide value for all fields", "warning");
-      console.log(newPortfolio);
     } else if (
       Number(user?.total_percentage) + Number(newPortfolio.percentage) >
       100

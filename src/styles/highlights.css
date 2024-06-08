@@ -1,67 +1,84 @@
-.highlight-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  padding: 20px;
-}
-.highlight-left {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  flex: 1;
-  /* overflow-y: scroll; */
-}
-.highlights {
-  /* border: 2.5px solid teal; */
-  width: 100%;
+.highlight-heading {
   padding: 15px;
+  font-weight: normal;
+  font-size: 1.4rem;
+}
+.highlight-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+}
+.highlight-left,
+.highlight-right {
+  width: 50%;
+  /* border: 2px solid teal; */
   border-radius: 10px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-}
-.highlight-subheading {
-  font-size: 1rem;
-}
-.highlights-sub-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-.highlight-right {
-  flex: 1;
-  width: 100%;
-  /* overflow-y: scroll; */
-}
-.highlight-info-container {
-  width: 120px;
-  aspect-ratio: 1/1;
-  border-radius: 50%;
-  border: 1.6px solid teal;
-  display: flex;
   align-items: center;
   justify-content: center;
+  gap: 15px;
+  background: #10c1ee0e;
+  flex: 1 !important;
+}
+.highlight-title {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  font-size: 0.8rem;
+  margin-bottom: 15px !important;
+}
+.highlight-subtitle {
+  font-size: 0.8rem;
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+}
+.highlights-charts-container {
+  display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
 }
-.highlight-info-title {
+.highlight-chart-title {
   font-size: 0.8rem;
 }
-.highlight-info-value {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: teal;
+.highlights-charts {
+  width: 100%;
+  display: flex;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #18476813;
+  padding: 10px;
+  border-radius: 8px;
+}
+.highlight-history-container {
+  max-width: 100% !important;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-x: scroll;
 }
 @media (max-width: 770px) {
   .highlight-container {
     flex-direction: column;
-    overflow: scroll;
-    height: fit-content;
-    padding: 10px;
   }
-  .highlights {
+  .highlight-left,
+  .highlight-right {
+    width: 100%;
+  }
+}
+@media (max-width: 560px) {
+  .highlights-charts {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .highlight-left,
+  .highlight-right {
     padding: 0;
   }
 }

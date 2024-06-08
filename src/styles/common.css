@@ -31,6 +31,7 @@ a {
 } */
 .finance-info-container {
   width: 100%;
+  position: relative;
   height: 150px;
   border: 1px solid #0080803a;
   border-radius: 5px;
@@ -56,8 +57,14 @@ a {
 }
 .bar-chart-container {
   width: 100%;
-  overflow: scroll;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* overflow: scroll; */
 }
+/* .rotate-bar-chart {
+  transform: rotate(90deg);
+} */
 .piechart-container {
   display: flex;
   flex-direction: column;
@@ -180,8 +187,9 @@ a {
 }
 .table-container {
   width: 100% !important;
-  background: rgb(240, 244, 240);
+  background: #edf2f3;
   min-height: 160px;
+  overflow: scroll;
 }
 .debt-text {
   font-weight: 300;

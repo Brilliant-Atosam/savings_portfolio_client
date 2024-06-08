@@ -1,10 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import moment from "moment";
 import Util from "../utils/util";
 const NotificationItem = ({ title, read }) => {
   const { months } = Util();
-  console.log(months[Number(title.split("/")[0]) - 1]);
   return (
     <Link
       to={`/highlights?month=${title}`}

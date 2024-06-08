@@ -1,9 +1,8 @@
 .highlight-container {
+  width: 100%;
   display: flex;
   justify-content: center;
   gap: 10px;
-  height: calc(100vh - 60px);
-  overflow: scroll;
   padding: 20px;
 }
 .highlight-left {
@@ -11,9 +10,11 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  flex: 1;
+  /* overflow-y: scroll; */
 }
 .highlights {
-  border: 2.5px solid teal;
+  /* border: 2.5px solid teal; */
   width: 100%;
   padding: 15px;
   border-radius: 10px;
@@ -30,7 +31,9 @@
   justify-content: space-around;
 }
 .highlight-right {
+  flex: 1;
   width: 100%;
+  /* overflow-y: scroll; */
 }
 .highlight-info-container {
   width: 120px;
@@ -50,4 +53,15 @@
   font-size: 0.8rem;
   font-weight: 600;
   color: teal;
+}
+@media (max-width: 770px) {
+  .highlight-container {
+    flex-direction: column;
+    overflow: scroll;
+    height: fit-content;
+    padding: 10px;
+  }
+  .highlights {
+    padding: 0;
+  }
 }

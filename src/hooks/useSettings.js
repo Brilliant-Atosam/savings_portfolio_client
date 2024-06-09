@@ -56,7 +56,7 @@ const useSettings = () => {
   )[0];
   const peak_expenses = monthly_data?.sort((a, b) =>
     a.total_expenses < b.total_expenses ? 1 : -1
-  );
+  )[0];
   const peak_savings = monthly_data?.sort((a, b) =>
     a.total_savings < b.total_savings ? 1 : -1
   );

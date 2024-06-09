@@ -6,7 +6,14 @@ import Util from "../utils/util";
 const useHighlights = () => {
   const { savingsList, user } = useSave();
   const { expensesList } = useExpenses();
-  const { average_expenses, average_income, average_savings } = useSettings();
+  const {
+    average_expenses,
+    average_income,
+    average_savings,
+    peak_savings,
+    peak_expenses,
+    peak_month,
+  } = useSettings();
   const { categories } = Util();
   const location = useLocation();
   const param = new URLSearchParams(location.search);
@@ -71,26 +78,29 @@ const useHighlights = () => {
   };
   const income_chart_data = [
     {
-      name: "name",
+      name: "income",
       this_month: total_income,
       average: average_income,
       last_month: total_income_lm,
+      peak_month: peak_month.total_income,
     },
   ];
   const savings_chart_data = [
     {
-      name: "name",
+      name: "savings",
       this_month: total_savings,
       average: average_savings,
       last_month: total_savings_lm,
+      peak_month: peak_savings[0]?.total_savings,
     },
   ];
   const expenses_chart_data = [
     {
-      name: "name",
+      name: "expenses",
       this_month: total_expenses,
       average: average_expenses,
       last_month: total_expenses_lm,
+      peak_month: peak_expenses?.total_expenses,
     },
   ];
 

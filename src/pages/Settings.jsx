@@ -249,8 +249,8 @@ const Settings = () => {
                       <div className="key-value-container">
                         <span className="key">Peak Expenses:</span>
                         <span className="value">
-                          {format_currency(peak_expenses[0].total_expenses)} [
-                          {peak_expenses[0].title}]
+                          {format_currency(peak_expenses.total_expenses)} [
+                          {peak_expenses.title}]
                         </span>
                       </div>
                       <div className="key-value-container">

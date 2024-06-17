@@ -121,16 +121,20 @@ const useExpenses = () => {
             )
           )
           .reduce((a, b) => a + b.total_cost, 0),
-        spendable_amount: savingsList
-          ?.filter((item) =>
-            item.createdAt.endsWith(
-              (index + 1).toString().length === 1
-                ? `0${index + 1}/${new Date().getFullYear()}`
-                : `${index + 1}/${new Date().getFullYear()}`
-            )
-          )
-          ?.reduce((a, b) => a + b.balance, 0)
-          .toFixed(2),
+        spendable_amount: query
+          ? 0
+          : Number(
+              savingsList
+                ?.filter((item) =>
+                  item.createdAt.endsWith(
+                    (index + 1).toString().length === 1
+                      ? `0${index + 1}/${new Date().getFullYear()}`
+                      : `${index + 1}/${new Date().getFullYear()}`
+                  )
+                )
+                ?.reduce((a, b) => a + b.balance, 0)
+                .toFixed(2)
+            ),
       };
       data.push(data_object);
       return data_object;
@@ -138,6 +142,7 @@ const useExpenses = () => {
     return data;
   };
   const monthly_expenses_data = monthly_expenses();
+  console.log(monthly_expenses_data);
   return {
     toggleExpensesDialog,
     openExpenseDialog,

@@ -142,7 +142,6 @@ const useExpenses = () => {
     return data;
   };
   const monthly_expenses_data = monthly_expenses();
-  console.log(monthly_expenses_data);
   return {
     toggleExpensesDialog,
     openExpenseDialog,

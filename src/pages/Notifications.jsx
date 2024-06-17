@@ -4,7 +4,6 @@ import NotificationItem from "../components/NotificationItem";
 import useApp from "../useApp";
 
 const Notifications = () => {
-  console.log("Hi");
   const { user } = useApp();
   const { notifications } = user;
   return (

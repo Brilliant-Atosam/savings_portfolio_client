@@ -22,7 +22,10 @@ const useSave = () => {
   const [showSaveDialog, setShowSaveDialog] = useState(false);
   const handleSaveDialog = () => setShowSaveDialog((prev) => !prev);
   const spendable_percentage =
-    100 - user?.portfolio?.reduce((a, b) => a + Number(b.percentage), 0);
+    100 -
+    user?.portfolio
+      ?.filter((item) => !item.archived)
+      .reduce((a, b) => a + Number(b.percentage), 0);
   // portfolio data for quick summary
   let portfolio_from_savings = [];
   savingsList.map((item) => {

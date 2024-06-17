@@ -15,10 +15,14 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
   const { sources_of_income, colors } = Util();
   const { savings, setSavings, spendable_percentage } = useSave();
   useEffect(() => {
-    const updatedDetail = user?.portfolio.map((item) => ({
-      title: item.title,
-      amount: parseFloat(((item.percentage / 100) * savings.amount).toFixed(2)),
-    }));
+    const updatedDetail = user?.portfolio
+      .filter((item) => !item.archived)
+      .map((item) => ({
+        title: item.title,
+        amount: parseFloat(
+          ((item.percentage / 100) * savings.amount).toFixed(2)
+        ),
+      }));
     setSavings((prev) => ({ ...prev, details: updatedDetail }));
   }, [savings.amount, user?.portfolio, setSavings]);
   return (

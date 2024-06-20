@@ -101,7 +101,7 @@ const Settings = () => {
                     ></div>
                     <span style={{ color: colors[index], fontSize: "0.8rem" }}>
                       {item.title}(
-                      {((item.amount / user.total_income) * 100).toFixed(2)}
+                      {((item.amount / total_income) * 100).toFixed(2)}
                       %)
                     </span>
                   </div>
@@ -124,7 +124,7 @@ const Settings = () => {
                     ></div>
                     <span style={{ color: colors[index] }}>
                       {item.title}(
-                      {((item.amount / user.total_income) * 100).toFixed(2)})%
+                      {((item.amount / total_income) * 100).toFixed(2)})%
                     </span>
                   </div>
                 ))}

@@ -73,12 +73,14 @@ const useSave = () => {
     } else {
       const { details } = savings;
       let { portfolio } = user;
-      const updatedPortfolio = portfolio.map((item, index) => {
-        if (Number(item.goal) >= item.amount) {
-          return { ...item, amount: item.amount + details[index].amount };
-        }
-        return item;
-      });
+      const updatedPortfolio = portfolio
+        .filter((item) => !item.archived)
+        .map((item, index) => {
+          if (Number(item.goal) >= item.amount) {
+            return { ...item, amount: item.amount + details[index].amount };
+          }
+          return item;
+        });
       const source_exists = user.sources_of_income?.find(
         (source) => source.toLowerCase() === savings.source.toLowerCase()
       );

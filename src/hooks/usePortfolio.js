@@ -19,7 +19,6 @@ const usePortfolio = () => {
     goal: "",
     deadline: "",
     createdAt: moment(new Date()).format("DD/MM/YYYY"),
-    amount: 0,
     id: Math.floor(Math.random() * 999).toString(),
     archived: false,
   });
@@ -55,7 +54,7 @@ const usePortfolio = () => {
       );
     } else if (user?.tier !== "premium" && user?.portfolio.length >= 3) {
       context?.handleSnackbar(
-        "Basic tier users cannot have more that 3 portfolios. Upgrade to premium to enjoy premium features",
+        "Basic tier users cannot have more than 3 portfolios. Upgrade to premium to enjoy premium features",
         "warning"
       );
     } else {
@@ -127,9 +126,13 @@ const usePortfolio = () => {
           },
         ],
       };
-      const res = await request.put(`/user?id=${user.id}`, user, {
-        headers: { access_token: `Bearer ${user.access_token}` },
-      });
+      const res = await request.put(
+        `/user/portfolio?id=${user.id}`,
+        archived_portfolio,
+        {
+          headers: { access_token: `Bearer ${user.access_token}` },
+        }
+      );
       context?.handleSnackbar(res.data, "success");
       storeUser(user);
       context.setConfirmData((prev) => ({ ...prev, open: false }));

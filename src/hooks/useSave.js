@@ -97,7 +97,7 @@ const useSave = () => {
       try {
         const res = await request.post(
           `/savings?userId=${user.id}`,
-          { savings, user },
+          { savings },
           {
             headers: {
               access_token: `Bearer ${user?.access_token}`,

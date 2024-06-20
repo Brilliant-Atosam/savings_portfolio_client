@@ -41,7 +41,6 @@ const QuickSummary = () => {
   } = usePortfolio();
   const { structuredPortfolio, handleSaveDialog, showSaveDialog, handleSave } =
     useSave();
-  console.log(structuredPortfolio);
   return (
     <>
       <AddPortfolioDialog

@@ -41,6 +41,7 @@ const QuickSummary = () => {
   } = usePortfolio();
   const { structuredPortfolio, handleSaveDialog, showSaveDialog, handleSave } =
     useSave();
+  console.log(structuredPortfolio);
   return (
     <>
       <AddPortfolioDialog
@@ -85,8 +86,8 @@ const QuickSummary = () => {
           </div>
         </div>
         <div className="chart-container quick-chart">
-          {user?.portfolio
-            .filter((item) => !item.archived)
+          {structuredPortfolio
+            ?.filter((item) => !item.archived)
             .reduce((a, b) => a + b.amount, 0) > 0 ? (
             <PieChartComponent
               colors={colors}

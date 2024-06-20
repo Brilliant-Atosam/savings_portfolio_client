@@ -75,7 +75,6 @@ const usePortfolio = () => {
               },
             }
           );
-
           storeUser({
             ...user,
             portfolio: [...user.portfolio, newPortfolio],
@@ -91,7 +90,6 @@ const usePortfolio = () => {
             goal: "",
             deadline: "",
             createdAt: moment(new Date()).format("DD/MM/YYYY"),
-            amount: 0,
             id: Math.floor(Math.random() * 999).toString(),
           });
           // window.location.reload();
@@ -128,7 +126,13 @@ const usePortfolio = () => {
       };
       const res = await request.put(
         `/user/portfolio?id=${user.id}`,
-        archived_portfolio,
+        [
+          ...portfolio,
+          {
+            ...archived_portfolio,
+            archived: !archived_portfolio.archived,
+          },
+        ],
         {
           headers: { access_token: `Bearer ${user.access_token}` },
         }
@@ -164,9 +168,13 @@ const usePortfolio = () => {
       portfolio[index] = newPortfolio;
       user = { ...user, portfolio };
       try {
-        const res = await request.put(`/user?id=${user.id}`, user, {
-          headers: { access_token: `Bearer ${user.access_token}` },
-        });
+        const res = await request.put(
+          `/user/portfolio?id=${user.id}`,
+          portfolio,
+          {
+            headers: { access_token: `Bearer ${user.access_token}` },
+          }
+        );
         handleUpdatePortfolioDialog();
         context?.handleSnackbar(res.data, "success");
         storeUser(user);

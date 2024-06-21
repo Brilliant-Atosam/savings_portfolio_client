@@ -3,95 +3,129 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
+  ToggleButton,
+  ToggleButtonGroup,
 } from "@mui/material";
 import React from "react";
 import useBorrow from "../hooks/useBorrow";
 import moment from "moment";
 import useApp from "../useApp";
 const BorrowMoneyDialog = ({ open, borrowMoney, handleOpenBorrowDialog }) => {
-  const { setLoanDetails, loanDetails } = useBorrow();
-  const { loading, user } = useApp();
+  const { type, toggleType, setBorrow, setLend, lendMoney, lend, borrow } =
+    useBorrow();
+  const { loading } = useApp();
   return (
     <Dialog open={open}>
-      <DialogTitle>Take advance from your savings</DialogTitle>
-      {Number(user.total_amount_saved) < 1 && (
-        <DialogTitle className="red">
-          You do not have any money saved.
-        </DialogTitle>
-      )}
+      <ToggleButtonGroup
+        color="primary"
+        value={type}
+        exclusive
+        onChange={(e) => toggleType(e.target.value)}
+        aria-label="Platform"
+      >
+        <ToggleButton value="lend">Lend</ToggleButton>
+        <ToggleButton value="borrow">Borrow</ToggleButton>
+      </ToggleButtonGroup>
+      <DialogTitle>
+        {type === "lend" ? "Lend money out" : "Borrow money"}
+      </DialogTitle>
       <DialogContent>
         <div className="dialog-form-container">
           <label className="dialog-label" htmlFor="">
-            How much do you wish to borrow?
+            {type === "lend"
+              ? "How much are you lending out?"
+              : "How much do you wish to borrow?"}
           </label>
           <input
             type="number"
             placeholder="Amount"
             className="login-input"
             onChange={(e) =>
-              setLoanDetails((prev) => ({
-                ...prev,
-                amount: Number(e.target.value),
-              }))
+              type === "lend"
+                ? setLend((prev) => ({
+                    ...prev,
+                    amount: Number(e.target.value),
+                  }))
+                : setBorrow((prev) => ({
+                    ...prev,
+                    amount: Number(e.target.value),
+                  }))
             }
           />
           <label className="dialog-label" htmlFor="">
-            Reason for taking this advance:
+            {type === "lend"
+              ? "Who are you lending to?"
+              : "Who are you borrowing from?"}
+          </label>
+          <input
+            placeholder={type === "lend" ? "Borrower's name" : "Lender's name"}
+            className="login-input"
+            onChange={(e) =>
+              type === "lend"
+                ? setLend((prev) => ({
+                    ...prev,
+                    borrower: e.target.value,
+                  }))
+                : setBorrow((prev) => ({
+                    ...prev,
+                    lender: e.target.value,
+                  }))
+            }
+            value={type === "lend" ? lend.borrower : borrow.lender}
+          />
+          <label className="dialog-label" htmlFor="">
+            Reason:
           </label>
           <input
             type="text"
-            placeholder="To take settle hospital bills"
+            placeholder="e.g. To take settle hospital bills"
             className="login-input"
             onChange={(e) =>
-              setLoanDetails((prev) => ({
-                ...prev,
-                reason: e.target.value,
-              }))
+              type === "lend"
+                ? setLend((prev) => ({
+                    ...prev,
+                    reason: e.target.value,
+                  }))
+                : setBorrow((prev) => ({
+                    ...prev,
+                    reason: e.target.value,
+                  }))
             }
           />
-          <label className="dialog-label" htmlFor="">
-            Where do you want to borrow from?
-          </label>
-          <select
-            name=""
-            className="login-input"
-            onChange={(e) =>
-              setLoanDetails((prev) => ({
-                ...prev,
-                borrowed_from: e.target.value,
-              }))
-            }
-            defaultValue={true}
-          >
-            <option value="">Select source</option>
-            <option value="external source">External source</option>
-            {user.portfolio.map((item) => (
-              <option value={item.title} key={item.id}>
-                {item.title}
-              </option>
-            ))}
-          </select>
+
           <label htmlFor="" className="dialog-label">
-            When will you fully repay the advance?
+            {type === "lend"
+              ? "When do you expect repayment?"
+              : "When do you expect to repay?"}
           </label>
 
           <input
             type="date"
             className="login-input"
             onChange={(e) =>
-              setLoanDetails((prev) => ({
-                ...prev,
-                repayment_date: moment(e.target.value).format("DD/MM/YYYY"),
-              }))
+              type === "lend"
+                ? setLend((prev) => ({
+                    ...prev,
+                    repayment_date: moment(e.target.value).format("DD/MM/YYYY"),
+                  }))
+                : setBorrow((prev) => ({
+                    ...prev,
+                    repayment_date: moment(e.target.value).format("DD/MM/YYYY"),
+                  }))
             }
-            defaultValue={true}
           />
           <button
             disabled={loading}
             className="login-btn"
-            onClick={() => borrowMoney(loanDetails)}
+            onClick={() => {
+              type === "lend" ? lendMoney() : borrowMoney(borrow);
+            }}
           >
-            {loading ? "loading..." : "Borrow money"}
+            {loading
+              ? "loading..."
+              : type === "lend"
+              ? "Lend money"
+              : "Borrow money"}
           </button>
           <button className="dialog-close-btn" onClick={handleOpenBorrowDialog}>
             Cancel

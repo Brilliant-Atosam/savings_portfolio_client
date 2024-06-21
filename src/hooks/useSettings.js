@@ -5,7 +5,7 @@ import Util from "../utils/util";
 import useSave from "./useSave";
 
 const useSettings = () => {
-  const { handleSnackbar } = useApp();
+  const context = useApp();
   let user = JSON.parse(localStorage.getItem("user"));
   let savings = JSON.parse(localStorage.getItem("savings"));
   let expenses = JSON.parse(localStorage.getItem("expenses"));
@@ -75,13 +75,16 @@ const useSettings = () => {
       !basic_info.phone ||
       !basic_info.password
     ) {
-      handleSnackbar("Please enter valid input for all fields", "warning");
+      context?.handleSnackbar(
+        "Please enter valid input for all fields",
+        "warning"
+      );
     } else {
       try {
         const res = await request.put(`/user/info?id=${user.id}`, basic_info, {
           headers: { access_token: `Bearer ${user.access_token}` },
         });
-        handleSnackbar(res.data, "success");
+        context?.handleSnackbar(res.data, "success");
         user = {
           ...user,
           email: basic_info.email,
@@ -90,7 +93,7 @@ const useSettings = () => {
         };
         storeUser(user);
       } catch (err) {
-        handleSnackbar(
+        context?.handleSnackbar(
           err.response ? err.response.data : "Network error",
           "error"
         );
@@ -104,15 +107,15 @@ const useSettings = () => {
       password_data.newPassword !== password_data.newPassword2 ||
       password_data.newPassword.length < 6
     ) {
-      handleSnackbar("Please provide valid input.", "warning");
+      context?.handleSnackbar("Please provide valid input.", "warning");
     } else {
       try {
         const res = await request.put("/user/password", password_data, {
           headers: { access_token: `Bearer ${user.access_token}` },
         });
-        handleSnackbar(res.data, "success");
+        context?.handleSnackbar(res.data, "success");
       } catch (err) {
-        handleSnackbar(
+        context?.handleSnackbar(
           err.response ? err.response.data : "Network error",
           "error"
         );

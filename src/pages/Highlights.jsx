@@ -8,6 +8,7 @@ import { IoIosArrowRoundUp, IoIosArrowRoundDown } from "react-icons/io";
 import useTableData from "../utils/tableData";
 import AreaChartComponent from "../components/AreaChartComponent";
 import useHighlights from "../hooks/useHighlights";
+import Footer from "../components/Footer";
 const Highlights = () => {
   const { format_currency, colors } = Util();
   const {
@@ -218,10 +219,7 @@ const Highlights = () => {
           </div>
         </div>
       </div>
-      <footer>
-        cashlens &copy; 2024. Created by
-        <a href="tel:233544006865">webcrony online</a>
-      </footer>
+      <Footer />
     </div>
   );
 };

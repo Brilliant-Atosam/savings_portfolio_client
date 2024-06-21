@@ -64,7 +64,19 @@ footer a {
   align-items: center;
   justify-content: center;
 }
-
+.highlight-title {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  font-size: 0.8rem;
+  margin-bottom: 15px !important;
+}
+.highlight-subtitle {
+  font-size: 0.8rem;
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+}
 .piechart-container {
   display: flex;
   flex-direction: column;

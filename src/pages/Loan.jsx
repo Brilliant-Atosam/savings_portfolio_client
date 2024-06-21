@@ -9,6 +9,8 @@ import { GiReceiveMoney } from "react-icons/gi";
 import { RiRefund2Fill } from "react-icons/ri";
 import BorrowMoneyDialog from "../components/BorrowMoneyDialog";
 import SettleAdvanceDialog from "../components/SettleAdvanceDialog";
+import Footer from "../components/Footer";
+import Util from "../utils/util";
 const Loan = () => {
   const { loansColumn } = useTableData();
   let loans = JSON.parse(localStorage.getItem("loans"));
@@ -20,6 +22,7 @@ const Loan = () => {
     handleSettleDialog,
     showSettleDialog,
   } = useBorrow();
+  const { format_currency } = Util();
   return (
     <div className="main-container">
       <Topbar />
@@ -35,12 +38,30 @@ const Loan = () => {
           toggleDialog={handleSettleDialog}
         />
         <div className="dashboard-right">
-          <h1 className="debt-text">Loan history</h1>
-          <Table columns={loansColumn} rows={loans} />
+          <div className="finance-info-container">
+            <h1 className="highlight-title">Income</h1>
+            <div className="info-container">
+              <span className="finance-info-key">Gross Savings</span>
+              <span className="finance-info-value">{format_currency(111)}</span>
+            </div>
+            <div className="info-container">
+              <span className="finance-info-key">Net Savings</span>
+              <span className="finance-info-value">
+                {format_currency(1111)}
+              </span>
+            </div>
+            <div className="info-container">
+              <span className="finance-info-key">Efficiency</span>
+              <span className="finance-info-value">{1}%</span>
+            </div>
+          </div>
+
           <div className="chart-container">
             <h1 className="debt-text">Advance chart</h1>
             <AreaChartComponent data={monthly_advance_data} />
           </div>
+          <h1 className="debt-text">Loan history</h1>
+          <Table columns={loansColumn} rows={loans} />
         </div>
       </div>
       <div className="action-container loan-action-container">
@@ -57,6 +78,7 @@ const Loan = () => {
           <RiRefund2Fill className="add-expenses-btn" />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

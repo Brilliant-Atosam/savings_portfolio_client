@@ -5,6 +5,7 @@ import AreaChartComponent from "../components/AreaChartComponent";
 import useExpenses from "../hooks/useExpenses";
 import Util from "../utils/util";
 import useTableData from "../utils/tableData";
+import Footer from "../components/Footer";
 
 const ExpensesDetails = () => {
   const { expenseColumn } = useTableData();
@@ -26,6 +27,7 @@ const ExpensesDetails = () => {
           <AreaChartComponent data={monthly_expenses_data} />
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

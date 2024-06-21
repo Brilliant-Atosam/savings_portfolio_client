@@ -7,6 +7,7 @@ import { TfiUnlink } from "react-icons/tfi";
 import { GiTakeMyMoney, GiCash } from "react-icons/gi";
 
 import { MdOutlinePolicy } from "react-icons/md";
+import Footer from "../components/Footer";
 const Policy = () => {
   return (
     <div className="main-container">
@@ -81,10 +82,7 @@ const Policy = () => {
           </p>
         </div>
       </div>
-      <footer>
-        cashlens &copy; 2024. Created by
-        <a href="tel:233544006865">webcrony online</a>
-      </footer>
+      <Footer />
     </div>
   );
 };

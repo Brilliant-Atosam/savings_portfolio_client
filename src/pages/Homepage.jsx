@@ -15,6 +15,7 @@ import useApp from "../useApp";
 import Util from "../utils/util";
 import useExchange from "../hooks/useExchange";
 import { CircularProgress } from "@mui/material";
+import Footer from "../components/Footer";
 const Homepage = () => {
   const { currencies, format_currency } = Util();
   const { loading } = useApp();
@@ -286,10 +287,7 @@ const Homepage = () => {
         </div>
       </div>
 
-      <footer>
-        cashlens &copy; 2024. Created by
-        <a href="tel:233544006865">webcrony online</a>
-      </footer>
+      <Footer />
     </div>
   );
 };

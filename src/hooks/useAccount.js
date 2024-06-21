@@ -14,7 +14,14 @@ const useAccount = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const reset_code = new URLSearchParams(location.search).get("reset_code");
-  const { storeUser, storeSavings, storeLoan, storeExpenses } = Util();
+  const {
+    storeUser,
+    storeSavings,
+    storeLoan,
+    storeExpenses,
+    storeBorrowed,
+    storeLent,
+  } = Util();
   const { handleSnackbar, handleLoader } = useApp();
 
   const [email, setEmail] = useState("");
@@ -50,11 +57,23 @@ const useAccount = () => {
         const loans = await request.get(`/loan?userId=${res.data.id}`, {
           headers: { access_token: `Bearer ${res.data.access_token}` },
         });
+        const borrowed = await request.get(
+          `/loan/borrowed?userId=${res.data.id}`,
+          {
+            headers: { access_token: `Bearer ${res.data.access_token}` },
+          }
+        );
+        const lent = await request.get(`/loan/lent?userId=${res.data.id}`, {
+          headers: { access_token: `Bearer ${res.data.access_token}` },
+        });
+
         const expenses = await request.get(`/expenses?userId=${res.data.id}`, {
           headers: { access_token: `Bearer ${res.data.access_token}` },
         });
         storeSavings(savingsRes.data);
         storeLoan(loans.data);
+        storeBorrowed(borrowed.data);
+        storeLent(lent.data);
         storeExpenses(expenses.data);
         storeUser(res.data);
         navigate("/");

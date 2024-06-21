@@ -16,6 +16,7 @@ import {
 import Util from "../utils/util";
 import AreaChartComponent from "../components/AreaChartComponent";
 import useSave from "../hooks/useSave";
+import Footer from "../components/Footer";
 const Settings = () => {
   const { user } = useApp();
   const { format_currency, colors, dummy_monthly_data } = Util();
@@ -314,6 +315,7 @@ const Settings = () => {
           <TbLockCog className="add-expenses-btn" />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

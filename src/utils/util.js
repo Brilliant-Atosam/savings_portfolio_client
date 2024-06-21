@@ -40,6 +40,12 @@ const Util = () => {
   const storeLoan = (data) => {
     window.localStorage.setItem("loans", JSON.stringify(data));
   };
+  const storeLent = (data) => {
+    window.localStorage.setItem("lent", JSON.stringify(data));
+  };
+  const storeBorrowed = (data) => {
+    window.localStorage.setItem("borrowed", JSON.stringify(data));
+  };
   // store expenses
   const storeExpenses = (data) =>
     localStorage.setItem("expenses", JSON.stringify(data));
@@ -281,6 +287,8 @@ const Util = () => {
     user,
     piechart_data,
     dummy_monthly_data,
+    storeLent,
+    storeBorrowed,
   };
 };
 

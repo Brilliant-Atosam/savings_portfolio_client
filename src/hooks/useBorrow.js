@@ -3,12 +3,20 @@ import { useState } from "react";
 import request from "../utils/request";
 import Util from "../utils/util";
 import useApp from "../useApp";
+import useSettings from "./useSettings";
 const useBorrow = () => {
-  const { storeUser, storeLoan, months } = Util();
+  const borrowedList =
+    JSON.parse(window.localStorage.getItem("borrowed")) || [];
+  const lentList = JSON.parse(window.localStorage.getItem("lent")) || [];
+  const { storeUser, storeLent, storeBorrowed, months } = Util();
   const context = useApp();
   let user = JSON.parse(window.localStorage.getItem("user"));
   let loans = JSON.parse(window.localStorage.getItem("loans"));
+  const { total_savings } = useSettings();
   const [openBorrowDialog, setOpenBorrowDialog] = useState(false);
+  // toggle form
+  const [type, setType] = useState("lend");
+  const toggleType = (type) => setType((prev) => type);
   const [loanDetails, setLoanDetails] = useState({
     amount: "",
     reason: "",
@@ -18,48 +26,87 @@ const useBorrow = () => {
     userId: user?.id,
     borrowed_from: "",
   });
+  const [borrow, setBorrow] = useState({
+    user_id: user.id,
+    id: Math.floor(Math.random() * 9999).toString(),
+    lender: "",
+    amount: 0,
+    reason: "",
+    date: moment().format("DD/MM/YYYY"),
+    repayment_date: "",
+  });
+  const [lend, setLend] = useState({
+    user_id: user.id,
+    id: Math.floor(Math.random() * 9999).toString(),
+    borrower: "",
+    amount: 0,
+    reason: "",
+    date: moment().format("DD/MM/YYYY"),
+    repayment_date: "",
+  });
   const handleOpenBorrowDialog = () => {
     setOpenBorrowDialog((prev) => !prev);
   };
-
-  // borrow money
-  const borrowMoney = async (loanDetails) => {
+  // lend money
+  const lendMoney = async () => {
     context?.handleLoader();
     if (
-      Number(loanDetails.amount) < 1 ||
-      !loanDetails.reason ||
-      !loanDetails.borrowed_from
-    ) {
-      context?.handleSnackbar("Provide value for all fields", "warning");
-    } else if (
-      loanDetails.borrowed_from !== "external source" &&
-      user.portfolio.find((item) => item.title === loanDetails.borrowed_from)
-        ?.amount < loanDetails.amount
+      !lend.amount ||
+      !lend.borrower ||
+      !lend.reason ||
+      !lend.repayment_date ||
+      moment(lend.repayment_date).isBefore(moment().format("DD/MM/YYYY"))
     ) {
       context?.handleSnackbar(
-        "You cannot borrow more than you have saved in this portfolio",
+        "Provide valid information for all fields.",
+        "warning"
+      );
+    } else if (lend.amount > total_savings) {
+      context?.handleSnackbar(
+        "You cannot lend all or more than you have saved out",
         "warning"
       );
     } else {
-      user = {
-        ...user,
-        total_advance: user.total_advance + loanDetails.amount,
-        amount_owed: user.total_advance + loanDetails.amount,
-      };
-      loans = [loanDetails, ...loans];
       try {
-        const res = await request.post(
-          `/loan?userId=${user.id}`,
-          { loanDetails, user },
-          {
-            headers: {
-              access_token: `Bearer ${user.access_token}`,
-            },
-          }
-        );
+        const res = await request.post("/loan/lend", lend, {
+          headers: {
+            access_token: `Bearer ${user.access_token}`,
+          },
+        });
+        storeLent([...lentList, lend]);
         context?.handleSnackbar(res.data, "success");
-        storeUser(user);
-        storeLoan(loans);
+      } catch (err) {
+        context?.handleSnackbar(
+          err.response ? err.response.data : "Network Error!",
+          "error"
+        );
+      }
+    }
+    context?.handleLoader();
+  };
+  // lend money
+  const borrowMoney = async (borrow) => {
+    context?.handleLoader();
+    if (
+      !borrow.amount ||
+      !borrow.lender ||
+      !borrow.reason ||
+      !borrow.repayment_date ||
+      moment(borrow.repayment_date).isBefore(moment().format("DD/MM/YYYY"))
+    ) {
+      context?.handleSnackbar(
+        "Provide valid information for all fields.",
+        "warning"
+      );
+    } else {
+      try {
+        const res = await request.post("/loan/borrow", borrow, {
+          headers: {
+            access_token: `Bearer ${user.access_token}`,
+          },
+        });
+        storeBorrowed([...borrowedList, borrow]);
+        context?.handleSnackbar(res.data, "success");
       } catch (err) {
         context?.handleSnackbar(
           err.response ? err.response.data : "Network Error!",
@@ -146,6 +193,13 @@ const useBorrow = () => {
     setSettleDetails,
     settleAdvance,
     monthly_advance_data,
+    type,
+    toggleType,
+    borrow,
+    setBorrow,
+    lend,
+    setLend,
+    lendMoney,
   };
 };
 

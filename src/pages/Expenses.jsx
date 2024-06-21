@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import useApp from "../useApp";
 import { CircularProgress } from "@mui/material";
 import useSettings from "../hooks/useSettings";
+import Footer from "../components/Footer";
 const Expenses = () => {
   const { expenseColumn } = useTableData();
   const { loading } = useApp();
@@ -117,6 +118,7 @@ const Expenses = () => {
           <GiExpense className="add-expenses-btn" />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -10,6 +10,7 @@ import useSave from "../hooks/useSave";
 import Util from "../utils/util";
 import { FaHandHoldingDollar } from "react-icons/fa6";
 import Save from "../components/Save";
+import Footer from "../components/Footer";
 // import Subscription from "../components/Subscription";
 const Dashboard = () => {
   const { handleSave, handleSaveDialog, showSaveDialog } = useSave();
@@ -62,6 +63,7 @@ const Dashboard = () => {
           <FaHandHoldingDollar className="add-expenses-btn" />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

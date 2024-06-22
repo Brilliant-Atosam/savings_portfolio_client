@@ -22,10 +22,13 @@ const useBorrow = () => {
   const [settle, setSettle] = useState({
     settled_at: moment().format("DD/MM/YYYY"),
     amount: "",
+    id: "",
   });
+
   const [getSettled, setGetSettled] = useState({
     settled_at: moment().format("DD/MM/YYYY"),
     amount: "",
+    id: "",
   });
   const [loanDetails, setLoanDetails] = useState({
     amount: "",

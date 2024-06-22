@@ -12,12 +12,14 @@ const SettleAdvanceDialog = ({ open, toggleDialog }) => {
   const { loading } = useApp();
   const {
     settleDetails,
-
+    borrowedList,
+    lentList,
     settleAdvance,
     settleType,
     toggleSettleType,
     settle,
-
+    setSettle,
+    setGetSettled,
     getSettled,
   } = useBorrow();
   return (
@@ -51,7 +53,17 @@ const SettleAdvanceDialog = ({ open, toggleDialog }) => {
                 : getSettled((prev) => ({ ...prev, id: e.target.value }))
             }
           >
-            <option>Frank</option>
+            {settle === "settle"
+              ? borrowedList?.map((item) => (
+                  <option value={item.id} key={item.id}>
+                    {item?.lender}
+                  </option>
+                ))
+              : lentList?.map((item) => (
+                  <option value={item.id} key={item.id}>
+                    {item?.lender}
+                  </option>
+                ))}
           </select>
           <label className="dialog-label" htmlFor="">
             {settleType === "settle"
@@ -60,9 +72,13 @@ const SettleAdvanceDialog = ({ open, toggleDialog }) => {
           </label>
           <input
             type="number"
-            placeholder="e.g. Jon Snow"
+            placeholder="100"
             className="login-input"
-            value={settleDetails?.amount}
+            value={
+              settle === "settle"
+                ? borrowedList?.find((item) => item.id === settle?.id).amount
+                : lentList?.find((item) => item.id === settle?.id).amount
+            }
           />
           <label className="dialog-label" htmlFor="">
             {settleType === "settle"
@@ -71,16 +87,16 @@ const SettleAdvanceDialog = ({ open, toggleDialog }) => {
           </label>
           <input
             type="number"
-            placeholder="e.g. Jon Snow"
+            placeholder="100"
             className="login-input"
-            value={settleDetails?.amount}
-            onChange={(e) =>
+            value={settle?.amount}
+            onChange={(e) => 
               settleType === "settle"
-                ? settle((prev) => ({
+                ? setSettle((prev) => ({
                     ...prev,
                     amount: Number(e.target.value),
                   }))
-                : getSettled((prev) => ({
+                : setGetSettled((prev) => ({
                     ...prev,
                     id: Number(e.target.value),
                   }))

@@ -17,6 +17,16 @@ const useBorrow = () => {
   // toggle form
   const [type, setType] = useState("lend");
   const toggleType = (type) => setType((prev) => type);
+  const [settleType, setSettleType] = useState("settle");
+  const toggleSettleType = (settle) => setSettleType(settle);
+  const [settle, setSettle] = useState({
+    settled_at: moment().format("DD/MM/YYYY"),
+    amount: "",
+  });
+  const [getSettled, setGetSettled] = useState({
+    settled_at: moment().format("DD/MM/YYYY"),
+    amount: "",
+  });
   const [loanDetails, setLoanDetails] = useState({
     amount: "",
     reason: "",
@@ -27,7 +37,7 @@ const useBorrow = () => {
     borrowed_from: "",
   });
   const [borrow, setBorrow] = useState({
-    user_id: user.id,
+    user_id: user?.id,
     id: Math.floor(Math.random() * 9999).toString(),
     lender: "",
     amount: 0,
@@ -36,7 +46,7 @@ const useBorrow = () => {
     repayment_date: "",
   });
   const [lend, setLend] = useState({
-    user_id: user.id,
+    user_id: user?.id,
     id: Math.floor(Math.random() * 9999).toString(),
     borrower: "",
     amount: 0,
@@ -200,6 +210,12 @@ const useBorrow = () => {
     lend,
     setLend,
     lendMoney,
+    settleType,
+    toggleSettleType,
+    settle,
+    setSettle,
+    getSettled,
+    setGetSettled,
   };
 };
 

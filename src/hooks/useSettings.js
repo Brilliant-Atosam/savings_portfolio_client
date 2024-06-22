@@ -139,7 +139,7 @@ const useSettings = () => {
   // income chart data
   const income_chart = () => {
     let data = [];
-    user.sources_of_income?.map((source) => {
+    user?.sources_of_income?.map((source) => {
       let data_object = {
         title: source,
         amount: savings

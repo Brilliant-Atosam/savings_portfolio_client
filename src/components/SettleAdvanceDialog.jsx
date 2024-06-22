@@ -3,46 +3,99 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
+  ToggleButton,
+  ToggleButtonGroup,
 } from "@mui/material";
 import useApp from "../useApp";
 import useBorrow from "../hooks/useBorrow";
 const SettleAdvanceDialog = ({ open, toggleDialog }) => {
-  const { user, loading } = useApp();
-  const { settleDetails, setSettleDetails, settleAdvance } = useBorrow();
+  const { loading } = useApp();
+  const {
+    settleDetails,
+
+    settleAdvance,
+    settleType,
+    toggleSettleType,
+    settle,
+
+    getSettled,
+  } = useBorrow();
   return (
     <Dialog open={open}>
+      <ToggleButtonGroup
+        color="primary"
+        value={settleType}
+        exclusive
+        onChange={(e) => toggleSettleType(e.target.value)}
+        aria-label="Platform"
+      >
+        <ToggleButton value="settle">Settle Debt</ToggleButton>
+        <ToggleButton value="get_settle">Get Settled</ToggleButton>
+      </ToggleButtonGroup>
       <DialogTitle>Settle all/part of advance</DialogTitle>
-      {user.total_advance < 1 && (
-        <DialogTitle className="red">
-          You do not have any outstanding advance
-        </DialogTitle>
-      )}
       <DialogContent>
         <div className="dialog-form-container">
-          <p>Total advance: {user?.total_advance}</p>
           <label className="dialog-label" htmlFor="">
-            How much do you wish to settle?
+            {settleType === "settle"
+              ? "Who are you settling?"
+              : "Who is settling you?"}
           </label>
-          <input
-            type="number"
-            placeholder="Amount"
+          <select
+            type="text"
+            placeholder="e.g. Jon Snow"
             className="login-input"
             value={settleDetails?.amount}
             onChange={(e) =>
-              setSettleDetails((prev) => ({
-                ...prev,
-                amount: Number(e.target.value),
-                balance: prev.total_advance - Number(e.target.value),
-              }))
+              settleType === "settle"
+                ? settle((prev) => ({ ...prev, id: e.target.value }))
+                : getSettled((prev) => ({ ...prev, id: e.target.value }))
+            }
+          >
+            <option>Frank</option>
+          </select>
+          <label className="dialog-label" htmlFor="">
+            {settleType === "settle"
+              ? "This is how much you owe?"
+              : "This is how much this person owes you?"}
+          </label>
+          <input
+            type="number"
+            placeholder="e.g. Jon Snow"
+            className="login-input"
+            value={settleDetails?.amount}
+          />
+          <label className="dialog-label" htmlFor="">
+            {settleType === "settle"
+              ? "How much are you settling?"
+              : "How much are you getting settled?"}
+          </label>
+          <input
+            type="number"
+            placeholder="e.g. Jon Snow"
+            className="login-input"
+            value={settleDetails?.amount}
+            onChange={(e) =>
+              settleType === "settle"
+                ? settle((prev) => ({
+                    ...prev,
+                    amount: Number(e.target.value),
+                  }))
+                : getSettled((prev) => ({
+                    ...prev,
+                    id: Number(e.target.value),
+                  }))
             }
           />
-
           <button
             className="login-btn"
             onClick={settleAdvance}
             disabled={loading}
           >
-            {loading ? "loading..." : "Settle advance"}
+            {loading
+              ? "loading..."
+              : settleType === "settle"
+              ? "Settle advance"
+              : "Get settled"}
           </button>
           <button className="dialog-close-btn" onClick={toggleDialog}>
             Cancel

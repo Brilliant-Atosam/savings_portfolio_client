@@ -10,18 +10,20 @@ import useApp from "../useApp";
 import useBorrow from "../hooks/useBorrow";
 const SettleAdvanceDialog = ({ open, toggleDialog }) => {
   const { loading } = useApp();
+  const borrowedList =
+    JSON.parse(window.localStorage.getItem("borrowed")) || [];
+  const lentList = JSON.parse(window.localStorage.getItem("lent")) || [];
   const {
-    settleDetails,
-    borrowedList,
-    lentList,
-    settleAdvance,
     settleType,
     toggleSettleType,
     settle,
     setSettle,
     setGetSettled,
     getSettled,
+    settleDebt,
+    settledDebt,
   } = useBorrow();
+  console.log(getSettled);
   return (
     <Dialog open={open}>
       <ToggleButtonGroup
@@ -34,7 +36,11 @@ const SettleAdvanceDialog = ({ open, toggleDialog }) => {
         <ToggleButton value="settle">Settle Debt</ToggleButton>
         <ToggleButton value="get_settle">Get Settled</ToggleButton>
       </ToggleButtonGroup>
-      <DialogTitle>Settle all/part of advance</DialogTitle>
+      <DialogTitle>
+        {settleType === "settle"
+          ? "Settle some or all of your debts"
+          : "Getting Settled"}
+      </DialogTitle>
       <DialogContent>
         <div className="dialog-form-container">
           <label className="dialog-label" htmlFor="">
@@ -43,41 +49,50 @@ const SettleAdvanceDialog = ({ open, toggleDialog }) => {
               : "Who is settling you?"}
           </label>
           <select
-            type="text"
+            // type="text"
             placeholder="e.g. Jon Snow"
             className="login-input"
-            value={settleDetails?.amount}
+            // value={settleDetails?.amount}
             onChange={(e) =>
               settleType === "settle"
-                ? settle((prev) => ({ ...prev, id: e.target.value }))
-                : getSettled((prev) => ({ ...prev, id: e.target.value }))
+                ? setSettle((prev) => ({ ...prev, id: e.target.value }))
+                : setGetSettled((prev) => ({ ...prev, id: e.target.value }))
             }
           >
-            {settle === "settle"
+            <option value="">Choose party</option>
+            {settleType === "settle"
               ? borrowedList?.map((item) => (
                   <option value={item.id} key={item.id}>
-                    {item?.lender}
+                    {item.lender}
                   </option>
                 ))
               : lentList?.map((item) => (
                   <option value={item.id} key={item.id}>
-                    {item?.lender}
+                    {item?.borrower}
                   </option>
                 ))}
           </select>
+
           <label className="dialog-label" htmlFor="">
             {settleType === "settle"
-              ? "This is how much you owe?"
-              : "This is how much this person owes you?"}
+              ? "This is how much you owe!"
+              : "This is how much this person owes you!"}
           </label>
           <input
             type="number"
             placeholder="100"
             className="login-input"
+            readOnly
             value={
-              settle === "settle"
-                ? borrowedList?.find((item) => item.id === settle?.id).amount
-                : lentList?.find((item) => item.id === settle?.id).amount
+              settleType === "settle"
+                ? borrowedList?.find((item) => item.id === settle?.id)?.amount -
+                  (borrowedList
+                    ?.find((item) => item.id === settle?.id)
+                    ?.repayment_history?.reduce((a, b) => a + b.amount, 0) || 0)
+                : lentList?.find((item) => item.id === getSettled?.id)?.amount -
+                  (lentList
+                    ?.find((item) => item.id === getSettled?.id)
+                    ?.repayment_history?.reduce((a, b) => a + b.amount, 0) || 0)
             }
           />
           <label className="dialog-label" htmlFor="">
@@ -89,8 +104,10 @@ const SettleAdvanceDialog = ({ open, toggleDialog }) => {
             type="number"
             placeholder="100"
             className="login-input"
-            value={settle?.amount}
-            onChange={(e) => 
+            value={
+              settleType === "settle" ? settle?.amount : getSettled?.amount
+            }
+            onChange={(e) =>
               settleType === "settle"
                 ? setSettle((prev) => ({
                     ...prev,
@@ -98,13 +115,17 @@ const SettleAdvanceDialog = ({ open, toggleDialog }) => {
                   }))
                 : setGetSettled((prev) => ({
                     ...prev,
-                    id: Number(e.target.value),
+                    amount: Number(e.target.value),
                   }))
             }
           />
           <button
             className="login-btn"
-            onClick={settleAdvance}
+            onClick={() =>
+              settleType === "settle"
+                ? settleDebt(settle)
+                : settledDebt(getSettled)
+            }
             disabled={loading}
           >
             {loading

@@ -8,7 +8,7 @@ const useBorrow = () => {
   const borrowedList =
     JSON.parse(window.localStorage.getItem("borrowed")) || [];
   const lentList = JSON.parse(window.localStorage.getItem("lent")) || [];
-  const { storeUser, storeLent, storeBorrowed, months } = Util();
+  const { storeLent, storeBorrowed, months } = Util();
   const context = useApp();
   let user = JSON.parse(window.localStorage.getItem("user"));
   let loans = JSON.parse(window.localStorage.getItem("loans"));
@@ -30,15 +30,6 @@ const useBorrow = () => {
     amount: "",
     id: "",
   });
-  const [loanDetails, setLoanDetails] = useState({
-    amount: "",
-    reason: "",
-    repayment_date: "",
-    createdAt: moment(new Date()).format("DD/MM/YYYY"),
-    id: Math.floor(Math.random() * 9999).toString(),
-    userId: user?.id,
-    borrowed_from: "",
-  });
   const [borrow, setBorrow] = useState({
     user_id: user?.id,
     id: Math.floor(Math.random() * 9999).toString(),
@@ -47,6 +38,7 @@ const useBorrow = () => {
     reason: "",
     date: moment().format("DD/MM/YYYY"),
     repayment_date: "",
+    repayment_history: [],
   });
   const [lend, setLend] = useState({
     user_id: user?.id,
@@ -56,7 +48,90 @@ const useBorrow = () => {
     reason: "",
     date: moment().format("DD/MM/YYYY"),
     repayment_date: "",
+    repayment_history: [],
   });
+  // settle debt
+  const settleDebt = async (settle) => {
+    context?.handleLoader();
+    if (
+      !settle.amount ||
+      !settle.id ||
+      Number(settle.amount) >
+        (borrowedList
+          ?.find((item) => item.id === settle.id)
+          ?.repayment_history?.reduce((a, b) => a + b.amount, 0) ||
+          borrowedList?.find((item) => item.id === settle.id).amount)
+    ) {
+      context?.handleSnackbar("Provide valid data for all fields", "warning");
+    } else {
+      try {
+        const res = await request.put(`/loan/settle?id=${settle.id}`, settle, {
+          headers: {
+            access_token: `Bearer ${user.access_token}`,
+          },
+        });
+        let debt = borrowedList?.find((item) => item.id === settle.id);
+        debt = {
+          ...debt,
+          repayment_history: [...debt?.repayment_history, settle],
+        };
+        const other_debts = borrowedList?.filter(
+          (item) => item.id !== settle.id
+        );
+        await storeBorrowed([...other_debts, debt]);
+        context?.handleSnackbar(res.data, "success");
+      } catch (err) {
+        context?.handleSnackbar(
+          err.response ? err.response.data : "Network Error!",
+          "error"
+        );
+      }
+    }
+    context?.handleLoader();
+  };
+  // get settled debt
+  const settledDebt = async (getSettled) => {
+    context?.handleLoader();
+    if (
+      !getSettled?.amount ||
+      !getSettled?.id ||
+      Number(getSettled?.amount) >
+        (lentList
+          ?.find((item) => item.id === getSettled.id)
+          ?.repayment_history?.reduce((a, b) => a + b.amount, 0) ||
+          lentList?.find((item) => item.id === getSettled.id).amount)
+    ) {
+      context?.handleSnackbar("Provide valid data for all fields", "warning");
+    } else {
+      try {
+        const res = await request.put(
+          `/loan/settled?id=${getSettled?.id}`,
+          getSettled,
+          {
+            headers: {
+              access_token: `Bearer ${user.access_token}`,
+            },
+          }
+        );
+        let debt = lentList?.find((item) => item.id === getSettled.id);
+        debt = {
+          ...debt,
+          repayment_history: [...debt?.repayment_history, getSettled],
+        };
+        const other_debts = lentList?.filter(
+          (item) => item.id !== getSettled.id
+        );
+        await storeLent([...other_debts, debt]);
+        context?.handleSnackbar(res.data, "success");
+      } catch (err) {
+        context?.handleSnackbar(
+          err.response ? err.response.data : "Network Error!",
+          "error"
+        );
+      }
+    }
+    context?.handleLoader();
+  };
   const handleOpenBorrowDialog = () => {
     setOpenBorrowDialog((prev) => !prev);
   };
@@ -133,42 +208,6 @@ const useBorrow = () => {
   const [showSettleDialog, setShowSettleDialog] = useState(false);
   const handleSettleDialog = () => setShowSettleDialog((prev) => !prev);
 
-  const [settleDetails, setSettleDetails] = useState({
-    amount: "",
-    createdAt: moment(new Date()).format("DD/MM/YYYY"),
-    total_advance: user?.total_advance,
-    balance: "",
-    id: Math.floor(Math.random() * 999).toString(),
-  });
-  const settleAdvance = async () => {
-    if (settleDetails.amount > user.total_advance) {
-      context?.handleSnackbar("You cannot pay more than you owe", "warning");
-    } else if (!settleDetails.amount) {
-      context?.handleSnackbar("Enter amount", "warning");
-    } else {
-      user = {
-        ...user,
-        repayment_history: user?.repayment_history?.push(settleDetails) || [
-          settleDetails,
-        ],
-        settled_advance: user.settled_advance + settleDetails.amount,
-        amount_owed: settleDetails.balance,
-        advance_balance: settleDetails.balance,
-      };
-      try {
-        const res = await request.put(`/user?id=${user.id}`, user, {
-          headers: { access_token: `Bearer ${user.access_token}` },
-        });
-        context?.handleSnackbar(res.data, "success");
-        storeUser(user);
-      } catch (err) {
-        context?.handleSnackbar(
-          err.res ? err.response.data : "Network error",
-          "warning"
-        );
-      }
-    }
-  };
   // monthly borrow data for area chart
   const borrow_data = () => {
     let data = [];
@@ -196,15 +235,12 @@ const useBorrow = () => {
   const monthly_advance_data = borrow_data();
   return {
     openBorrowDialog,
-    loanDetails,
-    setLoanDetails,
+
     handleOpenBorrowDialog,
     borrowMoney,
     handleSettleDialog,
     showSettleDialog,
-    settleDetails,
-    setSettleDetails,
-    settleAdvance,
+
     monthly_advance_data,
     type,
     toggleType,
@@ -219,6 +255,8 @@ const useBorrow = () => {
     setSettle,
     getSettled,
     setGetSettled,
+    settleDebt,
+    settledDebt,
   };
 };
 

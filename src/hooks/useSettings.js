@@ -7,6 +7,7 @@ import useSave from "./useSave";
 const useSettings = () => {
   const context = useApp();
   let user = JSON.parse(localStorage.getItem("user"));
+  const portfolio = user?.portfolio;
   let savings = JSON.parse(localStorage.getItem("savings"));
   let expenses = JSON.parse(localStorage.getItem("expenses"));
   let loans = JSON.parse(localStorage.getItem("loans"));
@@ -122,20 +123,20 @@ const useSettings = () => {
       }
     }
   };
-  const chart_data = [
-    {
-      title: "savings",
-      amount: total_savings,
-    },
-    {
-      title: "expense",
-      amount: total_expenses,
-    },
-    {
-      title: "untracked",
-      amount: untracked,
-    },
-  ];
+  // const chart_data = [
+  //   {
+  //     title: "savings",
+  //     amount: total_savings,
+  //   },
+  //   {
+  //     title: "expense",
+  //     amount: total_expenses,
+  //   },
+  //   {
+  //     title: "untracked",
+  //     amount: untracked,
+  //   },
+  // ];
   // income chart data
   const income_chart = () => {
     let data = [];
@@ -143,10 +144,10 @@ const useSettings = () => {
       let data_object = {
         title: source,
         amount: savings
-          .filter((item) => item.source === source)
-          .reduce((a, b) => a + b.amount, 0),
+          ?.filter((item) => item.source === source)
+          ?.reduce((a, b) => a + b.amount, 0),
       };
-      data_object.amount > 0 && data.push(data_object);
+      data_object?.amount > 0 && data.push(data_object);
       return data_object;
     });
     return data;
@@ -186,7 +187,7 @@ const useSettings = () => {
     set_basic_info,
     show_basic_info_dialog,
     handle_basic_info,
-    chart_data,
+    // chart_data,
     income_chart_data,
     // monthly_income_data,
     total_income,
@@ -205,6 +206,7 @@ const useSettings = () => {
     expenses,
     peak_expenses,
     peak_savings,
+    portfolio,
   };
 };
 

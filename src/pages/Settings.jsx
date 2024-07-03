@@ -28,7 +28,6 @@ const Settings = () => {
     handle_open_basic_info_dialog,
     show_basic_info_dialog,
     handle_basic_info,
-    chart_data,
     income_chart_data,
     total_expenses,
     total_income,
@@ -44,6 +43,7 @@ const Settings = () => {
     average_expenses,
     peak_expenses,
     peak_savings,
+    portfolio,
   } = useSettings();
   return (
     <div className="main-container">
@@ -110,23 +110,11 @@ const Settings = () => {
               </div>
             </div>
             <div className="bottom-summary-container">
-              <h1 className="debt-text">Summary Chart</h1>
-              {chart_data.reduce((a, b) => a + b.amount, 0) < 1 ? (
-                <h1 className="no-data-text">No data to display chart</h1>
-              ) : (
-                <PieChartComponent colors={colors} portfolio={chart_data} />
-              )}
-              <div className="chart-info">
-                {chart_data.map((item, index) => (
-                  <div className="ref">
-                    <div
-                      className="indicators"
-                      style={{ background: colors[index] }}
-                    ></div>
-                    <span style={{ color: colors[index] }}>
-                      {item.title}(
-                      {((item.amount / total_income) * 100).toFixed(2)})%
-                    </span>
+              <h1 className="debt-text">Saving Goals & Milestones</h1>
+              <div className="portfolio-main-container">
+                {portfolio?.map((item) => (
+                  <div className="portfolio-milestone-container">
+                    {item.title}
                   </div>
                 ))}
               </div>

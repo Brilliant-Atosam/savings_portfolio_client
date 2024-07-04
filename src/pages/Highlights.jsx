@@ -139,7 +139,7 @@ const Highlights = () => {
           <div className="finance-info-container">
             <h1 className="highlight-title">Expenses</h1>
             <h1 className="highlight-subtitle">
-              ${months[Number(query_array[0]) - 1]}, ${query_array[1]}`}
+              {`${months[Number(query_array[0]) - 1]}, ${query_array[1]}`}
             </h1>
             <div className="info-container">
               <span className="finance-info-key">Tot. Spendable</span>

@@ -24,10 +24,10 @@ const useHighlights = () => {
       ? `${Number(query_array[0]) - 1}/${query_array[1]}`
       : `12/${Number(query_array[1]) - 1}`;
   // last month data
-  const income_savings_lm = savingsList.filter((item) =>
-    item.createdAt.endsWith(last_month_query)
+  const income_savings_lm = savingsList?.filter((item) =>
+    item?.createdAt?.endsWith(last_month_query)
   );
-  const expenses_lm = expensesList.filter((item) =>
+  const expenses_lm = expensesList?.filter((item) =>
     item.created_at.endsWith(last_month_query)
   );
   const total_income_lm = income_savings_lm.reduce((a, b) => a + b.amount, 0);
@@ -166,7 +166,7 @@ const useHighlights = () => {
     expenses_chart_data,
     income_sources_chart_data,
     structuredPortfolio,
-    category_chart_data,
+    category_chart_data,query_array
   };
 };
 

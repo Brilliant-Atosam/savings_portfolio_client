@@ -10,7 +10,7 @@ import AreaChartComponent from "../components/AreaChartComponent";
 import useHighlights from "../hooks/useHighlights";
 import Footer from "../components/Footer";
 const Highlights = () => {
-  const { format_currency, colors } = Util();
+  const { format_currency, colors, months } = Util();
   const {
     total_income,
     monthly_data,
@@ -23,7 +23,7 @@ const Highlights = () => {
     expenses_chart_data,
     income_sources_chart_data,
     structuredPortfolio,
-    category_chart_data,
+    category_chart_data,query_array
   } = useHighlights();
   const {
     income_c2a_p,
@@ -45,7 +45,7 @@ const Highlights = () => {
         <div className="highlight-left">
           <div className="finance-info-container">
             <h1 className="highlight-title">Income</h1>
-            <h1 className="highlight-subtitle">May, 2024</h1>
+            <h1 className="highlight-subtitle">{`${months[query_array[0]]} ${query_array[1]}`}</h1>
             <div className="info-container">
               <span className="finance-info-key">Tot. Income</span>
               <span className="finance-info-value">

@@ -7,6 +7,7 @@ import useApp from "../useApp";
 import PieChartComponent from "../components/PieChartComponent";
 import { TbLockCog } from "react-icons/tb";
 import { FaUserCog } from "react-icons/fa";
+import { GrAchievement } from "react-icons/gr";
 import {
   MarkunreadOutlined,
   PersonOutlined,
@@ -20,7 +21,7 @@ import Footer from "../components/Footer";
 const Settings = () => {
   const { user } = useApp();
   const { format_currency, colors, dummy_monthly_data } = Util();
-  const { monthly_data, savingsList } = useSave();
+  const { monthly_data, savingsList, structuredPortfolio } = useSave();
   const {
     handleOpenPass,
     openPass,
@@ -43,7 +44,6 @@ const Settings = () => {
     average_expenses,
     peak_expenses,
     peak_savings,
-    portfolio,
   } = useSettings();
   return (
     <div className="main-container">
@@ -112,9 +112,30 @@ const Settings = () => {
             <div className="bottom-summary-container">
               <h1 className="debt-text">Saving Goals & Milestones</h1>
               <div className="portfolio-main-container">
-                {portfolio?.map((item) => (
+                {structuredPortfolio?.map((item, index) => (
                   <div className="portfolio-milestone-container">
-                    {item.title}
+                    <span className="key">
+                      {`${item?.title} (${item?.percentage}% of income)`}{" "}
+                      {item?.amount > Number(item?.goal) && (
+                        <GrAchievement fill={colors[index]} />
+                      )}
+                    </span>
+
+                    <div className="milestone-progress-bar">
+                      <div
+                        className="milestone-progress"
+                        style={{
+                          width: `${
+                            (item?.amount / Number(item?.goal)) * 100
+                          }%`,
+                          background: colors[index],
+                        }}
+                      ></div>
+                    </div>
+                    <div className="milestone-range">
+                      <span>0</span>
+                      <span>{item?.goal}</span>
+                    </div>
                   </div>
                 ))}
               </div>

@@ -28,7 +28,7 @@ const useSave = () => {
       .reduce((a, b) => a + Number(b.percentage), 0);
   // portfolio data for quick summary
   let portfolio_from_savings = [];
-  savingsList.map((item) => {
+  savingsList?.map((item) => {
     return portfolio_from_savings.push(...item.details);
   });
   const structuredPortfolio = user?.portfolio?.map((item) => ({
@@ -41,6 +41,7 @@ const useSave = () => {
       ).toFixed(2)
     ),
   }));
+ 
   // delete income
   const deleteIncome = async (id) => {
     context.handleLoader();

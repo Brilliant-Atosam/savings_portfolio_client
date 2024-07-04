@@ -31,20 +31,21 @@
   gap: 15px;
 }
 .portfolio-milestone-container {
-  border: 1px solid #adb5b674;
+  border: 2px solid #00808028;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 5px;
-  background: #a5cfe169;
+  background: #9bdded3a;
 }
 .milestone-progress-bar {
   width: 100%;
-  height: 7px;
-  border: 1px solid grey;
+  height: 10px;
+  border: 1px solid#00808028;
+  border-radius: 2px;
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
   gap: 3px;
 }
 .milestone-progress {
@@ -55,6 +56,21 @@
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+.milestone-details-heading {
+  font-size: 0.8rem;
+}
+.milestone-details {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.milestone-key-value {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
   justify-content: space-between;
 }
 .personal-info {

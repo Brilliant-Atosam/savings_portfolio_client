@@ -18,6 +18,7 @@ import Util from "../utils/util";
 import AreaChartComponent from "../components/AreaChartComponent";
 import useSave from "../hooks/useSave";
 import Footer from "../components/Footer";
+import moment from "moment";
 const Settings = () => {
   const { user } = useApp();
   const { format_currency, colors, dummy_monthly_data } = Util();
@@ -135,6 +136,41 @@ const Settings = () => {
                     <div className="milestone-range">
                       <span>0</span>
                       <span>{item?.goal}</span>
+                    </div>
+                    <div className="milestone-details">
+                      <h2 className="milestone-details-heading">
+                        Details of Progress
+                      </h2>
+                      <div className="milestone-key-value">
+                        <span className="key">Progress</span>
+                        <span className="value">
+                          {format_currency(item?.amount)}
+                        </span>
+                      </div>
+                      <div className="milestone-key-value">
+                        <span className="key">Progress Percentage</span>
+                        <span className="value">
+                          {((item?.amount / Number(item?.goal)) * 100).toFixed(
+                            2
+                          )}
+                          %
+                        </span>
+                      </div>
+                      {Number(item?.goal) - item?.amount > 0.1 && (
+                        <div className="milestone-key-value">
+                          <span className="key">Goal Gap</span>
+                          <span className="value">
+                            {format_currency(Number(item?.goal) - item?.amount)}
+                          </span>
+                        </div>
+                      )}
+                      <div className="milestone-key-value">
+                        <span className="key">Due Date</span>
+                        <span className="value">
+                          {item?.deadline} -
+                          {moment().to(moment(item?.deadline, "DD/MM/YYYY"))}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 ))}

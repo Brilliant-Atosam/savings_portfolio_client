@@ -41,13 +41,15 @@ const Highlights = () => {
   return (
     <div className="main-container">
       <Topbar />
-      <h1 className="highlight-heading">Financial Highlights for May 2024</h1>
+      <h1 className="highlight-heading">{`Financial Highlights for ${
+        months[Number(query_array[0]) - 1]
+      }, ${query_array[1]}`}</h1>
       <div className="highlight-container">
         <div className="highlight-left">
           <div className="finance-info-container">
             <h1 className="highlight-title">Income</h1>
             <h1 className="highlight-subtitle">{`${
-              months[Number(query_array[0])]
+              months[Number(query_array[0]) - 1]
             }, ${query_array[1]}`}</h1>
             <div className="info-container">
               <span className="finance-info-key">Tot. Income</span>
@@ -93,7 +95,7 @@ const Highlights = () => {
           <div className="finance-info-container">
             <h1 className="highlight-title">Savings</h1>
             <h1 className="highlight-subtitle">{`${
-              months[Number(query_array[0])]
+              months[Number(query_array[0]) - 1]
             }, ${query_array[1]}`}</h1>
             <div className="info-container">
               <span className="finance-info-key">Tot. Savings</span>
@@ -136,7 +138,9 @@ const Highlights = () => {
         <div className="highlight-right">
           <div className="finance-info-container">
             <h1 className="highlight-title">Expenses</h1>
-            <h1 className="highlight-subtitle">May, 2024</h1>
+            <h1 className="highlight-subtitle">
+              ${months[Number(query_array[0]) - 1]}, ${query_array[1]}`}
+            </h1>
             <div className="info-container">
               <span className="finance-info-key">Tot. Spendable</span>
               <span className="finance-info-value">
@@ -177,7 +181,7 @@ const Highlights = () => {
           <div className="finance-info-container">
             <h1 className="highlight-title">Expenses</h1>
             <h1 className="highlight-subtitle">{`${
-              months[Number(query_array[0])]
+              months[Number(query_array[0] - 1)]
             }, ${query_array[1]}`}</h1>
             <div className="info-container">
               <span className="finance-info-key">Tot. Expenses</span>

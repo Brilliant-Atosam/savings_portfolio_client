@@ -427,7 +427,7 @@ footer a {
     display: none;
   }
 }
-@media (max-width: 321px) {
+@media (max-width: 375px) {
   .topbar-left {
     gap: 5px;
   }

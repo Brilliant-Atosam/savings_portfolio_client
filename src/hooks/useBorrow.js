@@ -38,12 +38,7 @@ const useBorrow = () => {
     amount: "",
     id: "",
   });
-  const [borrowDetails, setBorrowDetails] = useState({});
-  const setBorrowDetailsFunc = (data) => setBorrowDetails((prev) => data);
-  const [toggleBorrowDetails, setToggleBorrowDetails] = useState(false);
-  console.log(borrowDetails);
-  console.log(toggleBorrowDetails);
-  const borrowDetailsToggler = () => setToggleBorrowDetails((prev) => !prev);
+
   const [borrow, setBorrow] = useState({
     user_id: user?.id,
     id: Math.floor(Math.random() * 9999).toString(),
@@ -67,14 +62,15 @@ const useBorrow = () => {
   // settle debt
   const settleDebt = async (settle) => {
     context?.handleLoader();
+    console.log(settle);
     if (
       !settle.amount ||
       !settle.id ||
-      Number(settle.amount) >
-        (borrowedList
+      Number(settle.amount) +
+        borrowedList
           ?.find((item) => item.id === settle.id)
-          ?.repayment_history?.reduce((a, b) => a + b.amount, 0) ||
-          borrowedList?.find((item) => item.id === settle.id).amount)
+          ?.repayment_history?.reduce((a, b) => a + b.amount, 0) >
+        Number(borrowedList?.find((item) => item.id === settle.id)?.amount)
     ) {
       context?.handleSnackbar("Provide valid data for all fields", "warning");
     } else {
@@ -324,10 +320,6 @@ const useBorrow = () => {
     lend_repayment_history,
     lentList,
     lend_data,
-    setBorrowDetailsFunc,
-    borrowDetails,
-    borrowDetailsToggler,
-    toggleBorrowDetails,
   };
 };
 

@@ -51,7 +51,7 @@ const BorrowDetails = ({ open, toggler, data }) => {
               {data?.repayment_history?.map((item) => (
                 <tr>
                   <td>{item?.settled_at}</td>
-                  <td>{item?.amount}</td>
+                  <td>{format_currency(item?.amount)}</td>
                 </tr>
               ))}
             </table>

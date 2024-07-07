@@ -34,6 +34,20 @@
 .borrowing-chart-container {
   overflow-x: scroll;
 }
+th {
+  background: teal;
+  color: white;
+  text-align: left;
+  padding: 10px;
+  font-size: 0.6rem;
+  border-radius: 5px;
+}
+td {
+  padding: 10px;
+  font-size: 0.6rem;
+  border-radius: 5px;
+  border: 0.4px solid #7788997a;
+}
 @media (max-width: 769px) {
   .loan-container {
     flex-direction: column;

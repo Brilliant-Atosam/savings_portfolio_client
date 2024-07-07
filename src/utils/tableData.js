@@ -2,10 +2,26 @@ import { DeleteOutlineOutlined } from "@mui/icons-material";
 import Util from "./util";
 import useExpenses from "../hooks/useExpenses";
 import useSave from "../hooks/useSave";
+import useBorrow from "../hooks/useBorrow";
+import { IoEyeOutline } from "react-icons/io5";
+import { useState } from "react";
 const useTableData = () => {
   const { format_currency } = Util();
+  const { borrowed_repayment_history, lend_repayment_history } = useBorrow();
   const { deleteExpenses } = useExpenses();
   const { deleteIncome } = useSave();
+  const [borrowDetails, setBorrowDetails] = useState({});
+  const setBorrowDetailsFunc = (data) =>
+    setBorrowDetails((prev) => ({
+      ...data,
+      settled: data?.repayment_history?.reduce((a, b) => a + b.amount, 0),
+      balance: format_currency(
+        Number(data?.amount) -
+          data?.repayment_history?.reduce((a, b) => a + b.amount, 0)
+      ),
+    }));
+  const [toggleBorrowDetails, setToggleBorrowDetails] = useState(false);
+  const borrowDetailsToggler = () => setToggleBorrowDetails((prev) => !prev);
   // table data for savings
   const savingsColumn = [
     { field: "id", headerName: "ID", width: 90 },
@@ -47,13 +63,101 @@ const useTableData = () => {
     { field: "createdAt", headerName: "Date", width: 100 },
     { field: "status", headerName: "Status", width: 100 },
   ];
-  const loansColumn = [
-    { field: "id", headerName: "ID", width: 60 },
-    { field: "amount", headerName: "Amount", width: 90 },
-    { field: "reason", headerName: "Reason", width: 220 },
-    { field: "borrowed_from", headerName: "Borrowed from", width: 220 },
-    { field: "createdAt", headerName: "Date", width: 100 },
-    { field: "repayment_date", headerName: "Repayment Date", width: 100 },
+
+  const borrowColumn = [
+    {
+      field: "action",
+      headerName: "Action",
+      width: 90,
+      renderCell: (params) => (
+        <div className="table-action-container">
+          <IoEyeOutline
+            className="view-more-icon"
+            onClick={() => {
+              setBorrowDetailsFunc(params.row);
+              borrowDetailsToggler();
+            }}
+          />
+        </div>
+      ),
+    },
+    { field: "id", headerName: "ID", width: 90 },
+    { field: "lender", headerName: "Lender", width: 200 },
+    { field: "amount", headerName: "Amount", width: 130 },
+    {
+      field: "balance",
+      headerName: "Balance",
+      width: 130,
+      renderCell: (params) =>
+        params.row.amount -
+        borrowed_repayment_history
+          ?.filter((item) => item.id === params.row.id)
+          ?.reduce((a, b) => a + b.amount, 0),
+    },
+    {
+      field: "settled",
+      headerName: "Settled",
+      width: 130,
+      renderCell: (params) =>
+        borrowed_repayment_history
+          ?.filter((item) => item.id === params.row.id)
+          ?.reduce((a, b) => a + b.amount, 0),
+    },
+    {
+      field: "repayments",
+      headerName: "No. of repayments",
+      width: 130,
+      renderCell: (params) =>
+        borrowed_repayment_history?.filter((item) => item.id === params.row.id)
+          ?.length,
+    },
+    { field: "repayment_date", headerName: "Repayment date", width: 200 },
+  ];
+  const lendColumn = [
+    {
+      field: "action",
+      headerName: "Action",
+      width: 90,
+      renderCell: (params) => (
+        <div className="table-action-container">
+          <IoEyeOutline
+            className="view-more-icon"
+            onClick={() => alert("Good job!")}
+          />
+        </div>
+      ),
+    },
+    { field: "id", headerName: "ID", width: 90 },
+    { field: "borrower", headerName: "Borrower", width: 200 },
+    { field: "amount", headerName: "Amount", width: 130 },
+    {
+      field: "balance",
+      headerName: "Balance",
+      width: 130,
+      renderCell: (params) =>
+        params.row.amount -
+        lend_repayment_history
+          ?.filter((item) => item.id === params.row.id)
+          ?.reduce((a, b) => a + b.amount, 0),
+    },
+    {
+      field: "settled",
+      headerName: "Settled",
+      width: 130,
+      renderCell: (params) =>
+        lend_repayment_history
+          ?.filter((item) => item.id === params.row.id)
+          ?.reduce((a, b) => a + b.amount, 0),
+    },
+    {
+      field: "repayments",
+      headerName: "No. of repayments",
+      width: 130,
+      renderCell: (params) =>
+        lend_repayment_history?.filter((item) => item.id === params.row.id)
+          ?.length,
+    },
+    { field: "repayment_date", headerName: "Repayment date", width: 200 },
   ];
   const expenseColumn = [
     { field: "id", headerName: "ID", width: "80" },
@@ -93,6 +197,15 @@ const useTableData = () => {
       ),
     },
   ];
-  return { savingsColumn, loansColumn, expenseColumn, withdrawalsColumn };
+  return {
+    savingsColumn,
+    expenseColumn,
+    withdrawalsColumn,
+    borrowColumn,
+    lendColumn,
+    toggleBorrowDetails,
+    borrowDetailsToggler,
+    borrowDetails,
+  };
 };
 export default useTableData;

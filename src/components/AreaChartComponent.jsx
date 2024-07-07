@@ -33,10 +33,6 @@ const AreaChartComponent = ({ data }) => {
           <stop offset="5%" stopColor="#728506" stopOpacity={0.8} />
           <stop offset="95%" stopColor="#728506" stopOpacity={0} />
         </linearGradient>
-        <linearGradient id="advance" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="5%" stopColor="#8060f5" stopOpacity={0.8} />
-          <stop offset="95%" stopColor="#8060f5" stopOpacity={0} />
-        </linearGradient>
       </defs>
       <XAxis dataKey="title" />
       <YAxis domain={[0, "auto"]} />
@@ -71,13 +67,6 @@ const AreaChartComponent = ({ data }) => {
         stroke="#fa0f85"
         fillOpacity={1}
         fill="url(#expenses)"
-      />
-      <Area
-        type="monotone"
-        dataKey="total_advance"
-        stroke="#8060f5"
-        fillOpacity={1}
-        fill="url(#advance)"
       />
     </AreaChart>
   );

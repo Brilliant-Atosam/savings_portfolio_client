@@ -12,6 +12,18 @@
   gap: 10px;
   width: 50%;
 }
+.table-action-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.view-more-icon {
+  font-size: 2rem;
+  text-align: center;
+  cursor: pointer;
+}
 .borrowed-table-container,
 .borrowing-chart-container {
   display: flex;

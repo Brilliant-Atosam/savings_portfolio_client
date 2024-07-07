@@ -19,6 +19,7 @@ import AreaChartComponent from "../components/AreaChartComponent";
 import useSave from "../hooks/useSave";
 import Footer from "../components/Footer";
 import moment from "moment";
+import useBorrow from "../hooks/useBorrow";
 const Settings = () => {
   const { user } = useApp();
   const { format_currency, colors, dummy_monthly_data } = Util();
@@ -34,7 +35,6 @@ const Settings = () => {
     total_expenses,
     total_income,
     total_savings,
-    total_advance,
     total_spendable,
     spendable_utilization_percentage,
     savings_efficiency,
@@ -46,6 +46,12 @@ const Settings = () => {
     peak_expenses,
     peak_savings,
   } = useSettings();
+  const {
+    borrowedList,
+    lentList,
+    lend_repayment_history,
+    borrowed_repayment_history,
+  } = useBorrow();
   return (
     <div className="main-container">
       <Topbar />
@@ -178,6 +184,30 @@ const Settings = () => {
             </div>
           </div>
           <div className="summary-container">
+            <div className="chart-container borrowing-chart-container ">
+              <h1 className="debt-text">
+                Monthly Financial Summary Chart: {new Date().getFullYear()}
+              </h1>
+              {
+                <AreaChartComponent
+                  data={
+                    monthly_data.reduce((a, b) => a + b.total_income, 0) > 0 &&
+                    user?.tier !== "premium"
+                      ? dummy_monthly_data
+                      : monthly_data
+                  }
+                />
+              }
+              {savingsList.reduce((a, b) => a + b.saved, 0) > 0 &&
+                user?.tier !== "premium" && (
+                  <h1 className="no-data-text">
+                    This could be your data displayed in the chart above.
+                    <a href="/" className="link">
+                      Learn more
+                    </a>
+                  </h1>
+                )}
+            </div>
             <div className="top-summary-container">
               <h1 className="debt-text">
                 Financial Summary - {new Date().getFullYear()}
@@ -311,37 +341,87 @@ const Settings = () => {
                   </div>
                 </div>
 
-                <div className="key-value-container">
-                  <span className="key">Total Advance balance: </span>
-                  <span className="value">
-                    {format_currency(total_advance)}
-                  </span>
+                <div className="financial-summary">
+                  <div className="financial-summary-category">
+                    <h1 className="financial-summary-category-heading">
+                      Debt & Repayment Category
+                    </h1>
+                    <div className="category-container">
+                      <div className="key-value-container">
+                        <span className="key">Total Amount Borrowed: </span>
+                        <span className="value">
+                          {format_currency(
+                            borrowedList?.reduce(
+                              (a, b) => a + Number(b.amount),
+                              0
+                            )
+                          )}
+                        </span>
+                      </div>
+                      <div className="key-value-container">
+                        <span className="key">Total Repayment: </span>
+                        <span className="value">
+                          {format_currency(
+                            borrowed_repayment_history?.reduce(
+                              (a, b) => a + b.amount,
+                              0
+                            )
+                          )}
+                        </span>
+                      </div>
+                      <div className="key-value-container">
+                        <span className="key">Balance:</span>
+                        <span className="value">
+                          {format_currency(
+                            borrowedList?.reduce(
+                              (a, b) => a + Number(b.amount),
+                              0
+                            ) -
+                              borrowed_repayment_history?.reduce(
+                                (a, b) => a + b.amount,
+                                0
+                              )
+                          )}
+                        </span>
+                      </div>
+                      <div className="key-value-container">
+                        <span className="key">Total Amount lent: </span>
+                        <span className="value">
+                          {format_currency(
+                            lentList?.reduce((a, b) => a + Number(b.amount), 0)
+                          )}
+                        </span>
+                      </div>
+                      <div className="key-value-container">
+                        <span className="key">Total Amount Settled:</span>
+                        <span className="value">
+                          {format_currency(
+                            lend_repayment_history?.reduce(
+                              (a, b) => a + b.amount,
+                              0
+                            )
+                          )}
+                        </span>
+                      </div>
+                      <div className="key-value-container">
+                        <span className="key">Balance:</span>
+                        <span className="value">
+                          {format_currency(
+                            lentList?.reduce(
+                              (a, b) => a + Number(b.amount),
+                              0
+                            ) -
+                              lend_repayment_history?.reduce(
+                                (a, b) => a + b.amount,
+                                0
+                              )
+                          )}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="chart-container">
-              <h1 className="debt-text">
-                Monthly Financial Summary Chart: {new Date().getFullYear()}
-              </h1>
-              {
-                <AreaChartComponent
-                  data={
-                    monthly_data.reduce((a, b) => a + b.total_income, 0) > 0 &&
-                    user?.tier !== "premium"
-                      ? dummy_monthly_data
-                      : monthly_data
-                  }
-                />
-              }
-              {savingsList.reduce((a, b) => a + b.saved, 0) > 0 &&
-                user?.tier !== "premium" && (
-                  <h1 className="no-data-text">
-                    This could be your data displayed in the chart above.
-                    <a href="/" className="link">
-                      Learn more
-                    </a>
-                  </h1>
-                )}
             </div>
           </div>
         </div>

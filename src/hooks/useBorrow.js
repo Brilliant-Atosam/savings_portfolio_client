@@ -11,7 +11,6 @@ const useBorrow = () => {
   const { storeLent, storeBorrowed, months } = Util();
   const context = useApp();
   let user = JSON.parse(window.localStorage.getItem("user"));
-  let loans = JSON.parse(window.localStorage.getItem("loans"));
   const { total_savings } = useSettings();
   const [openBorrowDialog, setOpenBorrowDialog] = useState(false);
   // toggle form
@@ -24,12 +23,27 @@ const useBorrow = () => {
     amount: "",
     id: "",
   });
-
+  // repayments array
+  let borrowed_repayment_history = [];
+  borrowedList?.map((item) =>
+    borrowed_repayment_history.push(...item?.repayment_history)
+  );
+  let lend_repayment_history = [];
+  lentList?.map((item) =>
+    lend_repayment_history.push(...item?.repayment_history)
+  );
+  // console.log(lend_repayment_history);
   const [getSettled, setGetSettled] = useState({
     settled_at: moment().format("DD/MM/YYYY"),
     amount: "",
     id: "",
   });
+  const [borrowDetails, setBorrowDetails] = useState({});
+  const setBorrowDetailsFunc = (data) => setBorrowDetails((prev) => data);
+  const [toggleBorrowDetails, setToggleBorrowDetails] = useState(false);
+  console.log(borrowDetails);
+  console.log(toggleBorrowDetails);
+  const borrowDetailsToggler = () => setToggleBorrowDetails((prev) => !prev);
   const [borrow, setBorrow] = useState({
     user_id: user?.id,
     id: Math.floor(Math.random() * 9999).toString(),
@@ -214,10 +228,22 @@ const useBorrow = () => {
     months?.map((month, index) => {
       let data_object = {
         title: month,
-        total_advance: Number(
-          loans
-            ?.filter((loan) =>
-              loan.createdAt.endsWith(
+        debt: Number(
+          borrowedList
+            ?.filter((borrow) =>
+              borrow.date.endsWith(
+                (index + 1).toString().length === 0
+                  ? `0${index + 1}/${new Date().getFullYear().toString()}`
+                  : `${index + 1}/${new Date().getFullYear().toString()}`
+              )
+            )
+            .reduce((a, b) => a + Number(b.amount), 0)
+            .toFixed(2)
+        ),
+        settlement: Number(
+          borrowed_repayment_history
+            ?.filter((item) =>
+              item.settled_at.endsWith(
                 (index + 1).toString().length === 0
                   ? `0${index + 1}/${new Date().getFullYear().toString()}`
                   : `${index + 1}/${new Date().getFullYear().toString()}`
@@ -232,16 +258,52 @@ const useBorrow = () => {
     });
     return data;
   };
-  const monthly_advance_data = borrow_data();
+  // monthly lend data
+  const lend_data = () => {
+    let data = [];
+    months?.map((month, index) => {
+      let data_object = {
+        title: month,
+        debt: Number(
+          lentList
+            ?.filter((lend) =>
+              lend.date.endsWith(
+                (index + 1).toString().length === 0
+                  ? `0${index + 1}/${new Date().getFullYear().toString()}`
+                  : `${index + 1}/${new Date().getFullYear().toString()}`
+              )
+            )
+            .reduce((a, b) => a + Number(b.amount), 0)
+            .toFixed(2)
+        ),
+        settlement: Number(
+          lend_repayment_history
+            ?.filter((item) =>
+              item.settled_at.endsWith(
+                (index + 1).toString().length === 0
+                  ? `0${index + 1}/${new Date().getFullYear().toString()}`
+                  : `${index + 1}/${new Date().getFullYear().toString()}`
+              )
+            )
+            .reduce((a, b) => a + b.amount, 0)
+            .toFixed(2)
+        ),
+      };
+      data.push(data_object);
+      return data_object;
+    });
+    return data;
+  };
+  const monthly_lent_data = lend_data();
+  const monthly_borrow_data = borrow_data();
   return {
     openBorrowDialog,
-
     handleOpenBorrowDialog,
     borrowMoney,
     handleSettleDialog,
     showSettleDialog,
-
-    monthly_advance_data,
+    monthly_lent_data,
+    monthly_borrow_data,
     type,
     toggleType,
     borrow,
@@ -257,6 +319,15 @@ const useBorrow = () => {
     setGetSettled,
     settleDebt,
     settledDebt,
+    borrowedList,
+    borrowed_repayment_history,
+    lend_repayment_history,
+    lentList,
+    lend_data,
+    setBorrowDetailsFunc,
+    borrowDetails,
+    borrowDetailsToggler,
+    toggleBorrowDetails,
   };
 };
 

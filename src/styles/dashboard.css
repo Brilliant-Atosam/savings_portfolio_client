@@ -14,15 +14,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 40%;
   padding: 12px;
 }
-/* .dashboard-actions-container {
-  display: flex;
-  align-items: center;
-  gap: px;
-  width: 100%;
-} */
 .dashboard-action-btn {
   background: transparent;
   border: 2px solid teal;
@@ -50,15 +44,27 @@
 .portfolio {
   display: flex;
   align-items: center;
+  gap: 5px;
   justify-content: space-between;
 }
 .portfolio-value {
-  font-size: 1rem;
+  font-size: 0.6rem;
 }
 .portfolio-title {
   display: flex;
   align-items: center;
-  margin-bottom: 7px;
+  font-size: 0.6rem;
+}
+.portfolio-details-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.portfolio-title-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 .debt-item-container {
   display: flex;
@@ -71,6 +77,7 @@
 }
 .dashboard-right {
   flex: 3;
+  width: 60%;
   padding: 15px;
   display: flex;
   flex-direction: column;
@@ -83,7 +90,7 @@
   width: 100%;
 }
 .chart-container {
-  width: 100%;
+  max-width: 100%;
   margin-bottom: 10px;
 }
 .quick-chart {

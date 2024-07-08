@@ -146,7 +146,10 @@ const QuickSummary = () => {
                       style={{ fill: colors[index] }}
                       className="portfolio-action-icon"
                       onClick={async () => {
-                        await setNewPortfolio((prev) => ({ ...prev, ...item }));
+                        await setNewPortfolio((prev) => ({
+                          ...prev,
+                          ...item,
+                        }));
                         await handleUpdatePortfolioDialog();
                       }}
                     />
@@ -157,25 +160,31 @@ const QuickSummary = () => {
                       }}
                       className="portfolio-action-icon"
                     />
-                    <span
-                      style={{ color: `${colors[index]}` }}
-                      className="portfolio-title"
-                    >
-                      {item?.title}({item?.percentage}%)
-                    </span>
-                    {Number(item?.goal) <= item?.amount && (
-                      <EmojiEventsOutlined className="achieved" />
-                    )}
-                    {moment(new Date(), "DD/MM/YYYY").isAfter(
-                      moment(item?.deadline, "DD/MM/YYYY")
-                    ) && <HourglassBottomOutlined className="achieved" />}
                   </div>
-                  <span
-                    className="portfolio-value"
-                    style={{ color: [colors[index]] }}
-                  >
-                    {format_currency(item?.amount)}
-                  </span>
+                  <div className="portfolio-details-container">
+                    <div className="portfolio-title-container">
+                      <span
+                        style={{ color: `${colors[index]}` }}
+                        className="portfolio-title"
+                      >
+                        {item?.title}({item?.percentage}%)
+                      </span>
+                      <div className="archived-details">
+                        {Number(item?.goal) <= item?.amount && (
+                          <EmojiEventsOutlined className="achieved" />
+                        )}
+                        {moment(new Date(), "DD/MM/YYYY").isAfter(
+                          moment(item?.deadline, "DD/MM/YYYY")
+                        ) && <HourglassBottomOutlined className="achieved" />}
+                      </div>
+                    </div>
+                    <span
+                      className="portfolio-value"
+                      style={{ color: [colors[index]] }}
+                    >
+                      {format_currency(item?.amount)}
+                    </span>
+                  </div>
                 </div>
               ))
           ) : (

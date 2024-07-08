@@ -24,16 +24,7 @@
   text-align: center;
   cursor: pointer;
 }
-.borrowed-table-container,
-.borrowing-chart-container {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  max-width: 100%;
-}
-.borrowing-chart-container {
-  overflow-x: scroll;
-}
+
 th {
   background: teal;
   color: white;

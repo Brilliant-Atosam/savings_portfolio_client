@@ -35,7 +35,7 @@ const Dashboard = () => {
           <h1 className="debt-text">
             Monthly Financial Summary Chart: {new Date().getFullYear()}
           </h1>
-          <div className="chart-container">
+          <div className="chart-container borrowing-chart-container">
             {
               <AreaChartComponents
                 data={

@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import Util from "../utils/util";
-const BorrowDetails = ({ open, toggler, data }) => {
+const BorrowDetails = ({ open, toggler, data, type }) => {
   const { format_currency } = Util();
   return (
     <Dialog open={open} className="dialog-container">
@@ -30,8 +30,12 @@ const BorrowDetails = ({ open, toggler, data }) => {
             <span className="info-value">{data?.reason}</span>
           </div>
           <div className="key-value-container">
-            <span className="info-key">Lender:</span>
-            <span className="info-value">{data?.lender}</span>
+            <span className="info-key">
+              {data?.type === "borrow" ? `Lender` : `Borrower`}:
+            </span>
+            <span className="info-value">
+              {data?.type === "borrow" ? data?.lender : data?.borrower}
+            </span>
           </div>
           <div className="key-value-container">
             <span className="info-key">Amount Settled:</span>

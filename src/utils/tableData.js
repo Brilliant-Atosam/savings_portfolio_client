@@ -11,6 +11,7 @@ const useTableData = () => {
   const { deleteExpenses } = useExpenses();
   const { deleteIncome } = useSave();
   const [borrowDetails, setBorrowDetails] = useState({});
+
   const setBorrowDetailsFunc = (data) =>
     setBorrowDetails((prev) => ({
       ...data,
@@ -74,7 +75,7 @@ const useTableData = () => {
           <IoEyeOutline
             className="view-more-icon"
             onClick={() => {
-              setBorrowDetailsFunc(params.row);
+              setBorrowDetailsFunc({ ...params.row, type: "borrow" });
               borrowDetailsToggler();
             }}
           />
@@ -122,7 +123,10 @@ const useTableData = () => {
         <div className="table-action-container">
           <IoEyeOutline
             className="view-more-icon"
-            onClick={() => alert("Good job!")}
+            onClick={() => {
+              setBorrowDetailsFunc({ ...params.row, type: "lend" });
+              borrowDetailsToggler();
+            }}
           />
         </div>
       ),

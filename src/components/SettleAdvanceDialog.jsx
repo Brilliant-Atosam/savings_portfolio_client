@@ -23,7 +23,6 @@ const SettleAdvanceDialog = ({ open, toggleDialog }) => {
     settleDebt,
     settledDebt,
   } = useBorrow();
-  console.log(getSettled);
   return (
     <Dialog open={open}>
       <ToggleButtonGroup

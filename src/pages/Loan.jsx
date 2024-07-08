@@ -1,5 +1,4 @@
 import "../styles/loan.css";
-// import "../styles/dashboard.css";
 import Topbar from "../components/Topbar";
 import Table from "../components/Table";
 import useTableData from "../utils/tableData";
@@ -25,8 +24,6 @@ const Loan = () => {
     lend_repayment_history,
     monthly_lent_data,
     monthly_borrow_data,
-    // toggleBorrowDetails,
-    // borrowDetailsToggler,
   } = useBorrow();
   const { format_currency } = Util();
   const {
@@ -36,7 +33,6 @@ const Loan = () => {
     borrowDetailsToggler,
     borrowDetails,
   } = useTableData();
-  console.log(borrowDetails);
   return (
     <div className="main-container">
       <Topbar />

@@ -5,7 +5,7 @@ const NotificationItem = ({ title, read }) => {
   const { months } = Util();
   return (
     <Link
-      to={`/highlights?month=${title}`}
+      to={`/highlights/month?month=${title}`}
       className={
         read
           ? "read notification-item-container"

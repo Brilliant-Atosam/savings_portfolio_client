@@ -36,10 +36,7 @@ const Util = () => {
   const storeSavings = (data) => {
     window.localStorage.setItem("savings", JSON.stringify(data));
   };
-  // store loans
-  const storeLoan = (data) => {
-    window.localStorage.setItem("loans", JSON.stringify(data));
-  };
+
   const storeLent = (data) => {
     window.localStorage.setItem("lent", JSON.stringify(data));
   };
@@ -277,7 +274,6 @@ const Util = () => {
     setConfirmData,
     setFeedback,
     colors,
-    storeLoan,
     categories,
     storeExpenses,
     months,

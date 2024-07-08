@@ -17,7 +17,6 @@ const useAccount = () => {
   const {
     storeUser,
     storeSavings,
-    storeLoan,
     storeExpenses,
     storeBorrowed,
     storeLent,
@@ -54,9 +53,6 @@ const useAccount = () => {
             access_token: `Bearer ${res.data.access_token}`,
           },
         });
-        const loans = await request.get(`/loan?userId=${res.data.id}`, {
-          headers: { access_token: `Bearer ${res.data.access_token}` },
-        });
         const borrowed = await request.get(
           `/loan/borrowed?userId=${res.data.id}`,
           {
@@ -71,7 +67,6 @@ const useAccount = () => {
           headers: { access_token: `Bearer ${res.data.access_token}` },
         });
         storeSavings(savingsRes.data);
-        storeLoan(loans.data);
         storeBorrowed(borrowed.data);
         storeLent(lent.data);
         storeExpenses(expenses.data);

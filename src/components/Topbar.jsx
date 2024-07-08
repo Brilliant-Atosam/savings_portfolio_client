@@ -30,7 +30,7 @@ const Topbar = () => {
             size={22}
             onClick={handlePortfolioDialog}
           />
-          <Link className="notifications" to="/notifications">
+          <Link className="notifications" to="/highlights">
             <IoMdNotifications className="notifications-icon" />
             <span className="badge"></span>
           </Link>
@@ -43,13 +43,13 @@ const Topbar = () => {
             Home
           </Link>
           <Link to="/expenses" className="menu-item">
-            Expenses
+            Expenses Tracker
           </Link>
-          <Link to="/loan" className="menu-item">
-            Loan
+          <Link to="/debt" className="menu-item">
+            Debt Tracker
           </Link>
-          <Link to="/notifications" className="menu-item">
-            Notifications
+          <Link to="/highlights" className="menu-item">
+            Highlights
           </Link>
           <Link to="/settings" className="menu-item">
             Account Info & Settings

@@ -131,7 +131,7 @@ function App() {
             }
           />
           <Route
-            path="/loan"
+            path="/debt"
             element={
               user ? (
                 <Suspense fallback={<FallbackComponent />}>
@@ -143,7 +143,8 @@ function App() {
             }
           />
           <Route
-            path="/notifications"
+            path="/highlights"
+            exact
             element={
               user ? (
                 <Suspense fallback={<FallbackComponent />}>
@@ -155,7 +156,8 @@ function App() {
             }
           />
           <Route
-            path="/highlights"
+            path="/highlights/month"
+            exact
             element={
               user ? (
                 <Suspense fallback={<FallbackComponent />}>

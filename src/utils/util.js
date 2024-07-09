@@ -70,6 +70,7 @@ const Util = () => {
     "Salary/Wages/Allowance",
     "Profits/Self-employment",
     "Side Jobs/Freelance",
+    "Business Revenue",
     "Interest/dividends/capital gain",
     "Rental",
     "Royalties",

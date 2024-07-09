@@ -94,13 +94,13 @@ footer a {
   justify-content: center;
 }
 .finance-info-key {
-  font-size: 0.5rem;
+  font-size: 0.8em;
   color: #6d7171;
 }
 .finance-info-value {
   color: teal;
   font-weight: 600;
-  font-size: 0.5rem;
+  font-size: 0.8rem;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
@@ -271,7 +271,7 @@ footer a {
 .portfolio-action-icon {
   cursor: pointer;
   justify-self: center;
-  font-size: 0.6rem !important;
+  font-size: 0.8em !important;
 }
 .achieved {
   fill: #ff0077 !important;

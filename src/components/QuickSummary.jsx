@@ -84,7 +84,7 @@ const QuickSummary = () => {
             <span className="finance-info-value">{savings_efficiency}%</span>
           </div>
         </div>
-        <div className="chart-container quick-chart">
+        <div className="quick-chart">
           {structuredPortfolio
             ?.filter((item) => !item.archived)
             .reduce((a, b) => a + b.amount, 0) > 0 ? (

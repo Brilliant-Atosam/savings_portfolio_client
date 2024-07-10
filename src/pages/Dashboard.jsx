@@ -12,12 +12,19 @@ import { FaHandHoldingDollar } from "react-icons/fa6";
 import Save from "../components/Save";
 import Footer from "../components/Footer";
 import Subscription from "../components/Subscription";
+import Feedback from "../components/Feedback";
 // import Subscription from "../components/Subscription";
 const Dashboard = () => {
-  const { handleSave, handleSaveDialog, showSaveDialog } = useSave();
+  const {
+    handleSave,
+    handleSaveDialog,
+    showSaveDialog,
+    monthly_data,
+    snackbar,
+    handleSnackbar,
+  } = useSave();
   const { savingsColumn } = useTableData();
   let { savingsList, loading } = useApp();
-  const { monthly_data } = useSave();
   const { user, dummy_monthly_data } = Util();
   return (
     <div className="main-container">
@@ -66,6 +73,10 @@ const Dashboard = () => {
           <FaHandHoldingDollar className="add-expenses-btn" />
         </div>
       </div>
+      <Feedback
+        snackbar={snackbar}
+        toggler={() => handleSnackbar("", "info")}
+      />
       <Footer />
     </div>
   );

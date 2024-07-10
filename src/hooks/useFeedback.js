@@ -6,7 +6,6 @@ const useFeedback = () => {
     feedback: "",
     severity: "info",
   });
-
   const handleSnackbar = (feedback, severity) => {
     setSnackbar((prev) => ({ ...prev, feedback, severity, open: !prev.open }));
   };

@@ -4,6 +4,7 @@ import request from "../utils/request";
 import { useState } from "react";
 import moment from "moment";
 import { useLocation, useNavigate } from "react-router-dom";
+import useFeedback from "./useFeedback";
 const useAccount = () => {
   // regular expressions
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -14,14 +15,10 @@ const useAccount = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const reset_code = new URLSearchParams(location.search).get("reset_code");
-  const {
-    storeUser,
-    storeSavings,
-    storeExpenses,
-    storeBorrowed,
-    storeLent,
-  } = Util();
-  const { handleSnackbar, handleLoader } = useApp();
+  const { storeUser, storeSavings, storeExpenses, storeBorrowed, storeLent } =
+    Util();
+  const { handleLoader } = useApp();
+  const { handleSnackbar, snackbar } = useFeedback();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -79,7 +76,7 @@ const useAccount = () => {
         );
       }
     handleLoader();
-    handleSnackbar("", "info");
+    // handleSnackbar("", "info");
   };
   // logout
   const handleLogout = () => {
@@ -157,6 +154,8 @@ const useAccount = () => {
     setPassword2,
     newUser,
     setNewUser,
+    snackbar,
+    handleSnackbar,
   };
 };
 

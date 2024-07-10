@@ -3,6 +3,7 @@ import moment from "moment";
 import { useState } from "react";
 import Util from "../utils/util";
 import request from "../utils/request";
+import useSave from "./useSave";
 const usePortfolio = () => {
   const { storeUser, setConfirmData } = Util();
   const context = useApp();
@@ -12,6 +13,7 @@ const usePortfolio = () => {
     useState(false);
   const [portfolio, setPortfolio] = useState(null);
   const handleSetPortfolio = (data) => setPortfolio(data);
+  const { snackbar, handleSnackbar } = useSave();
   const [newPortfolio, setNewPortfolio] = useState({
     title: "",
     reason: "",
@@ -34,7 +36,7 @@ const usePortfolio = () => {
   // add new portfolio
 
   const addPortfolio = async (newPortfolio) => {
-    context.handleLoader();
+    context?.handleLoader();
     if (
       !newPortfolio.title ||
       !newPortfolio.reason ||
@@ -43,17 +45,14 @@ const usePortfolio = () => {
       !newPortfolio.deadline ||
       newPortfolio.percentage > 100
     ) {
-      context?.handleSnackbar("Provide value for all fields", "warning");
+      handleSnackbar("Provide value for all fields", "warning");
     } else if (
       Number(user?.total_percentage) + Number(newPortfolio.percentage) >
       100
     ) {
-      context?.handleSnackbar(
-        "You cannot save more than you earned!",
-        "warning"
-      );
+      handleSnackbar("You cannot save more than you earned!", "warning");
     } else if (user?.tier !== "premium" && user?.portfolio.length >= 3) {
-      context?.handleSnackbar(
+      handleSnackbar(
         "Basic tier users cannot have more than 3 portfolios. Upgrade to premium to enjoy premium features",
         "warning"
       );
@@ -63,7 +62,7 @@ const usePortfolio = () => {
           portfolio.title.toLowerCase() === newPortfolio.title.toLowerCase()
       );
       if (portfolio) {
-        context?.handleSnackbar("Savings portfolio already exist", "warning");
+        handleSnackbar("Savings portfolio already exist", "warning");
       } else {
         try {
           const response = await request.put(
@@ -81,7 +80,7 @@ const usePortfolio = () => {
             total_percentage:
               Number(user.total_percentage) + Number(newPortfolio.percentage),
           });
-          context?.handleSnackbar(response.data, "success");
+          handleSnackbar(response.data, "success");
           context?.handlePortfolioDialog();
           setNewPortfolio({
             title: "",
@@ -94,7 +93,7 @@ const usePortfolio = () => {
           });
           // window.location.reload();
         } catch (err) {
-          context?.handleSnackbar(
+          handleSnackbar(
             err.response ? err.response.data : "Network error",
             "error"
           );
@@ -137,11 +136,11 @@ const usePortfolio = () => {
           headers: { access_token: `Bearer ${user.access_token}` },
         }
       );
-      context?.handleSnackbar(res.data, "success");
+      handleSnackbar(res.data, "success");
       storeUser(user);
       context.setConfirmData((prev) => ({ ...prev, open: false }));
     } catch (err) {
-      context?.handleSnackbar(
+      handleSnackbar(
         err.response ? err.response.data : "Network error",
         "error"
       );
@@ -161,7 +160,7 @@ const usePortfolio = () => {
       !newPortfolio.deadline ||
       newPortfolio.percentage > 100
     ) {
-      context?.handleSnackbar("Provide value for all fields", "warning");
+      handleSnackbar("Provide value for all fields", "warning");
     } else {
       let { portfolio } = user;
       const index = portfolio.findIndex((item) => item.id === newPortfolio.id);
@@ -176,7 +175,7 @@ const usePortfolio = () => {
           }
         );
         handleUpdatePortfolioDialog();
-        context?.handleSnackbar(res.data, "success");
+        handleSnackbar(res.data, "success");
         storeUser(user);
       } catch (err) {
         context?.handleSnackbar(
@@ -203,6 +202,8 @@ const usePortfolio = () => {
     handle_toggle_portfolio_info,
     portfolio,
     handleSetPortfolio,
+    snackbar,
+    handleSnackbar,
   };
 };
 

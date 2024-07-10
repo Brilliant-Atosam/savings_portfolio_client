@@ -4,9 +4,11 @@ import useApp from "../useApp";
 import { CircularProgress } from "@mui/material";
 import Navbar from "../components/Navbar";
 import Util from "../utils/util";
+import Feedback from "../components/Feedback";
 const Create = () => {
   const { loading } = useApp();
-  const { register, newUser, setNewUser } = useAccount();
+  const { register, newUser, setNewUser, snackbar, handleSnackbar } =
+    useAccount();
   const { currencies } = Util();
   return (
     <div className="main-container">
@@ -81,6 +83,10 @@ const Create = () => {
           {loading && <CircularProgress color="primary" />}
         </div>
       </div>
+      <Feedback
+        snackbar={snackbar}
+        toggler={() => handleSnackbar("", "info")}
+      />
     </div>
   );
 };

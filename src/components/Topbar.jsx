@@ -7,9 +7,15 @@ import { BsDatabaseFillAdd } from "react-icons/bs";
 import usePortfolio from "../hooks/usePortfolio";
 import AddPortfolioDialog from "./AddPortfolioDialog";
 import { IoMdNotifications } from "react-icons/io";
+import Feedback from "./Feedback";
 const Topbar = () => {
-  const { handlePortfolioDialog, showPortfolioDialog, addPortfolio } =
-    usePortfolio();
+  const {
+    handlePortfolioDialog,
+    showPortfolioDialog,
+    addPortfolio,
+    snackbar,
+    handleSnackbar,
+  } = usePortfolio();
   const { handleLogout } = useAccount();
   const [showMenu, setShowMenu] = useState(false);
   return (
@@ -70,6 +76,7 @@ const Topbar = () => {
         close={handlePortfolioDialog}
         action={addPortfolio}
       />
+      <Feedback snackbar={snackbar} toggler={()=>handleSnackbar('', 'info')} />
     </>
   );
 };

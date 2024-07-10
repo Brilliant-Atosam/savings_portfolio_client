@@ -21,6 +21,7 @@ import Save from "./Save";
 import AddPortfolioDialog from "./AddPortfolioDialog";
 import useSettings from "../hooks/useSettings";
 import Subscription from "./Subscription";
+import Feedback from "./Feedback";
 const QuickSummary = () => {
   const { user, setConfirmData, colors, savingsList } = useApp();
   const { total_savings, savings_efficiency, actual_savings } = useSettings();
@@ -40,8 +41,14 @@ const QuickSummary = () => {
     // handlePortfolioDialog,
     addPortfolio,
   } = usePortfolio();
-  const { structuredPortfolio, handleSaveDialog, showSaveDialog, handleSave } =
-    useSave();
+  const {
+    structuredPortfolio,
+    handleSaveDialog,
+    showSaveDialog,
+    handleSave,
+    snackbar,
+    handleSnackbar,
+  } = useSave();
   return (
     <>
       <AddPortfolioDialog
@@ -240,6 +247,10 @@ const QuickSummary = () => {
             <h1 className="no-data-text">You have no archived portfolio.</h1>
           )}
         </div>
+        <Feedback
+          snackbar={snackbar}
+          toggler={() => handleSnackbar("", "info")}
+        />
       </div>
     </>
   );

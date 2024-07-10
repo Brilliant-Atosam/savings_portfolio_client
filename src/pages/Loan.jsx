@@ -178,7 +178,7 @@ const Loan = () => {
           <RiRefund2Fill className="add-expenses-btn" />
         </div>
       </div>
-      {user?.tier === "premium" && <Overlay />}
+      {user?.tier !== "premium" && <Overlay />}
       <Footer />
     </div>
   );

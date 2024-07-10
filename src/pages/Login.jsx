@@ -5,8 +5,18 @@ import { CircularProgress } from "@mui/material";
 import useApp from "../useApp";
 import logo from "../logo1.png";
 import Navbar from "../components/Navbar";
+import Feedback from "../components/Feedback";
 const Login = () => {
-  const { login, setEmail, setPassword, email, password } = useAccount();
+  const {
+    login,
+    setEmail,
+    setPassword,
+    email,
+    password,
+    snackbar,
+    handleSnackbar,
+  } = useAccount();
+  console.log(snackbar);
   let { loading } = useApp();
   return (
     <div className="main-container">
@@ -45,6 +55,10 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <Feedback
+        snackbar={snackbar}
+        toggler={() => handleSnackbar("", "info")}
+      />
     </div>
   );
 };

@@ -4,13 +4,12 @@ import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import FallbackComponent from "./components/FallbackComponent";
 import useApp from "./useApp";
-import Feedback from "./components/Feedback";
 import ConfirmDialog from "./components/ConfirmDialog";
 import usePortfolio from "./hooks/usePortfolio";
 import GoPremium from "./components/GoPremium";
 import usePaystack from "./hooks/usePaystack";
 function App() {
-  const { user, handleSnackbar, snackbar, confirmData } = useApp();
+  const { user, confirmData } = useApp();
   const { openSubscribeDialog, toggleSubscribeDialog } = usePaystack();
   const { deletePortfolio } = usePortfolio();
   const Login = lazy(() => import("./pages/Login"));
@@ -34,12 +33,13 @@ function App() {
     <>
       <GoPremium open={openSubscribeDialog} action={toggleSubscribeDialog} />
       <ConfirmDialog action={deletePortfolio} open={confirmData.open} />
-      <Feedback
-        open={snackbar.open}
-        message={snackbar.feedback}
-        severity={snackbar.severity}
-        close={() => handleSnackbar("", "info")}
-      />
+      {/* <Feedback
+        snackbar={snackbar}
+        // open={snackbar.open}
+        // message={snackbar.feedback}
+        // severity={snackbar.severity}
+        // close={() => handleSnackbar("", "info")}
+      /> */}
       <BrowserRouter>
         <Routes>
           <Route

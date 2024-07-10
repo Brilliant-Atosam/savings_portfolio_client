@@ -4,9 +4,11 @@ import useApp from "../useApp";
 import request from "../utils/request";
 import Util from "../utils/util";
 import { useLocation } from "react-router-dom";
+import useFeedback from "./useFeedback";
 
 const useExpenses = () => {
   let savingsList = JSON.parse(window.localStorage.getItem("savings")) || [];
+  const { handleSnackbar, snackbar } = useFeedback();
   const location = useLocation();
   const query = new URLSearchParams(location.search).get("index");
   const context = useApp();
@@ -37,7 +39,7 @@ const useExpenses = () => {
       expenses.unit_price < 0.1 ||
       !expenses.category
     ) {
-      context?.handleSnackbar("Provide valid inputs", "warning");
+      handleSnackbar("Provide valid inputs", "warning");
     } else {
       try {
         const res = await request.post("/expenses", expenses, {
@@ -45,7 +47,7 @@ const useExpenses = () => {
             access_token: `Bearer ${user.access_token}`,
           },
         });
-        context?.handleSnackbar(res.data, "success");
+        handleSnackbar(res.data, "success");
         user = {
           ...user,
           total_expenses: user.total_expenses + expenses.total_cost,
@@ -64,10 +66,7 @@ const useExpenses = () => {
         });
         toggleExpensesDialog();
       } catch (err) {
-        context?.handleSnackbar(
-          err.response ? err.response.data : err.message,
-          "error"
-        );
+        handleSnackbar(err.response ? err.response.data : err.message, "error");
       }
     }
     context?.handleLoader();
@@ -82,12 +81,9 @@ const useExpenses = () => {
         },
       });
       storeExpenses(expensesList);
-      context?.handleSnackbar(res.data, "success");
+      handleSnackbar(res.data, "success");
     } catch (err) {
-      context?.handleSnackbar(
-        err.response ? err.response.data : err.message,
-        "error"
-      );
+      handleSnackbar(err.response ? err.response.data : err.message, "error");
     }
     context?.handleLoader();
   };
@@ -153,6 +149,8 @@ const useExpenses = () => {
     monthly_expenses_data,
     query,
     deleteExpenses,
+    handleSnackbar,
+    snackbar,
   };
 };
 

@@ -3,8 +3,10 @@ import Util from "../utils/util";
 import useApp from "../useApp";
 import request from "../utils/request";
 import moment from "moment";
+import useFeedback from "./useFeedback";
 const useSave = () => {
   const { storeUser, storeSavings, months } = Util();
+  const { snackbar, handleSnackbar } = useFeedback();
   const context = useApp();
   let user = JSON.parse(window.localStorage.getItem("user"));
   let expensesList = JSON.parse(localStorage.getItem("expenses"));
@@ -41,7 +43,7 @@ const useSave = () => {
       ).toFixed(2)
     ),
   }));
- 
+
   // delete income
   const deleteIncome = async (id) => {
     context.handleLoader();
@@ -52,10 +54,10 @@ const useSave = () => {
           access_token: `Bearer ${user?.access_token}`,
         },
       });
-      context?.handleSnackbar(res?.data, "success");
+      handleSnackbar(res?.data, "success");
       storeSavings(savingsList);
     } catch (err) {
-      context?.handleSnackbar(
+      handleSnackbar(
         err.response ? err.response.data : "Network error!",
         "error"
       );
@@ -66,32 +68,29 @@ const useSave = () => {
   const handleSave = async (savings) => {
     context.handleLoader();
     if (!savings.amount || !savings.source) {
-      context?.handleSnackbar(
-        "Please provide valid info for all fields.",
-        "warning"
-      );
+      handleSnackbar("Please provide valid info for all fields.", "warning");
       context.handleLoader();
     } else {
       const { details } = savings;
-      let { portfolio } = user;
-      const updatedPortfolio = portfolio
-        .filter((item) => !item.archived)
-        .map((item, index) => {
-          if (Number(item.goal) >= item.amount) {
-            return { ...item, amount: item.amount + details[index].amount };
-          }
-          return item;
-        });
+      // let { portfolio } = user;
+      // const updatedPortfolio = portfolio
+      //   .filter((item) => !item.archived)
+      //   .map((item, index) => {
+      //     if (Number(item.goal) >= item.amount) {
+      //       return { ...item, amount: item.amount + details[index].amount };
+      //     }
+      //     return item;
+      //   });
       const source_exists = user.sources_of_income?.find(
         (source) => source.toLowerCase() === savings.source.toLowerCase()
       );
       user = {
         ...user,
-        total_income: user.total_income + Number(savings.amount),
-        portfolio: updatedPortfolio,
-        total_amount_saved: (
-          Number(user.total_amount_saved) + savings?.saved
-        ).toFixed(2),
+        // total_income: user.total_income + Number(savings.amount),
+        // portfolio: updatedPortfolio,
+        // total_amount_saved: (
+        //   Number(user.total_amount_saved) + savings?.saved
+        // ).toFixed(2),
         sources_of_income: user.sources_of_income || [],
       };
       !source_exists && user.sources_of_income.push(savings.source);
@@ -108,7 +107,7 @@ const useSave = () => {
         storeSavings([savings, ...savingsList]);
         storeUser(user);
         handleSaveDialog();
-        context?.handleSnackbar(res?.data, "success");
+        handleSnackbar(res?.data, "success");
         setSavings({
           source: "",
           amount: "",
@@ -118,7 +117,7 @@ const useSave = () => {
           details,
         });
       } catch (err) {
-        context?.handleSnackbar(
+        handleSnackbar(
           err.response ? err.response.data : "Network error!",
           "error"
         );
@@ -217,6 +216,8 @@ const useSave = () => {
     structuredPortfolio,
     spendable_percentage,
     user,
+    snackbar,
+    handleSnackbar,
   };
 };
 

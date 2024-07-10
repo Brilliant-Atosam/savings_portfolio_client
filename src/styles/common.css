@@ -224,6 +224,17 @@ footer a {
   width: 100%;
   padding-top: 1px;
 }
+.login-input {
+  width: 100%;
+  background: transparent;
+  /* max-width: 400px; */
+  height: 35px;
+  min-width: 350px;
+  border-radius: 5px;
+  outline: 1.5px solid teal;
+  padding: 5px 10px;
+  border: 1px solid lightgrey;
+}
 .dialog-close-btn {
   height: 35px;
   border: 2px solid teal;
@@ -433,6 +444,9 @@ footer a {
   .portfolio-info-container {
     width: 100%;
     min-width: 80vw;
+  }
+  .login-input {
+    min-width: 100%;
   }
 }
 @media (max-width: 400px) {

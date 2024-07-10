@@ -12,6 +12,7 @@ import useApp from "../useApp";
 import { CircularProgress } from "@mui/material";
 import useSettings from "../hooks/useSettings";
 import Footer from "../components/Footer";
+import Feedback from "../components/Feedback";
 const Expenses = () => {
   const { expenseColumn } = useTableData();
   const { loading } = useApp();
@@ -23,6 +24,8 @@ const Expenses = () => {
     toggleExpensesDialog,
     data,
     monthly_expenses_data,
+    handleSnackbar,
+    snackbar,
   } = useExpenses();
   const { total_expenses, total_spendable, spendable_utilization_percentage } =
     useSettings();
@@ -118,6 +121,10 @@ const Expenses = () => {
           <GiExpense className="add-expenses-btn" />
         </div>
       </div>
+      <Feedback
+        snackbar={snackbar}
+        toggler={() => handleSnackbar("", "info")}
+      />
       <Footer />
     </div>
   );

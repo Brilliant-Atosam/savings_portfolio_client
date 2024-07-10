@@ -130,7 +130,7 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
           <button className="dialog-close-btn" onClick={handleSaveDialog}>
             Close
           </button>
-          <Subscription />
+          {user?.tier !== "premium" && <Subscription />}
         </div>
       </DialogContent>
       <div className="loading-container">

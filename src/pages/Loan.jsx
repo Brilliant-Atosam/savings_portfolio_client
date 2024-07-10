@@ -11,7 +11,10 @@ import SettleAdvanceDialog from "../components/SettleAdvanceDialog";
 import Footer from "../components/Footer";
 import Util from "../utils/util";
 import BorrowDetails from "../components/BorrowDetails";
+import useApp from "../useApp";
+import Overlay from "../components/Overlay";
 const Loan = () => {
+  const { user } = useApp();
   const {
     openBorrowDialog,
     handleOpenBorrowDialog,
@@ -175,6 +178,7 @@ const Loan = () => {
           <RiRefund2Fill className="add-expenses-btn" />
         </div>
       </div>
+      {user?.tier === "premium" && <Overlay />}
       <Footer />
     </div>
   );

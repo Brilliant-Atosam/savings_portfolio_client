@@ -20,6 +20,7 @@ import useSave from "../hooks/useSave";
 import Footer from "../components/Footer";
 import moment from "moment";
 import useBorrow from "../hooks/useBorrow";
+import Overlay from "../components/Overlay";
 const Settings = () => {
   const { user } = useApp();
   const { format_currency, colors, dummy_monthly_data } = Util();
@@ -440,6 +441,7 @@ const Settings = () => {
           <TbLockCog className="add-expenses-btn" />
         </div>
       </div>
+      {user?.tier !== "premium" && <Overlay />}
       <Footer />
     </div>
   );

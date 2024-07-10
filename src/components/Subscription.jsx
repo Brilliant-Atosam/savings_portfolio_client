@@ -4,7 +4,7 @@ const Subscription = () => {
   const { config, onClose, onSuccess } = usePaystack();
   const buttonProps = {
     ...config,
-    text: "go premium",
+    text: "Go Premium Now",
     onSuccess,
     onClose,
   };

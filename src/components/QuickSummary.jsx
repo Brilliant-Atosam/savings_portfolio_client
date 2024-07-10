@@ -20,6 +20,7 @@ import PortfolioInfo from "./PortfolioInfo";
 import Save from "./Save";
 import AddPortfolioDialog from "./AddPortfolioDialog";
 import useSettings from "../hooks/useSettings";
+import Subscription from "./Subscription";
 const QuickSummary = () => {
   const { user, setConfirmData, colors, savingsList } = useApp();
   const { total_savings, savings_efficiency, actual_savings } = useSettings();
@@ -112,20 +113,21 @@ const QuickSummary = () => {
           )}
           {savingsList?.reduce((a, b) => a + b.saved, 0) > 0 &&
             user?.tier !== "premium" && (
-              <h1 className="no-data-text">
-                This could be your data displayed in the chart above.
-                <a href="/" className="link">
-                  Learn more
-                </a>
-              </h1>
+              <>
+                <h1 className="no-data-text">
+                  This could be your data displayed in the chart above if you
+                  were subscribed to the premium version.
+                </h1>
+                <Subscription />
+              </>
             )}
         </div>
 
         <div className="savings-portfolios-container">
           <h1 className="debt-text">Active savings portfolio</h1>
-          {structuredPortfolio.filter((item) => !item.archived).length > 0 ? (
+          {structuredPortfolio?.filter((item) => !item.archived).length > 0 ? (
             structuredPortfolio
-              .filter((item) => !item.archived)
+              ?.filter((item) => !item.archived)
               ?.map((item, index) => (
                 <div className="portfolio" key={index}>
                   <div className="portfolio-action-container">

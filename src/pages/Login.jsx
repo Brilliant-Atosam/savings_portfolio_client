@@ -16,7 +16,6 @@ const Login = () => {
     snackbar,
     handleSnackbar,
   } = useAccount();
-  console.log(snackbar);
   let { loading } = useApp();
   return (
     <div className="main-container">

@@ -227,7 +227,6 @@ footer a {
 .login-input {
   width: 100%;
   background: transparent;
-  /* max-width: 400px; */
   height: 35px;
   min-width: 350px;
   border-radius: 5px;
@@ -473,9 +472,16 @@ footer a {
     height: 150px;
   }
   .info-container {
-    height: 70%;
+    height: 78%;
   }
-  .finance-info-key {
+  .finance-info-key,
+  .finance-info-value {
     font-size: 0.6rem;
+  }
+
+}
+@media (max-width: 340px) {
+  .info-container {
+    height: 70%;
   }
 }

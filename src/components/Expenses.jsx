@@ -130,10 +130,7 @@ const ExpensesDialog = ({ open, toggle }) => {
           {loading && <CircularProgress color="primary" />}
         </div>
       </Dialog>
-      <Feedback
-        snackbar={snackbar}
-        toggler={() => handleSnackbar("", "info")}
-      />
+      
     </>
   );
 };

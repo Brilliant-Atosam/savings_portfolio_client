@@ -76,7 +76,10 @@ const Topbar = () => {
         close={handlePortfolioDialog}
         action={addPortfolio}
       />
-      <Feedback snackbar={snackbar} toggler={()=>handleSnackbar('', 'info')} />
+      <Feedback
+        snackbar={snackbar}
+        toggler={() => handleSnackbar("", "info")}
+      />
     </>
   );
 };

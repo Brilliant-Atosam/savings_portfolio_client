@@ -8,7 +8,16 @@ import {
 } from "@mui/material";
 import useApp from "../useApp";
 import useBorrow from "../hooks/useBorrow";
-const SettleAdvanceDialog = ({ open, toggleDialog }) => {
+const SettleAdvanceDialog = ({
+  open,
+  toggleDialog,
+  settledDebt,
+  getSettled,
+  settleDebt,
+  settle,
+  setSettle,
+  setGetSettled,
+}) => {
   const { loading } = useApp();
   const borrowedList =
     JSON.parse(window.localStorage.getItem("borrowed")) || [];
@@ -16,12 +25,6 @@ const SettleAdvanceDialog = ({ open, toggleDialog }) => {
   const {
     settleType,
     toggleSettleType,
-    settle,
-    setSettle,
-    setGetSettled,
-    getSettled,
-    settleDebt,
-    settledDebt,
   } = useBorrow();
   return (
     <Dialog open={open}>
@@ -48,10 +51,8 @@ const SettleAdvanceDialog = ({ open, toggleDialog }) => {
               : "Who is settling you?"}
           </label>
           <select
-            // type="text"
             placeholder="e.g. Jon Snow"
             className="login-input"
-            // value={settleDetails?.amount}
             onChange={(e) =>
               settleType === "settle"
                 ? setSettle((prev) => ({ ...prev, id: e.target.value }))

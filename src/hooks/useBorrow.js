@@ -4,6 +4,7 @@ import request from "../utils/request";
 import Util from "../utils/util";
 import useApp from "../useApp";
 import useSettings from "./useSettings";
+import useFeedback from "./useFeedback";
 const useBorrow = () => {
   const borrowedList =
     JSON.parse(window.localStorage.getItem("borrowed")) || [];
@@ -13,6 +14,7 @@ const useBorrow = () => {
   let user = JSON.parse(window.localStorage.getItem("user"));
   const { total_savings } = useSettings();
   const [openBorrowDialog, setOpenBorrowDialog] = useState(false);
+  const { snackbar, handleSnackbar } = useFeedback();
   // toggle form
   const [type, setType] = useState("lend");
   const toggleType = (type) => setType((prev) => type);
@@ -62,7 +64,7 @@ const useBorrow = () => {
   // settle debt
   const settleDebt = async (settle) => {
     context?.handleLoader();
-    console.log(settle);
+    // console.log(settle);
     if (
       !settle.amount ||
       !settle.id ||
@@ -72,7 +74,7 @@ const useBorrow = () => {
           ?.repayment_history?.reduce((a, b) => a + b.amount, 0) >
         Number(borrowedList?.find((item) => item.id === settle.id)?.amount)
     ) {
-      context?.handleSnackbar("Provide valid data for all fields", "warning");
+      handleSnackbar("Provide valid data for all fields", "warning");
     } else {
       try {
         const res = await request.put(`/loan/settle?id=${settle.id}`, settle, {
@@ -89,9 +91,9 @@ const useBorrow = () => {
           (item) => item.id !== settle.id
         );
         await storeBorrowed([...other_debts, debt]);
-        context?.handleSnackbar(res.data, "success");
+        handleSnackbar(res.data, "success");
       } catch (err) {
-        context?.handleSnackbar(
+        handleSnackbar(
           err.response ? err.response.data : "Network Error!",
           "error"
         );
@@ -111,7 +113,7 @@ const useBorrow = () => {
           ?.repayment_history?.reduce((a, b) => a + b.amount, 0) ||
           lentList?.find((item) => item.id === getSettled.id).amount)
     ) {
-      context?.handleSnackbar("Provide valid data for all fields", "warning");
+      handleSnackbar("Provide valid data for all fields", "warning");
     } else {
       try {
         const res = await request.put(
@@ -132,9 +134,9 @@ const useBorrow = () => {
           (item) => item.id !== getSettled.id
         );
         await storeLent([...other_debts, debt]);
-        context?.handleSnackbar(res.data, "success");
+        handleSnackbar(res.data, "success");
       } catch (err) {
-        context?.handleSnackbar(
+        handleSnackbar(
           err.response ? err.response.data : "Network Error!",
           "error"
         );
@@ -155,12 +157,9 @@ const useBorrow = () => {
       !lend.repayment_date ||
       moment(lend.repayment_date).isBefore(moment().format("DD/MM/YYYY"))
     ) {
-      context?.handleSnackbar(
-        "Provide valid information for all fields.",
-        "warning"
-      );
+      handleSnackbar("Provide valid information for all fields.", "warning");
     } else if (lend.amount > total_savings) {
-      context?.handleSnackbar(
+      handleSnackbar(
         "You cannot lend all or more than you have saved out",
         "warning"
       );
@@ -172,9 +171,9 @@ const useBorrow = () => {
           },
         });
         storeLent([...lentList, lend]);
-        context?.handleSnackbar(res.data, "success");
+        handleSnackbar(res.data, "success");
       } catch (err) {
-        context?.handleSnackbar(
+        handleSnackbar(
           err.response ? err.response.data : "Network Error!",
           "error"
         );
@@ -182,7 +181,7 @@ const useBorrow = () => {
     }
     context?.handleLoader();
   };
-  // lend money
+  // borrow money
   const borrowMoney = async (borrow) => {
     context?.handleLoader();
     if (
@@ -192,10 +191,7 @@ const useBorrow = () => {
       !borrow.repayment_date ||
       moment(borrow.repayment_date).isBefore(moment().format("DD/MM/YYYY"))
     ) {
-      context?.handleSnackbar(
-        "Provide valid information for all fields.",
-        "warning"
-      );
+      handleSnackbar("Provide valid information for all fields.", "warning");
     } else {
       try {
         const res = await request.post("/loan/borrow", borrow, {
@@ -204,9 +200,9 @@ const useBorrow = () => {
           },
         });
         storeBorrowed([...borrowedList, borrow]);
-        context?.handleSnackbar(res.data, "success");
+        handleSnackbar(res.data, "success");
       } catch (err) {
-        context?.handleSnackbar(
+        handleSnackbar(
           err.response ? err.response.data : "Network Error!",
           "error"
         );
@@ -320,6 +316,8 @@ const useBorrow = () => {
     lend_repayment_history,
     lentList,
     lend_data,
+    snackbar,
+    handleSnackbar,
   };
 };
 

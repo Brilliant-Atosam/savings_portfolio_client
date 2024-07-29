@@ -10,9 +10,13 @@ import React from "react";
 import useBorrow from "../hooks/useBorrow";
 import moment from "moment";
 import useApp from "../useApp";
-const BorrowMoneyDialog = ({ open, borrowMoney, handleOpenBorrowDialog }) => {
-  const { type, toggleType, setBorrow, setLend, lendMoney, lend, borrow } =
-    useBorrow();
+const BorrowMoneyDialog = ({
+  open,
+  borrowMoney,
+  handleOpenBorrowDialog,
+  lendMoney,
+}) => {
+  const { type, toggleType, setBorrow, setLend, lend, borrow } = useBorrow();
   const { loading } = useApp();
   return (
     <Dialog open={open}>

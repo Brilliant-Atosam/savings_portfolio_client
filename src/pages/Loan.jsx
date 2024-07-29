@@ -13,6 +13,7 @@ import Util from "../utils/util";
 import BorrowDetails from "../components/BorrowDetails";
 import useApp from "../useApp";
 import Overlay from "../components/Overlay";
+import Feedback from "../components/Feedback";
 const Loan = () => {
   const { user } = useApp();
   const {
@@ -27,6 +28,15 @@ const Loan = () => {
     lend_repayment_history,
     monthly_lent_data,
     monthly_borrow_data,
+    handleSnackbar,
+    snackbar,
+    lendMoney,
+    getSettled,
+    setGetSettled,
+    settleDebt,
+    settledDebt,
+    setSettle,
+    settle,
   } = useBorrow();
   const { format_currency } = Util();
   const {
@@ -43,10 +53,17 @@ const Loan = () => {
         open={openBorrowDialog}
         borrowMoney={borrowMoney}
         handleOpenBorrowDialog={handleOpenBorrowDialog}
+        lendMoney={lendMoney}
       />
       <SettleAdvanceDialog
         open={showSettleDialog}
         toggleDialog={handleSettleDialog}
+        getSettled={getSettled}
+        setGetSettled={setGetSettled}
+        setSettle={setSettle}
+        settle={settle}
+        settleDebt={settleDebt}
+        settledDebt={settledDebt}
       />
       <BorrowDetails
         open={toggleBorrowDetails}
@@ -179,6 +196,10 @@ const Loan = () => {
         </div>
       </div>
       {user?.tier !== "premium" && <Overlay />}
+      <Feedback
+        snackbar={snackbar}
+        toggler={() => handleSnackbar("", "info")}
+      />
       <Footer />
     </div>
   );

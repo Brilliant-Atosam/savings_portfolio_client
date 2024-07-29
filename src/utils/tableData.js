@@ -10,6 +10,7 @@ const useTableData = () => {
   const { borrowed_repayment_history, lend_repayment_history } = useBorrow();
   const { deleteExpenses } = useExpenses();
   const { deleteIncome } = useSave();
+  const { deleteBorrowedDebt } = useBorrow();
   const [borrowDetails, setBorrowDetails] = useState({});
 
   const setBorrowDetailsFunc = (data) =>
@@ -77,6 +78,18 @@ const useTableData = () => {
             onClick={() => {
               setBorrowDetailsFunc({ ...params.row, type: "borrow" });
               borrowDetailsToggler();
+            }}
+          />
+          <DeleteOutlineOutlined
+            className="view-more-icon"
+            onClick={() => {
+              if (
+                window.confirm(
+                  `This operation will delete a debt of ${params.row.amount} borrowed from ${params.row.lender}. Press OK to continue or cancel`
+                )
+              ) {
+                deleteBorrowedDebt(params.row.id);
+              }
             }}
           />
         </div>

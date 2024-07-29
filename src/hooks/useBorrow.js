@@ -210,6 +210,22 @@ const useBorrow = () => {
     }
     context?.handleLoader();
   };
+  // delete debt
+  const deleteBorrowedDebt = async (debt_id) => {
+    context.handleLoader();
+    const remaining_debts = borrowedList?.filter((debt) => debt.id !== debt_id);
+    try {
+      const res = await request.delete(`/loan/borrowed?debt_id=${debt_id}`);
+      storeBorrowed(remaining_debts);
+      handleSnackbar(res.data, "success");
+    } catch (err) {
+      // console.log(err);
+      window.alert(
+        err.response ? err.response.data : err.message || "Network error!"
+      );
+    }
+    context.handleLoader();
+  };
 
   const [showSettleDialog, setShowSettleDialog] = useState(false);
   const handleSettleDialog = () => setShowSettleDialog((prev) => !prev);
@@ -318,6 +334,7 @@ const useBorrow = () => {
     lend_data,
     snackbar,
     handleSnackbar,
+    deleteBorrowedDebt,
   };
 };
 

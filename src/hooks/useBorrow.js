@@ -210,14 +210,30 @@ const useBorrow = () => {
     }
     context?.handleLoader();
   };
-  // delete debt
+  // delete borrowed debt
   const deleteBorrowedDebt = async (debt_id) => {
     context.handleLoader();
     const remaining_debts = borrowedList?.filter((debt) => debt.id !== debt_id);
     try {
       const res = await request.delete(`/loan/borrowed?debt_id=${debt_id}`);
       storeBorrowed(remaining_debts);
-      handleSnackbar(res.data, "success");
+      window.alert(res.data);
+    } catch (err) {
+      // console.log(err);
+      window.alert(
+        err.response ? err.response.data : err.message || "Network error!"
+      );
+    }
+    context.handleLoader();
+  };
+  // delete lent debt
+  const deleteLentDebt = async (debt_id) => {
+    context.handleLoader();
+    const remaining_debts = lentList?.filter((debt) => debt.id !== debt_id);
+    try {
+      const res = await request.delete(`/loan/lent?debt_id=${debt_id}`);
+      storeLent(remaining_debts);
+      window.alert(res.data);
     } catch (err) {
       // console.log(err);
       window.alert(
@@ -335,6 +351,7 @@ const useBorrow = () => {
     snackbar,
     handleSnackbar,
     deleteBorrowedDebt,
+    deleteLentDebt,
   };
 };
 

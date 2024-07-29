@@ -7,10 +7,14 @@ import { IoEyeOutline } from "react-icons/io5";
 import { useState } from "react";
 const useTableData = () => {
   const { format_currency } = Util();
-  const { borrowed_repayment_history, lend_repayment_history } = useBorrow();
+  const {
+    borrowed_repayment_history,
+    lend_repayment_history,
+    deleteLentDebt,
+    deleteBorrowedDebt,
+  } = useBorrow();
   const { deleteExpenses } = useExpenses();
   const { deleteIncome } = useSave();
-  const { deleteBorrowedDebt } = useBorrow();
   const [borrowDetails, setBorrowDetails] = useState({});
 
   const setBorrowDetailsFunc = (data) =>
@@ -85,7 +89,11 @@ const useTableData = () => {
             onClick={() => {
               if (
                 window.confirm(
-                  `This operation will delete a debt of ${params.row.amount} borrowed from ${params.row.lender}. Press OK to continue or cancel`
+                  `This operation will delete a debt of ${format_currency(
+                    params.row.amount
+                  )} borrowed from ${
+                    params.row.lender
+                  }. Press OK to continue or cancel`
                 )
               ) {
                 deleteBorrowedDebt(params.row.id);
@@ -139,6 +147,22 @@ const useTableData = () => {
             onClick={() => {
               setBorrowDetailsFunc({ ...params.row, type: "lend" });
               borrowDetailsToggler();
+            }}
+          />
+          <DeleteOutlineOutlined
+            className="view-more-icon"
+            onClick={() => {
+              if (
+                window.confirm(
+                  `This operation will delete a debt of ${format_currency(
+                    params.row.amount
+                  )} lent to ${
+                    params.row.lender
+                  }. Press OK to continue or cancel`
+                )
+              ) {
+                deleteLentDebt(params.row.id);
+              }
             }}
           />
         </div>

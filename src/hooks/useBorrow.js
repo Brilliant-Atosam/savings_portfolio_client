@@ -219,7 +219,6 @@ const useBorrow = () => {
       storeBorrowed(remaining_debts);
       window.alert(res.data);
     } catch (err) {
-      // console.log(err);
       window.alert(
         err.response ? err.response.data : err.message || "Network error!"
       );

@@ -26,13 +26,22 @@ const Expenses = () => {
     monthly_expenses_data,
     handleSnackbar,
     snackbar,
+    expenses,
+    handleExpenses,
+    setExpenses,
   } = useExpenses();
   const { total_expenses, total_spendable, spendable_utilization_percentage } =
     useSettings();
   return (
     <div className="main-container">
       <Topbar />
-      <ExpensesDialog open={openExpenseDialog} toggle={toggleExpensesDialog} />
+      <ExpensesDialog
+        open={openExpenseDialog}
+        toggle={toggleExpensesDialog}
+        expenses={expenses}
+        handleExpenses={() => handleExpenses(expenses)}
+        setExpenses={setExpenses}
+      />
       <div className="expenses-container">
         <div className="expenses-details-container">
           <div className="expenses-table-container expenses-left">

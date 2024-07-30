@@ -14,6 +14,7 @@ import BorrowDetails from "../components/BorrowDetails";
 import useApp from "../useApp";
 import Overlay from "../components/Overlay";
 import Feedback from "../components/Feedback";
+import useExpenses from "../hooks/useExpenses";
 const Loan = () => {
   const { user } = useApp();
   const {
@@ -46,6 +47,7 @@ const Loan = () => {
     borrowDetailsToggler,
     borrowDetails,
   } = useTableData();
+  const { handleExpenses } = useExpenses();
   return (
     <div className="main-container">
       <Topbar />
@@ -62,7 +64,7 @@ const Loan = () => {
         setGetSettled={setGetSettled}
         setSettle={setSettle}
         settle={settle}
-        settleDebt={settleDebt}
+        settleDebt={() => settleDebt(settle, handleExpenses)}
         settledDebt={settledDebt}
       />
       <BorrowDetails

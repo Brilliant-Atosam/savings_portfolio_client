@@ -62,9 +62,8 @@ const useBorrow = () => {
     repayment_history: [],
   });
   // settle debt
-  const settleDebt = async (settle) => {
+  const settleDebt = async (settle, handleExpenses) => {
     context?.handleLoader();
-    // console.log(settle);
     if (
       !settle.amount ||
       !settle.id ||
@@ -76,6 +75,18 @@ const useBorrow = () => {
     ) {
       handleSnackbar("Provide valid data for all fields", "warning");
     } else {
+      const newExpenses = {
+        userId: user?.id,
+        item: `Settled debt owed to ${
+          borrowedList?.find((item) => item.id === settle.id)?.lender
+        }`,
+        quantity: 1,
+        unit_price: settle?.amount,
+        total_cost: settle?.amount,
+        category: "debt payment",
+        created_at: settle?.settled_at,
+        id: settle?.id,
+      };
       try {
         const res = await request.put(`/loan/settle?id=${settle.id}`, settle, {
           headers: {
@@ -92,6 +103,7 @@ const useBorrow = () => {
         );
         await storeBorrowed([...other_debts, debt]);
         handleSnackbar(res.data, "success");
+        await handleExpenses(newExpenses);
       } catch (err) {
         handleSnackbar(
           err.response ? err.response.data : "Network Error!",

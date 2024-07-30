@@ -10,7 +10,7 @@ const useExpenses = () => {
   let savingsList = JSON.parse(window.localStorage.getItem("savings")) || [];
   const { handleSnackbar, snackbar } = useFeedback();
   const location = useLocation();
-  const query = new URLSearchParams(location.search).get("index");
+  const query = new URLSearchParams(location?.search).get("index");
   const context = useApp();
   const { storeUser, storeExpenses, categories, months } = Util();
   let user = JSON.parse(localStorage.getItem("user"));
@@ -31,7 +31,7 @@ const useExpenses = () => {
     created_at: moment(new Date()).format("DD/MM/YYYY"),
     id: Math.floor(Math.random() * 9999).toString(),
   });
-  const handleExpenses = async () => {
+  const handleExpenses = async (expenses) => {
     context?.handleLoader();
     if (
       !expenses.item ||

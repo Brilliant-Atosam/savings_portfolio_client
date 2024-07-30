@@ -7,15 +7,16 @@ import {
 import React from "react";
 import Util from "../utils/util";
 import useApp from "../useApp";
-import useExpenses from "../hooks/useExpenses";
 import moment from "moment";
-import Feedback from "./Feedback";
-
-const ExpensesDialog = ({ open, toggle }) => {
+const ExpensesDialog = ({
+  open,
+  toggle,
+  handleExpenses,
+  expenses,
+  setExpenses,
+}) => {
   const { categories } = Util();
   const { loading } = useApp();
-  const { expenses, setExpenses, handleExpenses, handleSnackbar, snackbar } =
-    useExpenses();
   return (
     <>
       <Dialog open={open}>
@@ -130,7 +131,6 @@ const ExpensesDialog = ({ open, toggle }) => {
           {loading && <CircularProgress color="primary" />}
         </div>
       </Dialog>
-      
     </>
   );
 };

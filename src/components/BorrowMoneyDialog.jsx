@@ -15,8 +15,12 @@ const BorrowMoneyDialog = ({
   borrowMoney,
   handleOpenBorrowDialog,
   lendMoney,
+  setBorrow,
+  setLend,
+  lend,
+  borrow,
 }) => {
-  const { type, toggleType, setBorrow, setLend, lend, borrow } = useBorrow();
+  const { type, toggleType } = useBorrow();
   const { loading } = useApp();
   return (
     <Dialog open={open}>

@@ -38,6 +38,10 @@ const Loan = () => {
     settledDebt,
     setSettle,
     settle,
+    borrow,
+    lend,
+    setBorrow,
+    setLend,
   } = useBorrow();
   const { format_currency } = Util();
   const {
@@ -56,6 +60,10 @@ const Loan = () => {
         borrowMoney={borrowMoney}
         handleOpenBorrowDialog={handleOpenBorrowDialog}
         lendMoney={lendMoney}
+        borrow={borrow}
+        lend={lend}
+        setBorrow={setBorrow}
+        setLend={setLend}
       />
       <SettleAdvanceDialog
         open={showSettleDialog}

@@ -61,6 +61,7 @@ const useBorrow = () => {
     repayment_date: "",
     repayment_history: [],
   });
+
   // settle debt
   const settleDebt = async (settle, handleExpenses) => {
     context?.handleLoader();

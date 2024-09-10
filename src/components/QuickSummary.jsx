@@ -20,12 +20,12 @@ import PortfolioInfo from "./PortfolioInfo";
 import Save from "./Save";
 import AddPortfolioDialog from "./AddPortfolioDialog";
 import useSettings from "../hooks/useSettings";
-import Subscription from "./Subscription";
+// import Subscription from "./Subscription";
 import Feedback from "./Feedback";
 const QuickSummary = () => {
-  const { user, setConfirmData, colors, savingsList } = useApp();
+  const {setConfirmData, colors,  } = useApp();
   const { total_savings, savings_efficiency, actual_savings } = useSettings();
-  const { format_currency, piechart_data } = Util();
+  const { format_currency, } = Util();
   const {
     setNewPortfolio,
     newPortfolio,
@@ -98,11 +98,7 @@ const QuickSummary = () => {
             .reduce((a, b) => a + b.amount, 0) > 0 ? (
             <PieChartComponent
               colors={colors}
-              portfolio={
-                user?.tier !== "premium"
-                  ? piechart_data
-                  : structuredPortfolio.filter((item) => !item.archived)
-              }
+              portfolio={structuredPortfolio?.filter((item) => !item.archived)}
             />
           ) : (
             <>
@@ -118,7 +114,7 @@ const QuickSummary = () => {
               </button>
             </>
           )}
-          {savingsList?.reduce((a, b) => a + b.saved, 0) > 0 &&
+          {/* {savingsList?.reduce((a, b) => a + b.saved, 0) > 0 &&
             user?.tier !== "premium" && (
               <>
                 <h1 className="no-data-text">
@@ -127,7 +123,7 @@ const QuickSummary = () => {
                 </h1>
                 <Subscription />
               </>
-            )}
+            )} */}
         </div>
 
         <div className="savings-portfolios-container">

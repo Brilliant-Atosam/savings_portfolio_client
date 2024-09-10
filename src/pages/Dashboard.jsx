@@ -7,12 +7,13 @@ import useApp from "../useApp";
 import { CircularProgress } from "@mui/material";
 import useTableData from "../utils/tableData";
 import useSave from "../hooks/useSave";
-import Util from "../utils/util";
+// import Util from "../utils/util";
 import { FaHandHoldingDollar } from "react-icons/fa6";
 import Save from "../components/Save";
 import Footer from "../components/Footer";
-import Subscription from "../components/Subscription";
+// import Subscription from "../components/Subscription";
 import Feedback from "../components/Feedback";
+// import Overlay from "../components/Overlay";
 const Dashboard = () => {
   const {
     handleSave,
@@ -24,7 +25,7 @@ const Dashboard = () => {
   } = useSave();
   const { savingsColumn } = useTableData();
   let { savingsList, loading } = useApp();
-  const { user, dummy_monthly_data } = Util();
+  // const { user } = Util();
   return (
     <div className="main-container">
       <Topbar />
@@ -47,13 +48,11 @@ const Dashboard = () => {
               <AreaChartComponents
                 data={
                   monthly_data.reduce((a, b) => a + b.total_income, 0) > 0 &&
-                  user?.tier !== "premium"
-                    ? dummy_monthly_data
-                    : monthly_data
+                  monthly_data
                 }
               />
             }
-            {savingsList?.reduce((a, b) => a + b.saved, 0) > 0 &&
+            {/* {savingsList?.reduce((a, b) => a + b.saved, 0) > 0 &&
               user?.tier !== "premium" && (
                 <>
                   <h1 className="no-data-text">
@@ -62,7 +61,7 @@ const Dashboard = () => {
                   </h1>
                   <Subscription />
                 </>
-              )}
+              )} */}
           </div>
         </div>
       </div>

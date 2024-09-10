@@ -28,21 +28,7 @@
   align-items: center;
   gap: 10px;
 }
-.intro-nav-btn {
-  text-decoration: none;
-  cursor: pointer;
-  border: 2px solid teal;
-  color: teal;
-  height: 35px;
-  padding: 0 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.intro-nav-btn:last-child {
-  background: teal;
-  color: white;
-}
+
 .card-img {
   object-fit: contain;
 }

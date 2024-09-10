@@ -12,8 +12,8 @@ const Notifications = () => {
       <div className="notification-container">
         <h1 className="notification-heading">Monthly Financial Insights</h1>
         <div className="notification-items-container">
-          {notifications.length > 0 ? (
-            notifications.map((item) => (
+          {notifications?.length > 0 ? (
+            notifications?.map((item) => (
               <NotificationItem title={item.title} read={item.read} />
             ))
           ) : (

@@ -74,6 +74,21 @@ footer a {
 .borrowing-chart-container {
   overflow-x: scroll;
 }
+.intro-nav-btn {
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid teal;
+  color: teal;
+  height: 35px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.intro-nav-btn:last-child {
+  background: teal;
+  color: white;
+}
 .highlight-title {
   position: absolute;
   top: 5px;
@@ -338,10 +353,14 @@ footer a {
   background: #3399ff;
   border: none;
   padding: 10px;
-  font-size: 1rem;
+  /* font-size: 1rem; */
   font-weight: 500;
   cursor: pointer;
   color: white;
+  border-radius: 5px;
+}
+.subscribe-btn:last-child {
+  background: #ff33b1;
 }
 /* go premium */
 .go-premium-container {
@@ -418,6 +437,12 @@ footer a {
   color: white;
   text-align: center;
 }
+.overlay-action-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
 @media (max-width: 700px) {
   .chart-container {
     overflow-x: scroll;
@@ -478,7 +503,6 @@ footer a {
   .finance-info-value {
     font-size: 0.6rem;
   }
-
 }
 @media (max-width: 340px) {
   .info-container {

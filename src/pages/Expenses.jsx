@@ -16,7 +16,7 @@ import Feedback from "../components/Feedback";
 const Expenses = () => {
   const { expenseColumn } = useTableData();
   const { loading } = useApp();
-  const { categories, format_currency, dummy_monthly_data, user } = Util();
+  const { categories, format_currency, user } = Util();
   // const {} = useSettings()
   let expensesList = JSON.parse(localStorage.getItem("expenses"));
   const {
@@ -103,9 +103,7 @@ const Expenses = () => {
                   monthly_expenses_data.reduce(
                     (a, b) => a + b.total_expenses,
                     0
-                  ) > 0 && user?.tier !== "premium"
-                    ? dummy_monthly_data
-                    : monthly_expenses_data
+                  ) > 0 && monthly_expenses_data
                 }
               />
               {monthly_expenses_data.reduce((a, b) => a + b.total_expenses, 0) >

@@ -205,7 +205,7 @@ const Loan = () => {
           <RiRefund2Fill className="add-expenses-btn" />
         </div>
       </div>
-      {user?.tier !== "premiu" && <Overlay />}
+      {user?.tier !== "premium" && <Overlay />}
       <Feedback
         snackbar={snackbar}
         toggler={() => handleSnackbar("", "info")}

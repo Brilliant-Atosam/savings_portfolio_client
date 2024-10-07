@@ -58,13 +58,35 @@ const SettleAdvanceDialog = ({
           >
             <option value="">Choose party</option>
             {settleType === "settle"
-              ? borrowedList?.map((item) => (
-                  <option value={item.id} key={item.id}>
-                    {item.lender}
-                  </option>
-                ))
+              ? borrowedList
+                  ?.filter(
+                    (item) =>
+                      Number(item.amount) -
+                        Number(
+                          item.repayment_history?.reduce(
+                            (a, b) => a + b.amount,
+                            0
+                          )
+                        ) >
+                      0
+                  )
+                  ?.map((item) => (
+                    <option value={item.id} key={item.id}>
+                      {item.lender}
+                    </option>
+                  ))
               : lentList
-                  ?.filter((item) => item.amount > 0)
+                  ?.filter(
+                    (item) =>
+                      Number(item.amount) -
+                        Number(
+                          item.repayment_history?.reduce(
+                            (a, b) => a + b.amount,
+                            0
+                          )
+                        ) >
+                      0
+                  )
                   ?.map((item) => (
                     <option value={item.id} key={item.id}>
                       {item?.borrower}

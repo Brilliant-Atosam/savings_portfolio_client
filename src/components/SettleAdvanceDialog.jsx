@@ -22,10 +22,7 @@ const SettleAdvanceDialog = ({
   const borrowedList =
     JSON.parse(window.localStorage.getItem("borrowed")) || [];
   const lentList = JSON.parse(window.localStorage.getItem("lent")) || [];
-  const {
-    settleType,
-    toggleSettleType,
-  } = useBorrow();
+  const { settleType, toggleSettleType } = useBorrow();
   return (
     <Dialog open={open}>
       <ToggleButtonGroup
@@ -66,11 +63,13 @@ const SettleAdvanceDialog = ({
                     {item.lender}
                   </option>
                 ))
-              : lentList?.map((item) => (
-                  <option value={item.id} key={item.id}>
-                    {item?.borrower}
-                  </option>
-                ))}
+              : lentList
+                  ?.filter((item) => item.amount > 0)
+                  ?.map((item) => (
+                    <option value={item.id} key={item.id}>
+                      {item?.borrower}
+                    </option>
+                  ))}
           </select>
 
           <label className="dialog-label" htmlFor="">

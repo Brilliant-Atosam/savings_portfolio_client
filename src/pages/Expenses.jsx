@@ -16,8 +16,14 @@ import Feedback from "../components/Feedback";
 const Expenses = () => {
   const { expenseColumn } = useTableData();
   const { loading } = useApp();
-  const { categories, format_currency, user } = Util();
+  const { categories, format_currency, user, businessExpenseCategories } =
+    Util();
+  const expensesCategories =
+    user?.purpose !== "personal finance"
+      ? businessExpenseCategories
+      : categories;
   // const {} = useSettings()
+  // console.log(expensesCategories);
   let expensesList = JSON.parse(localStorage.getItem("expenses"));
   const {
     openExpenseDialog,
@@ -67,7 +73,7 @@ const Expenses = () => {
             </div>
             <h1 className="expenses-heading debt-text">Expenses summary</h1>
             <div className="expenses-categories-container">
-              {categories.map((category, index) => (
+              {expensesCategories.map((category, index) => (
                 <Link
                   to={`/expenses/details?index=${index}`}
                   className="category"
@@ -79,7 +85,11 @@ const Expenses = () => {
                     {format_currency(
                       Number(
                         expensesList
-                          .filter((item) => item.category === category.title)
+                          .filter((item) =>
+                            category?.title
+                              .toLocaleLowerCase()
+                              .includes(item?.category.toLocaleLowerCase())
+                          )
                           ?.reduce((a, b) => a + b.total_cost, 0)
                       )
                     )}

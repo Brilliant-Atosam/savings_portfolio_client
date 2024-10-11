@@ -12,12 +12,25 @@ const useExpenses = () => {
   const location = useLocation();
   const query = new URLSearchParams(location?.search).get("index");
   const context = useApp();
-  const { storeUser, storeExpenses, categories, months } = Util();
+  const {
+    storeUser,
+    storeExpenses,
+    categories,
+    months,
+    businessExpenseCategories,
+    // user,
+  } = Util();
   let user = JSON.parse(localStorage.getItem("user"));
+  const expensesCategories =
+    user?.purpose !== "personal finance"
+      ? businessExpenseCategories
+      : categories;
   let expensesList = query
-    ? JSON.parse(localStorage.getItem("expenses")).filter(
-        (expense) => expense.category === categories[query].title
-      )
+    ? JSON.parse(localStorage.getItem("expenses"))?.filter((expense) => {
+        return expensesCategories[query]?.title
+          .toLowerCase()
+          .includes(expense.category.toLowerCase());
+      })
     : JSON.parse(localStorage.getItem("expenses"));
   const [openExpenseDialog, setOpenExpenseDialog] = useState(false);
   const toggleExpensesDialog = () => setOpenExpenseDialog(!openExpenseDialog);
@@ -89,11 +102,19 @@ const useExpenses = () => {
   };
   const chart_data = () => {
     let data = [];
-    categories.map((category) => {
+    expensesCategories.map((category) => {
       let data_object = {
         title: category.title,
         total_expenses: expensesList
-          ?.filter((item) => item.category === category.title)
+          ?.filter(
+            (item) =>
+              category.title
+                .toLocaleLowerCase()
+                .includes(item.category.toLocaleLowerCase())
+            // item.category
+            //   .toLowerCase()
+            //   .includes(category.title.toLocaleLowerCase())
+          )
           ?.reduce((a, b) => a + b.total_cost, 0),
       };
       data.push(data_object);

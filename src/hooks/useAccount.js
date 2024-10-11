@@ -32,6 +32,7 @@ const useAccount = () => {
     currency: {},
     id: Math.floor(Math.random() * 9999).toString(),
     createdAt: moment(new Date()).format("DD/MM/YYYY"),
+    purpose: "",
   });
   //   login
   const login = async (email, password) => {

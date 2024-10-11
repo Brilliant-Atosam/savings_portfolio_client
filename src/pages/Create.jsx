@@ -70,6 +70,26 @@ const Create = () => {
               setNewUser({ ...newUser, password2: e.target.value })
             }
           />
+          <select
+            type="text"
+            placeholder="Preferred currency"
+            className="login-input"
+            onChange={(e) =>
+              setNewUser({
+                ...newUser,
+                purpose: e.target.value,
+              })
+            }
+          >
+            <option value="">Purpose</option>
+
+            <option value="personal finance" key={1}>
+              Personal Finance
+            </option>
+            <option value="business finance" key={1}>
+              Business Finance
+            </option>
+          </select>
           <button
             className="login-btn"
             onClick={() => register(newUser)}

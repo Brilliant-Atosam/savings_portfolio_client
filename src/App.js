@@ -29,6 +29,8 @@ function App() {
   const Notifications = lazy(() => import("./pages/Notifications"));
   const Highlights = lazy(() => import("./pages/Highlights"));
   const PartnersDashboard = lazy(() => import("./pages/PartnershipDashboard"));
+  const Budget = lazy(() => import("./pages/Budget"));
+
   return (
     <>
       <GoPremium open={openSubscribeDialog} action={toggleSubscribeDialog} />
@@ -106,6 +108,18 @@ function App() {
               ) : (
                 <Suspense fallback={<FallbackComponent />}>
                   <Settings />
+                </Suspense>
+              )
+            }
+          />
+          <Route
+            path="/budget"
+            element={
+              !user ? (
+                <Navigate to="/login" replace />
+              ) : (
+                <Suspense fallback={<FallbackComponent />}>
+                  <Budget />
                 </Suspense>
               )
             }

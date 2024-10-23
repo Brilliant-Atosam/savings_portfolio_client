@@ -34,6 +34,9 @@ import {
   LocalShippingOutlined,
   AccountBalanceWalletOutlined,
   DirectionsCarFilledOutlined,
+  BathtubOutlined,
+  ColorLensOutlined,
+  VolunteerActivismOutlined,
 } from "@mui/icons-material";
 const Util = () => {
   const user = JSON.parse(window.localStorage.getItem("user"));
@@ -103,6 +106,7 @@ const Util = () => {
     { title: "Charity", icon: CardGiftcard },
     { title: "Childcare", icon: BabyChangingStation },
     { title: "Clothing & Fashion Accessories", icon: Watch },
+    { title: "Cosmetics", icon: ColorLensOutlined },
     { title: "Debt Payment", icon: AddCard },
     { title: "Education & Personal Development", icon: School },
     { title: "Entertainment & Leisure", icon: Tv },
@@ -112,16 +116,16 @@ const Util = () => {
     { title: "Home Improvement & Appliances", icon: Weekend },
     { title: "Household & kitchen Items", icon: Blender },
     { title: "Housing", icon: Apartment },
-    // { title: "insurance", icon: Security },
     { title: "Miscellaneous", icon: MiscellaneousServices },
-    { title: "Offering", icon: VolunteerActivism },
     { title: "Personal Care", icon: SelfImprovement },
     { title: "Repairs & Maintenance", icon: ConstructionOutlined },
     { title: "Savings & Investments", icon: SavingsOutlined },
     { title: "Technology", icon: Devices },
+    { title: "Tithe & Offering", icon: VolunteerActivism },
+    { title: "Toiletries", icon: BathtubOutlined },
     { title: "Transportation", icon: Commute },
-    { title: "Vacation", icon: BeachAccess },
     { title: "Utilities", icon: ElectricalServices },
+    { title: "Vacation", icon: BeachAccess },
     { title: "Work Related", icon: WorkOutline },
   ];
   // categories for small businesses
@@ -132,6 +136,7 @@ const Util = () => {
       icon: MobileScreenShareOutlined,
     },
     { title: "Contract Labor", icon: EngineeringOutlined },
+    { title: "Donations & Sponsorship", icon: VolunteerActivismOutlined },
     { title: "Equipment Purchases", icon: BuildOutlined },
     { title: "Insurance", icon: SecurityOutlined },
     { title: "Inventory", icon: Inventory2Outlined },

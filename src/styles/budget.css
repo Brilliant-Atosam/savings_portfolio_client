@@ -1,0 +1,107 @@
+.budget-container {
+  height: calc(100vh - 60px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+  padding: 1rem;
+  overflow-y: scroll;
+}
+.budget-right {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.budget-left {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.create-budget-container {
+  width: 100%;
+  border: 3px solid #333;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: calc(100vh - 90px);
+}
+.budget-input-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.4rem;
+  border: 2px solid #333;
+  border-radius: 5px;
+  height: 35px;
+  padding: 0 10px;
+}
+.budget-input {
+  outline: none;
+  background: none;
+  height: 100%;
+  border: none;
+  flex-grow: 1;
+}
+.budget-categories {
+  overflow-y: scroll;
+  height: 70%;
+  gap: 0.4rem;
+}
+.budget-categories .budget-input-container {
+  margin-bottom: 10px;
+}
+.budget-category {
+  padding-right: 0.8rem;
+  border-right: 2px solid #333;
+  width: 85%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 0.7rem;
+}
+.budgets-container {
+  /* background: #000; */
+  width: 100%;
+}
+.my-budgets {
+  width: 100%;
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+.my-budget {
+  height: 100px;
+  flex: 1;
+  border: 2px solid #333;
+  border-radius: 8px;
+  background: #bad7e782;
+  padding: 5px;
+  min-width: 250px;
+}
+@media (max-width: 770px) {
+  .budget-right,
+  .budget-left {
+    flex: 1;
+    width: 50%;
+  }
+  .budget-category {
+    width: 90% !important;
+  }
+  .budget-categories .budget-input-container .budget-input {
+    width: 20%;
+  }
+}
+@media (max-width: 530px) {
+  .budget-container {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .budget-right,
+  .budget-left {
+    width: 100%;
+  }
+}

@@ -171,7 +171,7 @@ const useExpenses = () => {
     query,
     deleteExpenses,
     handleSnackbar,
-    snackbar,
+    snackbar,expensesCategories
   };
 };
 

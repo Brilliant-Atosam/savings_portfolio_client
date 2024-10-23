@@ -22,8 +22,6 @@ const Expenses = () => {
     user?.purpose !== "personal finance"
       ? businessExpenseCategories
       : categories;
-  // const {} = useSettings()
-  // console.log(expensesCategories);
   let expensesList = JSON.parse(localStorage.getItem("expenses"));
   const {
     openExpenseDialog,

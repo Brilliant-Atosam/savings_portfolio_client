@@ -65,6 +65,9 @@ const Util = () => {
   // store expenses
   const storeExpenses = (data) =>
     localStorage.setItem("expenses", JSON.stringify(data));
+  // store budget
+  const storeBudget = (data) =>
+    localStorage.setItem("budgets", JSON.stringify(data));
   // handle confirm dialog
   const [confirmData, setConfirmData] = useState({
     open: false,
@@ -335,6 +338,7 @@ const Util = () => {
     storeLent,
     storeBorrowed,
     businessExpenseCategories,
+    storeBudget,
   };
 };
 

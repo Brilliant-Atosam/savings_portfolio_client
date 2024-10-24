@@ -7,7 +7,7 @@ import { CiCalendarDate } from "react-icons/ci";
 import { FaCediSign } from "react-icons/fa6";
 import Util from "../utils/util";
 import useBudget from "../hooks/useBudget";
-// import useExpenses from "../hooks/useExpenses";
+import Feedback from "../components/Feedback";
 const Budget = () => {
   const {
     months,
@@ -16,7 +16,8 @@ const Budget = () => {
     businessExpenseCategories,
     format_currency,
   } = Util();
-  const { newBudget, setNewBudget } = useBudget();
+  const { newBudget, setNewBudget, createBudget, snackbar, handleSnackbar } =
+    useBudget();
   const expensesCategories =
     user?.purpose !== "personal finance"
       ? businessExpenseCategories
@@ -38,6 +39,7 @@ const Budget = () => {
                     month: Number(e.target.value),
                   }))
                 }
+                value={newBudget?.month}
               >
                 <option>Select month</option>
                 {months.map((month, index) => (
@@ -50,7 +52,7 @@ const Budget = () => {
             <div className="budget-input-container">
               <FaCediSign className="input-icon" />
               <input
-                placeholder="Total Budget"
+                placeholder="Estimated Budget"
                 className="budget-input"
                 onChange={(e) =>
                   setNewBudget({
@@ -59,6 +61,7 @@ const Budget = () => {
                     balance: Number(e.target.value),
                   })
                 }
+                value={newBudget?.estimated_budget}
               />
             </div>
             <div className="budget-categories">
@@ -81,7 +84,7 @@ const Budget = () => {
                           ...prev.categories.filter(
                             (item) => item.category !== cat.title
                           ),
-                        ],
+                        ].sort((a, b) => (a.category < b.category ? -1 : 1)),
                         total_budget:
                           prev.categories
                             .filter((item) => item.category !== cat.title)
@@ -93,7 +96,9 @@ const Budget = () => {
                 </div>
               ))}
             </div>
-            <button className="login-btn">Create budget</button>
+            <button className="login-btn" onClick={createBudget}>
+              Create budget
+            </button>
           </div>
         </div>
         <div className="budget-right">
@@ -123,10 +128,10 @@ const Budget = () => {
           <AddOutlined className="add-expenses-btn" />
         </div>
       </div>
-      {/* <Feedback
+      <Feedback
         snackbar={snackbar}
         toggler={() => handleSnackbar("", "info")}
-      /> */}
+      />
       <Footer />
     </div>
   );

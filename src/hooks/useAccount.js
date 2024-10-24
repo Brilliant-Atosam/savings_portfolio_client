@@ -15,8 +15,14 @@ const useAccount = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const reset_code = new URLSearchParams(location.search).get("reset_code");
-  const { storeUser, storeSavings, storeExpenses, storeBorrowed, storeLent } =
-    Util();
+  const {
+    storeUser,
+    storeSavings,
+    storeExpenses,
+    storeBorrowed,
+    storeLent,
+    storeBudget,
+  } = Util();
   const { handleLoader } = useApp();
   const { handleSnackbar, snackbar } = useFeedback();
 
@@ -60,13 +66,16 @@ const useAccount = () => {
         const lent = await request.get(`/loan/lent?userId=${res.data.id}`, {
           headers: { access_token: `Bearer ${res.data.access_token}` },
         });
-
+        const budgets = await request.get(`/budget?userId=${res.data.id}`, {
+          headers: { access_token: `Bearer ${res.data.access_token}` },
+        });
         const expenses = await request.get(`/expenses?userId=${res.data.id}`, {
           headers: { access_token: `Bearer ${res.data.access_token}` },
         });
         storeSavings(savingsRes.data);
         storeBorrowed(borrowed.data);
         storeLent(lent.data);
+        storeBudget(budgets.data);
         storeExpenses(expenses.data);
         storeUser(res.data);
         navigate("/");

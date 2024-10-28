@@ -16,6 +16,8 @@ const useBudget = () => {
   const { storeBudget } = Util();
   const { handleSnackbar, snackbar } = useFeedback();
   const { expensesCategories } = useExpenses();
+  const [showMoreOptions, setShowMoreOptions] = useState(false);
+  const moreOptionsToggler = () => setShowMoreOptions((prev) => !prev);
   const [newBudget, setNewBudget] = useState({
     month: "",
     estimated_budget: "",
@@ -48,7 +50,13 @@ const useBudget = () => {
             },
           }
         );
-        storeBudget([newBudget, ...budgets]);
+        storeBudget([
+          {
+            ...newBudget,
+            categories: newBudget.categories.filter((cat) => cat.amount > 0),
+          },
+          ...budgets,
+        ]);
         handleSnackbar(res.data, "success");
         setNewBudget({
           month: "",
@@ -70,9 +78,37 @@ const useBudget = () => {
     context?.handleLoader();
   };
 
-  console.log(newBudget);
+  //  delete budget
+  const deleteBudget = async (id) => {
+    context?.handleLoader();
+    try {
+      const res = await request.delete(
+        `/budget?userId=${user.id}&budgetId=${id}`,
+        {
+          headers: {
+            access_token: `Bearer ${user?.access_token}`,
+          },
+        }
+      );
+      handleSnackbar(res.data, "success");
+      storeBudget(budgets.filter((budget) => budget.id !== id));
+    } catch (err) {
+      handleSnackbar(err.response ? err.response.data : err.message, "error");
+    }
+    context?.handleLoader();
+  };
 
-  return { newBudget, setNewBudget, createBudget, snackbar, handleSnackbar };
+  return {
+    newBudget,
+    setNewBudget,
+    createBudget,
+    snackbar,
+    handleSnackbar,
+    budgets,
+    showMoreOptions,
+    moreOptionsToggler,
+    deleteBudget,
+  };
 };
 
 export default useBudget;

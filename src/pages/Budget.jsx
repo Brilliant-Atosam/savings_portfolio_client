@@ -2,12 +2,22 @@ import "../styles/budget.css";
 import Topbar from "../components/Topbar";
 import Footer from "../components/Footer";
 // import Feedback from "../components/Feedback";
-import { AddOutlined } from "@mui/icons-material";
+import {
+  Balance,
+  Category,
+  DeleteOutlineOutlined,
+  ModeEditOutlined,
+  MoreVert,
+  VisibilityOutlined,
+} from "@mui/icons-material";
+import { GiPayMoney } from "react-icons/gi";
+import { GrPieChart } from "react-icons/gr";
 import { CiCalendarDate } from "react-icons/ci";
 import { FaCediSign } from "react-icons/fa6";
 import Util from "../utils/util";
 import useBudget from "../hooks/useBudget";
 import Feedback from "../components/Feedback";
+import useExpenses from "../hooks/useExpenses";
 const Budget = () => {
   const {
     months,
@@ -16,8 +26,20 @@ const Budget = () => {
     businessExpenseCategories,
     format_currency,
   } = Util();
-  const { newBudget, setNewBudget, createBudget, snackbar, handleSnackbar } =
-    useBudget();
+  const {
+    newBudget,
+    setNewBudget,
+    createBudget,
+    snackbar,
+    handleSnackbar,
+    budgets,
+    showMoreOptions,
+    moreOptionsToggler,
+    deleteBudget,
+  } = useBudget();
+  const { expensesList } = useExpenses();
+  console.log(expensesList);
+
   const expensesCategories =
     user?.purpose !== "personal finance"
       ? businessExpenseCategories
@@ -36,14 +58,23 @@ const Budget = () => {
                 onChange={(e) =>
                   setNewBudget((prev) => ({
                     ...prev,
-                    month: Number(e.target.value),
+                    month:
+                      new Date().getMonth() > 0 && Number(e.target.value) === 0
+                        ? `${e.target.value}/${new Date().getFullYear() + 1}`
+                        : `${e.target.value}/${new Date().getFullYear()}`,
                   }))
                 }
-                value={newBudget?.month}
               >
                 <option>Select month</option>
                 {months.map((month, index) => (
-                  <option key={index} value={index}>
+                  <option
+                    key={index}
+                    value={
+                      (index + 1).toString().length === 1
+                        ? `0${index + 1}`
+                        : `${index + 1}`
+                    }
+                  >
                     {month}
                   </option>
                 ))}
@@ -105,27 +136,85 @@ const Budget = () => {
           <div className="budgets-container">
             <h1 className="debt-text">My budgets</h1>
             <div className="my-budgets">
-              <div className="my-budget">
-                <div className="budget-info">
-                  <CiCalendarDate /> <span>Lorem, ipsum.</span>
+              {budgets.map((budget, index) => (
+                <div className="my-budget" key={index}>
+                  <MoreVert
+                    className="budget-more-options-toggler"
+                    onClick={moreOptionsToggler}
+                  />
+                  {showMoreOptions && (
+                    <div className="more-options">
+                      <VisibilityOutlined className="more-options-icon" />
+                      <ModeEditOutlined className="more-options-icon" />
+                      <DeleteOutlineOutlined
+                        className="more-options-icon"
+                        onClick={() => {
+                          if (window.confirm("Click okay")) {
+                            deleteBudget(budget.id);
+                          }
+                        }}
+                      />
+                    </div>
+                  )}
+                  <div className="budget-info-left">
+                    <div className="budget-info">
+                      <CiCalendarDate className="budget-info-icon" />
+                      <span>
+                        {months[Number(budget?.month?.split("/")[0]) - 1] +
+                          ` , ` +
+                          budget.month.split("/")[1]}
+                      </span>
+                    </div>
+                    <div className="budget-info">
+                      <FaCediSign className="budget-info-icon" />{" "}
+                      <span>{format_currency(budget.total_budget)}</span>
+                    </div>
+                    <div className="budget-info">
+                      <Category className="budget-info-icon" />{" "}
+                      <span>{budget.categories.length}</span>
+                    </div>
+                  </div>
+                  <div className="budget-info-right">
+                    <div className="budget-info">
+                      <GiPayMoney className="budget-info-icon" />
+                      <span>
+                        {expensesList
+                          ?.filter((item) =>
+                            item.created_at.endsWith(budget.month)
+                          )
+                          .reduce((a, b) => a + b.total_cost, 0)}
+                      </span>
+                    </div>
+                    <div className="budget-info">
+                      <Balance className="budget-info-icon" />
+                      <span>
+                        {budget.estimated_budget -
+                          expensesList
+                            ?.filter((item) =>
+                              item.created_at.endsWith(budget.month)
+                            )
+                            .reduce((a, b) => a + b.total_cost, 0)}
+                      </span>
+                    </div>
+                    <div className="budget-info">
+                      <GrPieChart className="budget-info-icon" />
+                      <span>
+                        {budget.estimated_budget -
+                          expensesList
+                            ?.filter((item) =>
+                              item.created_at.endsWith(budget.month)
+                            )
+                            .reduce((a, b) => a + b.total_cost, 0) >
+                        0
+                          ? "Within Budget"
+                          : "Over Budget"}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <div className="budget-info">
-                  <FaCediSign /> <span>{format_currency(600)}</span>
-                </div>
-              </div>
-              <div className="my-budget">budget</div>
-              <div className="my-budget">budget</div>
-              <div className="my-budget">budget</div>
+              ))}
             </div>
           </div>
-        </div>
-      </div>
-      <div className="action-container">
-        <div
-          className="add-expenses-btn-container"
-          //   onClick={toggleExpensesDialog}
-        >
-          <AddOutlined className="add-expenses-btn" />
         </div>
       </div>
       <Feedback

@@ -7,12 +7,22 @@ import useFeedback from "./useFeedback";
 import useApp from "../useApp";
 import Util from "../utils/util";
 import moment from "moment";
+import { useLocation } from "react-router-dom";
 
 const useBudget = () => {
   let user = JSON.parse(localStorage.getItem("user"));
   let budgets = JSON.parse(window.localStorage.getItem("budgets")) || [];
+  const { expensesList } = useExpenses();
   const context = useApp();
-  console.log(budgets);
+  const location = useLocation();
+  const param = new URLSearchParams(location.search);
+  const budget_id = param.get("budget_id");
+  const budget_details = budgets.find((budget) => budget.id === budget_id);
+  const expenses_within_budget_period = expensesList.filter((item) =>
+    item.created_at.endsWith(budget_details?.month)
+  );
+  console.log(expenses_within_budget_period);
+
   const { storeBudget } = Util();
   const { handleSnackbar, snackbar } = useFeedback();
   const { expensesCategories } = useExpenses();
@@ -36,6 +46,8 @@ const useBudget = () => {
     context?.handleLoader();
     if (newBudget.total_budget < 1 || newBudget.month === "") {
       handleSnackbar("provide value for required fields", "warning");
+    } else if (budgets.find((budget) => budget.month === newBudget.month)) {
+      handleSnackbar("There is an existing budget for this month", "warning");
     } else {
       try {
         const res = await request.post(
@@ -108,6 +120,8 @@ const useBudget = () => {
     showMoreOptions,
     moreOptionsToggler,
     deleteBudget,
+    budget_details,
+    expenses_within_budget_period,
   };
 };
 

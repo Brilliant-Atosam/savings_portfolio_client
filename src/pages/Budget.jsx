@@ -1,7 +1,6 @@
 import "../styles/budget.css";
 import Topbar from "../components/Topbar";
 import Footer from "../components/Footer";
-// import Feedback from "../components/Feedback";
 import {
   Balance,
   Category,
@@ -18,6 +17,7 @@ import Util from "../utils/util";
 import useBudget from "../hooks/useBudget";
 import Feedback from "../components/Feedback";
 import useExpenses from "../hooks/useExpenses";
+// import { Link } from "react-router-dom";
 const Budget = () => {
   const {
     months,
@@ -144,7 +144,17 @@ const Budget = () => {
                   />
                   {showMoreOptions && (
                     <div className="more-options">
-                      <VisibilityOutlined className="more-options-icon" />
+                      {/* <Link
+                        to={`/budget_details?budget_id=${budget.id}`}
+                        className="more-options-icon"
+                      > */}
+                      <VisibilityOutlined
+                        className="more-options-icon"
+                        onClick={() =>
+                          (window.location.href = `/budget_details?budget_id=${budget.id}`)
+                        }
+                      />
+                      {/* </Link> */}
                       <ModeEditOutlined className="more-options-icon" />
                       <DeleteOutlineOutlined
                         className="more-options-icon"
@@ -166,11 +176,11 @@ const Budget = () => {
                       </span>
                     </div>
                     <div className="budget-info">
-                      <FaCediSign className="budget-info-icon" />{" "}
+                      <FaCediSign className="budget-info-icon" />
                       <span>{format_currency(budget.total_budget)}</span>
                     </div>
                     <div className="budget-info">
-                      <Category className="budget-info-icon" />{" "}
+                      <Category className="budget-info-icon" />
                       <span>{budget.categories.length}</span>
                     </div>
                   </div>

@@ -24,6 +24,9 @@ const BorrowMoneyDialog = ({
   const { loading } = useApp();
   return (
     <Dialog open={open}>
+      <DialogTitle>
+        {type === "lend" ? "Lend money out" : "Borrow money"}
+      </DialogTitle>
       <ToggleButtonGroup
         color="primary"
         value={type}
@@ -34,9 +37,6 @@ const BorrowMoneyDialog = ({
         <ToggleButton value="lend">Lend</ToggleButton>
         <ToggleButton value="borrow">Borrow</ToggleButton>
       </ToggleButtonGroup>
-      <DialogTitle>
-        {type === "lend" ? "Lend money out" : "Borrow money"}
-      </DialogTitle>
       <DialogContent>
         <div className="dialog-form-container">
           <label className="dialog-label" htmlFor="">
@@ -100,13 +100,54 @@ const BorrowMoneyDialog = ({
                   }))
             }
           />
-
+          <label className="dialog-label" htmlFor="">
+            Type of interest:
+          </label>
+          <select
+            name=""
+            id=""
+            className="login-input"
+            onChange={(e) =>
+              type === "lend"
+                ? setLend((prev) => ({
+                    ...prev,
+                    interest_type: e.target.value,
+                  }))
+                : setBorrow((prev) => ({
+                    ...prev,
+                    interest_type: e.target.value,
+                  }))
+            }
+          >
+            <option value="">Select interest type</option>
+            <option value="simple interest">Simple interest</option>
+            <option value="lending rate">lending rate</option>
+            <option value="no interest">no interest</option>
+          </select>
+          <label className="dialog-label" htmlFor="">
+            Interest rate:
+          </label>
+          <input
+            type="number"
+            className="login-input"
+            placeholder="Interest rate"
+            onChange={(e) =>
+              type === "lend"
+                ? setLend((prev) => ({
+                    ...prev,
+                    interest_rate: e.target.value,
+                  }))
+                : setBorrow((prev) => ({
+                    ...prev,
+                    interest_rate: e.target.value,
+                  }))
+            }
+          />
           <label htmlFor="" className="dialog-label">
             {type === "lend"
               ? "When do you expect repayment?"
               : "When do you expect to repay?"}
           </label>
-
           <input
             type="date"
             className="login-input"

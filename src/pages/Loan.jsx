@@ -166,7 +166,7 @@ const Loan = () => {
               </span>
             </div>
             <h1 className="highlight-subtitle">
-              Borrowers:{" "}
+              Borrowers:
               {
                 lentList?.filter(
                   (item) =>

@@ -103,6 +103,28 @@ const Util = () => {
     "Scholarships and Grants",
     "Miscellaneous ",
   ];
+  // income sources for business
+  const businessIncomeSources = [
+    "Ad Revenue",
+    "Affiliate Marketing",
+    "Asset Sales",
+    "Commission Income",
+    "Consultation Fees",
+    "Crowdfunding",
+    "Donations",
+    "Earnings from Partnerships",
+    "Franchise Fees",
+    "Gift Cards & Vouchers",
+    "Grants",
+    "Investment Income",
+    "Licensing & Royalties",
+    "Product Sales",
+    "Rentals",
+    "Service Revenue",
+    "Sponsorship",
+    "Subscription Fees",
+  ];
+
   // categories of expenses
   const categories = [
     { title: "Airtime & Internet ", icon: WifiPassword },
@@ -339,6 +361,7 @@ const Util = () => {
     storeBorrowed,
     businessExpenseCategories,
     storeBudget,
+    businessIncomeSources,
   };
 };
 

@@ -49,6 +49,9 @@ const useBorrow = () => {
     reason: "",
     date: moment().format("DD/MM/YYYY"),
     repayment_date: "",
+    interest_type: "",
+    interest_rate: "",
+    repayment_amount: 0,
     repayment_history: [],
   });
   const [lend, setLend] = useState({
@@ -59,6 +62,9 @@ const useBorrow = () => {
     reason: "",
     date: moment().format("DD/MM/YYYY"),
     repayment_date: "",
+    interest_type: "",
+    interest_rate: "",
+    repayment_amount: 0,
     repayment_history: [],
   });
 
@@ -105,6 +111,11 @@ const useBorrow = () => {
         await storeBorrowed([...other_debts, debt]);
         handleSnackbar(res.data, "success");
         await handleExpenses(newExpenses);
+        setSettle({
+          settled_at: moment().format("DD/MM/YYYY"),
+          amount: "",
+          id: "",
+        });
       } catch (err) {
         handleSnackbar(
           err.response ? err.response.data : "Network Error!",
@@ -147,6 +158,11 @@ const useBorrow = () => {
           (item) => item.id !== getSettled.id
         );
         await storeLent([...other_debts, debt]);
+        setGetSettled({
+          settled_at: moment().format("DD/MM/YYYY"),
+          amount: "",
+          id: "",
+        });
         handleSnackbar(res.data, "success");
       } catch (err) {
         handleSnackbar(

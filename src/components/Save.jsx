@@ -12,7 +12,13 @@ import useSave from "../hooks/useSave";
 import Util from "../utils/util";
 const Save = ({ open, handleSaveDialog, handleSave }) => {
   const { user, loading } = useApp();
-  const { sources_of_income, colors } = Util();
+  const { sources_of_income, colors, businessIncomeSources } = Util();
+  const income_source =
+    user?.purpose === "personal finance"
+      ? sources_of_income
+      : businessIncomeSources;
+  // console.log(income_source);
+
   const { savings, setSavings, spendable_percentage } = useSave();
   useEffect(() => {
     const updatedDetail = user?.portfolio
@@ -51,7 +57,7 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
             value={savings?.source}
           >
             <option value="">Choose source of income</option>
-            {sources_of_income.map((source, index) => (
+            {income_source.map((source, index) => (
               <option key={index} value={source}>
                 {source}
               </option>

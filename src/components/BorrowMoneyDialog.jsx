@@ -20,7 +20,7 @@ const BorrowMoneyDialog = ({
   lend,
   borrow,
 }) => {
-  const { type, toggleType } = useBorrow();
+  const { type, toggleType, set_repayment_amount } = useBorrow();
   const { loading } = useApp();
   return (
     <Dialog open={open}>
@@ -100,49 +100,6 @@ const BorrowMoneyDialog = ({
                   }))
             }
           />
-          <label className="dialog-label" htmlFor="">
-            Type of interest:
-          </label>
-          <select
-            name=""
-            id=""
-            className="login-input"
-            onChange={(e) =>
-              type === "lend"
-                ? setLend((prev) => ({
-                    ...prev,
-                    interest_type: e.target.value,
-                  }))
-                : setBorrow((prev) => ({
-                    ...prev,
-                    interest_type: e.target.value,
-                  }))
-            }
-          >
-            <option value="">Select interest type</option>
-            <option value="simple interest">Simple interest</option>
-            <option value="lending rate">lending rate</option>
-            <option value="no interest">no interest</option>
-          </select>
-          <label className="dialog-label" htmlFor="">
-            Interest rate:
-          </label>
-          <input
-            type="number"
-            className="login-input"
-            placeholder="Interest rate"
-            onChange={(e) =>
-              type === "lend"
-                ? setLend((prev) => ({
-                    ...prev,
-                    interest_rate: e.target.value,
-                  }))
-                : setBorrow((prev) => ({
-                    ...prev,
-                    interest_rate: e.target.value,
-                  }))
-            }
-          />
           <label htmlFor="" className="dialog-label">
             {type === "lend"
               ? "When do you expect repayment?"
@@ -163,6 +120,59 @@ const BorrowMoneyDialog = ({
                   }))
             }
           />
+          <label className="dialog-label" htmlFor="">
+            Type of interest:
+          </label>
+          <select
+            name=""
+            id=""
+            className="login-input"
+            onChange={(e) =>
+              type === "lend"
+                ? setLend((prev) => ({
+                    ...prev,
+                    interest_type: e.target.value,
+                  }))
+                : setBorrow((prev) => ({
+                    ...prev,
+                    interest_type: e.target.value,
+                  }))
+            }
+          >
+            <option value="">Select interest type</option>
+            <option value="no interest">no interest</option>
+            <option value="fixed interest">Fixed Interest (No Time)</option>
+            <option value="simple interest">
+              Simple interest (Time-Based)
+            </option>
+            <option value="lending rate">lending rate (Bank Standard)</option>
+          </select>
+          <label className="dialog-label" htmlFor="">
+            Interest rate:
+          </label>
+          <input
+            type="number"
+            className="login-input"
+            placeholder="Interest rate"
+            onChange={(e) =>
+              type === "lend"
+                ? setLend((prev) => ({
+                    ...prev,
+                    interest_rate: e.target.value,
+                    repayment_amount: set_repayment_amount(
+                      prev?.interest_type,
+                      e.target.value,
+                      prev?.amount,
+                      moment(prev.repayment_date).diff(moment(), "days")
+                    ),
+                  }))
+                : setBorrow((prev) => ({
+                    ...prev,
+                    interest_rate: e.target.value,
+                  }))
+            }
+          />
+
           <button
             disabled={loading}
             className="login-btn"

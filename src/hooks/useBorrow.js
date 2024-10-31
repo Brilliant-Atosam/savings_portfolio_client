@@ -67,6 +67,25 @@ const useBorrow = () => {
     repayment_amount: 0,
     repayment_history: [],
   });
+  // calculating repayment amount
+  const set_repayment_amount = (interest_type, interest_rate, amount, days) => {
+    console.log(interest_type, interest_rate, amount, days);
+    switch (interest_type) {
+      case "fixed rate":
+        return ((100 + interest_rate) / 100) * amount;
+        // break;
+      case "simple interest":
+        return (amount * interest_rate * (days / 365)) / 100;
+        // break;
+      case "lending rate":
+        return amount + (1 + interest_rate / 100 / 12) ** (days / 365);
+        // break;
+      case "no interest":
+        return amount;
+      default:
+        return amount;
+    }
+  };
 
   // settle debt
   const settleDebt = async (settle, handleExpenses) => {
@@ -380,6 +399,7 @@ const useBorrow = () => {
     handleSnackbar,
     deleteBorrowedDebt,
     deleteLentDebt,
+    set_repayment_amount,
   };
 };
 

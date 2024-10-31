@@ -8,7 +8,11 @@ import useTableData from "../utils/tableData";
 
 const BudgetDetails = () => {
   const { format_currency, months } = Util();
-  const { budget_details, expenses_within_budget_period } = useBudget();
+  const {
+    budget_details,
+    expenses_within_budget_period,
+   
+  } = useBudget();
   //   console.log(budget_details);
   const { expenseColumn } = useTableData();
   return (

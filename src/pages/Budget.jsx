@@ -38,7 +38,6 @@ const Budget = () => {
     deleteBudget,
   } = useBudget();
   const { expensesList } = useExpenses();
-  console.log(expensesList);
 
   const expensesCategories =
     user?.purpose !== "personal finance"

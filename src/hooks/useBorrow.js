@@ -34,7 +34,6 @@ const useBorrow = () => {
   lentList?.map((item) =>
     lend_repayment_history.push(...item?.repayment_history)
   );
-  // console.log(lend_repayment_history);
   const [getSettled, setGetSettled] = useState({
     settled_at: moment().format("DD/MM/YYYY"),
     amount: "",
@@ -69,7 +68,6 @@ const useBorrow = () => {
   });
   // calculating repayment amount
   const set_repayment_amount = (interest_type, interest_rate, amount, days) => {
-    console.log(interest_type, interest_rate, amount, days);
     switch (interest_type) {
       case "fixed rate":
         return ((100 + interest_rate) / 100) * amount;
@@ -282,7 +280,6 @@ const useBorrow = () => {
       storeLent(remaining_debts);
       window.alert(res.data);
     } catch (err) {
-      // console.log(err);
       window.alert(
         err.response ? err.response.data : err.message || "Network error!"
       );

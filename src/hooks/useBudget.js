@@ -21,8 +21,13 @@ const useBudget = () => {
   const expenses_within_budget_period = expensesList.filter((item) =>
     item.created_at.endsWith(budget_details?.month)
   );
-  console.log(expenses_within_budget_period);
-
+  const out_of_budget_expenses = expenses_within_budget_period.filter(
+    (item) =>
+      !budget_details.categories.some((elem) => elem.category === item.category)
+  );
+  // console.log(budget_details.categories);
+  // console.log(expenses_within_budget_period);
+  // console.log(out_of_budget_expenses);
   const { storeBudget } = Util();
   const { handleSnackbar, snackbar } = useFeedback();
   const { expensesCategories } = useExpenses();
@@ -122,6 +127,7 @@ const useBudget = () => {
     deleteBudget,
     budget_details,
     expenses_within_budget_period,
+    out_of_budget_expenses,
   };
 };
 

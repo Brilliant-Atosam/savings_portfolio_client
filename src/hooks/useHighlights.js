@@ -41,6 +41,8 @@ const useHighlights = () => {
   const expenses = expensesList.filter((item) =>
     item.created_at.endsWith(query)
   );
+  console.log(expenses);
+
   const total_income = income_savings.reduce((a, b) => a + b.amount, 0);
   const total_savings = income_savings.reduce((a, b) => a + b.saved, 0);
   const total_spendable = total_income - total_savings;
@@ -141,10 +143,14 @@ const useHighlights = () => {
       let data_object = {
         title: category.title,
         total_expenses: expenses
-          ?.filter((item) => item.category === category.title)
+          ?.filter((item) =>
+            item.category.toLocaleLowerCase().includes(category.title.toLocaleLowerCase())
+          )
           ?.reduce((a, b) => a + b.total_cost, 0),
         amount: expenses
-          ?.filter((item) => item.category === category.title)
+          ?.filter((item) =>
+            item.category.toLocaleLowerCase().includes(category.title.toLocaleLowerCase())
+          )
           ?.reduce((a, b) => a + b.total_cost, 0),
       };
       data.push(data_object);
@@ -166,7 +172,8 @@ const useHighlights = () => {
     expenses_chart_data,
     income_sources_chart_data,
     structuredPortfolio,
-    category_chart_data,query_array
+    category_chart_data,
+    query_array,
   };
 };
 

@@ -120,67 +120,72 @@ const Settings = () => {
             <div className="bottom-summary-container">
               <h1 className="debt-text">Saving Goals & Milestones</h1>
               <div className="portfolio-main-container">
-                {structuredPortfolio?.map((item, index) => (
-                  <div className="portfolio-milestone-container">
-                    <span className="key">
-                      {`${item?.title} (${item?.percentage}% of income)`}{" "}
-                      {item?.amount > Number(item?.goal) && (
-                        <GrAchievement fill={colors[index]} />
-                      )}
-                    </span>
+                {structuredPortfolio
+                  ?.filter((portfolio) => !portfolio.archived)
+                  ?.map((item, index) => (
+                    <div className="portfolio-milestone-container" key={index}>
+                      <span className="key">
+                        {`${item?.title} (${item?.percentage}% of income)`}{" "}
+                        {item?.amount > Number(item?.goal) && (
+                          <GrAchievement fill={colors[index]} />
+                        )}
+                      </span>
 
-                    <div className="milestone-progress-bar">
-                      <div
-                        className="milestone-progress"
-                        style={{
-                          width: `${
-                            (item?.amount / Number(item?.goal)) * 100
-                          }%`,
-                          background: colors[index],
-                        }}
-                      ></div>
-                    </div>
-                    <div className="milestone-range">
-                      <span>0</span>
-                      <span>{item?.goal}</span>
-                    </div>
-                    <div className="milestone-details">
-                      <h2 className="milestone-details-heading">
-                        Details of Progress
-                      </h2>
-                      <div className="milestone-key-value">
-                        <span className="key">Progress</span>
-                        <span className="value">
-                          {format_currency(item?.amount)}
-                        </span>
+                      <div className="milestone-progress-bar">
+                        <div
+                          className="milestone-progress"
+                          style={{
+                            width: `${
+                              (item?.amount / Number(item?.goal)) * 100
+                            }%`,
+                            background: colors[index],
+                          }}
+                        ></div>
                       </div>
-                      <div className="milestone-key-value">
-                        <span className="key">Progress Percentage</span>
-                        <span className="value">
-                          {((item?.amount / Number(item?.goal)) * 100).toFixed(
-                            2
-                          )}
-                          %
-                        </span>
+                      <div className="milestone-range">
+                        <span>0</span>
+                        <span>{item?.goal}</span>
                       </div>
-                      {Number(item?.goal) - item?.amount > 0.1 && (
+                      <div className="milestone-details">
+                        <h2 className="milestone-details-heading">
+                          Details of Progress
+                        </h2>
                         <div className="milestone-key-value">
-                          <span className="key">Goal Gap</span>
+                          <span className="key">Progress</span>
                           <span className="value">
-                            {format_currency(Number(item?.goal) - item?.amount)}
+                            {format_currency(item?.amount)}
                           </span>
                         </div>
-                      )}
-                      <div className="milestone-key-value">
-                        <span className="key">Due Date</span>
-                        <span className="value">
-                          {item?.deadline} -
-                          {moment().to(moment(item?.deadline, "DD/MM/YYYY"))}
-                        </span>
+                        <div className="milestone-key-value">
+                          <span className="key">Progress Percentage</span>
+                          <span className="value">
+                            {(
+                              (item?.amount / Number(item?.goal)) *
+                              100
+                            ).toFixed(2)}
+                            %
+                          </span>
+                        </div>
+                        {Number(item?.goal) - item?.amount > 0.1 && (
+                          <div className="milestone-key-value">
+                            <span className="key">Goal Gap</span>
+                            <span className="value">
+                              {format_currency(
+                                Number(item?.goal) - item?.amount
+                              )}
+                            </span>
+                          </div>
+                        )}
+                        <div className="milestone-key-value">
+                          <span className="key">Due Date</span>
+                          <span className="value">
+                            {item?.deadline} -
+                            {moment().to(moment(item?.deadline, "DD/MM/YYYY"))}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </div>
             </div>
           </div>

@@ -20,11 +20,11 @@ import useSave from "../hooks/useSave";
 import Footer from "../components/Footer";
 import moment from "moment";
 import useBorrow from "../hooks/useBorrow";
-import Overlay from "../components/Overlay";
+// import Overlay from "../components/Overlay";
 const Settings = () => {
   const { user } = useApp();
-  const { format_currency, colors, dummy_monthly_data } = Util();
-  const { monthly_data, savingsList, structuredPortfolio } = useSave();
+  const { format_currency, colors,  } = Util();
+  const { monthly_data,  structuredPortfolio } = useSave();
   const {
     handleOpenPass,
     openPass,
@@ -197,14 +197,16 @@ const Settings = () => {
               {
                 <AreaChartComponent
                   data={
-                    monthly_data.reduce((a, b) => a + b.total_income, 0) > 0 &&
-                    user?.tier !== "premium"
-                      ? dummy_monthly_data
-                      : monthly_data
+                    // monthly_data.reduce((a, b) => a + b.total_income, 0) > 0
+                    // &&
+                    // user?.tier !== "premium"
+                    // ? dummy_monthly_data
+                    // :
+                    monthly_data
                   }
                 />
               }
-              {savingsList.reduce((a, b) => a + b.saved, 0) > 0 &&
+              {/* {savingsList.reduce((a, b) => a + b.saved, 0) > 0 &&
                 user?.tier !== "premium" && (
                   <h1 className="no-data-text">
                     This could be your data displayed in the chart above.
@@ -212,7 +214,7 @@ const Settings = () => {
                       Learn more
                     </a>
                   </h1>
-                )}
+                )} */}
             </div>
             <div className="top-summary-container">
               <h1 className="debt-text">
@@ -446,7 +448,7 @@ const Settings = () => {
           <TbLockCog className="add-expenses-btn" />
         </div>
       </div>
-      {user?.tier !== "premium" && <Overlay />}
+      {/* {user?.tier !== "premium" && <Overlay />} */}
       <Footer />
     </div>
   );

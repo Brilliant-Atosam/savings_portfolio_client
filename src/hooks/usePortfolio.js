@@ -51,12 +51,14 @@ const usePortfolio = () => {
       100
     ) {
       handleSnackbar("You cannot save more than you earned!", "warning");
-    } else if (user?.tier !== "premium" && user?.portfolio.length >= 3) {
-      handleSnackbar(
-        "Basic tier users cannot have more than 3 portfolios. Upgrade to premium to enjoy premium features",
-        "warning"
-      );
-    } else {
+    }
+    // else if (user?.tier !== "premium" && user?.portfolio.length >= 3) {
+    //   handleSnackbar(
+    //     "Basic tier users cannot have more than 3 portfolios. Upgrade to premium to enjoy premium features",
+    //     "warning"
+    //   );
+    // }
+    else {
       const portfolio = user.portfolio.find(
         (portfolio) =>
           portfolio.title.toLowerCase() === newPortfolio.title.toLowerCase()
@@ -91,7 +93,7 @@ const usePortfolio = () => {
             createdAt: moment(new Date()).format("DD/MM/YYYY"),
             id: Math.floor(Math.random() * 999).toString(),
           });
-          // window.location.reload();
+          window.location.reload();
         } catch (err) {
           handleSnackbar(
             err.response ? err.response.data : "Network error",

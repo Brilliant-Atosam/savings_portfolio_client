@@ -11,12 +11,12 @@ import SettleAdvanceDialog from "../components/SettleAdvanceDialog";
 import Footer from "../components/Footer";
 import Util from "../utils/util";
 import BorrowDetails from "../components/BorrowDetails";
-import useApp from "../useApp";
-import Overlay from "../components/Overlay";
+// import useApp from "../useApp";
+// import Overlay from "../components/Overlay";
 import Feedback from "../components/Feedback";
 import useExpenses from "../hooks/useExpenses";
 const Loan = () => {
-  const { user } = useApp();
+  // const { user } = useApp();
   const {
     openBorrowDialog,
     handleOpenBorrowDialog,
@@ -205,7 +205,7 @@ const Loan = () => {
           <RiRefund2Fill className="add-expenses-btn" />
         </div>
       </div>
-      {user?.tier !== "premium" && <Overlay />}
+      {/* {user?.tier !== "premium" && <Overlay />} */}
       <Feedback
         snackbar={snackbar}
         toggler={() => handleSnackbar("", "info")}

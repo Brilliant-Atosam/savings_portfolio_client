@@ -9,7 +9,7 @@ import useTableData from "../utils/tableData";
 import AreaChartComponent from "../components/AreaChartComponent";
 import useHighlights from "../hooks/useHighlights";
 import Footer from "../components/Footer";
-import Overlay from "../components/Overlay";
+// import Overlay from "../components/Overlay";
 import useApp from "../useApp";
 const Highlights = () => {
   const { format_currency, colors, months } = Util();
@@ -232,7 +232,7 @@ const Highlights = () => {
           </div>
         </div>
       </div>
-      {user?.tier !== "premium" && <Overlay />}
+      {/* {user?.tier !== "premium" && <Overlay />} */}
       <Footer />
     </div>
   );

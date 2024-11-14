@@ -28,14 +28,14 @@ const Login = () => {
             type="email"
             placeholder="Email"
             className="login-input"
-            onChange={(e) => setEmail(e.target.value.trim())}
+            onChange={(e) => setEmail(e.target.value)}
             value={email}
           />
           <input
             type="password"
             placeholder="Password"
             className="login-input"
-            onChange={(e) => setPassword(e.target.value.trim())}
+            onChange={(e) => setPassword(e.target.value)}
             value={password}
           />
           <button

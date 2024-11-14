@@ -29,7 +29,7 @@ const AddPortfolioDialog = ({ open, close, action }) => {
             className="login-input"
             value={newPortfolio?.title}
             onChange={(e) =>
-              setNewPortfolio({ ...newPortfolio, title: e.target.value.trim() })
+              setNewPortfolio({ ...newPortfolio, title: e.target.value })
             }
           />
           <label className="dialog-label" htmlFor="">
@@ -43,7 +43,7 @@ const AddPortfolioDialog = ({ open, close, action }) => {
             onChange={(e) =>
               setNewPortfolio({
                 ...newPortfolio,
-                reason: e.target.value.trim(),
+                reason: e.target.value,
               })
             }
           />
@@ -58,7 +58,7 @@ const AddPortfolioDialog = ({ open, close, action }) => {
             onChange={(e) =>
               setNewPortfolio({
                 ...newPortfolio,
-                percentage: Number(e.target.value.trim()),
+                percentage: Number(e.target.value),
               })
             }
           />
@@ -73,7 +73,7 @@ const AddPortfolioDialog = ({ open, close, action }) => {
             onChange={(e) =>
               setNewPortfolio({
                 ...newPortfolio,
-                goal: Number(e.target.value.trim()),
+                goal: Number(e.target.value),
               })
             }
           />

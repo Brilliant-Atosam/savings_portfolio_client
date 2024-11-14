@@ -31,7 +31,7 @@ const ExpensesDialog = ({
               placeholder="What did you buy or spend on?"
               className="login-input"
               onChange={(e) =>
-                setExpenses((prev) => ({ ...prev, item: e.target.value }))
+                setExpenses((prev) => ({ ...prev, item: e.target.value.trim() }))
               }
               value={expenses.item}
             />
@@ -43,7 +43,7 @@ const ExpensesDialog = ({
               id=""
               className="login-input"
               onChange={(e) =>
-                setExpenses((prev) => ({ ...prev, category: e.target.value }))
+                setExpenses((prev) => ({ ...prev, category: e.target.value.trim() }))
               }
               value={expenses.category}
             >
@@ -68,7 +68,7 @@ const ExpensesDialog = ({
               onChange={(e) =>
                 setExpenses((prev) => ({
                   ...prev,
-                  quantity: Number(e.target.value),
+                  quantity: Number(e.target.value.trim()),
                 }))
               }
               value={expenses.quantity}

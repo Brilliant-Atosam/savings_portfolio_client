@@ -10,7 +10,7 @@ import AreaChartComponent from "../components/AreaChartComponent";
 import useHighlights from "../hooks/useHighlights";
 import Footer from "../components/Footer";
 // import Overlay from "../components/Overlay";
-import useApp from "../useApp";
+// import useApp from "../useApp";
 const Highlights = () => {
   const { format_currency, colors, months } = Util();
   const {
@@ -38,7 +38,7 @@ const Highlights = () => {
     expenses_c2lm,
     expenses_c2lm_p,
   } = monthly_data;
-  const { user } = useApp();
+  // const { user } = useApp();
   const { savingsColumn, expenseColumn } = useTableData();
   return (
     <div className="main-container">

@@ -20,19 +20,25 @@ const Create = () => {
             type="text"
             placeholder="Full name"
             className="login-input"
-            onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
+            onChange={(e) =>
+              setNewUser({ ...newUser, name: e.target.value.trim() })
+            }
           />
           <input
             type="email"
             placeholder="Email"
             className="login-input"
-            onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+            onChange={(e) =>
+              setNewUser({ ...newUser, email: e.target.value.trim() })
+            }
           />
           <input
             type="text"
             placeholder="Phone number"
             className="login-input"
-            onChange={(e) => setNewUser({ ...newUser, phone: e.target.value })}
+            onChange={(e) =>
+              setNewUser({ ...newUser, phone: e.target.value.trim() })
+            }
           />
           <select
             type="text"
@@ -42,7 +48,7 @@ const Create = () => {
               setNewUser({
                 ...newUser,
                 currency: currencies.find(
-                  (currency) => currency.name === e.target.value
+                  (currency) => currency.name === e.target.value.trim()
                 ),
               })
             }
@@ -59,7 +65,7 @@ const Create = () => {
             placeholder="Password"
             className="login-input"
             onChange={(e) =>
-              setNewUser({ ...newUser, password: e.target.value })
+              setNewUser({ ...newUser, password: e.target.value.trim() })
             }
           />
           <input
@@ -67,7 +73,7 @@ const Create = () => {
             placeholder="Confirm password"
             className="login-input"
             onChange={(e) =>
-              setNewUser({ ...newUser, password2: e.target.value })
+              setNewUser({ ...newUser, password2: e.target.value.trim() })
             }
           />
           <select
@@ -77,7 +83,7 @@ const Create = () => {
             onChange={(e) =>
               setNewUser({
                 ...newUser,
-                purpose: e.target.value,
+                purpose: e.target.value.trim(),
               })
             }
           >

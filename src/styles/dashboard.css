@@ -17,6 +17,10 @@
   width: 40%;
   padding: 12px;
 }
+.date{
+  color: #dc0dba;
+  font-size: 0.8rem;
+}
 .dashboard-action-btn {
   background: transparent;
   border: 2px solid teal;

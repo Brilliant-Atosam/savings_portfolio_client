@@ -6,10 +6,11 @@ import {
 } from "@mui/material";
 import useApp from "../useApp";
 import React, { useEffect } from "react";
-import Subscription from "./Subscription";
+// import Subscription from "./Subscription";
 import "../styles/login.css";
 import useSave from "../hooks/useSave";
 import Util from "../utils/util";
+import moment from "moment";
 const Save = ({ open, handleSaveDialog, handleSave }) => {
   const { user, loading } = useApp();
   const { sources_of_income, colors, businessIncomeSources } = Util();
@@ -17,11 +18,11 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
     user?.purpose === "personal finance"
       ? sources_of_income
       : businessIncomeSources;
-  // console.log(income_source);
 
   const { savings, setSavings, spendable_percentage } = useSave();
   useEffect(() => {
-    const updatedDetail = user?.portfolio?.filter((item) => !item.archived)
+    const updatedDetail = user?.portfolio
+      ?.filter((item) => !item.archived)
       ?.map((item) => ({
         title: item.title,
         amount: parseFloat(
@@ -63,7 +64,7 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
             ))}
           </select>
           <label className="dialog-label" htmlFor="">
-            Income:
+            Amount:
           </label>
           <input
             type="number"
@@ -77,6 +78,20 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
             }
             // value={savings?.amount}
           />
+          <label className="dialog-label" htmlFor="">
+            Date: <span className="date">{savings?.createdAt}</span>
+          </label>
+          <input
+            type="date"
+            className="login-input"
+            onChange={(e) =>
+              setSavings((prev) => ({
+                ...prev,
+                createdAt: moment(e.target.value).format("DD/MM/YYYY"),
+              }))
+            }
+            value={savings?.createdAt}
+          />
           {user && (
             <div className="portfolio-container">
               <div className="portfolio">
@@ -89,7 +104,8 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
                   )}
                 </span>
               </div>
-              {user?.portfolio?.filter((item) => !item.archived)
+              {user?.portfolio
+                ?.filter((item) => !item.archived)
                 .map((item, index) => (
                   <div className="portfolio" key={index}>
                     <span
@@ -134,7 +150,7 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
           <button className="dialog-close-btn" onClick={handleSaveDialog}>
             Close
           </button>
-          {user?.tier !== "premium" && <Subscription />}
+          {/* {user?.tier !== "premium" && <Subscription />} */}
         </div>
       </DialogContent>
       <div className="loading-container">

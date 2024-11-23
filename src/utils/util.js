@@ -222,9 +222,9 @@ const Util = () => {
     { name: "US Dollar", locale: "en-US", currency: "USD" },
   ];
   const format_currency = (amount, locale, currency) =>
-    Number(amount).toLocaleString(locale || user?.currency.locale || "en-GH", {
+    Number(amount).toLocaleString(locale || user?.currency?.locale || "en-GH", {
       style: "currency",
-      currency: currency || user?.currency.currency || "GHS",
+      currency: currency || user?.currency?.currency || "GHS",
     });
   // dummy data for pie chart of basic users
   const piechart_data = [

@@ -27,19 +27,28 @@ const Homepage = () => {
       <Navbar />
       {/* intro */}
       <div className="intro-container">
-        <h1 className="intro-heading">Welcome to cashlens!</h1>
-        <p className="intro-text">
-          Cashlens is your all-in-one financial companion, showing you exactly
-          what's coming in from where, what's going out to where, and where to
-          focus, track and thrive!
-        </p>
-        <div className="intro-nav-links">
-          <Link to="/register" className="intro-nav-btn">
-            Create account
-          </Link>
-          <Link to="/login" className="intro-nav-btn">
-            Log in
-          </Link>
+        <div className="intro-content">
+          <p className="intro-heading">
+            Cashlens is your all-in-one financial companion, showing you exactly
+            what's coming in from where, what's going out to where, and where to
+            focus, track and thrive!
+          </p>
+          <div className="intro-nav-links">
+            {/* <Link to="/register" className="intro-nav-btn">
+              Create account
+            </Link> */}
+            <Link to="/login" className="intro-nav-btn">
+              Get started now!
+            </Link>
+          </div>
+        </div>
+        <div className="intro-graphics">
+          {" "}
+          <img
+            src="https://multiviewcorp.com/hs-fs/hubfs/News%20and%20Blog/Featured/cash-flow-graphic.png?width=1920&height=1920&name=cash-flow-graphic.png"
+            alt=""
+            className="intro-img"
+          />
         </div>
       </div>
       {/* features */}
@@ -214,8 +223,8 @@ const Homepage = () => {
                 <span className="info-value">
                   {format_currency(
                     exchangeResult?.conversion_result,
-                    currencies[exchangeData.toIndex].locale,
-                    currencies[exchangeData.toIndex].currency
+                    currencies[exchangeData.toIndex]?.locale,
+                    currencies[exchangeData.toIndex]?.currency
                   )}
                 </span>
               </div>

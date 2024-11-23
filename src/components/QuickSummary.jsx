@@ -209,9 +209,9 @@ const QuickSummary = () => {
         </div>
         <div className="savings-portfolios-container">
           <h1 className="debt-text">Archived savings portfolio</h1>
-          {structuredPortfolio.filter((item) => item.archived).length > 0 ? (
+          {structuredPortfolio?.filter((item) => item.archived).length > 0 ? (
             structuredPortfolio
-              .filter((item) => item.archived)
+              ?.filter((item) => item.archived)
               ?.map((item, index) => (
                 <div className="portfolio" key={index}>
                   <div className="portfolio-action-container">

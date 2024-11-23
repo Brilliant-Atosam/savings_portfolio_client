@@ -21,9 +21,8 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
 
   const { savings, setSavings, spendable_percentage } = useSave();
   useEffect(() => {
-    const updatedDetail = user?.portfolio
-      .filter((item) => !item.archived)
-      .map((item) => ({
+    const updatedDetail = user?.portfolio?.filter((item) => !item.archived)
+      ?.map((item) => ({
         title: item.title,
         amount: parseFloat(
           ((item.percentage / 100) * savings.amount).toFixed(2)
@@ -34,7 +33,7 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
   return (
     <Dialog open={open}>
       <DialogTitle className="login-text">Add income dialog</DialogTitle>
-      {user.portfolio.length < 1 && (
+      {user.portfolio?.length < 1 && (
         <DialogTitle className="login-text red">
           You cannot save without a portfolio. Create one now!
         </DialogTitle>
@@ -90,8 +89,7 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
                   )}
                 </span>
               </div>
-              {user?.portfolio
-                .filter((item) => !item.archived)
+              {user?.portfolio?.filter((item) => !item.archived)
                 .map((item, index) => (
                   <div className="portfolio" key={index}>
                     <span

@@ -13,16 +13,23 @@ const Policy = () => {
     <div className="main-container">
       <Navbar />
       <div className="intro-container">
-        <h1 className="intro-heading">Welcome!</h1>
-        <p className="intro-text">
-          At cashlens, we believe in sharing the financial growth! Join our
-          Referral/Partnership Program and earn exciting commissions for every
-          successful sign-up through your referral link.
-        </p>
-        <div className="intro-nav-links">
-          <Link to="/login" className="intro-nav-btn">
-            Join now!
-          </Link>
+        <div className="intro-content">
+          <p className="intro-heading">
+            At cashlens, we believe in sharing the financial growth! Join our
+            Referral/Partnership Program and earn exciting commissions for every
+            successful sign-up through your referral link.
+          </p>
+          <div className="intro-nav-links">
+            <Link to="/login" className="intro-nav-btn">
+              Join now!
+            </Link>
+          </div>
+        </div>
+        <div className="intro-graphics">
+          <img
+            src="https://digisoft.in/assets/img/intro_images/partner-with-us.png"
+            alt="" className="intro-img"
+          />
         </div>
       </div>
       <div className="features-container">

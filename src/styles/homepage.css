@@ -1,16 +1,33 @@
 @import url("https://fonts.googleapis.com/css2?family=Diphylleia&display=swap");
 .intro-container {
+  width: 100%;
+  height: fit-content;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 15px;
+  background: #212e3cbe;
+  padding: 70px 20px;
+}
+.intro-graphics {
+  flex: 1;
+}
+.intro-img {
+  width: 100%;
+  height: auto;
+}
+.intro-content {
+  flex: 1;
+  display: flex;
   flex-direction: column;
-  height: 300px;
-  background: #ffffffb1;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
 .intro-heading {
-  color: teal;
-  font-weight: 300;
-  font-size: 3rem;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.2rem;
   margin-bottom: 25px;
   font-family: "Diphylleia", serif;
 }
@@ -21,7 +38,7 @@
   width: 90%;
   max-width: 768px;
   text-align: center;
-  color: #333;
+  color: #3f5355;
 }
 .intro-nav-links {
   display: flex;
@@ -151,19 +168,21 @@
   }
 }
 @media (max-width: 600px) {
+  .intro-container{
+    flex-direction: column;
+    gap: 20px;
+    height: fit-content;
+  }
   .intro-heading {
-    font-size: 1.6rem;
+    font-size: 1rem;
     margin-bottom: 18px;
+    width: 100%;
+   text-align: center; 
   }
   .features-card,
   .about-card {
     width: 98%;
   }
-  .intro-text {
-    font-size: 1rem;
-    line-height: 1.2rem;
-  }
-
   .features-title,
   .about-title,
   .contact-heading {

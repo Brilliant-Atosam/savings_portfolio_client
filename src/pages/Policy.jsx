@@ -20,7 +20,7 @@ const Policy = () => {
             successful sign-up through your referral link.
           </p>
           <div className="intro-nav-links">
-            <Link to="/login" className="intro-nav-btn">
+            <Link to="/login" className="intro-nav-btn intro-nav-btn1">
               Join now!
             </Link>
           </div>

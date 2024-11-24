@@ -9,7 +9,7 @@ const useSave = () => {
   const { snackbar, handleSnackbar } = useFeedback();
 
   const context = useApp();
-  let user = JSON.parse(window.localStorage.getItem("user"));
+  let user = JSON.parse(window.localStorage.getItem("user"));  
   let expensesList = JSON.parse(localStorage.getItem("expenses"));
   let loans = JSON.parse(localStorage.getItem("loans"));
   let details = [];
@@ -21,8 +21,6 @@ const useSave = () => {
     userId: user?.id,
     details,
   });
-  console.log(savings);
-
   let savingsList = JSON.parse(window.localStorage.getItem("savings")) || [];
   const [showSaveDialog, setShowSaveDialog] = useState(false);
   const handleSaveDialog = () => setShowSaveDialog((prev) => !prev);

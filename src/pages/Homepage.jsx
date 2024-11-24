@@ -37,7 +37,7 @@ const Homepage = () => {
             {/* <Link to="/register" className="intro-nav-btn">
               Create account
             </Link> */}
-            <Link to="/login" className="intro-nav-btn">
+            <Link to="/login" className="intro-nav-btn intro-nav-btn1">
               Get started now!
             </Link>
           </div>

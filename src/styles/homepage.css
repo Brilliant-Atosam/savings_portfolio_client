@@ -6,7 +6,8 @@
   align-items: center;
   justify-content: center;
   gap: 15px;
-  background: #212e3cbe;
+  /* background: #212e3cbe; */
+  background: teal;
   padding: 70px 20px;
 }
 .intro-graphics {
@@ -103,6 +104,11 @@
   font-size: 1rem;
   line-height: 1.4rem;
 }
+.intro-nav-btn1 {
+  background: #fff !important;
+  color: teal !important;
+  border-radius: 10px;
+}
 .referral-container {
   display: flex;
   align-items: center;
@@ -168,7 +174,7 @@
   }
 }
 @media (max-width: 600px) {
-  .intro-container{
+  .intro-container {
     flex-direction: column;
     gap: 20px;
     height: fit-content;
@@ -177,7 +183,7 @@
     font-size: 1rem;
     margin-bottom: 18px;
     width: 100%;
-   text-align: center; 
+    text-align: center;
   }
   .features-card,
   .about-card {

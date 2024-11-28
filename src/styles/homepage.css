@@ -28,9 +28,10 @@
 .intro-heading {
   color: #fff;
   font-weight: 600;
-  font-size: 1.2rem;
-  margin-bottom: 25px;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
   font-family: "Diphylleia", serif;
+  width: 80%;
 }
 .intro-text {
   font-size: 1.2rem;
@@ -108,6 +109,8 @@
   background: #fff !important;
   color: teal !important;
   border-radius: 10px;
+  height: 50px;
+  font-size: 1.2em;
 }
 .referral-container {
   display: flex;
@@ -172,18 +175,18 @@
     font-size: 1.6rem;
     text-align: center;
   }
-}
-@media (max-width: 600px) {
   .intro-container {
     flex-direction: column;
     gap: 20px;
     height: fit-content;
   }
+}
+@media (max-width: 600px) {
   .intro-heading {
-    font-size: 1rem;
+    font-size: 1.8rem;
     margin-bottom: 18px;
     width: 100%;
-    text-align: center;
+    /* text-align: center; */
   }
   .features-card,
   .about-card {

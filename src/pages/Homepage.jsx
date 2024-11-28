@@ -29,9 +29,8 @@ const Homepage = () => {
       <div className="intro-container">
         <div className="intro-content">
           <p className="intro-heading">
-            Cashlens is your all-in-one financial companion, showing you exactly
-            what's coming in from where, what's going out to where, and where to
-            focus, track and thrive!
+            cashlens tracks your finance - what comes in from where, what goes
+            out to where, and helps you focus, track, and thrive
           </p>
           <div className="intro-nav-links">
             {/* <Link to="/register" className="intro-nav-btn">
@@ -43,7 +42,6 @@ const Homepage = () => {
           </div>
         </div>
         <div className="intro-graphics">
-          {" "}
           <img
             src="https://multiviewcorp.com/hs-fs/hubfs/News%20and%20Blog/Featured/cash-flow-graphic.png?width=1920&height=1920&name=cash-flow-graphic.png"
             alt=""
@@ -73,18 +71,18 @@ const Homepage = () => {
           </div>
           <div className="features-card">
             <GoGoal className="card-icon" />
-            <h1 className="feature-card-title">Track your savings</h1>
+            <h1 className="feature-card-title">Save in portfolios</h1>
             <p className="feature-card-info">
-              Achieve dreams with personalized savings plans. Set, track, and
-              realize financial goals.
+              Personalize and track separate different savings goals - eg.
+              emergency fund, business expansion fund, vacation, etc.
             </p>
           </div>
           <div className="features-card">
             <FcDebt className="card-icon" />
             <h1 className="feature-card-title">Manage debt</h1>
             <p className="feature-card-info">
-              Break free from debt stress. Manage and track debts for a clear
-              path to financial freedom.
+              Track who you owe or owes you, the repayment history, when to
+              repay or expect a repayment.
             </p>
           </div>
         </div>

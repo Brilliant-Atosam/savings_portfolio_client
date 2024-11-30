@@ -5,7 +5,6 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  /* background: #000; */
 }
 .login-sub-container {
   width: fit-content;
@@ -17,18 +16,14 @@
   border-radius: 10px;
   padding: 15px;
 }
-/* .not-a-form {
-  display: flex;
-  flex-direction: column;
-} */
+
 .login-icon {
   font-size: 15rem !important;
   fill: teal !important;
 }
-/* .login-logo {
-  height: 60px;
-  width: 60px;
-} */
+.login-logo {
+  height: 300px;
+}
 .login-form-container {
   display: flex;
   flex-direction: column;
@@ -44,7 +39,6 @@
 .login-input {
   width: 100%;
   background: transparent;
-  /* max-width: 400px; */
   height: 35px;
   min-width: 350px;
   border-radius: 5px;
@@ -81,5 +75,8 @@
 @media (max-width: 415px) {
   .login-input {
     min-width: 100%;
+  }
+  .login-redirects{
+    flex-direction: column;
   }
 }

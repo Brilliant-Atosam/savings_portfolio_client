@@ -1,10 +1,6 @@
 import { Link } from "react-router-dom";
 import "../styles/homepage.css";
 import "../styles/contact.css";
-import { GiPayMoney, GiReceiveMoney } from "react-icons/gi";
-import { GoGoal } from "react-icons/go";
-import logo from "../logo1.png";
-import { FcDebt } from "react-icons/fc";
 import { BsSun } from "react-icons/bs";
 import { PiBinocularsThin } from "react-icons/pi";
 import { MdGroupWork, MdOutlinePolicy } from "react-icons/md";
@@ -33,9 +29,6 @@ const Homepage = () => {
             out to where, and helps you focus, track, and thrive
           </p>
           <div className="intro-nav-links">
-            {/* <Link to="/register" className="intro-nav-btn">
-              Create account
-            </Link> */}
             <Link to="/login" className="intro-nav-btn intro-nav-btn1">
               Get started now!
             </Link>
@@ -53,110 +46,81 @@ const Homepage = () => {
       <div className="features-container">
         <h1 className="features-title">With cashlens you can:</h1>
         <div className="features">
-          <div className="features-card">
-            <GiReceiveMoney className="card-icon" />
-            <h1 className="feature-card-title">Track your income</h1>
-            <p className="feature-card-info">
-              Monitor all earnings, from paychecks to side gigs to gifts. Know
-              where your money comes from and how much.
-            </p>
-          </div>
-          <div className="features-card">
-            <GiPayMoney className="card-icon" />
-            <h1 className="feature-card-title">Track your expenses</h1>
-            <p className="feature-card-info">
-              Categorize and control spending. Know where your money goes for
-              smarter budgeting.
-            </p>
-          </div>
-          <div className="features-card">
-            <GoGoal className="card-icon" />
-            <h1 className="feature-card-title">Save in portfolios</h1>
-            <p className="feature-card-info">
-              Personalize and track separate different savings goals - eg.
-              emergency fund, business expansion fund, vacation, etc.
-            </p>
-          </div>
-          <div className="features-card">
-            <FcDebt className="card-icon" />
-            <h1 className="feature-card-title">Manage debt</h1>
-            <p className="feature-card-info">
-              Track who you owe or owes you, the repayment history, when to
-              repay or expect a repayment.
-            </p>
-          </div>
-        </div>
-        <Link to="/login" className="intro-nav-btn">
-          Get Started
-        </Link>
-      </div>
-      {/* referral */}
-      <div className="referral-container">
-        <img src={img} alt="" className="referral-img" />
-        <div className="referral-details">
-          <h1 className="referral-title">
-            What if you could earn money just by telling others about cashlens?
-          </h1>
-          <p className="referral-info">
-            Yeah, that's what cashlens offers you! For every friend you refer to
-            the app that helps you manage your money, you get a commission. The
-            more you share, the more you earn. It's a win-win situation. So what
-            are you waiting for?
-          </p>
-          <div className="intro-nav-links">
-            <Link to="/register" className="intro-nav-btn">
-              Join now!
-            </Link>
-            <Link to="/policy" className="intro-nav-btn">
-              Learn more.
-            </Link>
-          </div>
-        </div>
-      </div>
-      {/* about us */}
-      <div className="about-container">
-        <h1 className="about-title">About cashlens</h1>
-        <div className="about">
-          <div className="about-card">
-            <BsSun className="card-icon" />
-            <h1 className="about-card-title">Our mission is to: </h1>
-            <p className="about-card-info">
-              empower individuals with user-friendly financial tools, fostering
-              financial literacy, and guiding them to achieve lasting financial
-              well-being.
-            </p>
-          </div>
-          <div className="about-card">
-            <PiBinocularsThin className="card-icon" />
-            <h1 className="about-card-title">Our vision is to: </h1>
-            <p className="about-card-info">
-              be a global leader in revolutionizing personal finance management,
-              making financial empowerment accessible to everyone.
-            </p>
-          </div>
-
-          <div className="about-card">
-            <MdGroupWork className="card-icon" />
-            <h1 className="about-card-title">Our core values include: </h1>
-            <div className="about-card-info">
-              Empowerment, Transparency, Innovation, Accessibility and Integrity
+          <div className="feature">
+            <div className="feature-img-container">
+              <img src="/track_income.png" alt="" className="feature-img" />
+            </div>
+            <div className="feature-text-container">
+              <h1 className="feature-title">Track your income</h1>
+              <p className="feature-description">
+                Monitor all earnings, from paychecks to side gigs to gifts. Know
+                where your money comes from and how much.
+              </p>
             </div>
           </div>
-          <div className="about-card">
-            <MdOutlinePolicy className="card-icon" />
-            <h1 className="about-card-title">Our policy: </h1>
-            <p className="about-card-info">
-              We prioritize your data security. cashlens collects minimal
-              personal information strictly for app functionality. We do not
-              share or sell your data.
-            </p>
+          <div className="feature">
+            <div className="feature-img-container">
+              <img src="/track_expenses.png" alt="" className="feature-img" />
+            </div>
+            <div className="feature-text-container">
+              <h1 className="feature-title">Track your expenses</h1>
+              <p className="feature-description">
+                Categorize and control spending. Know where your money goes for
+                smarter budgeting.
+              </p>
+            </div>
+          </div>
+          <div className="feature">
+            <div className="feature-img-container">
+              <img src="/track_savings.png" alt="" className="feature-img" />
+            </div>
+            <div className="feature-text-container">
+              <h1 className="feature-title">Save in portfolios</h1>
+              <p className="feature-description">
+                Personalize and track separate different savings goals - eg.
+                emergency fund, business expansion fund, vacation, etc.
+              </p>
+            </div>
+          </div>
+          <div className="feature">
+            <div className="feature-img-container">
+              <img
+                src="/track_performance.png"
+                alt=""
+                className="feature-img"
+              />
+            </div>
+            <div className="feature-text-container">
+              <h1 className="feature-title">Track performance</h1>
+              <p className="feature-description">
+                Receive monthly highlights that analyze your financial
+                performance, comparing it to your previous, average, and peak
+                performances across various aspects of your finances.
+              </p>
+            </div>
+          </div>
+          <div className="feature">
+            <div className="feature-img-container">
+              <img src="/track_debt.png" alt="" className="feature-img" />
+            </div>
+            <div className="feature-text-container">
+              <h1 className="feature-title">Manage debt</h1>
+              <p className="feature-description">
+                Track who you owe or owes you, the repayment history, when to
+                repay or expect a repayment.
+              </p>
+            </div>
           </div>
         </div>
       </div>
       {/* currency converter */}
       <div className="exchange-container">
+        <img
+          src="https://cdni.iconscout.com/illustration/premium/thumb/money-exchange-illustration-download-in-svg-png-gif-file-formats--currency-app-service-e-wallet-digital-exchanger-pack-people-illustrations-4494365.png"
+          alt="cashlens logo"
+          className="exchange-img"
+        />
         <div className="login-form-container">
-          <img src={logo} alt="cashlens logo" className="login-logo" />
           <h3 className="login-text">cashlens currency converter</h3>
           <input
             type="number"
@@ -230,6 +194,48 @@ const Homepage = () => {
           )}
         </div>
       </div>
+
+      {/* about us */}
+      <div className="about-container">
+        <h1 className="about-title">About cashlens</h1>
+        <div className="about">
+          <div className="about-card">
+            <BsSun className="card-icon" />
+            <h1 className="about-card-title">Our mission is to: </h1>
+            <p className="about-card-info">
+              empower individuals with user-friendly financial tools, fostering
+              financial literacy, and guiding them to achieve lasting financial
+              well-being.
+            </p>
+          </div>
+          <div className="about-card">
+            <PiBinocularsThin className="card-icon" />
+            <h1 className="about-card-title">Our vision is to: </h1>
+            <p className="about-card-info">
+              be a global leader in revolutionizing personal finance management,
+              making financial empowerment accessible to everyone.
+            </p>
+          </div>
+
+          <div className="about-card">
+            <MdGroupWork className="card-icon" />
+            <h1 className="about-card-title">Our core values include: </h1>
+            <div className="about-card-info">
+              Empowerment, Transparency, Innovation, Accessibility and Integrity
+            </div>
+          </div>
+          <div className="about-card">
+            <MdOutlinePolicy className="card-icon" />
+            <h1 className="about-card-title">Our policy: </h1>
+            <p className="about-card-info">
+              We prioritize your data security. cashlens collects minimal
+              personal information strictly for app functionality. We do not
+              share or sell your data.
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* contact us */}
       <div className="contact-container">
         <h1 className="contact-heading">Let's get in touch!</h1>
@@ -293,7 +299,29 @@ const Homepage = () => {
           </div>
         </div>
       </div>
-
+      {/* referral */}
+      <div className="referral-container">
+        <img src={img} alt="" className="referral-img" />
+        <div className="referral-details">
+          <h1 className="referral-title">
+            What if you could earn money just by telling others about cashlens?
+          </h1>
+          <p className="referral-info">
+            Yeah, that's what cashlens offers you! For every friend you refer to
+            the app that helps you manage your money, you get a commission. The
+            more you share, the more you earn. It's a win-win situation. So what
+            are you waiting for?
+          </p>
+          <div className="intro-nav-links">
+            <Link to="/register" className="intro-nav-btn">
+              Join now!
+            </Link>
+            <Link to="/policy" className="intro-nav-btn">
+              Learn more.
+            </Link>
+          </div>
+        </div>
+      </div>
       <Footer />
     </div>
   );

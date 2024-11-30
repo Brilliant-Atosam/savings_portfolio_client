@@ -3,10 +3,8 @@ import { Link } from "react-router-dom";
 import useAccount from "../hooks/useAccount";
 import { CircularProgress } from "@mui/material";
 import useApp from "../useApp";
-// import logo from "../logo1.png";
 import Navbar from "../components/Navbar";
 import Feedback from "../components/Feedback";
-import {  VerifiedUserOutlined } from "@mui/icons-material";
 const Login = () => {
   const {
     login,
@@ -23,12 +21,10 @@ const Login = () => {
       <Navbar />
       <div className="login-container">
         <div className="login-sub-container">
-          {/* <div className="not-a-form">
-          </div> */}
-            <VerifiedUserOutlined className="login-icon"/>
+          
+            <img src='/login.png' alt="cashlens logo" className="login-logo" />
           <div className="login-form-container">
             <h1 className="login-text">Welcome! Please log in.</h1>
-            {/* <img src={logo} alt="cashlens logo" className="login-logo" /> */}
 
             <input
               type="email"

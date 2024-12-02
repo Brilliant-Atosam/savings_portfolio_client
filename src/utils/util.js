@@ -101,7 +101,8 @@ const Util = () => {
     "Alimony/child Support",
     "Gifts and Inheritance",
     "Scholarships and Grants",
-    "Miscellaneous ",
+    "Miscellaneous",
+    "Loans Received",
   ];
   // income sources for business
   const businessIncomeSources = [
@@ -123,6 +124,7 @@ const Util = () => {
     "Service Revenue",
     "Sponsorship",
     "Subscription Fees",
+    "Loans Received",
   ];
 
   // categories of expenses

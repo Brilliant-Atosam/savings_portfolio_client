@@ -17,6 +17,7 @@ import Util from "../utils/util";
 import useBudget from "../hooks/useBudget";
 import Feedback from "../components/Feedback";
 import useExpenses from "../hooks/useExpenses";
+import BudgetForm from "../components/BudgetForm";
 // import { Link } from "react-router-dom";
 const Budget = () => {
   const {
@@ -48,7 +49,16 @@ const Budget = () => {
       <Topbar />
       <div className="budget-container">
         <div className="budget-left">
-          <div className="create-budget-container">
+          <BudgetForm
+            createBudget={createBudget}
+            expensesCategories={expensesCategories}
+            months={months}
+            newBudget={newBudget}
+            setNewBudget={setNewBudget}
+            title="Create New Budget"
+            button_text="Create budget"
+          />
+          {/* <div className="create-budget-container">
             <h1 className="debt-text">Create New Budget</h1>
             <div className="budget-input-container">
               <CiCalendarDate className="input-icon" />
@@ -129,7 +139,7 @@ const Budget = () => {
             <button className="login-btn" onClick={createBudget}>
               Create budget
             </button>
-          </div>
+          </div> */}
         </div>
         <div className="budget-right">
           <div className="budgets-container">

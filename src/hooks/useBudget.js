@@ -21,13 +21,10 @@ const useBudget = () => {
   const expenses_within_budget_period = expensesList.filter((item) =>
     item.created_at.endsWith(budget_details?.month)
   );
+
   const out_of_budget_expenses = expenses_within_budget_period.filter(
-    (item) =>
-      !budget_details.categories.some((elem) => elem.category === item.category)
+    (item) => !budget_details.categories.some((elem) => item.amount < 1)
   );
-  // console.log(budget_details.categories);
-  // console.log(expenses_within_budget_period);
-  // console.log(out_of_budget_expenses);
   const { storeBudget } = Util();
   const { handleSnackbar, snackbar } = useFeedback();
   const { expensesCategories } = useExpenses();
@@ -46,6 +43,7 @@ const useBudget = () => {
     created_at: moment().format("DD/MM/YYYY"),
     userId: user.id,
   });
+
   // function create new budget
   const createBudget = async () => {
     context?.handleLoader();
@@ -53,24 +51,21 @@ const useBudget = () => {
       handleSnackbar("provide value for required fields", "warning");
     } else if (budgets.find((budget) => budget.month === newBudget.month)) {
       handleSnackbar("There is an existing budget for this month", "warning");
+    } else if (newBudget.total_budget > newBudget.estimated_budget) {
+      handleSnackbar(
+        "Total budget cannot be greater than your estimated budget",
+        "warning"
+      );
     } else {
       try {
-        const res = await request.post(
-          "/budget",
-          {
-            ...newBudget,
-            categories: newBudget.categories.filter((cat) => cat.amount > 0),
+        const res = await request.post("/budget", newBudget, {
+          headers: {
+            access_token: `Bearer ${user.access_token}`,
           },
-          {
-            headers: {
-              access_token: `Bearer ${user.access_token}`,
-            },
-          }
-        );
+        });
         storeBudget([
           {
             ...newBudget,
-            categories: newBudget.categories.filter((cat) => cat.amount > 0),
           },
           ...budgets,
         ]);
@@ -88,6 +83,60 @@ const useBudget = () => {
           created_at: moment().format("DD/MM/YYYY"),
           userId: user.id,
         });
+      } catch (err) {
+        handleSnackbar(err.response ? err.response.data : err.message, "error");
+      }
+    }
+    context?.handleLoader();
+  };
+  // function edit new budget
+  const editBudget = async () => {
+    console.log("Click");
+    context?.handleLoader();
+    if (newBudget.total_budget < 1) {
+      handleSnackbar("provide value for required fields", "warning");
+    } else if (newBudget.total_budget > newBudget.estimated_budget) {
+      handleSnackbar(
+        "Total budget cannot be greater than your estimated budget",
+        "warning"
+      );
+    } else {
+      try {
+        const res = await request.put(
+          `/budget?budget_id=${budget_id}`,
+          {
+            ...newBudget,
+            categories: newBudget.categories.filter((cat) => cat.amount > 0),
+          },
+          {
+            headers: {
+              access_token: `Bearer ${user.access_token}`,
+            },
+          }
+        );
+        let otherBudgets = budgets.filter((budget) => budget.id !== budget_id);
+        // store the updated version
+        storeBudget([
+          {
+            ...newBudget,
+            categories: newBudget.categories.filter((cat) => cat.amount > 0),
+          },
+          ...otherBudgets,
+        ]);
+        handleSnackbar(res.data, "success");
+        // setNewBudget({
+        //   month: "",
+        //   estimated_budget: "",
+        //   total_budget: "",
+        //   categories: expensesCategories.map((cat) => ({
+        //     category: cat.title,
+        //     amount: "",
+        //   })),
+        //   balance: 0,
+        //   id: Math.floor(Math.random() * 99999).toString(),
+        //   created_at: moment().format("DD/MM/YYYY"),
+        //   userId: user.id,
+        // });
       } catch (err) {
         handleSnackbar(err.response ? err.response.data : err.message, "error");
       }
@@ -128,6 +177,7 @@ const useBudget = () => {
     budget_details,
     expenses_within_budget_period,
     out_of_budget_expenses,
+    editBudget,
   };
 };
 

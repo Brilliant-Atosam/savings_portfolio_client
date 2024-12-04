@@ -19,12 +19,11 @@ import AreaChartComponent from "../components/AreaChartComponent";
 import useSave from "../hooks/useSave";
 import Footer from "../components/Footer";
 import moment from "moment";
-import useBorrow from "../hooks/useBorrow";
 // import Overlay from "../components/Overlay";
 const Settings = () => {
   const { user } = useApp();
-  const { format_currency, colors,  } = Util();
-  const { monthly_data,  structuredPortfolio } = useSave();
+  const { format_currency, colors } = Util();
+  const { monthly_data, structuredPortfolio } = useSave();
   const {
     handleOpenPass,
     openPass,
@@ -34,7 +33,9 @@ const Settings = () => {
     handle_basic_info,
     income_chart_data,
     total_expenses,
+    actual_total_expenses,
     total_income,
+    total_earned_income,
     total_savings,
     total_spendable,
     spendable_utilization_percentage,
@@ -46,13 +47,13 @@ const Settings = () => {
     average_expenses,
     peak_expenses,
     peak_savings,
+    total_borrow_balance,
+    total_borrowed,
+    total_borrow_repayment,
+    total_lent,
+    total_lent_repayment,
+    lent_balance,
   } = useSettings();
-  const {
-    borrowedList,
-    lentList,
-    lend_repayment_history,
-    borrowed_repayment_history,
-  } = useBorrow();
   return (
     <div className="main-container">
       <Topbar />
@@ -229,7 +230,13 @@ const Settings = () => {
                     <div className="key-value-container">
                       <span className="key">Total Income: </span>
                       <span className="value">
-                        {format_currency(total_income)}
+                        {format_currency(total_income)} (+ loan received)
+                      </span>
+                    </div>
+                    <div className="key-value-container">
+                      <span className="key">Total Earned Income: </span>
+                      <span className="value">
+                        {format_currency(total_earned_income)} (- loan received)
                       </span>
                     </div>
                     <div className="key-value-container">
@@ -254,18 +261,30 @@ const Settings = () => {
                     </h1>
                     <div className="category-container">
                       <div className="key-value-container">
-                        <span className="key">Gross Savings: </span>
+                        <span className="key">Projected Savings: </span>
                         <span className="value">
                           {format_currency(total_savings)} [
-                          {((total_savings / total_income) * 100).toFixed(2)}%]
+                          {((total_savings / total_income) * 100).toFixed(2)}%
+                          of income]
                         </span>
                       </div>
                       <div className="key-value-container">
                         <span className="key">Actual Savings: </span>
                         <span className="value">
                           {format_currency(actual_savings)} [
-                          {((actual_savings / total_income) * 100).toFixed(2)}
-                          %]
+                          {((actual_savings / total_income) * 100).toFixed(2)}%
+                          of income]
+                        </span>
+                      </div>
+                      <div className="key-value-container">
+                        <span className="key">Savings at hand: </span>
+                        <span className="value">
+                          {format_currency(actual_savings - lent_balance)} [
+                          {(
+                            ((actual_savings - lent_balance) / total_income) *
+                            100
+                          ).toFixed(2)}
+                          % of income]
                         </span>
                       </div>
 
@@ -308,6 +327,18 @@ const Settings = () => {
                         <span className="value">
                           {format_currency(total_expenses)} [
                           {((total_expenses / total_income) * 100).toFixed(2)}%]
+                          (+ loan payments)
+                        </span>
+                      </div>
+                      <div className="key-value-container">
+                        <span className="key">Actual Expenses: </span>
+                        <span className="value">
+                          {format_currency(actual_total_expenses)} [
+                          {(
+                            (actual_total_expenses / total_income) *
+                            100
+                          ).toFixed(2)}
+                          %] (- loan payments)
                         </span>
                       </div>
                       <div className="key-value-container">
@@ -358,72 +389,37 @@ const Settings = () => {
                       <div className="key-value-container">
                         <span className="key">Total Amount Borrowed: </span>
                         <span className="value">
-                          {format_currency(
-                            borrowedList?.reduce(
-                              (a, b) => a + Number(b.amount),
-                              0
-                            )
-                          )}
+                          {format_currency(total_borrowed)}
                         </span>
                       </div>
                       <div className="key-value-container">
                         <span className="key">Total Repayment: </span>
                         <span className="value">
-                          {format_currency(
-                            borrowed_repayment_history?.reduce(
-                              (a, b) => a + b.amount,
-                              0
-                            )
-                          )}
+                          {format_currency(total_borrow_repayment)}
                         </span>
                       </div>
                       <div className="key-value-container">
                         <span className="key">Balance:</span>
                         <span className="value">
-                          {format_currency(
-                            borrowedList?.reduce(
-                              (a, b) => a + Number(b.amount),
-                              0
-                            ) -
-                              borrowed_repayment_history?.reduce(
-                                (a, b) => a + b.amount,
-                                0
-                              )
-                          )}
+                          {format_currency(total_borrow_balance)}
                         </span>
                       </div>
                       <div className="key-value-container">
                         <span className="key">Total Amount lent: </span>
                         <span className="value">
-                          {format_currency(
-                            lentList?.reduce((a, b) => a + Number(b.amount), 0)
-                          )}
+                          {format_currency(total_lent)}
                         </span>
                       </div>
                       <div className="key-value-container">
                         <span className="key">Total Amount Settled:</span>
                         <span className="value">
-                          {format_currency(
-                            lend_repayment_history?.reduce(
-                              (a, b) => a + b.amount,
-                              0
-                            )
-                          )}
+                          {format_currency(total_lent_repayment)}
                         </span>
                       </div>
                       <div className="key-value-container">
                         <span className="key">Balance:</span>
                         <span className="value">
-                          {format_currency(
-                            lentList?.reduce(
-                              (a, b) => a + Number(b.amount),
-                              0
-                            ) -
-                              lend_repayment_history?.reduce(
-                                (a, b) => a + b.amount,
-                                0
-                              )
-                          )}
+                          {format_currency(lent_balance)}
                         </span>
                       </div>
                     </div>

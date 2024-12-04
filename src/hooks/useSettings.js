@@ -3,10 +3,26 @@ import useApp from "../useApp";
 import request from "../utils/request";
 import Util from "../utils/util";
 import useSave from "./useSave";
-
 const useSettings = () => {
   const context = useApp();
+  // const {
+  //   borrowedList,
+  //   lentList,
+  //   lend_repayment_history,
+  //   borrowed_repayment_history,
+  // } = useBorrow();
   let user = JSON.parse(localStorage.getItem("user"));
+  let borrowedList = JSON.parse(localStorage.getItem("borrowed"));
+  let lentList = JSON.parse(localStorage.getItem("lent"));
+
+  let borrowed_repayment_history = [];
+  borrowedList?.map((item) =>
+    borrowed_repayment_history.push(...item?.repayment_history)
+  );
+  let lend_repayment_history = [];
+  lentList?.map((item) =>
+    lend_repayment_history.push(...item?.repayment_history)
+  );
   const portfolio = user?.portfolio;
   let savings = JSON.parse(localStorage.getItem("savings"));
   let expenses = JSON.parse(localStorage.getItem("expenses"));
@@ -25,9 +41,25 @@ const useSettings = () => {
   const total_income = Number(
     savings?.reduce((a, b) => a + b.amount, 0).toFixed(2)
   );
+  const total_earned_income =
+    total_income -
+    Number(
+      savings
+        .filter((item) => item.details.title === "Loan Received")
+        .reduce((a, b) => a + b.details.amount, 0)
+    );
+
   const total_expenses = Number(
     expenses?.reduce((a, b) => a + b.total_cost, 0).toFixed(2)
   );
+  const actual_total_expenses =
+    total_expenses -
+    Number(
+      expenses
+        .filter((exp) => exp.item.startsWith("Settled debt owed to"))
+        .reduce((a, b) => a + b.total_cost, 0)
+    );
+  // console.log(actual_total_expenses);
   const total_savings = Number(
     savings?.reduce((a, b) => a + b.saved, 0).toFixed(2)
   );
@@ -43,6 +75,23 @@ const useSettings = () => {
     ((total_income - total_expenses) / total_savings) *
     100
   ).toFixed(2);
+  const total_borrowed = borrowedList?.reduce(
+    (a, b) => a + Number(b.amount),
+    0
+  );
+  const total_borrow_repayment = borrowed_repayment_history?.reduce(
+    (a, b) => a + b.amount,
+    0
+  );
+  const total_borrow_balance = total_borrowed - total_borrow_repayment;
+  const total_lent = lentList?.reduce((a, b) => a + Number(b.amount), 0);
+  const total_lent_repayment = lend_repayment_history?.reduce(
+    (a, b) => a + b.amount,
+    0
+  );
+  const lent_balance = total_lent - total_lent_repayment;
+  console.log(lent_balance);
+
   const untracked = Number(
     (total_income - total_savings - total_expenses).toFixed(2)
   );
@@ -191,9 +240,17 @@ const useSettings = () => {
     income_chart_data,
     // monthly_income_data,
     total_income,
+    total_earned_income,
     total_expenses,
+    actual_total_expenses,
     total_savings,
     total_advance,
+    total_borrowed,
+    total_borrow_repayment,
+    total_borrow_balance,
+    total_lent,
+    total_lent_repayment,
+    lent_balance,
     untracked,
     total_spendable,
     spendable_utilization_percentage,

@@ -45,8 +45,8 @@ const useSettings = () => {
     total_income -
     Number(
       savings
-        .filter((item) => item.details.title === "Loan Received")
-        .reduce((a, b) => a + b.details.amount, 0)
+        ?.filter((item) => item.details.title === "Loan Received")
+        ?.reduce((a, b) => a + b.details.amount, 0)
     );
 
   const total_expenses = Number(
@@ -56,8 +56,8 @@ const useSettings = () => {
     total_expenses -
     Number(
       expenses
-        .filter((exp) => exp.item.startsWith("Settled debt owed to"))
-        .reduce((a, b) => a + b.total_cost, 0)
+        ?.filter((exp) => exp.item.startsWith("Settled debt owed to"))
+        ?.reduce((a, b) => a + b.total_cost, 0)
     );
   // console.log(actual_total_expenses);
   const total_savings = Number(

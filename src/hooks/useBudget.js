@@ -1,5 +1,5 @@
 // import { months } from "moment";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 // import Util from "../utils/util";
 import useExpenses from "./useExpenses";
 import request from "../utils/request";
@@ -11,13 +11,19 @@ import { useLocation } from "react-router-dom";
 
 const useBudget = () => {
   let user = JSON.parse(localStorage.getItem("user"));
-  let budgets = JSON.parse(window.localStorage.getItem("budgets")) || [];
+  // let budgets = JSON.parse(window.localStorage.getItem("budgets")) || [];
+  const budgets = useMemo(() => {
+    return JSON.parse(window.localStorage.getItem("budgets")) || [];
+  }, []);
   const { expensesList } = useExpenses();
   const context = useApp();
   const location = useLocation();
   const param = new URLSearchParams(location.search);
   const budget_id = param.get("budget_id");
-  const budget_details = budgets.find((budget) => budget.id === budget_id);
+  // const budget_details = budgets.find((budget) => budget.id === budget_id);
+  const budget_details = useMemo(() => {
+    return budgets.find((budget) => budget.id === budget_id);
+  }, [budgets, budget_id]);
   const expenses_within_budget_period = expensesList.filter((item) =>
     item.created_at.endsWith(budget_details?.month)
   );

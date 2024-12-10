@@ -29,10 +29,12 @@ const BudgetDetails = () => {
     snackbar,
     handleSnackbar,
   } = useBudget();
-
   useEffect(() => {
-    setNewBudget(budget_details);
-  }, [budget_details, setNewBudget]);
+    if (budget_details && budget_details !== newBudget) {
+      setNewBudget((prev) => budget_details);
+    }
+  }, [setNewBudget, budget_details, newBudget]);
+
   const { expenseColumn } = useTableData();
   return (
     <div className="main-container">
@@ -71,48 +73,59 @@ const BudgetDetails = () => {
           <div className="budget-details-container">
             <h1 className="heading debt-text">Budget Summary</h1>
             <table className="budget-details-table">
-              <tr>
-                <th>Cat.</th>
-                <th>Amt.</th>
-                <th>Bal.</th>
-              </tr>
-              {budget_details.categories
-                .filter((item) => item.amount > 0)
-                .map((cat) => (
-                  <tr>
-                    <td>{cat.category}</td>
-                    <td>{format_currency(cat.amount)}</td>
-                    <td>
-                      {cat.amount -
-                        expenses_within_budget_period
-                          .filter((item) => item.category === cat.category)
-                          .reduce((a, b) => a + b.total_cost, 0)}
-                    </td>
-                  </tr>
-                ))}
+              <thead>
+                <tr>
+                  <th>Cat.</th>
+                  <th>Amt.</th>
+                  <th>Bal.</th>
+                </tr>
+              </thead>
+              <tbody>
+                {budget_details.categories
+                  .filter((item) => item.amount > 0)
+                  .map((cat) => (
+                    <tr>
+                      <td>{cat.category}</td>
+                      <td>{format_currency(cat.amount)}</td>
+                      <td>
+                        {cat.amount -
+                          expenses_within_budget_period
+                            .filter((item) => item.category === cat.category)
+                            .reduce((a, b) => a + b.total_cost, 0)}
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
             </table>
           </div>
           <div className="budget-details-container">
             <h1 className="debt-text">Out-of-Budget Expenses</h1>
             <table className="budget-details-table">
-              <tr>
-                <th>Item</th>
-                <th>Category</th>
-                <th>Amount</th>
-              </tr>
-              {out_of_budget_expenses.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.item}</td>
-                  <td>{item.category}</td>
-                  <td>{format_currency(item.total_cost)}</td>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Category</th>
+                  <th>Amount</th>
                 </tr>
-              ))}
-              <tr>
-                <td>Total</td>
-                <td>
-                  {out_of_budget_expenses.reduce((a, b) => a + b.total_cost, 0)}
-                </td>
-              </tr>
+              </thead>
+              <tbody>
+                {out_of_budget_expenses.map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.item}</td>
+                    <td>{item.category}</td>
+                    <td>{format_currency(item.total_cost)}</td>
+                  </tr>
+                ))}
+                <tr>
+                  <td>Total</td>
+                  <td>
+                    {out_of_budget_expenses.reduce(
+                      (a, b) => a + b.total_cost,
+                      0
+                    )}
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>

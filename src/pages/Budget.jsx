@@ -5,7 +5,7 @@ import {
   Balance,
   Category,
   DeleteOutlineOutlined,
-  ModeEditOutlined,
+  // ModeEditOutlined,
   MoreVert,
   VisibilityOutlined,
 } from "@mui/icons-material";
@@ -58,88 +58,6 @@ const Budget = () => {
             title="Create New Budget"
             button_text="Create budget"
           />
-          {/* <div className="create-budget-container">
-            <h1 className="debt-text">Create New Budget</h1>
-            <div className="budget-input-container">
-              <CiCalendarDate className="input-icon" />
-              <select
-                className="budget-input"
-                onChange={(e) =>
-                  setNewBudget((prev) => ({
-                    ...prev,
-                    month:
-                      new Date().getMonth() > 0 && Number(e.target.value) === 0
-                        ? `${e.target.value}/${new Date().getFullYear() + 1}`
-                        : `${e.target.value}/${new Date().getFullYear()}`,
-                  }))
-                }
-              >
-                <option>Select month</option>
-                {months.map((month, index) => (
-                  <option
-                    key={index}
-                    value={
-                      (index + 1).toString().length === 1
-                        ? `0${index + 1}`
-                        : `${index + 1}`
-                    }
-                  >
-                    {month}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="budget-input-container">
-              <FaCediSign className="input-icon" />
-              <input
-                placeholder="Estimated Budget"
-                className="budget-input"
-                onChange={(e) =>
-                  setNewBudget({
-                    ...newBudget,
-                    estimated_budget: Number(e.target.value),
-                    balance: Number(e.target.value),
-                  })
-                }
-                value={newBudget?.estimated_budget}
-              />
-            </div>
-            <div className="budget-categories">
-              {expensesCategories.map((cat, index) => (
-                <div className="budget-input-container" key={index}>
-                  <p className="budget-category">{cat.title}</p>
-                  <input
-                    placeholder="amount"
-                    className="budget-input"
-                    onChange={(e) =>
-                      setNewBudget((prev) => ({
-                        ...prev,
-                        categories: [
-                          {
-                            ...prev.categories.find(
-                              (item) => item.category === cat.title
-                            ),
-                            amount: Number(e.target.value),
-                          },
-                          ...prev.categories.filter(
-                            (item) => item.category !== cat.title
-                          ),
-                        ].sort((a, b) => (a.category < b.category ? -1 : 1)),
-                        total_budget:
-                          prev.categories
-                            .filter((item) => item.category !== cat.title)
-                            .reduce((a, b) => a + b.amount, 0) +
-                          Number(e.target.value),
-                      }))
-                    }
-                  />
-                </div>
-              ))}
-            </div>
-            <button className="login-btn" onClick={createBudget}>
-              Create budget
-            </button>
-          </div> */}
         </div>
         <div className="budget-right">
           <div className="budgets-container">
@@ -153,18 +71,13 @@ const Budget = () => {
                   />
                   {showMoreOptions && (
                     <div className="more-options">
-                      {/* <Link
-                        to={`/budget_details?budget_id=${budget.id}`}
-                        className="more-options-icon"
-                      > */}
                       <VisibilityOutlined
                         className="more-options-icon"
                         onClick={() =>
                           (window.location.href = `/budget_details?budget_id=${budget.id}`)
                         }
                       />
-                      {/* </Link> */}
-                      <ModeEditOutlined className="more-options-icon" />
+                      {/* <ModeEditOutlined className="more-options-icon" /> */}
                       <DeleteOutlineOutlined
                         className="more-options-icon"
                         onClick={() => {
@@ -190,7 +103,12 @@ const Budget = () => {
                     </div>
                     <div className="budget-info">
                       <Category className="budget-info-icon" />
-                      <span>{budget.categories.length}</span>
+                      <span>
+                        {
+                          budget.categories.filter((cat) => cat.amount > 0)
+                            .length
+                        }
+                      </span>
                     </div>
                   </div>
                   <div className="budget-info-right">

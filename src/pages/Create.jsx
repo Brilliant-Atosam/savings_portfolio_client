@@ -90,10 +90,10 @@ const Create = () => {
             >
               <option value="">Purpose</option>
 
-              <option value="personal finance" key={1}>
+              <option value="personal finance" key="personal">
                 Personal Finance
               </option>
-              <option value="business finance" key={1}>
+              <option value="business finance" key="business">
                 Business Finance
               </option>
             </select>

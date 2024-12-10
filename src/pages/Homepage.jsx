@@ -25,8 +25,8 @@ const Homepage = () => {
       <div className="intro-container">
         <div className="intro-content">
           <p className="intro-heading">
-            cashlens tracks your finance - what comes in from where, what goes
-            out to where, and helps you focus, track, and thrive
+            cashlens tracks your finance: what comes in from where; what goes
+            out to where; and helps you focus, track, and thrive
           </p>
           <div className="intro-nav-links">
             <Link to="/login" className="intro-nav-btn intro-nav-btn1">
@@ -174,13 +174,13 @@ const Homepage = () => {
           {loading && <CircularProgress />}
           {exchangeResult && (
             <div className="exchange-results-container">
-              <div className="key-value-container">
+              <div className="key-value-container" key={1}>
                 <span className="info-key">Conversion rate</span>
                 <span className="info-value">
                   {exchangeResult?.conversion_rate}
                 </span>
               </div>
-              <div className="key-value-container">
+              <div className="key-value-container" key={2}>
                 <span className="info-key">Conversion results</span>
                 <span className="info-value">
                   {format_currency(
@@ -199,7 +199,7 @@ const Homepage = () => {
       <div className="about-container">
         <h1 className="about-title">About cashlens</h1>
         <div className="about">
-          <div className="about-card">
+          <div className="about-card" key="about-1">
             <BsSun className="card-icon" />
             <h1 className="about-card-title">Our mission is to: </h1>
             <p className="about-card-info">
@@ -208,7 +208,7 @@ const Homepage = () => {
               well-being.
             </p>
           </div>
-          <div className="about-card">
+          <div className="about-card" key="about-2">
             <PiBinocularsThin className="card-icon" />
             <h1 className="about-card-title">Our vision is to: </h1>
             <p className="about-card-info">
@@ -217,14 +217,14 @@ const Homepage = () => {
             </p>
           </div>
 
-          <div className="about-card">
+          <div className="about-card" key="about-3">
             <MdGroupWork className="card-icon" />
             <h1 className="about-card-title">Our core values include: </h1>
             <div className="about-card-info">
               Empowerment, Transparency, Innovation, Accessibility and Integrity
             </div>
           </div>
-          <div className="about-card">
+          <div className="about-card" key="about-4">
             <MdOutlinePolicy className="card-icon" />
             <h1 className="about-card-title">Our policy: </h1>
             <p className="about-card-info">
@@ -241,7 +241,7 @@ const Homepage = () => {
         <h1 className="contact-heading">Let's get in touch!</h1>
         <div className="contact">
           <div className="contact-left-container">
-            <div className="contact-info">
+            <div className="contact-info" key="contact-1">
               <div className="icon-container">
                 <Phone className="contact-icons" />
               </div>
@@ -249,7 +249,7 @@ const Homepage = () => {
                 0544006865
               </a>
             </div>
-            <div className="contact-info">
+            <div className="contact-info" key="contact-2">
               <div className="icon-container">
                 <WhatsApp className="contact-icons" />
               </div>
@@ -257,7 +257,7 @@ const Homepage = () => {
                 0544006865
               </a>
             </div>
-            <div className="contact-info">
+            <div className="contact-info" key="contact-3">
               <div className="icon-container">
                 <YouTube className="contact-icons" />
               </div>
@@ -268,7 +268,7 @@ const Homepage = () => {
                 Watch tutorials
               </a>
             </div>
-            <div className="contact-info">
+            <div className="contact-info" key="contact-4">
               <div className="icon-container">
                 <MailOutline className="contact-icons" />
               </div>

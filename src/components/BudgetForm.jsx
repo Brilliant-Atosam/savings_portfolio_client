@@ -28,7 +28,7 @@ const BudgetForm = ({
                   : `${e.target.value}/${new Date().getFullYear()}`,
             }))
           }
-          value={months[Number(newBudget?.month.split("/")[0]) - 1]}
+          value={months[Number(newBudget?.month.split("/")[0]) - 1] || ""}
           disabled={showCatAmount}
         >
           {newBudget.month && (
@@ -43,7 +43,7 @@ const BudgetForm = ({
               value={
                 (index + 1).toString().length === 1
                   ? `0${index + 1}`
-                  : `${index + 1}`
+                  : `${index + 1}` || ""
               }
             >
               {month}
@@ -63,7 +63,7 @@ const BudgetForm = ({
               balance: Number(e.target.value),
             })
           }
-          value={newBudget?.estimated_budget}
+          value={newBudget?.estimated_budget || ""}
         />
       </div>
       <div className="budget-categories">
@@ -84,15 +84,6 @@ const BudgetForm = ({
                       category: cat.title,
                       amount: Number(e.target.value),
                     },
-                    // {
-                    //   ...prev.categories.find(
-                    //     (item) => item.category === cat.title
-                    //   ),
-                    //   amount: Number(e.target.value),
-                    // },
-                    // ...prev.categories.filter(
-                    //   (item) => item.category !== cat.title
-                    // ),
                   ].sort((a, b) => (a.category < b.category ? -1 : 1)),
                   total_budget:
                     prev.categories
@@ -101,7 +92,7 @@ const BudgetForm = ({
                     Number(e.target.value),
                 }))
               }
-              value={showCatAmount && newBudget?.categories[index]?.amount}
+              value={newBudget?.categories[index]?.amount || ""}
             />
           </div>
         ))}

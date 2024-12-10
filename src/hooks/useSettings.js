@@ -59,7 +59,6 @@ const useSettings = () => {
         ?.filter((exp) => exp.item.startsWith("Settled debt owed to"))
         ?.reduce((a, b) => a + b.total_cost, 0)
     );
-  // console.log(actual_total_expenses);
   const total_savings = Number(
     savings?.reduce((a, b) => a + b.saved, 0).toFixed(2)
   );
@@ -90,7 +89,6 @@ const useSettings = () => {
     0
   );
   const lent_balance = total_lent - total_lent_repayment;
-  console.log(lent_balance);
 
   const untracked = Number(
     (total_income - total_savings - total_expenses).toFixed(2)

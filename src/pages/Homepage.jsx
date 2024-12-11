@@ -146,7 +146,7 @@ const Homepage = () => {
           >
             <option value="">Convert from</option>
             {currencies.map((currency) => (
-              <option value={currency.currency}>{currency.name}</option>
+              <option value={currency.currency} key={currency.currency}>{currency.name}</option>
             ))}
           </select>
           <select

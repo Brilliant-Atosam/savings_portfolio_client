@@ -84,7 +84,7 @@ const BudgetDetails = () => {
                 {budget_details.categories
                   .filter((item) => item.amount > 0)
                   .map((cat) => (
-                    <tr>
+                    <tr key={cat.category}>
                       <td>{cat.category}</td>
                       <td>{format_currency(cat.amount)}</td>
                       <td>
@@ -109,8 +109,8 @@ const BudgetDetails = () => {
                 </tr>
               </thead>
               <tbody>
-                {out_of_budget_expenses.map((item, index) => (
-                  <tr key={index}>
+                {out_of_budget_expenses.map((item) => (
+                  <tr key={item.category}>
                     <td>{item.item}</td>
                     <td>{item.category}</td>
                     <td>{format_currency(item.total_cost)}</td>

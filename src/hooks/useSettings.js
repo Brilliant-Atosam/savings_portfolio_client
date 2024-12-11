@@ -108,9 +108,13 @@ const useSettings = () => {
   const peak_savings = monthly_data?.sort((a, b) =>
     a.total_savings < b.total_savings ? 1 : -1
   );
-  const average_income = total_income / new Date().getMonth() + 1;
-  const average_savings = total_savings / new Date().getMonth() + 1;
-  const average_expenses = total_expenses / new Date().getMonth() + 1;
+  const average_income = (total_income / new Date().getMonth() + 1).toFixed(2);
+  const average_savings = (total_savings / new Date().getMonth() + 1).toFixed(
+    2
+  );
+  const average_expenses = (total_expenses / new Date().getMonth() + 1).toFixed(
+    2
+  );
   const [show_basic_info_dialog, set_basic_info_dialog] = useState(false);
   const handle_open_basic_info_dialog = () =>
     set_basic_info_dialog(!show_basic_info_dialog);

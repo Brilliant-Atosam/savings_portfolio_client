@@ -41,12 +41,17 @@ const useHighlights = () => {
   const expenses = expensesList.filter((item) =>
     item.created_at.endsWith(query)
   );
-  console.log(expenses);
 
-  const total_income = income_savings.reduce((a, b) => a + b.amount, 0);
-  const total_savings = income_savings.reduce((a, b) => a + b.saved, 0);
-  const total_spendable = total_income - total_savings;
-  const total_expenses = expenses.reduce((a, b) => a + b.total_cost, 0);
+  const total_income = income_savings
+    .reduce((a, b) => a + b.amount, 0)
+    .toFixed(2);
+  const total_savings = income_savings
+    .reduce((a, b) => a + b.saved, 0)
+    .toFixed(2);
+  const total_spendable = (total_income - total_savings).toFixed(2);
+  const total_expenses = expenses
+    .reduce((a, b) => a + b.total_cost, 0)
+    .toFixed(2);
   const monthly_data = {
     income_c2a_p: Number(
       ((total_income - average_income) / average_income) * 100
@@ -144,12 +149,16 @@ const useHighlights = () => {
         title: category.title,
         total_expenses: expenses
           ?.filter((item) =>
-            item.category.toLocaleLowerCase().includes(category.title.toLocaleLowerCase())
+            item.category
+              .toLocaleLowerCase()
+              .includes(category.title.toLocaleLowerCase())
           )
           ?.reduce((a, b) => a + b.total_cost, 0),
         amount: expenses
           ?.filter((item) =>
-            item.category.toLocaleLowerCase().includes(category.title.toLocaleLowerCase())
+            item.category
+              .toLocaleLowerCase()
+              .includes(category.title.toLocaleLowerCase())
           )
           ?.reduce((a, b) => a + b.total_cost, 0),
       };

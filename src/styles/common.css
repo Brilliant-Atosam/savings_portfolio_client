@@ -58,6 +58,9 @@ footer a {
   padding: 10px;
   box-shadow: 1px 1px 1px 2px teal;
 }
+.full-height {
+  height: calc(100vh - 100px) !important;
+}
 .bar-chart-container {
   width: fit-content;
   display: flex;

@@ -51,7 +51,9 @@ const useAccount = () => {
           email,
           password,
         });
-        handleSnackbar("Login successful!", "success");
+        storeUser(res.data);
+        handleSnackbar("Login successful. Loading user data!", "success");
+        storeUser(res.data);
         const savingsRes = await request.get(`/savings?userId=${res.data.id}`, {
           headers: {
             access_token: `Bearer ${res.data.access_token}`,
@@ -79,7 +81,6 @@ const useAccount = () => {
         storeLent(lent.data);
         storeBudget(budgets.data);
         storeExpenses(expenses.data);
-        storeUser(res.data);
         navigate("/");
       } catch (err) {
         handleSnackbar(

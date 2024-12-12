@@ -1,23 +1,18 @@
 {
   "short_name": "cashlens",
   "name": "cashlens | focus, track, thrive",
-  "description": "cashlens is an app for money management. It enables users to keep track of their money, streams of income, spending routine/habit, and more.",
-  "categories": ["Personal Finance", "Financial Management."],
+  "description": "cashlens is an app for money management. It enables users to keep track of their money, streams of income, spending routine/habit, and more",
+  "categories": ["Personal Finance", "Financial Management"],
   "icons": [
     {
-      "src": "logo1.png",
+      "src": "logo2.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
       "src": "logo2.png",
       "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo1.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "187x191"
     }
   ],
   "start_url": "/",

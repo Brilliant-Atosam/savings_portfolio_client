@@ -46,7 +46,7 @@ const Homepage = () => {
       <div className="features-container">
         <h1 className="features-title">With cashlens you can:</h1>
         <div className="features">
-          <div className="feature">
+          <div className="feature" key='feature-1'>
             <div className="feature-img-container">
               <img src="/track_income.png" alt="" className="feature-img" />
             </div>
@@ -58,7 +58,7 @@ const Homepage = () => {
               </p>
             </div>
           </div>
-          <div className="feature">
+          <div className="feature" key='feature-2'>
             <div className="feature-img-container">
               <img src="/track_expenses.png" alt="" className="feature-img" />
             </div>
@@ -70,7 +70,7 @@ const Homepage = () => {
               </p>
             </div>
           </div>
-          <div className="feature">
+          <div className="feature" key='feature-3'>
             <div className="feature-img-container">
               <img src="/track_savings.png" alt="" className="feature-img" />
             </div>
@@ -82,7 +82,7 @@ const Homepage = () => {
               </p>
             </div>
           </div>
-          <div className="feature">
+          <div className="feature" key='feature-4'>
             <div className="feature-img-container">
               <img
                 src="/track_performance.png"
@@ -99,7 +99,7 @@ const Homepage = () => {
               </p>
             </div>
           </div>
-          <div className="feature">
+          <div className="feature" key='feature-5'>
             <div className="feature-img-container">
               <img src="/track_debt.png" alt="" className="feature-img" />
             </div>
@@ -133,7 +133,7 @@ const Homepage = () => {
           <select
             name=""
             placeholder="Select currency"
-            className="login-input"
+            className="login-input" key='covert-from'
             onChange={(e) =>
               setExchangeData((prev) => ({
                 ...prev,
@@ -150,7 +150,7 @@ const Homepage = () => {
             ))}
           </select>
           <select
-            name=""
+           key='convert-to'
             placeholder="Select currency"
             className="login-input"
             onChange={(e) =>
@@ -165,7 +165,7 @@ const Homepage = () => {
           >
             <option value="">Convert to</option>
             {currencies.map((currency) => (
-              <option value={currency.currency}>{currency.name}</option>
+              <option value={currency.currency} key={currency.currency}>{currency.name}</option>
             ))}
           </select>
           <button onClick={fetchExchange} className="login-btn">

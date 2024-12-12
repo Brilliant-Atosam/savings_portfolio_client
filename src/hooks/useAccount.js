@@ -52,8 +52,7 @@ const useAccount = () => {
           password,
         });
         handleSnackbar("Login successful. Loading user data...", "success");
-        storeUser(res.data);
-        navigate("/");
+      ;
         const savingsRes = await request.get(`/savings?userId=${res.data.id}`, {
           headers: {
             access_token: `Bearer ${res.data.access_token}`,

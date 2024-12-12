@@ -1,4 +1,5 @@
 import "../styles/highlights.css";
+import "../styles/common.css";
 import Topbar from "../components/Topbar";
 import Util from "../utils/util";
 import BarChartComponent from "../components/BarChart";

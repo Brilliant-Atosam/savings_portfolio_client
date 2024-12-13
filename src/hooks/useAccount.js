@@ -52,7 +52,6 @@ const useAccount = () => {
           password,
         });
         handleSnackbar("Login successful. Loading user data...", "success");
-      ;
         const savingsRes = await request.get(`/savings?userId=${res.data.id}`, {
           headers: {
             access_token: `Bearer ${res.data.access_token}`,
@@ -65,16 +64,16 @@ const useAccount = () => {
         const budgets = await request.get(`/budget?userId=${res.data.id}`, {
           headers: { access_token: `Bearer ${res.data.access_token}` },
         });
-        const expenses = await request.get(`/expenses?userId=${res.data.id}`, {
-          headers: { access_token: `Bearer ${res.data.access_token}` },
-        });
+
         const borrowed = await request.get(
           `/loan/borrowed?userId=${res.data.id}`,
           {
             headers: { access_token: `Bearer ${res.data.access_token}` },
           }
         );
-
+        const expenses = await request.get(`/expenses?userId=${res.data.id}`, {
+          headers: { access_token: `Bearer ${res.data.access_token}` },
+        });
         storeSavings(savingsRes.data);
         storeBorrowed(borrowed.data);
         storeLent(lent.data);

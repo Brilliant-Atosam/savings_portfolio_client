@@ -51,28 +51,32 @@ const useAccount = () => {
           email,
           password,
         });
+        const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+        const headers = {
+          access_token: `Bearer ${res.data.access_token}`,
+        };
         handleSnackbar("Login successful. Loading user data...", "success");
         const savingsRes = await request.get(`/savings?userId=${res.data.id}`, {
-          headers: {
-            access_token: `Bearer ${res.data.access_token}`,
-          },
+          headers,
         });
-
+        await delay(200);
         const lent = await request.get(`/loan/lent?userId=${res.data.id}`, {
-          headers: { access_token: `Bearer ${res.data.access_token}` },
+          headers,
         });
+        await delay(200);
         const budgets = await request.get(`/budget?userId=${res.data.id}`, {
-          headers: { access_token: `Bearer ${res.data.access_token}` },
+          headers,
         });
-
+        await delay(200);
         const borrowed = await request.get(
           `/loan/borrowed?userId=${res.data.id}`,
           {
-            headers: { access_token: `Bearer ${res.data.access_token}` },
+            headers,
           }
         );
+        await delay(200);
         const expenses = await request.get(`/expenses?userId=${res.data.id}`, {
-          headers: { access_token: `Bearer ${res.data.access_token}` },
+          headers,
         });
         storeSavings(savingsRes.data);
         storeBorrowed(borrowed.data);

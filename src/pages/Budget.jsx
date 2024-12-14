@@ -18,6 +18,7 @@ import useBudget from "../hooks/useBudget";
 import Feedback from "../components/Feedback";
 import useExpenses from "../hooks/useExpenses";
 import BudgetForm from "../components/BudgetForm";
+import { useEffect } from "react";
 // import { Link } from "react-router-dom";
 const Budget = () => {
   const {
@@ -37,6 +38,7 @@ const Budget = () => {
     showMoreOptions,
     moreOptionsToggler,
     deleteBudget,
+    fetchBudget,
   } = useBudget();
   const { expensesList } = useExpenses();
 
@@ -44,6 +46,10 @@ const Budget = () => {
     user?.purpose !== "personal finance"
       ? businessExpenseCategories
       : categories;
+
+  useEffect(() => {
+    budgets === null && fetchBudget();
+  });
   return (
     <div className="main-container">
       <Topbar />
@@ -63,7 +69,7 @@ const Budget = () => {
           <div className="budgets-container">
             <h1 className="debt-text">My budgets</h1>
             <div className="my-budgets">
-              {budgets.map((budget, index) => (
+              {budgets?.map((budget, index) => (
                 <div className="my-budget" key={index}>
                   <MoreVert
                     className="budget-more-options-toggler"

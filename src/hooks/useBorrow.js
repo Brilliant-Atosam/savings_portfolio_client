@@ -6,9 +6,8 @@ import useApp from "../useApp";
 import useSettings from "./useSettings";
 import useFeedback from "./useFeedback";
 const useBorrow = () => {
-  const borrowedList =
-    JSON.parse(window.localStorage.getItem("borrowed")) || [];
-  const lentList = JSON.parse(window.localStorage.getItem("lent")) || [];
+  const borrowedList = JSON.parse(window.localStorage.getItem("borrowed"));
+  const lentList = JSON.parse(window.localStorage.getItem("lent"));
   const { storeLent, storeBorrowed, months } = Util();
   const context = useApp();
   let user = JSON.parse(window.localStorage.getItem("user"));
@@ -66,18 +65,34 @@ const useBorrow = () => {
     repayment_amount: 0,
     repayment_history: [],
   });
+  // fetch user debts
+  const fetchDebts = async () => {
+    const borrowed = await request.get(`/loan/borrowed?userId=${user.id}`, {
+      headers: {
+        access_token: `Bearer ${user.access_token}`,
+      },
+    });
+    await storeBorrowed(borrowed.data);
+    const lent = await request.get(`/loan/lent?userId=${user.id}`, {
+      headers: {
+        access_token: `Bearer ${user.access_token}`,
+      },
+    });
+    await storeLent(lent.data);
+    window.location.reload();
+  };
   // calculating repayment amount
   const set_repayment_amount = (interest_type, interest_rate, amount, days) => {
     switch (interest_type) {
       case "fixed rate":
         return ((100 + interest_rate) / 100) * amount;
-        // break;
+      // break;
       case "simple interest":
         return (amount * interest_rate * (days / 365)) / 100;
-        // break;
+      // break;
       case "lending rate":
         return amount + (1 + interest_rate / 100 / 12) ** (days / 365);
-        // break;
+      // break;
       case "no interest":
         return amount;
       default:
@@ -94,7 +109,7 @@ const useBorrow = () => {
       Number(settle.amount) +
         borrowedList
           ?.find((item) => item.id === settle.id)
-          ?.repayment_history?.reduce((a, b) => a + b.amount, 0) >
+          ?.repayment_history?.reduce((a, b) => a + Number(b.amount), 0) >
         Number(borrowedList?.find((item) => item.id === settle.id)?.amount)
     ) {
       handleSnackbar("Provide valid data for all fields", "warning");
@@ -151,7 +166,7 @@ const useBorrow = () => {
       Number(getSettled?.amount) >
         (lentList
           ?.find((item) => item.id === getSettled.id)
-          ?.repayment_history?.reduce((a, b) => a + b.amount, 0) ||
+          ?.repayment_history?.reduce((a, b) => a + Number(b.amount), 0) ||
           lentList?.find((item) => item.id === getSettled.id).amount)
     ) {
       handleSnackbar("Provide valid data for all fields", "warning");
@@ -317,7 +332,7 @@ const useBorrow = () => {
                   : `${index + 1}/${new Date().getFullYear().toString()}`
               )
             )
-            .reduce((a, b) => a + b.amount, 0)
+            .reduce((a, b) => a + Number(b.amount), 0)
             .toFixed(2)
         ),
       };
@@ -353,7 +368,7 @@ const useBorrow = () => {
                   : `${index + 1}/${new Date().getFullYear().toString()}`
               )
             )
-            .reduce((a, b) => a + b.amount, 0)
+            .reduce((a, b) => a + Number(b.amount), 0)
             .toFixed(2)
         ),
       };
@@ -397,6 +412,7 @@ const useBorrow = () => {
     deleteBorrowedDebt,
     deleteLentDebt,
     set_repayment_amount,
+    fetchDebts,
   };
 };
 

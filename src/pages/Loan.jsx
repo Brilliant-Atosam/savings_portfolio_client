@@ -15,6 +15,7 @@ import BorrowDetails from "../components/BorrowDetails";
 // import Overlay from "../components/Overlay";
 import Feedback from "../components/Feedback";
 import useExpenses from "../hooks/useExpenses";
+import { useEffect } from "react";
 const Loan = () => {
   // const { user } = useApp();
   const {
@@ -42,6 +43,7 @@ const Loan = () => {
     lend,
     setBorrow,
     setLend,
+    fetchDebts,
   } = useBorrow();
   const { format_currency } = Util();
   const {
@@ -52,6 +54,9 @@ const Loan = () => {
     borrowDetails,
   } = useTableData();
   const { handleExpenses } = useExpenses();
+  useEffect(() => {
+    (borrowedList === null || lentList === null) && fetchDebts();
+  });
   return (
     <div className="main-container">
       <Topbar />
@@ -132,7 +137,7 @@ const Loan = () => {
           </div>
           <div className="borrowed-table-container">
             <h1 className="debt-text">Borrowing History</h1>
-            <Table columns={borrowColumn} rows={borrowedList} />
+            <Table columns={borrowColumn} rows={borrowedList || []} />
           </div>
           <div className="borrowing-chart-container">
             <h1 className="debt-text">Monthly Borrowing & Repayment Chart</h1>
@@ -187,7 +192,7 @@ const Loan = () => {
           </div>
           <div className="borrowed-table-container">
             <h1 className="debt-text">Lending History</h1>
-            <Table columns={lendColumn} rows={lentList} />
+            <Table columns={lendColumn} rows={lentList || []} />
           </div>
         </div>
       </div>

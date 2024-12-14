@@ -12,8 +12,8 @@ import { useLocation } from "react-router-dom";
 const useBudget = () => {
   let user = JSON.parse(localStorage.getItem("user"));
   // let budgets = JSON.parse(window.localStorage.getItem("budgets")) || [];
-  const budgets = useMemo(() => {
-    return JSON.parse(window.localStorage.getItem("budgets")) || [];
+  let budgets = useMemo(() => {
+    return JSON.parse(window.localStorage.getItem("budgets"));
   }, []);
   const { expensesList } = useExpenses();
   const context = useApp();
@@ -22,7 +22,7 @@ const useBudget = () => {
   const budget_id = param.get("budget_id");
   // const budget_details = budgets.find((budget) => budget.id === budget_id);
   const budget_details = useMemo(() => {
-    return budgets.find((budget) => budget.id === budget_id);
+    return budgets?.find((budget) => budget.id === budget_id);
   }, [budgets, budget_id]);
   const expenses_within_budget_period = expensesList.filter((item) =>
     item.created_at.endsWith(budget_details?.month)
@@ -49,7 +49,16 @@ const useBudget = () => {
     created_at: moment().format("DD/MM/YYYY"),
     userId: user.id,
   });
-
+  // fetch user budgets
+  const fetchBudget = async () => {
+    const budgets = await request.get(`/budget?userId=${user.id}`, {
+      headers: {
+        access_token: `Bearer ${user.access_token}`,
+      },
+    });
+    await storeBudget(budgets.data);
+    window.location.reload();
+  };
   // function create new budget
   const createBudget = async () => {
     context?.handleLoader();
@@ -184,6 +193,7 @@ const useBudget = () => {
     expenses_within_budget_period,
     out_of_budget_expenses,
     editBudget,
+    fetchBudget,
   };
 };
 

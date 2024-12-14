@@ -38,7 +38,7 @@ const useHighlights = () => {
   const income_savings = savingsList.filter((item) =>
     item.createdAt.endsWith(query)
   );
-  const expenses = expensesList.filter((item) =>
+  const expenses = expensesList?.filter((item) =>
     item.created_at.endsWith(query)
   );
 

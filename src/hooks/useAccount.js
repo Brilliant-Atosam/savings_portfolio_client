@@ -19,9 +19,9 @@ const useAccount = () => {
     storeUser,
     storeSavings,
     storeExpenses,
-    storeBorrowed,
-    storeLent,
-    storeBudget,
+    // storeBorrowed,
+    // storeLent,
+    // storeBudget,
   } = Util();
   const { handleLoader } = useApp();
   const { handleSnackbar, snackbar } = useFeedback();
@@ -51,7 +51,7 @@ const useAccount = () => {
           email,
           password,
         });
-        const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
         const headers = {
           access_token: `Bearer ${res.data.access_token}`,
         };
@@ -59,29 +59,29 @@ const useAccount = () => {
         const savingsRes = await request.get(`/savings?userId=${res.data.id}`, {
           headers,
         });
-        await delay(200);
-        const lent = await request.get(`/loan/lent?userId=${res.data.id}`, {
-          headers,
-        });
-        await delay(200);
-        const budgets = await request.get(`/budget?userId=${res.data.id}`, {
-          headers,
-        });
-        await delay(200);
-        const borrowed = await request.get(
-          `/loan/borrowed?userId=${res.data.id}`,
-          {
-            headers,
-          }
-        );
-        await delay(200);
+
+        // const budgets = await request.get(`/budget?userId=${res.data.id}`, {
+        //   headers,
+        // });
+
         const expenses = await request.get(`/expenses?userId=${res.data.id}`, {
           headers,
         });
+
+        // const borrowed = await request.get(
+        //   `/loan/borrowed?userId=${res.data.id}`,
+        //   {
+        //     headers,
+        //   }
+        // );
+
+        // const lent = await request.get(`/loan/lent?userId=${res.data.id}`, {
+        //   headers,
+        // });
         storeSavings(savingsRes.data);
-        storeBorrowed(borrowed.data);
-        storeLent(lent.data);
-        storeBudget(budgets.data);
+        // storeBorrowed(borrowed.data);
+        // storeLent(lent.data);
+        // storeBudget(budgets.data);
         storeExpenses(expenses.data);
         storeUser(res.data);
         navigate("/");

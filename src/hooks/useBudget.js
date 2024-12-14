@@ -53,7 +53,7 @@ const useBudget = () => {
   const fetchBudget = async () => {
     const budgets = await request.get(`/budget?userId=${user.id}`, {
       headers: {
-        access_token: `Bearer ${user.access_token}`,
+        Authorization: `Bearer ${user.access_token}`,
       },
     });
     await storeBudget(budgets.data);
@@ -75,7 +75,7 @@ const useBudget = () => {
       try {
         const res = await request.post("/budget", newBudget, {
           headers: {
-            access_token: `Bearer ${user.access_token}`,
+            Authorization: `Bearer ${user.access_token}`,
           },
         });
         storeBudget([
@@ -125,7 +125,7 @@ const useBudget = () => {
           },
           {
             headers: {
-              access_token: `Bearer ${user.access_token}`,
+              Authorization: `Bearer ${user.access_token}`,
             },
           }
         );
@@ -167,7 +167,7 @@ const useBudget = () => {
         `/budget?userId=${user.id}&budgetId=${id}`,
         {
           headers: {
-            access_token: `Bearer ${user?.access_token}`,
+            Authorization: `Bearer ${user?.access_token}`,
           },
         }
       );

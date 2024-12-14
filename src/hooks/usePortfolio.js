@@ -72,7 +72,7 @@ const usePortfolio = () => {
             newPortfolio,
             {
               headers: {
-                access_token: `Bearer ${user?.access_token}`,
+                Authorization: `Bearer ${user?.access_token}`,
               },
             }
           );
@@ -135,7 +135,7 @@ const usePortfolio = () => {
           },
         ],
         {
-          headers: { access_token: `Bearer ${user.access_token}` },
+          headers: { Authorization: `Bearer ${user.access_token}` },
         }
       );
       handleSnackbar(res.data, "success");
@@ -173,7 +173,7 @@ const usePortfolio = () => {
           `/user/portfolio?id=${user.id}`,
           portfolio,
           {
-            headers: { access_token: `Bearer ${user.access_token}` },
+            headers: { Authorization: `Bearer ${user.access_token}` },
           }
         );
         handleUpdatePortfolioDialog();

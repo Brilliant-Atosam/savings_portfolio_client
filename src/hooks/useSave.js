@@ -9,7 +9,7 @@ const useSave = () => {
   const { snackbar, handleSnackbar } = useFeedback();
 
   const context = useApp();
-  let user = JSON.parse(window.localStorage.getItem("user"));  
+  let user = JSON.parse(window.localStorage.getItem("user"));
   let expensesList = JSON.parse(localStorage.getItem("expenses"));
   let loans = JSON.parse(localStorage.getItem("loans"));
   let details = [];
@@ -52,7 +52,7 @@ const useSave = () => {
     try {
       const res = await request.delete(`/savings?id=${id}`, {
         headers: {
-          access_token: `Bearer ${user?.access_token}`,
+          Authorization: `Bearer ${user?.access_token}`,
         },
       });
       handleSnackbar(res?.data, "success");
@@ -101,7 +101,7 @@ const useSave = () => {
           { savings, user },
           {
             headers: {
-              access_token: `Bearer ${user?.access_token}`,
+              Authorization: `Bearer ${user?.access_token}`,
             },
           }
         );

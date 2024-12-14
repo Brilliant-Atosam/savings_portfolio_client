@@ -17,7 +17,7 @@ const usePaystack = () => {
       const res = await request.put(
         `/user/status?id=${user.id}`,
         {},
-        { headers: { access_token: `Bearer ${user.access_token}` } }
+        { headers: { Authorization: `Bearer ${user.access_token}` } }
       );
       await storeUser({ ...user, tier: "premium" });
       alert(res.data);

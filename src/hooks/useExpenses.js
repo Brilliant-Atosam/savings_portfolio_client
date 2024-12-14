@@ -57,7 +57,7 @@ const useExpenses = () => {
       try {
         const res = await request.post("/expenses", expenses, {
           headers: {
-            access_token: `Bearer ${user.access_token}`,
+            Authorization: `Bearer ${user.access_token}`,
           },
         });
         handleSnackbar(res.data, "success");
@@ -90,7 +90,7 @@ const useExpenses = () => {
     try {
       const res = await request.delete(`/expenses?id=${id}`, {
         headers: {
-          access_token: `Bearer ${user.access_token}`,
+          Authorization: `Bearer ${user.access_token}`,
         },
       });
       storeExpenses(expensesList);
@@ -171,7 +171,8 @@ const useExpenses = () => {
     query,
     deleteExpenses,
     handleSnackbar,
-    snackbar,expensesCategories
+    snackbar,
+    expensesCategories,
   };
 };
 

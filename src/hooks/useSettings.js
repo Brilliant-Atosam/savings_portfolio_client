@@ -134,7 +134,7 @@ const useSettings = () => {
     } else {
       try {
         const res = await request.put(`/user/info?id=${user.id}`, basic_info, {
-          headers: { access_token: `Bearer ${user.access_token}` },
+          headers: { Authorization: `Bearer ${user.access_token}` },
         });
         context?.handleSnackbar(res.data, "success");
         user = {
@@ -163,7 +163,7 @@ const useSettings = () => {
     } else {
       try {
         const res = await request.put("/user/password", password_data, {
-          headers: { access_token: `Bearer ${user.access_token}` },
+          headers: { Authorization: `Bearer ${user.access_token}` },
         });
         context?.handleSnackbar(res.data, "success");
       } catch (err) {

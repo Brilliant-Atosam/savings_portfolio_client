@@ -53,7 +53,7 @@ const useAccount = () => {
         });
 
         const headers = {
-          access_token: `Bearer ${res.data.access_token}`,
+          Authorization: `Bearer ${res.data.access_token}`,
         };
         handleSnackbar("Login successful. Loading user data...", "success");
         const savingsRes = await request.get(`/savings?userId=${res.data.id}`, {

@@ -69,13 +69,13 @@ const useBorrow = () => {
   const fetchDebts = async () => {
     const borrowed = await request.get(`/loan/borrowed?userId=${user.id}`, {
       headers: {
-        access_token: `Bearer ${user.access_token}`,
+        Authorization: `Bearer ${user.access_token}`,
       },
     });
     await storeBorrowed(borrowed.data);
     const lent = await request.get(`/loan/lent?userId=${user.id}`, {
       headers: {
-        access_token: `Bearer ${user.access_token}`,
+        Authorization: `Bearer ${user.access_token}`,
       },
     });
     await storeLent(lent.data);
@@ -129,7 +129,7 @@ const useBorrow = () => {
       try {
         const res = await request.put(`/loan/settle?id=${settle.id}`, settle, {
           headers: {
-            access_token: `Bearer ${user.access_token}`,
+            Authorization: `Bearer ${user.access_token}`,
           },
         });
         let debt = borrowedList?.find((item) => item.id === settle.id);
@@ -177,7 +177,7 @@ const useBorrow = () => {
           getSettled,
           {
             headers: {
-              access_token: `Bearer ${user.access_token}`,
+              Authorization: `Bearer ${user.access_token}`,
             },
           }
         );
@@ -228,7 +228,7 @@ const useBorrow = () => {
       try {
         const res = await request.post("/loan/lend", lend, {
           headers: {
-            access_token: `Bearer ${user.access_token}`,
+            Authorization: `Bearer ${user.access_token}`,
           },
         });
         storeLent([...lentList, lend]);
@@ -257,7 +257,7 @@ const useBorrow = () => {
       try {
         const res = await request.post("/loan/borrow", borrow, {
           headers: {
-            access_token: `Bearer ${user.access_token}`,
+            Authorization: `Bearer ${user.access_token}`,
           },
         });
         storeBorrowed([...borrowedList, borrow]);

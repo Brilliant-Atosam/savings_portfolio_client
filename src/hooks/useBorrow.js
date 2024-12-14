@@ -6,9 +6,10 @@ import useApp from "../useApp";
 import useSettings from "./useSettings";
 import useFeedback from "./useFeedback";
 const useBorrow = () => {
-  const borrowedList = JSON.parse(window.localStorage.getItem("borrowed"));
-  const lentList = JSON.parse(window.localStorage.getItem("lent"));
-  const { storeLent, storeBorrowed, months } = Util();
+  const borrowedList =
+    JSON.parse(window.localStorage.getItem("borrowed")) || [];
+  const lentList = JSON.parse(window.localStorage.getItem("lent")) || [];
+  const { storeLent, storeBorrowed, months, headers } = Util();
   const context = useApp();
   let user = JSON.parse(window.localStorage.getItem("user"));
   const { total_savings } = useSettings();
@@ -65,22 +66,6 @@ const useBorrow = () => {
     repayment_amount: 0,
     repayment_history: [],
   });
-  // fetch user debts
-  const fetchDebts = async () => {
-    const borrowed = await request.get(`/loan/borrowed?userId=${user.id}`, {
-      headers: {
-        Authorization: `Bearer ${user.access_token}`,
-      },
-    });
-    await storeBorrowed(borrowed.data);
-    const lent = await request.get(`/loan/lent?userId=${user.id}`, {
-      headers: {
-        Authorization: `Bearer ${user.access_token}`,
-      },
-    });
-    await storeLent(lent.data);
-    window.location.reload();
-  };
   // calculating repayment amount
   const set_repayment_amount = (interest_type, interest_rate, amount, days) => {
     switch (interest_type) {
@@ -128,9 +113,7 @@ const useBorrow = () => {
       };
       try {
         const res = await request.put(`/loan/settle?id=${settle.id}`, settle, {
-          headers: {
-            Authorization: `Bearer ${user.access_token}`,
-          },
+          headers,
         });
         let debt = borrowedList?.find((item) => item.id === settle.id);
         debt = {
@@ -176,9 +159,7 @@ const useBorrow = () => {
           `/loan/settled?id=${getSettled?.id}`,
           getSettled,
           {
-            headers: {
-              Authorization: `Bearer ${user.access_token}`,
-            },
+            headers,
           }
         );
         let debt = lentList?.find((item) => item.id === getSettled.id);
@@ -227,9 +208,7 @@ const useBorrow = () => {
     } else {
       try {
         const res = await request.post("/loan/lend", lend, {
-          headers: {
-            Authorization: `Bearer ${user.access_token}`,
-          },
+          headers,
         });
         storeLent([...lentList, lend]);
         handleSnackbar(res.data, "success");
@@ -256,9 +235,7 @@ const useBorrow = () => {
     } else {
       try {
         const res = await request.post("/loan/borrow", borrow, {
-          headers: {
-            Authorization: `Bearer ${user.access_token}`,
-          },
+          headers,
         });
         storeBorrowed([...borrowedList, borrow]);
         handleSnackbar(res.data, "success");
@@ -291,7 +268,9 @@ const useBorrow = () => {
     context.handleLoader();
     const remaining_debts = lentList?.filter((debt) => debt.id !== debt_id);
     try {
-      const res = await request.delete(`/loan/lent?debt_id=${debt_id}`);
+      const res = await request.delete(`/loan/lent?debt_id=${debt_id}`, {
+        headers,
+      });
       storeLent(remaining_debts);
       window.alert(res.data);
     } catch (err) {
@@ -412,7 +391,6 @@ const useBorrow = () => {
     deleteBorrowedDebt,
     deleteLentDebt,
     set_repayment_amount,
-    fetchDebts,
   };
 };
 

@@ -5,7 +5,7 @@ import request from "../utils/request";
 import moment from "moment";
 import useFeedback from "./useFeedback";
 const useSave = () => {
-  const { storeUser, storeSavings, months } = Util();
+  const { storeUser, storeSavings, months, headers } = Util();
   const { snackbar, handleSnackbar } = useFeedback();
 
   const context = useApp();
@@ -51,9 +51,7 @@ const useSave = () => {
     savingsList = savingsList.filter((item) => item.id !== id);
     try {
       const res = await request.delete(`/savings?id=${id}`, {
-        headers: {
-          Authorization: `Bearer ${user?.access_token}`,
-        },
+        headers,
       });
       handleSnackbar(res?.data, "success");
       storeSavings(savingsList);
@@ -100,9 +98,7 @@ const useSave = () => {
           `/savings?userId=${user.id}`,
           { savings, user },
           {
-            headers: {
-              Authorization: `Bearer ${user?.access_token}`,
-            },
+            headers,
           }
         );
         storeSavings([savings, ...savingsList]);

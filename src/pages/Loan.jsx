@@ -11,11 +11,9 @@ import SettleAdvanceDialog from "../components/SettleAdvanceDialog";
 import Footer from "../components/Footer";
 import Util from "../utils/util";
 import BorrowDetails from "../components/BorrowDetails";
-// import useApp from "../useApp";
 // import Overlay from "../components/Overlay";
 import Feedback from "../components/Feedback";
 import useExpenses from "../hooks/useExpenses";
-import { useEffect } from "react";
 const Loan = () => {
   // const { user } = useApp();
   const {
@@ -43,7 +41,6 @@ const Loan = () => {
     lend,
     setBorrow,
     setLend,
-    fetchDebts,
   } = useBorrow();
   const { format_currency } = Util();
   const {
@@ -54,9 +51,6 @@ const Loan = () => {
     borrowDetails,
   } = useTableData();
   const { handleExpenses } = useExpenses();
-  useEffect(() => {
-    (borrowedList === null || lentList === null) && fetchDebts();
-  });
   return (
     <div className="main-container">
       <Topbar />

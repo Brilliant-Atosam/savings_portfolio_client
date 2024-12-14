@@ -5,7 +5,7 @@ import Util from "../utils/util";
 import request from "../utils/request";
 import useFeedback from "./useFeedback";
 const usePortfolio = () => {
-  const { storeUser, setConfirmData } = Util();
+  const { storeUser, setConfirmData, headers } = Util();
   const context = useApp();
   let user = JSON.parse(window.localStorage.getItem("user"));
   const [showPortfolioDialog, setShowPortfolioDialog] = useState(false);
@@ -71,9 +71,7 @@ const usePortfolio = () => {
             `/user/portfolio/add?id=${user.id}`,
             newPortfolio,
             {
-              headers: {
-                Authorization: `Bearer ${user?.access_token}`,
-              },
+              headers,
             }
           );
           storeUser({
@@ -135,7 +133,7 @@ const usePortfolio = () => {
           },
         ],
         {
-          headers: { Authorization: `Bearer ${user.access_token}` },
+          headers,
         }
       );
       handleSnackbar(res.data, "success");
@@ -173,7 +171,7 @@ const usePortfolio = () => {
           `/user/portfolio?id=${user.id}`,
           portfolio,
           {
-            headers: { Authorization: `Bearer ${user.access_token}` },
+            headers,
           }
         );
         handleUpdatePortfolioDialog();

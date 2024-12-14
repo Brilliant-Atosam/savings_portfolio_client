@@ -40,6 +40,10 @@ import {
 } from "@mui/icons-material";
 const Util = () => {
   const user = JSON.parse(window.localStorage.getItem("user"));
+  // headers
+  const headers = {
+    Authorization: `Bearer ${user?.access_token}`,
+  };
   // feedback/snackbar
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [feedback, setFeedback] = useState("");
@@ -228,118 +232,6 @@ const Util = () => {
       style: "currency",
       currency: currency || user?.currency?.currency || "GHS",
     });
-  // dummy data for pie chart of basic users
-  // const piechart_data = [
-  //   {
-  //     title: "Rent renewal",
-  //     amount: 6000,
-  //   },
-  //   {
-  //     title: "Investment fund",
-  //     amount: 18000,
-  //   },
-  //   {
-  //     title: "Vacation",
-  //     amount: 5400,
-  //   },
-  //   {
-  //     title: "Emergency fund",
-  //     amount: 5400,
-  //   },
-  // ];
-  // dummy data for area chart of basic users
-  // const dummy_monthly_data = [
-  //   {
-  //     title: "Jan",
-  //     id: "01",
-  //     total_savings: 1760,
-  //     total_income: 3420,
-  //     total_expenses: 1240,
-  //   },
-
-  //   {
-  //     title: "Feb",
-  //     id: "02",
-  //     total_savings: 1930,
-  //     total_income: 4015,
-  //     total_expenses: 1355,
-  //   },
-
-  //   {
-  //     title: "Mar",
-  //     id: "03",
-  //     total_savings: 1742.46,
-  //     total_income: 3450.4,
-  //     total_expenses: 490,
-  //   },
-
-  //   {
-  //     title: "Apr",
-  //     id: "04",
-  //     total_savings: 1313,
-  //     total_income: 2600,
-  //     total_expenses: 1400,
-  //   },
-
-  //   {
-  //     title: "May",
-  //     id: "05",
-  //     total_savings: 2546,
-  //     total_income: 4504,
-  //     total_expenses: 459,
-  //   },
-
-  //   {
-  //     title: "Jun",
-  //     id: "06",
-  //     total_savings: 1454,
-  //     total_income: 2840,
-  //     total_expenses: 764,
-  //   },
-
-  //   {
-  //     title: "Jul",
-  //     id: "07",
-  //     total_savings: 2780,
-  //     total_income: 4670,
-  //     total_expenses: 1050,
-  //   },
-  //   {
-  //     title: "Aug",
-  //     id: "08",
-  //     total_savings: 1900,
-  //     total_income: 3712,
-  //     total_expenses: 896,
-  //   },
-  //   {
-  //     title: "Sep",
-  //     id: "09",
-  //     total_savings: 2230,
-  //     total_income: 3455,
-  //     total_expenses: 1205,
-  //   },
-  //   {
-  //     title: "Oct",
-  //     id: "10",
-  //     total_savings: 1250,
-  //     total_income: 3630,
-  //     total_expenses: 1104,
-  //   },
-  //   {
-  //     title: "Nov",
-  //     id: "11",
-  //     total_savings: 1505,
-  //     total_income: 4045,
-  //     total_expenses: 2570,
-  //   },
-  //   {
-  //     title: "Dec",
-  //     id: "12",
-  //     total_savings: 2105,
-  //     total_income: 4506,
-  //     total_expenses: 2350,
-  //   },
-  // ];
   return {
     storeUser,
     handleSnackbar,
@@ -357,13 +249,12 @@ const Util = () => {
     sources_of_income,
     currencies,
     user,
-    // piechart_data,
-    // dummy_monthly_data,
     storeLent,
     storeBorrowed,
     businessExpenseCategories,
     storeBudget,
     businessIncomeSources,
+    headers,
   };
 };
 

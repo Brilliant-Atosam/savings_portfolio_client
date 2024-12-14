@@ -18,6 +18,7 @@ const useExpenses = () => {
     categories,
     months,
     businessExpenseCategories,
+    headers,
     // user,
   } = Util();
   let user = JSON.parse(localStorage.getItem("user"));
@@ -56,9 +57,7 @@ const useExpenses = () => {
     } else {
       try {
         const res = await request.post("/expenses", expenses, {
-          headers: {
-            Authorization: `Bearer ${user.access_token}`,
-          },
+          headers,
         });
         handleSnackbar(res.data, "success");
         user = {
@@ -89,9 +88,7 @@ const useExpenses = () => {
     expensesList = expensesList.filter((item) => item.id !== id);
     try {
       const res = await request.delete(`/expenses?id=${id}`, {
-        headers: {
-          Authorization: `Bearer ${user.access_token}`,
-        },
+        headers,
       });
       storeExpenses(expensesList);
       handleSnackbar(res.data, "success");

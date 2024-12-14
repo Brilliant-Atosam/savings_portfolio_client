@@ -19,14 +19,11 @@ import AreaChartComponent from "../components/AreaChartComponent";
 import useSave from "../hooks/useSave";
 import Footer from "../components/Footer";
 import moment from "moment";
-import useBorrow from "../hooks/useBorrow";
-import { useEffect } from "react";
 // import Overlay from "../components/Overlay";
 const Settings = () => {
   const { user } = useApp();
   const { format_currency, colors } = Util();
   const { monthly_data, structuredPortfolio } = useSave();
-  const { fetchDebts, lentList, borrowedList } = useBorrow();
   const {
     handleOpenPass,
     openPass,
@@ -57,9 +54,6 @@ const Settings = () => {
     total_lent_repayment,
     lent_balance,
   } = useSettings();
-  useEffect(() => {
-    (lentList === null || borrowedList === null) && fetchDebts();
-  });
   return (
     <div className="main-container">
       <Topbar />

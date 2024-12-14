@@ -19,9 +19,9 @@ const useAccount = () => {
     storeUser,
     storeSavings,
     storeExpenses,
-    // storeBorrowed,
-    // storeLent,
-    // storeBudget,
+    storeBorrowed,
+    storeLent,
+    storeBudget,
   } = Util();
   const { handleLoader } = useApp();
   const { handleSnackbar, snackbar } = useFeedback();
@@ -60,28 +60,28 @@ const useAccount = () => {
           headers,
         });
 
-        // const budgets = await request.get(`/budget?userId=${res.data.id}`, {
-        //   headers,
-        // });
+        const budgets = await request.get(`/budget?userId=${res.data.id}`, {
+          headers,
+        });
 
         const expenses = await request.get(`/expenses?userId=${res.data.id}`, {
           headers,
         });
 
-        // const borrowed = await request.get(
-        //   `/loan/borrowed?userId=${res.data.id}`,
-        //   {
-        //     headers,
-        //   }
-        // );
+        const borrowed = await request.get(
+          `/loan/borrowed?userId=${res.data.id}`,
+          {
+            headers,
+          }
+        );
 
-        // const lent = await request.get(`/loan/lent?userId=${res.data.id}`, {
-        //   headers,
-        // });
+        const lent = await request.get(`/loan/lent?userId=${res.data.id}`, {
+          headers,
+        });
         storeSavings(savingsRes.data);
-        // storeBorrowed(borrowed.data);
-        // storeLent(lent.data);
-        // storeBudget(budgets.data);
+        storeBorrowed(borrowed.data);
+        storeLent(lent.data);
+        storeBudget(budgets.data);
         storeExpenses(expenses.data);
         storeUser(res.data);
         navigate("/");

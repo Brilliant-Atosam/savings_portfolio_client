@@ -11,6 +11,7 @@ import { useLocation } from "react-router-dom";
 
 const useBudget = () => {
   let user = JSON.parse(localStorage.getItem("user"));
+  const { headers } = Util();
   // let budgets = JSON.parse(window.localStorage.getItem("budgets")) || [];
   let budgets = useMemo(() => {
     return JSON.parse(window.localStorage.getItem("budgets"));
@@ -49,16 +50,6 @@ const useBudget = () => {
     created_at: moment().format("DD/MM/YYYY"),
     userId: user.id,
   });
-  // fetch user budgets
-  const fetchBudget = async () => {
-    const budgets = await request.get(`/budget?userId=${user.id}`, {
-      headers: {
-        Authorization: `Bearer ${user.access_token}`,
-      },
-    });
-    await storeBudget(budgets.data);
-    window.location.reload();
-  };
   // function create new budget
   const createBudget = async () => {
     context?.handleLoader();
@@ -74,9 +65,7 @@ const useBudget = () => {
     } else {
       try {
         const res = await request.post("/budget", newBudget, {
-          headers: {
-            Authorization: `Bearer ${user.access_token}`,
-          },
+          headers,
         });
         storeBudget([
           {
@@ -106,7 +95,6 @@ const useBudget = () => {
   };
   // function edit new budget
   const editBudget = async () => {
-    console.log("Click");
     context?.handleLoader();
     if (newBudget.total_budget < 1) {
       handleSnackbar("provide value for required fields", "warning");
@@ -124,9 +112,7 @@ const useBudget = () => {
             categories: newBudget.categories.filter((cat) => cat.amount > 0),
           },
           {
-            headers: {
-              Authorization: `Bearer ${user.access_token}`,
-            },
+            headers,
           }
         );
         let otherBudgets = budgets.filter((budget) => budget.id !== budget_id);
@@ -166,9 +152,7 @@ const useBudget = () => {
       const res = await request.delete(
         `/budget?userId=${user.id}&budgetId=${id}`,
         {
-          headers: {
-            Authorization: `Bearer ${user?.access_token}`,
-          },
+          headers,
         }
       );
       handleSnackbar(res.data, "success");
@@ -193,7 +177,6 @@ const useBudget = () => {
     expenses_within_budget_period,
     out_of_budget_expenses,
     editBudget,
-    fetchBudget,
   };
 };
 

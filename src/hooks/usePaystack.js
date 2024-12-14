@@ -4,7 +4,7 @@ import request from "../utils/request";
 const usePaystack = () => {
   const [openSubscribeDialog, setOpenSubscribeDialog] = useState(false);
   const toggleSubscribeDialog = () => setOpenSubscribeDialog((prev) => !prev);
-  const { user, storeUser } = Util();
+  const { user, storeUser, headers } = Util();
   const config = {
     currency: "GHS",
     reference: new Date().getTime().toString(),
@@ -17,7 +17,7 @@ const usePaystack = () => {
       const res = await request.put(
         `/user/status?id=${user.id}`,
         {},
-        { headers: { Authorization: `Bearer ${user.access_token}` } }
+        { headers }
       );
       await storeUser({ ...user, tier: "premium" });
       alert(res.data);

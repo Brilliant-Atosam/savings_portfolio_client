@@ -27,7 +27,7 @@ const useSettings = () => {
   let savings = JSON.parse(localStorage.getItem("savings"));
   let expenses = JSON.parse(localStorage.getItem("expenses"));
   let loans = JSON.parse(localStorage.getItem("loans"));
-  const { storeUser } = Util();
+  const { storeUser, headers } = Util();
   const { monthly_data } = useSave();
   const [openPass, setOpenPass] = useState(false);
   const handleOpenPass = () => setOpenPass(!openPass);
@@ -134,7 +134,7 @@ const useSettings = () => {
     } else {
       try {
         const res = await request.put(`/user/info?id=${user.id}`, basic_info, {
-          headers: { Authorization: `Bearer ${user.access_token}` },
+          headers,
         });
         context?.handleSnackbar(res.data, "success");
         user = {
@@ -163,7 +163,7 @@ const useSettings = () => {
     } else {
       try {
         const res = await request.put("/user/password", password_data, {
-          headers: { Authorization: `Bearer ${user.access_token}` },
+          headers,
         });
         context?.handleSnackbar(res.data, "success");
       } catch (err) {

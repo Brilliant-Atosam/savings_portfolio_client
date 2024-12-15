@@ -104,7 +104,7 @@ const Settings = () => {
               )}
               <div className="chart-info">
                 {income_chart_data.map((item, index) => (
-                  <div className="ref">
+                  <div className="ref" key={colors[index]}>
                     <div
                       className="indicators"
                       style={{ background: colors[index] }}
@@ -124,7 +124,10 @@ const Settings = () => {
                 {structuredPortfolio
                   ?.filter((portfolio) => !portfolio.archived)
                   ?.map((item, index) => (
-                    <div className="portfolio-milestone-container" key={index}>
+                    <div
+                      className="portfolio-milestone-container"
+                      key={item.title}
+                    >
                       <span className="key">
                         {`${item?.title} (${item?.percentage}% of income)`}{" "}
                         {item?.amount > Number(item?.goal) && (

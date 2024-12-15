@@ -5,7 +5,7 @@ import {
   DialogTitle,
 } from "@mui/material";
 import useApp from "../useApp";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 // import Subscription from "./Subscription";
 import "../styles/login.css";
 import useSave from "../hooks/useSave";
@@ -32,7 +32,7 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
     setSavings((prev) => ({ ...prev, details: updatedDetail }));
   }, [savings.amount, user?.portfolio, setSavings]);
   return (
-    <Dialog open={open}>
+    <Dialog open={open} className="dialog">
       <DialogTitle className="login-text">Add income dialog</DialogTitle>
       {user.portfolio?.length < 1 && (
         <DialogTitle className="login-text red">

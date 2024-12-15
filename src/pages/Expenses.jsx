@@ -97,23 +97,26 @@ const Expenses = () => {
             </div>
             <h1 className="expenses-heading debt-text">Expenses history</h1>
             {loading && <CircularProgress />}
-            <Table columns={expenseColumn} rows={expensesList} />
-          </div>
-          <div className="expenses-right">
             <div className="chart-container">
               <h1 className="debt-text">Expenses chart for categories</h1>
-              <AreaChartComponent data={data} />
+              <div className="chart-container borrowing-chart-container">
+                <AreaChartComponent data={data} />
+              </div>
             </div>
-            <div className="chart-container">
+          </div>
+          <div className="expenses-right">
+            <div className="chart-container mb20">
               <h1 className="debt-text">Monthly expenses chart</h1>
-              <AreaChartComponent
-                data={
-                  monthly_expenses_data.reduce(
-                    (a, b) => a + b.total_expenses,
-                    0
-                  ) > 0 && monthly_expenses_data
-                }
-              />
+              <div className="chart-container borrowing-chart-container">
+                <AreaChartComponent
+                  data={
+                    monthly_expenses_data.reduce(
+                      (a, b) => a + b.total_expenses,
+                      0
+                    ) > 0 && monthly_expenses_data
+                  }
+                />
+              </div>
               {monthly_expenses_data.reduce((a, b) => a + b.total_expenses, 0) >
                 0 &&
                 user?.tier !== "premium" && (
@@ -125,6 +128,7 @@ const Expenses = () => {
                   </h1>
                 )}
             </div>
+            <Table columns={expenseColumn} rows={expensesList} />
           </div>
         </div>
       </div>

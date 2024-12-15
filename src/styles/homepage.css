@@ -192,18 +192,7 @@
   gap: 15px;
   flex-wrap: wrap;
 }
-.exchange-container {
-  width: 100%;
-  display: flex;
-  align-content: inherit;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  background: #ffffffb1;
-}
-.exchange-img {
-  width: 40%;
-}
+
 
 @media (max-width: 867px) {
   .referral-title {
@@ -243,8 +232,6 @@
   .feature-img-container {
     width: 100%;
   }
-  .feature-description {
-  }
   .intro-heading {
     font-size: 1.8rem;
     margin-bottom: 18px;
@@ -268,10 +255,5 @@
   .contact-heading {
     font-size: 1.4rem;
   }
-  .exchange-container {
-    flex-direction: column;
-  }
-  .exchange-img {
-    width: 80%;
-  }
+  
 }

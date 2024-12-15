@@ -15,7 +15,7 @@ const useExchange = () => {
   const fetchExchange = async () => {
     handleLoader();
     if (exchangeData.amount < 1 || !exchangeData.from || !exchangeData.to) {
-      alert("Gotcha!");
+      alert("Kindly provide data for all fields!");
     } else {
       const res = await axios.get(
         `https://v6.exchangerate-api.com/v6/705c9276e4642a4b8de1d113/pair/${exchangeData.from}/${exchangeData.to}/${exchangeData.amount}`

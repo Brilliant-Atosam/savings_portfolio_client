@@ -37,7 +37,7 @@ const Dashboard = () => {
           handleSaveDialog={handleSaveDialog}
         />
         <div className="dashboard-right">
-          <h1 className="debt-text">Income history</h1>{" "}
+          <h1 className="debt-text">Income history</h1>
           {loading && <CircularProgress />}
           <Table columns={savingsColumn} rows={savingsList} />
           <h1 className="debt-text">
@@ -52,16 +52,6 @@ const Dashboard = () => {
                 }
               />
             }
-            {/* {savingsList?.reduce((a, b) => a + b.saved, 0) > 0 &&
-              user?.tier !== "premium" && (
-                <>
-                  <h1 className="no-data-text">
-                    This could be your data displayed in the chart above if you
-                    were subscribed to the premium version.
-                  </h1>
-                  <Subscription />
-                </>
-              )} */}
           </div>
         </div>
       </div>

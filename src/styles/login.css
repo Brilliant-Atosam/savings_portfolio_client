@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  padding: 10px;
 }
 .login-sub-container {
   width: fit-content;
@@ -74,9 +75,12 @@
 }
 @media (max-width: 415px) {
   .login-input {
-    min-width: 100%;
+    min-width: 200px;
   }
-  .login-redirects{
+  .login-logo {
+    height: 220px;
+  }
+  .login-redirects {
     flex-direction: column;
   }
 }

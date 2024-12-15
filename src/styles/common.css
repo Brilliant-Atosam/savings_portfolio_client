@@ -11,6 +11,9 @@
 h1 {
   font-family: "Abel", sans-serif;
 }
+.mb20 {
+  margin-bottom: 20px;
+}
 .notification-heading {
   font-family: "Work Sans", sans-serif;
 }
@@ -73,6 +76,18 @@ footer a {
   flex-direction: column;
   gap: 15px;
   max-width: 100%;
+}
+.exchange-container {
+  width: 100%;
+  display: flex;
+  align-content: inherit;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: #ffffffb1;
+}
+.exchange-img {
+  width: 40%;
 }
 .borrowing-chart-container {
   overflow-x: scroll;
@@ -237,12 +252,14 @@ footer a {
   font-weight: 300;
   font-size: 1.4rem;
 }
+.dialog {
+  z-index: 9999999999999999;
+}
 .dialog-form-container {
   display: flex;
   flex-direction: column;
   gap: 10px;
   width: 100%;
-  padding-top: 1px;
 }
 .login-input {
   width: 100%;
@@ -451,6 +468,12 @@ footer a {
 @media (max-width: 700px) {
   .chart-container {
     overflow-x: scroll;
+  }
+  .exchange-container {
+    flex-direction: column;
+  }
+  .exchange-img {
+    width: 80%;
   }
 }
 @media (max-width: 426px) {

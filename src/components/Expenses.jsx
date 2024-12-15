@@ -15,7 +15,11 @@ const ExpensesDialog = ({
   expenses,
   setExpenses,
 }) => {
-  const { categories } = Util();
+  const { categories, businessExpenseCategories, user } = Util();
+  let expensesCategories =
+    user?.purpose === "personal finance"
+      ? categories
+      : businessExpenseCategories;
   const { loading } = useApp();
   return (
     <>
@@ -31,7 +35,7 @@ const ExpensesDialog = ({
               placeholder="What did you buy or spend on?"
               className="login-input"
               onChange={(e) =>
-                setExpenses((prev) => ({ ...prev, item: e.target.value}))
+                setExpenses((prev) => ({ ...prev, item: e.target.value }))
               }
               value={expenses.item}
             />
@@ -43,12 +47,12 @@ const ExpensesDialog = ({
               id=""
               className="login-input"
               onChange={(e) =>
-                setExpenses((prev) => ({ ...prev, category: e.target.value}))
+                setExpenses((prev) => ({ ...prev, category: e.target.value }))
               }
               value={expenses.category}
             >
               <option value="">select category</option>
-              {categories.map((cat, index) => (
+              {expensesCategories?.map((cat, index) => (
                 <option
                   className="select-options"
                   key={index}
@@ -120,10 +124,10 @@ const ExpensesDialog = ({
               disabled={loading}
               onClick={handleExpenses}
             >
-              {loading ? "loading" : "Create new expenses"}
+              {loading ? "loading" : "Create expenses"}
             </button>
             <button className="dialog-close-btn" onClick={toggle}>
-              Cancel
+              Close
             </button>
           </div>
         </DialogContent>

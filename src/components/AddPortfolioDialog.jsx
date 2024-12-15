@@ -8,9 +8,9 @@ import useApp from "../useApp";
 import moment from "moment";
 import "../styles/login.css";
 import usePortfolio from "../hooks/usePortfolio";
-import Subscription from "./Subscription";
+// import Subscription from "./Subscription";
 const AddPortfolioDialog = ({ open, close, action }) => {
-  const { loading, user } = useApp();
+  const { loading,  } = useApp();
   const { setNewPortfolio, newPortfolio } = usePortfolio();
   return (
     <Dialog open={open}>
@@ -91,7 +91,7 @@ const AddPortfolioDialog = ({ open, close, action }) => {
               })
             }
           />
-          {user?.tier !== "premium" && <Subscription />}
+          {/* {user?.tier !== "premium" && <Subscription />} */}
           <button className="login-btn" onClick={() => action(newPortfolio)}>
             {loading ? "loading..." : "Create portfolio"}
           </button>

@@ -498,7 +498,8 @@ footer a {
     min-width: 80vw;
   }
   .login-input {
-    min-width: 100%;
+    min-width: 200px !important;
+    width: 100%;
   }
 }
 @media (max-width: 400px) {

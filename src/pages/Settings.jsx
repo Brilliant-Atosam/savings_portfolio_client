@@ -198,27 +198,7 @@ const Settings = () => {
               <h1 className="debt-text">
                 Monthly Financial Summary Chart: {new Date().getFullYear()}
               </h1>
-              {
-                <AreaChartComponent
-                  data={
-                    // monthly_data.reduce((a, b) => a + b.total_income, 0) > 0
-                    // &&
-                    // user?.tier !== "premium"
-                    // ? dummy_monthly_data
-                    // :
-                    monthly_data
-                  }
-                />
-              }
-              {/* {savingsList.reduce((a, b) => a + b.saved, 0) > 0 &&
-                user?.tier !== "premium" && (
-                  <h1 className="no-data-text">
-                    This could be your data displayed in the chart above.
-                    <a href="/" className="link">
-                      Learn more
-                    </a>
-                  </h1>
-                )} */}
+              {<AreaChartComponent data={monthly_data} />}
             </div>
             <div className="top-summary-container">
               <h1 className="debt-text">
@@ -267,26 +247,35 @@ const Settings = () => {
                         <span className="key">Projected Savings: </span>
                         <span className="value">
                           {format_currency(total_savings)} [
-                          {((total_savings / total_income) * 100).toFixed(2)}%
-                          of income]
+                          {isNaN(total_savings / total_income)
+                            ? 0
+                            : ((total_savings / total_income) * 100).toFixed(2)}
+                          % of income]
                         </span>
                       </div>
                       <div className="key-value-container">
                         <span className="key">Actual Savings: </span>
                         <span className="value">
                           {format_currency(actual_savings)} [
-                          {((actual_savings / total_income) * 100).toFixed(2)}%
-                          of income]
+                          {isNaN(actual_savings / total_income)
+                            ? 0
+                            : ((actual_savings / total_income) * 100).toFixed(
+                                2
+                              )}
+                          % of income]
                         </span>
                       </div>
                       <div className="key-value-container">
                         <span className="key">Savings at hand: </span>
                         <span className="value">
                           {format_currency(actual_savings - lent_balance)} [
-                          {(
-                            ((actual_savings - lent_balance) / total_income) *
-                            100
-                          ).toFixed(2)}
+                          {isNaN((actual_savings - lent_balance) / total_income)
+                            ? 0
+                            : (
+                                ((actual_savings - lent_balance) /
+                                  total_income) *
+                                100
+                              ).toFixed(2)}
                           % of income]
                         </span>
                       </div>
@@ -321,7 +310,11 @@ const Settings = () => {
                         <span className="key">Total Spendable: </span>
                         <span className="value">
                           {format_currency(total_spendable)} [
-                          {((total_spendable / total_income) * 100).toFixed(2)}
+                          {isNaN(total_spendable / total_income)
+                            ? 0
+                            : ((total_spendable / total_income) * 100).toFixed(
+                                2
+                              )}
                           %]
                         </span>
                       </div>
@@ -329,18 +322,24 @@ const Settings = () => {
                         <span className="key">Total Expenses: </span>
                         <span className="value">
                           {format_currency(total_expenses)} [
-                          {((total_expenses / total_income) * 100).toFixed(2)}%]
-                          (+ loan payments)
+                          {isNaN(total_expenses / total_income)
+                            ? 0
+                            : ((total_expenses / total_income) * 100).toFixed(
+                                2
+                              )}
+                          %] (+ loan payments)
                         </span>
                       </div>
                       <div className="key-value-container">
                         <span className="key">Actual Expenses: </span>
                         <span className="value">
                           {format_currency(actual_total_expenses)} [
-                          {(
-                            (actual_total_expenses / total_income) *
-                            100
-                          ).toFixed(2)}
+                          {isNaN(actual_total_expenses / total_income)
+                            ? 0
+                            : (
+                                (actual_total_expenses / total_income) *
+                                100
+                              ).toFixed(2)}
                           %] (- loan payments)
                         </span>
                       </div>
@@ -352,7 +351,7 @@ const Settings = () => {
                       </div>
                       <div className="key-value-container">
                         <span className="key">
-                          Spendable Utilization Percentage:
+                          Spendable Utilization Percentage (SUP):
                         </span>
                         <span className="value">
                           {spendable_utilization_percentage}%
@@ -375,7 +374,7 @@ const Settings = () => {
                         <span className="key">Spending status:</span>
                         <span className="value">
                           {spendable_utilization_percentage < 100
-                            ? "Spend within the the spendable"
+                            ? "Spend within the spendable"
                             : "Spend beyond the spendable"}
                         </span>
                       </div>

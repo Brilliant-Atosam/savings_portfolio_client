@@ -66,14 +66,17 @@ const useSettings = () => {
   const total_spendable = Number(
     savings?.reduce((a, b) => a + b.balance, 0).toFixed(2)
   );
-  const spendable_utilization_percentage = Number(
-    ((total_expenses / total_spendable) * 100).toFixed(2)
-  );
+  const spendable_utilization_percentage = isNaN(
+    total_expenses / total_spendable
+  )
+    ? 0
+    : Number(((total_expenses / total_spendable) * 100).toFixed(2));
   const actual_savings = total_income - total_expenses;
-  const savings_efficiency = (
-    ((total_income - total_expenses) / total_savings) *
-    100
-  ).toFixed(2);
+  const savings_efficiency = isNaN(
+    (total_income - total_expenses) / total_savings
+  )
+    ? 0
+    : (((total_income - total_expenses) / total_savings) * 100).toFixed(2);
   const total_borrowed = borrowedList?.reduce(
     (a, b) => a + Number(b.amount),
     0

@@ -109,7 +109,10 @@ const useAccount = () => {
       !phoneRegex.test(newUser.phone) ||
       !passwordRegex.test(newUser.password)
     ) {
-      handleSnackbar("Please provide valid info.", "warning");
+      handleSnackbar(
+        "Invalid info. Password must contain letters and numbers",
+        "warning"
+      );
     } else if (newUser.password !== newUser.password2) {
       handleSnackbar("Passwords do not match!", "warning");
     } else {

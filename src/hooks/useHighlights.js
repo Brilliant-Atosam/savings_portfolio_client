@@ -30,12 +30,12 @@ const useHighlights = () => {
   const expenses_lm = expensesList?.filter((item) =>
     item.created_at.endsWith(last_month_query)
   );
-  const total_income_lm = income_savings_lm.reduce((a, b) => a + b.amount, 0);
-  const total_savings_lm = income_savings_lm.reduce((a, b) => a + b.saved, 0);
+  const total_income_lm = income_savings_lm?.reduce((a, b) => a + b.amount, 0);
+  const total_savings_lm = income_savings_lm?.reduce((a, b) => a + b.saved, 0);
   // const total_spendable_lm = income_savings_lm - total_savings_lm;
-  const total_expenses_lm = expenses_lm.reduce((a, b) => a + b.total_cost, 0);
+  const total_expenses_lm = expenses_lm?.reduce((a, b) => a + b.total_cost, 0);
   // this month data
-  const income_savings = savingsList.filter((item) =>
+  const income_savings = savingsList?.filter((item) =>
     item.createdAt.endsWith(query)
   );
   const expenses = expensesList?.filter((item) =>
@@ -43,14 +43,14 @@ const useHighlights = () => {
   );
 
   const total_income = income_savings
-    .reduce((a, b) => a + b.amount, 0)
+    ?.reduce((a, b) => a + b.amount, 0)
     .toFixed(2);
   const total_savings = income_savings
-    .reduce((a, b) => a + b.saved, 0)
+    ?.reduce((a, b) => a + b.saved, 0)
     .toFixed(2);
   const total_spendable = (total_income - total_savings).toFixed(2);
   const total_expenses = expenses
-    .reduce((a, b) => a + b.total_cost, 0)
+    ?.reduce((a, b) => a + b.total_cost, 0)
     .toFixed(2);
   const monthly_data = {
     income_c2a_p: Number(
@@ -118,8 +118,8 @@ const useHighlights = () => {
       let data_object = {
         title: source,
         amount: income_savings
-          .filter((item) => item.source === source)
-          .reduce((a, b) => a + b.amount, 0),
+          ?.filter((item) => item.source === source)
+          ?.reduce((a, b) => a + b.amount, 0),
       };
       data_object.amount > 0 && data.push(data_object);
       return data_object;
@@ -128,7 +128,7 @@ const useHighlights = () => {
   };
   let income_sources_chart_data = income_chart();
   let portfolio_from_savings = [];
-  income_savings.map((item) => {
+  income_savings?.map((item) => {
     return portfolio_from_savings.push(...item.details);
   });
   const structuredPortfolio = user?.portfolio?.map((item) => ({
@@ -136,7 +136,7 @@ const useHighlights = () => {
     amount: Number(
       parseFloat(
         portfolio_from_savings
-          .filter((port) => port.title === item.title)
+          ?.filter((port) => port.title === item.title)
           .reduce((a, b) => a + b.amount, 0)
       ).toFixed(2)
     ),
@@ -144,7 +144,7 @@ const useHighlights = () => {
   // expenses categories
   const chart_data_categories = () => {
     let data = [];
-    categories.map((category) => {
+    categories?.map((category) => {
       let data_object = {
         title: category.title,
         total_expenses: expenses

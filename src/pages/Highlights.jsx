@@ -64,7 +64,7 @@ const Highlights = () => {
               <span className="finance-info-key">C2LM</span>
               <span className="finance-info-value">{income_c2lm}</span>
               <span className="finance-info-value">
-                {income_c2lm_p}%
+                {isNaN(income_c2lm_p) ? 0 : income_c2lm_p}%
                 {income_c2lm > 0 ? (
                   <IoIosArrowRoundUp />
                 ) : (
@@ -76,7 +76,7 @@ const Highlights = () => {
               <span className="finance-info-key">C2Av.</span>
               <span className="finance-info-value">{income_c2a}</span>
               <span className="finance-info-value">
-                {income_c2a_p}%
+                {isNaN(income_c2a_p) ? 0 : income_c2a_p}%
                 {income_c2a > 0 ? (
                   <IoIosArrowRoundUp />
                 ) : (
@@ -115,10 +115,12 @@ const Highlights = () => {
             <div className="info-container">
               <span className="finance-info-key">Efficiency</span>
               <span className="finance-info-value">
-                {(
-                  ((total_income - total_expenses) / total_savings) *
-                  100
-                ).toFixed(2)}
+                {isNaN(((total_income - total_expenses) / total_savings) * 100)
+                  ? 0
+                  : (
+                      ((total_income - total_expenses) / total_savings) *
+                      100
+                    ).toFixed(2)}
                 %
               </span>
             </div>
@@ -159,10 +161,12 @@ const Highlights = () => {
             <div className="info-container">
               <span className="finance-info-key">SUP</span>
               <span className="finance-info-value">
-                {(
-                  (total_expenses / (total_income - total_expenses)) *
-                  100
-                ).toFixed(2)}
+                {isNaN((total_expenses / (total_income - total_expenses)) * 100)
+                  ? 0
+                  : (
+                      (total_expenses / (total_income - total_expenses)) *
+                      100
+                    ).toFixed(2)}
                 %
               </span>
             </div>
@@ -196,7 +200,7 @@ const Highlights = () => {
               <span className="finance-info-key">C2LM</span>
               <span className="finance-info-value">{expenses_c2lm}</span>
               <span className="finance-info-value">
-                {expenses_c2lm_p}%
+                {isNaN(expenses_c2lm_p) ? 0 : expenses_c2lm_p}%
                 {expenses_c2lm > 0 ? (
                   <IoIosArrowRoundUp />
                 ) : (
@@ -208,7 +212,7 @@ const Highlights = () => {
               <span className="finance-info-key">C2Av.</span>
               <span className="finance-info-value">{expenses_c2a}</span>
               <span className="finance-info-value">
-                {expenses_c2a_p}%
+                {isNaN(expenses_c2a_p) ? 0 : expenses_c2a_p}%
                 {expenses_c2a > 0 ? (
                   <IoIosArrowRoundUp />
                 ) : (

@@ -207,6 +207,11 @@ const Util = () => {
     { name: "Chinese Yuan", locale: "zh-CN", currency: "CNY" },
     { name: "Egyptian Pound", locale: "ar-EG", currency: "EGP" },
     { name: "Euro", locale: "en-DE", currency: "EUR" },
+    {
+      name: "CFA Franc",
+      locale: "fr-BF",
+      currency: "XOF",
+    },
     { name: "Ethiopian Birr", locale: "am-ET", currency: "ETB" },
     { name: "Indian Rupee", locale: "en-IN", currency: "INR" },
     { name: "Japanese Yen", locale: "ja-JP", currency: "JPY" },

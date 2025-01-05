@@ -202,7 +202,7 @@ const Settings = () => {
             </div>
             <div className="top-summary-container">
               <h1 className="debt-text">
-                Financial Summary - {new Date().getFullYear()}
+                Financial Summary
               </h1>
               <div className="financial-summary">
                 <div className="financial-summary-category">

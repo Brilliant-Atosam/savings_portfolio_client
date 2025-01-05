@@ -22,6 +22,8 @@ const useSave = () => {
     details,
   });
   let savingsList = JSON.parse(window.localStorage.getItem("savings")) || [];
+  console.log(savingsList);
+
   const [showSaveDialog, setShowSaveDialog] = useState(false);
   const handleSaveDialog = () => setShowSaveDialog((prev) => !prev);
   const spendable_percentage =
@@ -199,6 +201,8 @@ const useSave = () => {
     return data;
   };
   let monthly_data = monthly_savings_data();
+  console.log(monthly_data);
+
   return {
     showSaveDialog,
     setShowSaveDialog,

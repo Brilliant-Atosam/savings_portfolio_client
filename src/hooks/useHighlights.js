@@ -86,28 +86,28 @@ const useHighlights = () => {
   const income_chart_data = [
     {
       name: "income",
-      this_month: total_income,
-      average: average_income,
-      last_month: total_income_lm,
-      peak_month: peak_month.total_income,
+      cur_perf: total_income,
+      avg_perf: average_income,
+      prev_perf: total_income_lm,
+      peak_perf: peak_month.total_income,
     },
   ];
   const savings_chart_data = [
     {
       name: "savings",
-      this_month: total_savings,
-      average: average_savings,
-      last_month: total_savings_lm,
-      peak_month: peak_savings[0]?.total_savings,
+      cur_perf: total_savings,
+      avg_perf: average_savings,
+      prev_perf: total_savings_lm,
+      peak_perf: peak_savings[0]?.total_savings,
     },
   ];
   const expenses_chart_data = [
     {
       name: "expenses",
-      this_month: total_expenses,
-      average: average_expenses,
-      last_month: total_expenses_lm,
-      peak_month: peak_expenses?.total_expenses,
+      cur_perf: total_expenses,
+      avg_perf: average_expenses,
+      prev_perf: total_expenses_lm,
+      peak_perf: peak_expenses?.total_expenses,
     },
   ];
 

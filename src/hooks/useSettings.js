@@ -5,14 +5,7 @@ import Util from "../utils/util";
 import useSave from "./useSave";
 const useSettings = () => {
   const context = useApp();
-  // const {
-  //   borrowedList,
-  //   lentList,
-  //   lend_repayment_history,
-  //   borrowed_repayment_history,
-  // } = useBorrow();
   let user = JSON.parse(localStorage.getItem("user"));
-  console.log(user);
   let borrowedList = JSON.parse(localStorage.getItem("borrowed"));
   let lentList = JSON.parse(localStorage.getItem("lent"));
 

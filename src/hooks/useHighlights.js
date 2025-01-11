@@ -12,7 +12,7 @@ const useHighlights = () => {
     average_savings,
     peak_savings,
     peak_expenses,
-    peak_month,
+    peak_income,
   } = useSettings();
   const { categories } = Util();
   const location = useLocation();
@@ -89,7 +89,7 @@ const useHighlights = () => {
       cur_perf: total_income,
       avg_perf: average_income,
       prev_perf: total_income_lm,
-      peak_perf: peak_month.total_income,
+      peak_perf: peak_income.total_income,
     },
   ];
   const savings_chart_data = [

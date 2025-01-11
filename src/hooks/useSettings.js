@@ -2,12 +2,27 @@ import { useState } from "react";
 import useApp from "../useApp";
 import request from "../utils/request";
 import Util from "../utils/util";
-import useSave from "./useSave";
 const useSettings = () => {
   const context = useApp();
   let user = JSON.parse(localStorage.getItem("user"));
   let borrowedList = JSON.parse(localStorage.getItem("borrowed"));
   let lentList = JSON.parse(localStorage.getItem("lent"));
+  let expensesList = JSON.parse(localStorage.getItem("expenses"));
+  let savingsList = JSON.parse(window.localStorage.getItem("savings")) || [];
+
+  const { storeUser, headers, months } = Util();
+  const current_year = Number(new Date().getFullYear());
+  const year_joined = Number(user.createdAt.split("/")[2]);
+  const past_years = Array.from(
+    { length: current_year - year_joined + 1 },
+    (_, index) => year_joined + index
+  );
+  const formattedDates = past_years.flatMap((year) => {
+    return months.map((_, index) => {
+      const monthNumber = String(index + 1).padStart(2, "0");
+      return `${monthNumber}/${year}`;
+    });
+  });
 
   let borrowed_repayment_history = [];
   borrowedList?.map((item) =>
@@ -21,8 +36,6 @@ const useSettings = () => {
   let savings = JSON.parse(localStorage.getItem("savings"));
   let expenses = JSON.parse(localStorage.getItem("expenses"));
   let loans = JSON.parse(localStorage.getItem("loans"));
-  const { storeUser, headers } = Util();
-  const { monthly_data } = useSave();
   const [openPass, setOpenPass] = useState(false);
   const handleOpenPass = () => setOpenPass(!openPass);
   //   password info
@@ -96,13 +109,60 @@ const useSettings = () => {
     email: user?.email,
     password: "",
   });
-  const peak_month = monthly_data?.sort((a, b) =>
+  const monthly_analysis_data = () => {
+    let data = [];
+    formattedDates.map((month, index) => {
+      let data_object = {
+        title: month,
+        id:
+          (index + 1).toString().length === 1
+            ? `0${index + 1}`
+            : (index + 1).toString(),
+        total_savings: Number(
+          savingsList
+            ?.filter((item) => item.createdAt.endsWith(month))
+            ?.reduce((a, b) => a + b.saved, 0)
+            .toFixed(2)
+        ),
+        total_income: Number(
+          savingsList
+            ?.filter((item) => item.createdAt.endsWith(month))
+            ?.reduce((a, b) => a + b.amount, 0)
+            .toFixed(2)
+        ),
+        total_expenses: Number(
+          expensesList
+            ?.filter((item) => item.created_at.endsWith(month))
+            ?.reduce((a, b) => a + b.total_cost, 0)
+            .toFixed(2)
+        ),
+        total_advance: Number(
+          loans
+            ?.filter((item) => item.createdAt.endsWith(month))
+            ?.reduce((a, b) => a + b.amount, 0)
+            .toFixed(2)
+        ),
+        spendable_amount: Number(
+          savingsList
+            ?.filter((item) => item.createdAt.endsWith(month))
+            ?.reduce((a, b) => a + b.balance, 0)
+            .toFixed(2)
+        ),
+      };
+      data.push(data_object);
+      return data_object;
+    });
+    return data;
+  };
+  const analysis_data = monthly_analysis_data();
+
+  const peak_income = analysis_data?.sort((a, b) =>
     a.total_income < b.total_income ? 1 : -1
   )[0];
-  const peak_expenses = monthly_data?.sort((a, b) =>
+  const peak_expenses = analysis_data?.sort((a, b) =>
     a.total_expenses < b.total_expenses ? 1 : -1
   )[0];
-  const peak_savings = monthly_data?.sort((a, b) =>
+  const peak_savings = analysis_data?.sort((a, b) =>
     a.total_savings < b.total_savings ? 1 : -1
   );
   const average_income = (
@@ -176,20 +236,6 @@ const useSettings = () => {
       }
     }
   };
-  // const chart_data = [
-  //   {
-  //     title: "savings",
-  //     amount: total_savings,
-  //   },
-  //   {
-  //     title: "expense",
-  //     amount: total_expenses,
-  //   },
-  //   {
-  //     title: "untracked",
-  //     amount: untracked,
-  //   },
-  // ];
   // income chart data
   const income_chart = () => {
     let data = [];
@@ -207,28 +253,6 @@ const useSettings = () => {
   };
   let income_chart_data = income_chart();
 
-  // monthly income data
-  // const monthly_income = () => {
-  //   let data = [];
-  //   months.map((month, index) => {
-  //     let object_object = {
-  //       title: month,
-  //       total_income: savings
-  //         .filter((item) =>
-  //           item.createdAt?.endsWith(
-  //             (index + 1).toString().length === 1
-  //               ? `0${index + 1}/${new Date().getFullYear().toString()}`
-  //               : `${index + 1}/${new Date().getFullYear().toString()}`
-  //           )
-  //         )
-  //         .reduce((a, b) => a + b?.amount, 0),
-  //     };
-  //     data.push(object_object);
-  //     return object_object;
-  //   });
-  //   return data;
-  // };
-  // const monthly_income_data = monthly_income();
   return {
     openPass,
     handleOpenPass,
@@ -260,7 +284,7 @@ const useSettings = () => {
     spendable_utilization_percentage,
     savings_efficiency,
     actual_savings,
-    peak_month,
+    peak_income,
     average_income,
     average_savings,
     average_expenses,
@@ -268,6 +292,8 @@ const useSettings = () => {
     peak_expenses,
     peak_savings,
     portfolio,
+    formattedDates,
+    analysis_data,
   };
 };
 

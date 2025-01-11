@@ -72,25 +72,12 @@ const useSave = () => {
       context.handleLoader();
     } else {
       const { details } = savings;
-      // let { portfolio } = user;
-      // const updatedPortfolio = portfolio
-      //   .filter((item) => !item.archived)
-      //   .map((item, index) => {
-      //     if (Number(item.goal) >= item.amount) {
-      //       return { ...item, amount: item.amount + details[index].amount };
-      //     }
-      //     return item;
-      //   });
+  
       const source_exists = user.sources_of_income?.find(
         (source) => source.toLowerCase() === savings.source.toLowerCase()
       );
       user = {
         ...user,
-        // total_income: user.total_income + Number(savings.amount),
-        // portfolio: updatedPortfolio,
-        // total_amount_saved: (
-        //   Number(user.total_amount_saved) + savings?.saved
-        // ).toFixed(2),
         sources_of_income: user.sources_of_income || [],
       };
       !source_exists && user.sources_of_income.push(savings.source);
@@ -128,7 +115,7 @@ const useSave = () => {
     let data = [];
     months.map((month, index) => {
       let data_object = {
-        title: month,
+        title: `${month},${new Date().getFullYear()}`,
         id:
           (index + 1).toString().length === 1
             ? `0${index + 1}`
@@ -199,8 +186,8 @@ const useSave = () => {
     });
     return data;
   };
-  let monthly_data = monthly_savings_data();
 
+  let monthly_data = monthly_savings_data();
   return {
     showSaveDialog,
     setShowSaveDialog,

@@ -22,7 +22,7 @@ import moment from "moment";
 // import Overlay from "../components/Overlay";
 const Settings = () => {
   const { user } = useApp();
-  const { format_currency, colors } = Util();
+  const { format_currency, colors, months } = Util();
   const { monthly_data, structuredPortfolio } = useSave();
   const {
     handleOpenPass,
@@ -41,7 +41,7 @@ const Settings = () => {
     spendable_utilization_percentage,
     savings_efficiency,
     actual_savings,
-    peak_month,
+    peak_income,
     average_income,
     average_savings,
     average_expenses,
@@ -201,9 +201,7 @@ const Settings = () => {
               {<AreaChartComponent data={monthly_data} />}
             </div>
             <div className="top-summary-container">
-              <h1 className="debt-text">
-                Financial Summary
-              </h1>
+              <h1 className="debt-text">Financial Summary</h1>
               <div className="financial-summary">
                 <div className="financial-summary-category">
                   <h1 className="financial-summary-category-heading">
@@ -225,8 +223,11 @@ const Settings = () => {
                     <div className="key-value-container">
                       <span className="key">Peak Income: </span>
                       <span className="value">
-                        {format_currency(peak_month?.total_income)} (
-                        {peak_month.title})
+                        {format_currency(peak_income?.total_income)} (
+                        {`${months[peak_income.title.split("/")[0] - 1]}, ${
+                          peak_income.title.split("/")[1]
+                        }`}
+                        )
                       </span>
                     </div>
                     <div className="key-value-container">

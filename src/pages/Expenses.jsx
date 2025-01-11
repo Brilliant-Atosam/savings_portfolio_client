@@ -108,25 +108,8 @@ const Expenses = () => {
             <div className="chart-container mb20">
               <h1 className="debt-text">Monthly expenses chart</h1>
               <div className="chart-container borrowing-chart-container">
-                <AreaChartComponent
-                  data={
-                    monthly_expenses_data.reduce(
-                      (a, b) => a + b.total_expenses,
-                      0
-                    ) > 0 && monthly_expenses_data
-                  }
-                />
+                <AreaChartComponent data={monthly_expenses_data} />
               </div>
-              {monthly_expenses_data.reduce((a, b) => a + b.total_expenses, 0) >
-                0 &&
-                user?.tier !== "premium" && (
-                  <h1 className="no-data-text">
-                    This could be your data displayed in the chart above.
-                    <a href="/" className="link">
-                      Learn more
-                    </a>
-                  </h1>
-                )}
             </div>
             <Table columns={expenseColumn} rows={expensesList} />
           </div>

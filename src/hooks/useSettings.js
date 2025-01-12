@@ -12,7 +12,7 @@ const useSettings = () => {
 
   const { storeUser, headers, months } = Util();
   const current_year = Number(new Date().getFullYear());
-  const year_joined = Number(user.createdAt.split("/")[2]);
+  const year_joined = Number(user?.createdAt.split("/")[2]);
   const past_years = Array.from(
     { length: current_year - year_joined + 1 },
     (_, index) => year_joined + index
@@ -120,31 +120,31 @@ const useSettings = () => {
             : (index + 1).toString(),
         total_savings: Number(
           savingsList
-            ?.filter((item) => item.createdAt.endsWith(month))
+            ?.filter((item) => item?.createdAt.endsWith(month))
             ?.reduce((a, b) => a + b.saved, 0)
             .toFixed(2)
         ),
         total_income: Number(
           savingsList
-            ?.filter((item) => item.createdAt.endsWith(month))
+            ?.filter((item) => item?.createdAt.endsWith(month))
             ?.reduce((a, b) => a + b.amount, 0)
             .toFixed(2)
         ),
         total_expenses: Number(
           expensesList
-            ?.filter((item) => item.created_at.endsWith(month))
+            ?.filter((item) => item?.created_at.endsWith(month))
             ?.reduce((a, b) => a + b.total_cost, 0)
             .toFixed(2)
         ),
         total_advance: Number(
           loans
-            ?.filter((item) => item.createdAt.endsWith(month))
+            ?.filter((item) => item?.createdAt.endsWith(month))
             ?.reduce((a, b) => a + b.amount, 0)
             .toFixed(2)
         ),
         spendable_amount: Number(
           savingsList
-            ?.filter((item) => item.createdAt.endsWith(month))
+            ?.filter((item) => item?.createdAt.endsWith(month))
             ?.reduce((a, b) => a + b.balance, 0)
             .toFixed(2)
         ),

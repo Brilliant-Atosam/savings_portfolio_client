@@ -95,7 +95,7 @@ const Expenses = () => {
                 </Link>
               ))}
             </div>
-            <h1 className="expenses-heading debt-text">Expenses history</h1>
+
             {loading && <CircularProgress />}
             <div className="chart-container">
               <h1 className="debt-text">Expenses chart for categories</h1>
@@ -111,6 +111,7 @@ const Expenses = () => {
                 <AreaChartComponent data={monthly_expenses_data} />
               </div>
             </div>
+            <h1 className="expenses-heading debt-text">Expenses history</h1>
             <Table columns={expenseColumn} rows={expensesList} />
           </div>
         </div>

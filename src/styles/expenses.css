@@ -54,7 +54,9 @@
   color: #bf00ff;
   font-size: 0.8rem;
 }
-
+.expenses-details-top {
+  display: flex;
+}
 @media (max-width: 770px) {
   .expenses-details-container {
     flex-direction: column;

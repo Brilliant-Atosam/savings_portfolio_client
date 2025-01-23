@@ -1,5 +1,4 @@
 import "../styles/budget.css";
-import React, { useEffect } from "react";
 import Topbar from "../components/Topbar";
 import Util from "../utils/util";
 import useBudget from "../hooks/useBudget";
@@ -20,7 +19,6 @@ const BudgetDetails = () => {
       ? businessExpenseCategories
       : categories;
   const {
-    budget_details,
     expenses_within_budget_period,
     out_of_budget_expenses,
     newBudget,
@@ -29,12 +27,6 @@ const BudgetDetails = () => {
     snackbar,
     handleSnackbar,
   } = useBudget();
-  useEffect(() => {
-    if (budget_details && budget_details !== newBudget) {
-      setNewBudget((prev) => budget_details);
-    }
-  }, [setNewBudget, budget_details, newBudget]);
-
   const { expenseColumn } = useTableData();
   return (
     <div className="main-container">
@@ -43,19 +35,19 @@ const BudgetDetails = () => {
         <div className="budget-left budget-detail-left">
           <div className="finance-info-container">
             <h1 className="highlight-title">
-              {months[Number(budget_details.month.split("/")[0]) - 1]},
-              {budget_details.month.split("/")[1]}
+              {months[Number(newBudget?.month.split("/")[0]) - 1]},
+              {newBudget?.month.split("/")[1]}
             </h1>
             <div className="info-container">
               <span className="finance-info-key">Est. Budget</span>
               <span className="finance-info-value">
-                {format_currency(budget_details.estimated_budget)}
+                {format_currency(newBudget?.estimated_budget)}
               </span>
             </div>
             <div className="info-container">
               <span className="finance-info-key">Total Budget</span>
               <span className="finance-info-value">
-                {format_currency(budget_details.total_budget)}
+                {format_currency(newBudget?.total_budget)}
               </span>
             </div>
             <div className="info-container">
@@ -81,7 +73,7 @@ const BudgetDetails = () => {
                 </tr>
               </thead>
               <tbody>
-                {budget_details.categories
+                {newBudget?.categories
                   .filter((item) => item.amount > 0)
                   .map((cat) => (
                     <tr key={cat.category}>
@@ -137,10 +129,8 @@ const BudgetDetails = () => {
             newBudget={newBudget}
             setNewBudget={setNewBudget}
             showCatAmount={true}
-            title={`Edit ${
-              months[Number(budget_details.month.split("/")[0]) - 1]
-            },
-            ${budget_details.month.split("/")[1]}'s budget`}
+            title={`Edit ${months[Number(newBudget?.month.split("/")[0]) - 1]},
+            ${newBudget?.month.split("/")[1]}'s budget`}
             button_text="Edit budget"
           />
           <h1 className="debt-text">Expenses history</h1>

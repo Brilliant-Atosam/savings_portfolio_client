@@ -1,6 +1,4 @@
-// import { months } from "moment";
 import { useMemo, useState } from "react";
-// import Util from "../utils/util";
 import useExpenses from "./useExpenses";
 import request from "../utils/request";
 import useFeedback from "./useFeedback";
@@ -12,7 +10,7 @@ import { useLocation } from "react-router-dom";
 const useBudget = () => {
   let user = JSON.parse(localStorage.getItem("user"));
   const { headers } = Util();
-  // let budgets = JSON.parse(window.localStorage.getItem("budgets")) || [];
+
   let budgets = useMemo(() => {
     return JSON.parse(window.localStorage.getItem("budgets"));
   }, []);
@@ -21,10 +19,10 @@ const useBudget = () => {
   const location = useLocation();
   const param = new URLSearchParams(location.search);
   const budget_id = param.get("budget_id");
-  // const budget_details = budgets.find((budget) => budget.id === budget_id);
   const budget_details = useMemo(() => {
     return budgets?.find((budget) => budget.id === budget_id);
   }, [budgets, budget_id]);
+
   const expenses_within_budget_period = expensesList.filter((item) =>
     item.created_at.endsWith(budget_details?.month)
   );
@@ -37,19 +35,23 @@ const useBudget = () => {
   const { expensesCategories } = useExpenses();
   const [showMoreOptions, setShowMoreOptions] = useState(false);
   const moreOptionsToggler = () => setShowMoreOptions((prev) => !prev);
-  const [newBudget, setNewBudget] = useState({
-    month: "",
-    estimated_budget: "",
-    total_budget: "",
-    categories: expensesCategories.map((cat) => ({
-      category: cat.title,
-      amount: 0,
-    })),
-    balance: 0,
-    id: Math.floor(Math.random() * 99999).toString(),
-    created_at: moment().format("DD/MM/YYYY"),
-    userId: user.id,
-  });
+  const [newBudget, setNewBudget] = useState(
+    budget_id
+      ? budget_details
+      : {
+          month: "",
+          estimated_budget: "",
+          total_budget: "",
+          categories: expensesCategories.map((cat) => ({
+            category: cat.title,
+            amount: 0,
+          })),
+          balance: 0,
+          id: Math.floor(Math.random() * 99999).toString(),
+          created_at: moment().format("DD/MM/YYYY"),
+          userId: user.id,
+        }
+  );
   // function create new budget
   const createBudget = async () => {
     context?.handleLoader();

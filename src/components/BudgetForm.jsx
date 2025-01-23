@@ -1,6 +1,7 @@
 import React from "react";
 import { CiCalendarDate } from "react-icons/ci";
 import { FaCediSign } from "react-icons/fa6";
+import Util from "../utils/util";
 
 const BudgetForm = ({
   setNewBudget,
@@ -12,9 +13,15 @@ const BudgetForm = ({
   title,
   button_text,
 }) => {
+  const { format_currency } = Util();
   return (
     <div className="create-budget-container">
-      <h1 className="debt-text">{title}</h1>
+      <h1 className="debt-text">{title}</h1>{" "}
+      <span>Total Budget: {format_currency(newBudget?.total_budget)}</span>
+      <span>
+        Balance:{" "}
+        {format_currency(newBudget?.estimated_budget - newBudget?.total_budget)}
+      </span>
       <div className="budget-input-container">
         <CiCalendarDate className="input-icon" />
         <select

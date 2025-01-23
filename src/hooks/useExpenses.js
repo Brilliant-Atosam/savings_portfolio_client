@@ -33,6 +33,8 @@ const useExpenses = () => {
           .includes(expense.category.toLowerCase());
       })
     : JSON.parse(localStorage.getItem("expenses"));
+  console.log(expensesList);
+
   const [openExpenseDialog, setOpenExpenseDialog] = useState(false);
   const toggleExpensesDialog = () => setOpenExpenseDialog(!openExpenseDialog);
   const [expenses, setExpenses] = useState({

@@ -28,7 +28,7 @@ const useBudget = () => {
   );
 
   const budgetCategories = new Set(
-    budget_details.categories.map((cat) => cat.category.trim())
+    budget_details?.categories?.map((cat) => cat.category.trim())
   );
   const out_of_budget_expenses = expenses_within_budget_period?.filter(
     (expense) => !budgetCategories.has(expense.category.trim())

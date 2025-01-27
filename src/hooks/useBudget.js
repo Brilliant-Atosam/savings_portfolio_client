@@ -33,10 +33,7 @@ const useBudget = () => {
   const out_of_budget_expenses = expenses_within_budget_period?.filter(
     (expense) => !budgetCategories.has(expense.category.trim())
   );
-  // expenses_within_budget_period.filter(
-  //   (item) => item.category !== budget_details.categories.map((elem) => elem)
-  // );
-  // console.log(out_of_budget_expenses);
+
   const { storeBudget } = Util();
   const { handleSnackbar, snackbar } = useFeedback();
   const { expensesCategories } = useExpenses();

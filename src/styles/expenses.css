@@ -56,6 +56,7 @@
 }
 .expenses-details-top {
   display: flex;
+  flex-wrap: wrap;
 }
 @media (max-width: 770px) {
   .expenses-details-container {

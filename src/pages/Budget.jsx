@@ -31,12 +31,14 @@ const Budget = () => {
     createBudget,
     snackbar,
     handleSnackbar,
-    budgets,
+    // budgets,
     showMoreOptions,
     moreOptionsToggler,
     deleteBudget,
   } = useBudget();
   const { expensesList } = useExpenses();
+  const budgets = JSON.parse(window.localStorage.getItem("budgets")) || [];
+  // console.log(budgets);
 
   const expensesCategories =
     user?.purpose !== "personal finance"

@@ -49,7 +49,7 @@ const ExpensesDetails = () => {
       <Topbar />
       <div className="expenses-container">
         <h1 className="expenses-heading debt-text">
-          Expenses details: {categories[query].title} -{" "}
+          Expenses details: {categories[query].title} -
           {format_currency(expensesList?.reduce((a, b) => a + b.total_cost, 0))}
         </h1>
         <div className="expenses-details-top">

@@ -1,17 +1,34 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Util from "../utils/util";
 import useApp from "../useApp";
 import request from "../utils/request";
 import moment from "moment";
 import useFeedback from "./useFeedback";
 const useSave = () => {
-  const { storeUser, storeSavings, months, headers } = Util();
-  const { snackbar, handleSnackbar } = useFeedback();
-
   const context = useApp();
   let user = JSON.parse(window.localStorage.getItem("user"));
   let expensesList = JSON.parse(localStorage.getItem("expenses"));
   let loans = JSON.parse(localStorage.getItem("loans"));
+  const { storeUser, storeSavings, months, headers } = Util();
+  const { snackbar, handleSnackbar } = useFeedback();
+  const years_spent_on_cashlens = useMemo(() => {
+    if (!user?.notifications?.length) return [];
+    let data = [new Date().getFullYear()];
+    let years =
+      new Date().getFullYear() -
+      Number(
+        user?.notifications[user.notifications.length - 1].title.split("/")[1]
+      );
+    for (let i = years; i >= 1; i--) {
+      data.push(new Date().getFullYear() - i);
+    }
+    return data;
+  }, [user?.notifications]);
+
+  let [year, setYear] = useState(years_spent_on_cashlens[0]);
+  const handleYear = (year) => setYear(year);
+  console.log(year);
+
   let details = [];
   const [savings, setSavings] = useState({
     source: "",
@@ -72,7 +89,7 @@ const useSave = () => {
       context.handleLoader();
     } else {
       const { details } = savings;
-  
+
       const source_exists = user.sources_of_income?.find(
         (source) => source.toLowerCase() === savings.source.toLowerCase()
       );
@@ -115,7 +132,7 @@ const useSave = () => {
     let data = [];
     months.map((month, index) => {
       let data_object = {
-        title: `${month},${new Date().getFullYear()}`,
+        title: `${month},${year}`,
         id:
           (index + 1).toString().length === 1
             ? `0${index + 1}`
@@ -125,8 +142,8 @@ const useSave = () => {
             ?.filter((item) =>
               item.createdAt.endsWith(
                 (index + 1).toString().length === 1
-                  ? `0${index + 1}/${new Date().getFullYear()}`
-                  : `${index + 1}/${new Date().getFullYear()}`
+                  ? `0${index + 1}/${year}`
+                  : `${index + 1}/${year}`
               )
             )
             ?.reduce((a, b) => a + b.saved, 0)
@@ -137,8 +154,8 @@ const useSave = () => {
             ?.filter((item) =>
               item.createdAt.endsWith(
                 (index + 1).toString().length === 1
-                  ? `0${index + 1}/${new Date().getFullYear()}`
-                  : `${index + 1}/${new Date().getFullYear()}`
+                  ? `0${index + 1}/${year}`
+                  : `${index + 1}/${year}`
               )
             )
             ?.reduce((a, b) => a + b.amount, 0)
@@ -149,8 +166,8 @@ const useSave = () => {
             ?.filter((item) =>
               item.created_at.endsWith(
                 (index + 1).toString().length === 1
-                  ? `0${index + 1}/${new Date().getFullYear()}`
-                  : `${index + 1}/${new Date().getFullYear()}`
+                  ? `0${index + 1}/${year}`
+                  : `${index + 1}/${year}`
               )
             )
             ?.reduce((a, b) => a + b.total_cost, 0)
@@ -161,8 +178,8 @@ const useSave = () => {
             ?.filter((item) =>
               item.createdAt.endsWith(
                 (index + 1).toString().length === 1
-                  ? `0${index + 1}/${new Date().getFullYear()}`
-                  : `${index + 1}/${new Date().getFullYear()}`
+                  ? `0${index + 1}/${year}`
+                  : `${index + 1}/${year}`
               )
             )
             ?.reduce((a, b) => a + b.amount, 0)
@@ -173,8 +190,8 @@ const useSave = () => {
             ?.filter((item) =>
               item.createdAt.endsWith(
                 (index + 1).toString().length === 1
-                  ? `0${index + 1}/${new Date().getFullYear()}`
-                  : `${index + 1}/${new Date().getFullYear()}`
+                  ? `0${index + 1}/${year}`
+                  : `${index + 1}/${year}`
               )
             )
             ?.reduce((a, b) => a + b.balance, 0)
@@ -186,8 +203,10 @@ const useSave = () => {
     });
     return data;
   };
-
+  // set year for chart display
   let monthly_data = monthly_savings_data();
+  // console.log(monthly_data);
+
   return {
     showSaveDialog,
     setShowSaveDialog,
@@ -204,6 +223,8 @@ const useSave = () => {
     user,
     snackbar,
     handleSnackbar,
+    years_spent_on_cashlens,
+    handleYear,
   };
 };
 

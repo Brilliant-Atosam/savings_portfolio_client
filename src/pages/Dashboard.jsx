@@ -7,7 +7,6 @@ import useApp from "../useApp";
 import { CircularProgress } from "@mui/material";
 import useTableData from "../utils/tableData";
 import useSave from "../hooks/useSave";
-// import Util from "../utils/util";
 import { FaHandHoldingDollar } from "react-icons/fa6";
 import Save from "../components/Save";
 import Footer from "../components/Footer";
@@ -22,10 +21,11 @@ const Dashboard = () => {
     monthly_data,
     snackbar,
     handleSnackbar,
+    years_spent_on_cashlens,
+    handleYear,
   } = useSave();
   const { savingsColumn } = useTableData();
   let { savingsList, loading } = useApp();
-  // const { user } = Util();
   return (
     <div className="main-container">
       <Topbar />
@@ -41,7 +41,17 @@ const Dashboard = () => {
           {loading && <CircularProgress />}
           <Table columns={savingsColumn} rows={savingsList} />
           <h1 className="debt-text">
-            Monthly Financial Summary Chart: {new Date().getFullYear()}
+            Monthly Financial Summary Chart:
+            <div className="chart-filter-container">
+              {years_spent_on_cashlens.map((year) => (
+                <button
+                  className="chart-filter"
+                  onClick={(e) => handleYear(e?.target?.innerText)}
+                >
+                  {year}
+                </button>
+              ))}
+            </div>
           </h1>
           <div className="chart-container borrowing-chart-container">
             {

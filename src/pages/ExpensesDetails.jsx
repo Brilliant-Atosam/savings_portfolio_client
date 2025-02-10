@@ -8,11 +8,14 @@ import useTableData from "../utils/tableData";
 import Footer from "../components/Footer";
 import BarChartComponent from "../components/BarChart";
 import moment from "moment";
+import useSave from "../hooks/useSave";
 
 const ExpensesDetails = () => {
   const { expenseColumn } = useTableData();
   const { categories, format_currency } = Util();
-  const { expensesList, monthly_expenses_data, query } = useExpenses();
+  const { expensesList, monthly_expenses_data, query, handleYear, year } =
+    useExpenses();
+  const { years_spent_on_cashlens } = useSave();
   const bar_chart_data = [
     {
       name: "expenses",
@@ -54,7 +57,17 @@ const ExpensesDetails = () => {
         </h1>
         <div className="expenses-details-top">
           <div className="chart-container">
-            <h1 className="debt-text">Monthly expenses chart</h1>
+            <h1 className="debt-text">Monthly expenses chart: {year}</h1>
+            <div className="chart-filter-container">
+              {years_spent_on_cashlens.map((year) => (
+                <button
+                  className="chart-filter"
+                  onClick={(e) => handleYear(e?.target?.innerText)}
+                >
+                  {year}
+                </button>
+              ))}
+            </div>
             <AreaChartComponent data={monthly_expenses_data} />
           </div>
           <BarChartComponent data={bar_chart_data} />

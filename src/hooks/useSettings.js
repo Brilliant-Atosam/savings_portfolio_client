@@ -2,6 +2,7 @@ import { useState } from "react";
 import useApp from "../useApp";
 import request from "../utils/request";
 import Util from "../utils/util";
+import useSave from "./useSave";
 const useSettings = () => {
   const context = useApp();
   let user = JSON.parse(localStorage.getItem("user"));
@@ -10,7 +11,7 @@ const useSettings = () => {
   let expensesList = JSON.parse(localStorage.getItem("expenses"));
   let savingsList = JSON.parse(window.localStorage.getItem("savings")) || [];
 
-  const { storeUser, headers, months } = Util();
+  const { storeUser, headers, months, colors } = Util();
   const current_year = Number(new Date().getFullYear());
   const year_joined = Number(user?.createdAt.split("/")[2]);
   const past_years = Array.from(
@@ -23,7 +24,23 @@ const useSettings = () => {
       return `${monthNumber}/${year}`;
     });
   });
-
+  const {
+    monthly_data,
+    structuredPortfolio,
+    year,
+    years_spent_on_cashlens,
+    handleYear,
+  } = useSave();
+  const radar_chart_data = structuredPortfolio?.map((item, index) => ({
+    name: item.title,
+    fill: colors[index],
+    amount: item.amount,
+    goal: Number(item.goal),
+    deadline: item.deadline,
+    created_at: item.createdAt,
+    progress: (item.amount / item.goal).toFixed(2) * 100,
+  }));
+  console.log(radar_chart_data);
   let borrowed_repayment_history = [];
   borrowedList?.map((item) =>
     borrowed_repayment_history.push(...item?.repayment_history)
@@ -294,6 +311,7 @@ const useSettings = () => {
     portfolio,
     formattedDates,
     analysis_data,
+    radar_chart_data,
   };
 };
 

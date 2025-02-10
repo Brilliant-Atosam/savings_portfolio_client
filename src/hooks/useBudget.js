@@ -22,7 +22,6 @@ const useBudget = () => {
   const budget_details = useMemo(() => {
     return budgets?.find((budget) => budget.id === budget_id);
   }, [budgets, budget_id]);
-
   const expenses_within_budget_period = expensesList.filter((item) =>
     item.created_at.endsWith(budget_details?.month)
   );
@@ -30,6 +29,8 @@ const useBudget = () => {
   const budgetCategories = new Set(
     budget_details?.categories?.map((cat) => cat.category.trim())
   );
+  // console.log(budget_details);
+
   const out_of_budget_expenses = expenses_within_budget_period?.filter(
     (expense) => !budgetCategories.has(expense.category.trim())
   );

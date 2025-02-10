@@ -13,6 +13,7 @@ import { CircularProgress } from "@mui/material";
 import useSettings from "../hooks/useSettings";
 import Footer from "../components/Footer";
 import Feedback from "../components/Feedback";
+import useSave from "../hooks/useSave";
 const Expenses = () => {
   const { expenseColumn } = useTableData();
   const { loading } = useApp();
@@ -33,9 +34,12 @@ const Expenses = () => {
     expenses,
     handleExpenses,
     setExpenses,
+    handleYear,
+    year,
   } = useExpenses();
   const { total_expenses, total_spendable, spendable_utilization_percentage } =
     useSettings();
+  const { years_spent_on_cashlens } = useSave();
   return (
     <div className="main-container">
       <Topbar />
@@ -106,7 +110,17 @@ const Expenses = () => {
           </div>
           <div className="expenses-right">
             <div className="chart-container mb20">
-              <h1 className="debt-text">Monthly expenses chart</h1>
+              <h1 className="debt-text">Monthly expenses chart: {year}</h1>
+              <div className="chart-filter-container">
+                {years_spent_on_cashlens.map((year) => (
+                  <button
+                    className="chart-filter"
+                    onClick={(e) => handleYear(e?.target?.innerText)}
+                  >
+                    {year}
+                  </button>
+                ))}
+              </div>
               <div className="chart-container borrowing-chart-container">
                 <AreaChartComponent data={monthly_expenses_data} />
               </div>

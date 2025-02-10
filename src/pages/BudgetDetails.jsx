@@ -18,6 +18,7 @@ const BudgetDetails = () => {
     user?.purpose !== "personal finance"
       ? businessExpenseCategories
       : categories;
+  // console.log(expensesCategories);
   const {
     expenses_within_budget_period,
     out_of_budget_expenses,
@@ -53,11 +54,13 @@ const BudgetDetails = () => {
             <div className="info-container">
               <span className="finance-info-key">Balance</span>
               <span className="finance-info-value">
-                {newBudget.estimated_budget -
-                  expenses_within_budget_period.reduce(
-                    (a, b) => a + b.total_cost,
-                    0
-                  )}
+                {format_currency(
+                  newBudget.estimated_budget -
+                    expenses_within_budget_period.reduce(
+                      (a, b) => a + b.total_cost,
+                      0
+                    )
+                )}
               </span>
             </div>
           </div>
@@ -80,10 +83,12 @@ const BudgetDetails = () => {
                       <td>{cat.category}</td>
                       <td>{format_currency(cat.amount)}</td>
                       <td>
-                        {cat.amount -
-                          expenses_within_budget_period
-                            .filter((item) => item.category === cat.category)
-                            .reduce((a, b) => a + b.total_cost, 0)}
+                        {format_currency(
+                          cat.amount -
+                            expenses_within_budget_period
+                              .filter((item) => item.category === cat.category)
+                              .reduce((a, b) => a + b.total_cost, 0)
+                        )}
                       </td>
                     </tr>
                   ))}

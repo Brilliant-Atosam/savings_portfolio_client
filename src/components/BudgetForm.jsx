@@ -38,7 +38,7 @@ const BudgetForm = ({
           value={months[Number(newBudget?.month.split("/")[0]) - 1] || ""}
           disabled={showCatAmount}
         >
-          {newBudget.month && (
+          {newBudget?.month && (
             <option>
               {months[Number(newBudget?.month.split("/")[0]) - 1]}
             </option>
@@ -47,11 +47,7 @@ const BudgetForm = ({
           {months.map((month, index) => (
             <option
               key={index}
-              value={
-                (index + 1).toString().length === 1
-                  ? `0${index + 1}`
-                  : `${index + 1}` || ""
-              }
+              value={String(index + 1).padStart(2, "0") || ""}
             >
               {month}
             </option>
@@ -74,7 +70,7 @@ const BudgetForm = ({
         />
       </div>
       <div className="budget-categories">
-        {expensesCategories.map((cat, index) => (
+        {expensesCategories?.map((cat, index) => (
           <div className="budget-input-container" key={index}>
             <p className="budget-category">{cat.title}</p>
             <input
@@ -99,7 +95,13 @@ const BudgetForm = ({
                     Number(e.target.value),
                 }))
               }
-              value={newBudget?.categories[index]?.amount || ""}
+              value={
+                newBudget?.categories[
+                  newBudget.categories.findIndex(
+                    (item) => item.category === cat.title
+                  )
+                ]?.amount || ""
+              }
             />
           </div>
         ))}

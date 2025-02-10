@@ -19,11 +19,19 @@ import AreaChartComponent from "../components/AreaChartComponent";
 import useSave from "../hooks/useSave";
 import Footer from "../components/Footer";
 import moment from "moment";
+import RadialBarChartComponent from "../components/RadialBarChart";
 // import Overlay from "../components/Overlay";
 const Settings = () => {
   const { user } = useApp();
   const { format_currency, colors, months } = Util();
-  const { monthly_data, structuredPortfolio } = useSave();
+  const {
+    monthly_data,
+    structuredPortfolio,
+    year,
+    years_spent_on_cashlens,
+    handleYear,
+  } = useSave();
+  console.log(structuredPortfolio);
   const {
     handleOpenPass,
     openPass,
@@ -53,6 +61,7 @@ const Settings = () => {
     total_lent,
     total_lent_repayment,
     lent_balance,
+    radar_chart_data,
   } = useSettings();
   return (
     <div className="main-container">
@@ -118,6 +127,9 @@ const Settings = () => {
                 ))}
               </div>
             </div>
+            <div className="chart-container">
+              <RadialBarChartComponent data={radar_chart_data} />
+            </div>
             <div className="bottom-summary-container">
               <h1 className="debt-text">Saving Goals & Milestones</h1>
               <div className="portfolio-main-container">
@@ -129,7 +141,7 @@ const Settings = () => {
                       key={item.title}
                     >
                       <span className="key">
-                        {`${item?.title} (${item?.percentage}% of income)`}{" "}
+                        {`${item?.title} (${item?.percentage}% of income)`}
                         {item?.amount > Number(item?.goal) && (
                           <GrAchievement fill={colors[index]} />
                         )}
@@ -196,8 +208,18 @@ const Settings = () => {
           <div className="summary-container">
             <div className="chart-container borrowing-chart-container ">
               <h1 className="debt-text">
-                Monthly Financial Summary Chart: {new Date().getFullYear()}
+                Monthly Financial Summary Chart: {year}
               </h1>
+              <div className="chart-filter-container">
+                {years_spent_on_cashlens.map((year) => (
+                  <button
+                    className="chart-filter"
+                    onClick={(e) => handleYear(e?.target?.innerText)}
+                  >
+                    {year}
+                  </button>
+                ))}
+              </div>
               {<AreaChartComponent data={monthly_data} />}
             </div>
             <div className="top-summary-container">

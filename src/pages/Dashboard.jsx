@@ -23,6 +23,7 @@ const Dashboard = () => {
     handleSnackbar,
     years_spent_on_cashlens,
     handleYear,
+    year,
   } = useSave();
   const { savingsColumn } = useTableData();
   let { savingsList, loading } = useApp();
@@ -40,19 +41,17 @@ const Dashboard = () => {
           <h1 className="debt-text">Income history</h1>
           {loading && <CircularProgress />}
           <Table columns={savingsColumn} rows={savingsList} />
-          <h1 className="debt-text">
-            Monthly Financial Summary Chart:
-            <div className="chart-filter-container">
-              {years_spent_on_cashlens.map((year) => (
-                <button
-                  className="chart-filter"
-                  onClick={(e) => handleYear(e?.target?.innerText)}
-                >
-                  {year}
-                </button>
-              ))}
-            </div>
-          </h1>
+          <h1 className="debt-text">Monthly Financial Summary Chart: {year}</h1>
+          <div className="chart-filter-container">
+            {years_spent_on_cashlens.map((year) => (
+              <button
+                className="chart-filter"
+                onClick={(e) => handleYear(e?.target?.innerText)}
+              >
+                {year}
+              </button>
+            ))}
+          </div>
           <div className="chart-container borrowing-chart-container">
             {
               <AreaChartComponents

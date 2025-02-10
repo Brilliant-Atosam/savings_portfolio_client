@@ -8,7 +8,7 @@ const useSave = () => {
   const context = useApp();
   let user = JSON.parse(window.localStorage.getItem("user"));
   let expensesList = JSON.parse(localStorage.getItem("expenses"));
-  let loans = JSON.parse(localStorage.getItem("loans"));
+  let borrowed = JSON.parse(localStorage.getItem("borrowed"));
   const { storeUser, storeSavings, months, headers } = Util();
   const { snackbar, handleSnackbar } = useFeedback();
   const years_spent_on_cashlens = useMemo(() => {
@@ -27,8 +27,6 @@ const useSave = () => {
 
   let [year, setYear] = useState(years_spent_on_cashlens[0]);
   const handleYear = (year) => setYear(year);
-  console.log(year);
-
   let details = [];
   const [savings, setSavings] = useState({
     source: "",
@@ -132,7 +130,7 @@ const useSave = () => {
     let data = [];
     months.map((month, index) => {
       let data_object = {
-        title: `${month},${year}`,
+        title: `${month}, ${year}`,
         id:
           (index + 1).toString().length === 1
             ? `0${index + 1}`
@@ -141,9 +139,7 @@ const useSave = () => {
           savingsList
             ?.filter((item) =>
               item.createdAt.endsWith(
-                (index + 1).toString().length === 1
-                  ? `0${index + 1}/${year}`
-                  : `${index + 1}/${year}`
+                `${String(index + 1).padStart(1, "0")}/${year}`
               )
             )
             ?.reduce((a, b) => a + b.saved, 0)
@@ -153,9 +149,7 @@ const useSave = () => {
           savingsList
             ?.filter((item) =>
               item.createdAt.endsWith(
-                (index + 1).toString().length === 1
-                  ? `0${index + 1}/${year}`
-                  : `${index + 1}/${year}`
+                `${String(index + 1).padStart(1, "0")}/${year}`
               )
             )
             ?.reduce((a, b) => a + b.amount, 0)
@@ -165,33 +159,27 @@ const useSave = () => {
           expensesList
             ?.filter((item) =>
               item.created_at.endsWith(
-                (index + 1).toString().length === 1
-                  ? `0${index + 1}/${year}`
-                  : `${index + 1}/${year}`
+                `${String(index + 1).padStart(1, "0")}/${year}`
               )
             )
             ?.reduce((a, b) => a + b.total_cost, 0)
             .toFixed(2)
         ),
         total_advance: Number(
-          loans
+          borrowed
             ?.filter((item) =>
-              item.createdAt.endsWith(
-                (index + 1).toString().length === 1
-                  ? `0${index + 1}/${year}`
-                  : `${index + 1}/${year}`
+              item?.date?.endsWith(
+                `${String(index + 1).padStart(1, "0")}/${year}`
               )
             )
-            ?.reduce((a, b) => a + b.amount, 0)
-            .toFixed(2)
+            ?.reduce((a, b) => a + Number(b.amount), 0)
+            ?.toFixed(2)
         ),
         spendable_amount: Number(
           savingsList
             ?.filter((item) =>
               item.createdAt.endsWith(
-                (index + 1).toString().length === 1
-                  ? `0${index + 1}/${year}`
-                  : `${index + 1}/${year}`
+                `${String(index + 1).padStart(1, "0")}/${year}`
               )
             )
             ?.reduce((a, b) => a + b.balance, 0)
@@ -205,7 +193,6 @@ const useSave = () => {
   };
   // set year for chart display
   let monthly_data = monthly_savings_data();
-  // console.log(monthly_data);
 
   return {
     showSaveDialog,
@@ -225,6 +212,7 @@ const useSave = () => {
     handleSnackbar,
     years_spent_on_cashlens,
     handleYear,
+    year,
   };
 };
 

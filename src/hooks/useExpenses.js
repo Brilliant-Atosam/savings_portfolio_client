@@ -5,13 +5,17 @@ import request from "../utils/request";
 import Util from "../utils/util";
 import { useLocation } from "react-router-dom";
 import useFeedback from "./useFeedback";
+import useSave from "./useSave";
 
 const useExpenses = () => {
   let savingsList = JSON.parse(window.localStorage.getItem("savings")) || [];
+  let user = JSON.parse(localStorage.getItem("user"));
+  const context = useApp();
   const { handleSnackbar, snackbar } = useFeedback();
   const location = useLocation();
   const query = new URLSearchParams(location?.search).get("index");
-  const context = useApp();
+  const { year, handleYear } = useSave();
+
   const {
     storeUser,
     storeExpenses,
@@ -21,7 +25,6 @@ const useExpenses = () => {
     headers,
     // user,
   } = Util();
-  let user = JSON.parse(localStorage.getItem("user"));
   const expensesCategories =
     user?.purpose !== "personal finance"
       ? businessExpenseCategories
@@ -105,14 +108,10 @@ const useExpenses = () => {
       let data_object = {
         title: category.title,
         total_expenses: expensesList
-          ?.filter(
-            (item) =>
-              category.title
-                .toLocaleLowerCase()
-                .includes(item.category.toLocaleLowerCase())
-            // item.category
-            //   .toLowerCase()
-            //   .includes(category.title.toLocaleLowerCase())
+          ?.filter((item) =>
+            category.title
+              .toLocaleLowerCase()
+              .includes(item.category.toLocaleLowerCase())
           )
           ?.reduce((a, b) => a + b.total_cost, 0),
       };
@@ -127,13 +126,11 @@ const useExpenses = () => {
     let data = [];
     months?.map((month, index) => {
       let data_object = {
-        title: month,
+        title: `${month}, ${year}`,
         total_expenses: expensesList
           ?.filter((expenses) =>
             expenses?.created_at?.endsWith(
-              (index + 1).toString().length === 1
-                ? `0${index + 1}/${new Date().getFullYear().toString()}`
-                : `${index + 1}/${new Date().getFullYear().toString()}`
+              `${String(index + 1).padStart(2, "0")}/${year}`
             )
           )
           .reduce((a, b) => a + b.total_cost, 0),
@@ -143,9 +140,7 @@ const useExpenses = () => {
               savingsList
                 ?.filter((item) =>
                   item.createdAt.endsWith(
-                    (index + 1).toString().length === 1
-                      ? `0${index + 1}/${new Date().getFullYear()}`
-                      : `${index + 1}/${new Date().getFullYear()}`
+                    `${String(index + 1).padStart(2, "0")}/${year}`
                   )
                 )
                 ?.reduce((a, b) => a + b.balance, 0)
@@ -158,6 +153,7 @@ const useExpenses = () => {
     return data;
   };
   const monthly_expenses_data = monthly_expenses();
+
   return {
     toggleExpensesDialog,
     openExpenseDialog,
@@ -172,6 +168,8 @@ const useExpenses = () => {
     handleSnackbar,
     snackbar,
     expensesCategories,
+    handleYear,
+    year,
   };
 };
 

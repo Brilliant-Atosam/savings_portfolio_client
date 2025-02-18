@@ -40,6 +40,7 @@ const useBudget = () => {
   const { expensesCategories } = useExpenses();
   const [showMoreOptions, setShowMoreOptions] = useState(false);
   const moreOptionsToggler = () => setShowMoreOptions((prev) => !prev);
+
   const [newBudget, setNewBudget] = useState(
     budget_id
       ? budget_details

@@ -36,6 +36,8 @@ const useSave = () => {
     userId: user?.id,
     details,
   });
+  // console.log(savings);
+
   let savingsList = JSON.parse(window.localStorage.getItem("savings")) || [];
 
   const [showSaveDialog, setShowSaveDialog] = useState(false);

@@ -24,13 +24,7 @@ const useSettings = () => {
       return `${monthNumber}/${year}`;
     });
   });
-  const {
-    monthly_data,
-    structuredPortfolio,
-    year,
-    years_spent_on_cashlens,
-    handleYear,
-  } = useSave();
+  const { structuredPortfolio } = useSave();
   const radar_chart_data = structuredPortfolio?.map((item, index) => ({
     name: item.title,
     fill: colors[index],
@@ -38,9 +32,8 @@ const useSettings = () => {
     goal: Number(item.goal),
     deadline: item.deadline,
     created_at: item.createdAt,
-    progress: (item.amount / item.goal).toFixed(2) * 100,
+    progress: ((item.amount / item.goal) * 100).toFixed(2),
   }));
-  console.log(radar_chart_data);
   let borrowed_repayment_history = [];
   borrowedList?.map((item) =>
     borrowed_repayment_history.push(...item?.repayment_history)

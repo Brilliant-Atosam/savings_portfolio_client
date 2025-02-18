@@ -55,8 +55,8 @@ const BudgetDetails = () => {
               <span className="finance-info-key">Balance</span>
               <span className="finance-info-value">
                 {format_currency(
-                  newBudget.estimated_budget -
-                    expenses_within_budget_period.reduce(
+                  newBudget?.estimated_budget -
+                    expenses_within_budget_period?.reduce(
                       (a, b) => a + b.total_cost,
                       0
                     )
@@ -93,6 +93,21 @@ const BudgetDetails = () => {
                     </tr>
                   ))}
               </tbody>
+              <tfoot>
+                <tr>
+                  <td>Total</td>
+                  <td>{format_currency(newBudget?.total_budget)}</td>
+                  {/* <td>
+                    {format_currency(
+                      newBudget?.estimated_budget -
+                        expenses_within_budget_period?.reduce(
+                          (a, b) => a + b.total_cost,
+                          0
+                        )
+                    )}
+                  </td> */}
+                </tr>
+              </tfoot>
             </table>
           </div>
           <div className="budget-details-container">
@@ -116,9 +131,11 @@ const BudgetDetails = () => {
                 <tr>
                   <td>Total</td>
                   <td>
-                    {out_of_budget_expenses.reduce(
-                      (a, b) => a + b.total_cost,
-                      0
+                    {format_currency(
+                      out_of_budget_expenses.reduce(
+                        (a, b) => a + b.total_cost,
+                        0
+                      )
                     )}
                   </td>
                 </tr>

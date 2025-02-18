@@ -84,12 +84,14 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
           <input
             type="date"
             className="login-input"
-            onChange={(e) =>
+            onChange={(e) => {
               setSavings((prev) => ({
                 ...prev,
-                createdAt: moment(e.target.value).format("DD/MM/YYYY"),
-              }))
-            }
+                createdAt: moment
+                  .utc(new Date(e.target.value))
+                  .format("DD/MM/YYYY"),
+              }));
+            }}
             value={savings?.createdAt}
           />
           {user && (

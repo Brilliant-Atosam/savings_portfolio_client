@@ -7,7 +7,7 @@ import useApp from "../useApp";
 import PieChartComponent from "../components/PieChartComponent";
 import { TbLockCog } from "react-icons/tb";
 import { FaUserCog } from "react-icons/fa";
-import { GrAchievement } from "react-icons/gr";
+// import { GrAchievement } from "react-icons/gr";
 import {
   MarkunreadOutlined,
   PersonOutlined,
@@ -18,7 +18,7 @@ import Util from "../utils/util";
 import AreaChartComponent from "../components/AreaChartComponent";
 import useSave from "../hooks/useSave";
 import Footer from "../components/Footer";
-import moment from "moment";
+// import moment from "moment";
 import RadialBarChartComponent from "../components/RadialBarChart";
 // import Overlay from "../components/Overlay";
 const Settings = () => {
@@ -26,12 +26,11 @@ const Settings = () => {
   const { format_currency, colors, months } = Util();
   const {
     monthly_data,
-    structuredPortfolio,
+    // structuredPortfolio,
     year,
     years_spent_on_cashlens,
     handleYear,
   } = useSave();
-  console.log(structuredPortfolio);
   const {
     handleOpenPass,
     openPass,
@@ -130,7 +129,7 @@ const Settings = () => {
             <div className="chart-container">
               <RadialBarChartComponent data={radar_chart_data} />
             </div>
-            <div className="bottom-summary-container">
+            {/* <div className="bottom-summary-container">
               <h1 className="debt-text">Saving Goals & Milestones</h1>
               <div className="portfolio-main-container">
                 {structuredPortfolio
@@ -203,9 +202,7 @@ const Settings = () => {
                     </div>
                   ))}
               </div>
-            </div>
-          </div>
-          <div className="summary-container">
+            </div> */}
             <div className="chart-container borrowing-chart-container ">
               <h1 className="debt-text">
                 Monthly Financial Summary Chart: {year}
@@ -222,6 +219,8 @@ const Settings = () => {
               </div>
               {<AreaChartComponent data={monthly_data} />}
             </div>
+          </div>
+          <div className="summary-container">
             <div className="top-summary-container">
               <h1 className="debt-text">Financial Summary</h1>
               <div className="financial-summary">

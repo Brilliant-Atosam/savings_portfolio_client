@@ -4,7 +4,14 @@ import "../styles/contact.css";
 import { BsSun } from "react-icons/bs";
 import { PiBinocularsThin } from "react-icons/pi";
 import { MdGroupWork, MdOutlinePolicy } from "react-icons/md";
-import { MailOutline, Phone, WhatsApp, YouTube } from "@mui/icons-material";
+import ReactPlayer from "react-player";
+import {
+  MailOutline,
+  Phone,
+  WhatsApp,
+  YouTube,
+  PlayCircleOutline,
+} from "@mui/icons-material";
 import Navbar from "../components/Navbar";
 import img from "../images/img.png";
 import useApp from "../useApp";
@@ -29,6 +36,14 @@ const Homepage = () => {
             out to where; and helps you focus, track, and thrive
           </p>
           <div className="intro-nav-links">
+            <a
+              href="https://youtu.be/8vtjRHK1tqM?si=uAsgEUwrd_s_OhY6"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="intro-nav-btn intro-nav-btn1 btn-outline"
+            >
+              <PlayCircleOutline className="nav-btn-icon" /> How to use
+            </a>
             <Link to="/login" className="intro-nav-btn intro-nav-btn1">
               Get started now!
             </Link>
@@ -113,6 +128,19 @@ const Homepage = () => {
           </div>
         </div>
       </div>
+      {/* show how-to tutorial */}
+
+      <div className="video-container">
+        <ReactPlayer
+          url="https://youtu.be/8vtjRHK1tqM?si=oPeoafcnZcTf3_Ul"
+          controls
+          width="100%"
+          height="400px"
+          volume={50} 
+        />
+  
+      </div>
+
       {/* currency converter */}
       <div className="exchange-container">
         <img
@@ -273,8 +301,9 @@ const Homepage = () => {
                 <YouTube className="contact-icons" />
               </div>
               <a
-                href="https://www.youtube.com/@cashlens"
+                href="https://youtu.be/8vtjRHK1tqM?si=oPeoafcnZcTf3_Ul"
                 className="contact-value"
+                target="blank"
               >
                 Watch tutorials
               </a>

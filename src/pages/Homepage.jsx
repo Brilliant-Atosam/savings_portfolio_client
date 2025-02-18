@@ -42,10 +42,10 @@ const Homepage = () => {
               rel="noopener noreferrer"
               className="intro-nav-btn intro-nav-btn1 btn-outline"
             >
-              <PlayCircleOutline className="nav-btn-icon" /> How to use
+              <PlayCircleOutline className="nav-btn-icon" /> Watch
             </a>
             <Link to="/login" className="intro-nav-btn intro-nav-btn1">
-              Get started now!
+              Get started
             </Link>
           </div>
         </div>
@@ -136,9 +136,8 @@ const Homepage = () => {
           controls
           width="100%"
           height="400px"
-          volume={50} 
+          volume={50}
         />
-  
       </div>
 
       {/* currency converter */}

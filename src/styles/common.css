@@ -562,11 +562,13 @@ footer a {
   .info-container {
     height: 70%;
   }
-  .intro-nav-btn1,
-  .btn-outline {
-    font-size: 0.8rem !important;
+  .intro-nav-btn1 {
+    font-size: 0.6rem !important;
     height: 35px !important;
     border-radius: 4px !important;
+  }
+  .nav-btn-icon {
+    font-size: 0.6rem !important;
   }
   .intro-nav-btn {
     padding: 0 4px;

@@ -92,7 +92,7 @@ const Save = ({ open, handleSaveDialog, handleSave }) => {
                   .format("DD/MM/YYYY"),
               }));
             }}
-            value={savings?.createdAt}
+            // value={savings?.createdAt}
           />
           {user && (
             <div className="portfolio-container">
